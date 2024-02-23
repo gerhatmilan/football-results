@@ -1,14 +1,13 @@
 CREATE SCHEMA "football";
 
 CREATE TABLE "football"."countries" (
-  "country_id" serial PRIMARY KEY,
-  "name" varchar UNIQUE NOT NULL,
+  "country_id" varchar PRIMARY KEY,
   "flag_link" varchar
 );
 
 CREATE TABLE "football"."leagues" (
   "league_id" integer PRIMARY KEY,
-  "country_id" integer,
+  "country_id" varchar,
   "name" varchar UNIQUE NOT NULL,
   "type" varchar NOT NULL CHECK("football"."leagues"."type" IN ('league', 'cup')),
   "current_season" integer NOT NULL,
@@ -21,7 +20,7 @@ CREATE TABLE "football"."leagues" (
 
 CREATE TABLE "football"."venues" (
   "venue_id" integer PRIMARY KEY,
-  "country_id" integer NOT NULL,
+  "country_id" varchar NOT NULL,
   "city" varchar NOT NULL,
   "name" varchar UNIQUE NOT NULL,
   
@@ -32,7 +31,7 @@ CREATE TABLE "football"."venues" (
 
 CREATE TABLE "football"."teams" (
   "team_id" integer PRIMARY KEY,
-  "country_id" integer NOT NULL,
+  "country_id" varchar NOT NULL,
   "venue_id" integer,
   "name" varchar UNIQUE NOT NULL,
   "short_name" varchar,
