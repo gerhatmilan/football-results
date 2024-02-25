@@ -1,0 +1,6 @@
+{
+    "api_host_url": "v3.football.api-sports.io",
+    "api_key_env_variable": "API_KEY",
+    "host_url_header_key": "x-rapidapi-host",
+    "api_key_header_key": "x-rapidapi-key" 
+}

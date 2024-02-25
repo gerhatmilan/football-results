@@ -8,8 +8,8 @@ CREATE TABLE "football"."countries" (
 CREATE TABLE "football"."leagues" (
   "league_id" integer PRIMARY KEY,
   "country_id" varchar,
-  "name" varchar UNIQUE NOT NULL,
-  "type" varchar NOT NULL CHECK("football"."leagues"."type" IN ('league', 'cup')),
+  "name" varchar NOT NULL,
+  "type" varchar NOT NULL CHECK("football"."leagues"."type" IN ('League', 'Cup')),
   "current_season" integer NOT NULL,
   "logo_link" varchar,
   
@@ -22,7 +22,7 @@ CREATE TABLE "football"."venues" (
   "venue_id" integer PRIMARY KEY,
   "country_id" varchar NOT NULL,
   "city" varchar NOT NULL,
-  "name" varchar UNIQUE NOT NULL,
+  "name" varchar NOT NULL,
   
   FOREIGN KEY ("country_id")
     REFERENCES "football"."countries" ("country_id")
@@ -33,7 +33,7 @@ CREATE TABLE "football"."teams" (
   "team_id" integer PRIMARY KEY,
   "country_id" varchar NOT NULL,
   "venue_id" integer,
-  "name" varchar UNIQUE NOT NULL,
+  "name" varchar NOT NULL,
   "short_name" varchar,
   "logo_link" varchar,
   "national" boolean NOT NULL DEFAULT false,
