@@ -24,7 +24,7 @@ class CountriesUpdater(DatabaseUpdater):
     def __init__(self, db_config_file: str, cmd_config_file: str):
         """ Initializes a new CountriesUpdater object, using the given configurations """
 
-        super().read_config(db_config_file)
+        super().read_db_config(db_config_file)
         super().set_command(cmd_config_file)    
 
     def get_fields_list(self, data):
@@ -64,7 +64,7 @@ class LeaguesUpdater(DatabaseUpdater):
     def __init__(self, db_config_file: str, cmd_config_file: str):
         """ Initializes a new LeaguesUpdater object, using the given configurations """
 
-        super().read_config(db_config_file)
+        super().read_db_config(db_config_file)
         super().set_command(cmd_config_file)
 
     def update_leagues(self, record):
@@ -124,7 +124,7 @@ class TeamsUpdater(DatabaseUpdater):
     def __init__(self, db_config_file: str, cmd_config_file: str):
         """ Initializes a new TeamsUpdater object, using the given configurations """
 
-        super().read_config(db_config_file)
+        super().read_db_config(db_config_file)
         super().set_command(cmd_config_file)
 
     def update_venues(self, record):
@@ -189,7 +189,7 @@ class StandingsUpdater(DatabaseUpdater):
     def __init__(self, db_config_file: str, cmd_config_file: str):
         """ Initializes a new StandingsUpdater object, using the given configurations """
 
-        super().read_config(db_config_file)
+        super().read_db_config(db_config_file)
         super().set_command(cmd_config_file)
        
     def update(self, data):
@@ -236,7 +236,7 @@ class TopScorersUpdater(DatabaseUpdater):
     def __init__(self, db_config_file: str, cmd_config_file: str):
         """ Initializes a new TopScorersUpdater object, using the given configurations """
 
-        super().read_config(db_config_file)
+        super().read_db_config(db_config_file)
         super().set_command(cmd_config_file)
        
     def get_fields_list(self, data):
@@ -282,14 +282,51 @@ class TopScorersUpdater(DatabaseUpdater):
 
 class PlayersUpdater(DatabaseUpdater):
     """ Class for updating the players table in the database """
-    
-    def __init__(self, db_config_file):
+
+    def __init__(self, db_config_file: str, cmd_config_file: str):
         """ Initializes a new PlayersUpdater object, using the given configurations """
 
-        super().read_config(db_config_file)
-       
-    def update(self, player_id, team_id, name, age, number, position, photo_link):
-        pass
+        super().read_db_config(db_config_file)
+        super().set_command(cmd_config_file)   
+ 
+
+    def get_fields_list(self, data):
+        """ Returns the list of records to be inserted in the table """
+
+        fields_list = []
+        team_id = data["response"][0]["team"]["id"]
+        for player_record in data["response"][0]["players"]:
+            player_id = player_record["id"]
+            name = player_record["name"]
+            age = player_record["age"]
+            number = player_record["number"]
+            position = player_record["position"]
+            photo_link = player_record["photo"]
+
+            fields = (player_id, team_id, name, age, number, position, photo_link)
+            fields_list.append(fields)
+
+        return fields_list
+    
+    def update(self, data):
+        """ Function for updating the players table in the database, with the given data """
+        try:
+            self.connect()
+            
+            with self.connection.cursor() as cur:
+                fields_list = self.get_fields_list(data)
+                for fields in fields_list:
+                    try:
+                        cur.execute(self.command, fields)
+                        self.connection.commit()
+                        logging.log(SUCCESS_LOG_PATH, f'New player inserted: {fields}\n')
+                    except Exception as e:
+                        self.connection.rollback()
+                        logging.log(ERROR_LOG_PATH, f'Could not insert player with data {fields}, cause: {str(e)}\n')         
+        except Exception as e:
+            raise type(e)(str(e))
+        finally:
+            self.disconnect()
 
 class MatchesUpdater(DatabaseUpdater):
     """ Class for updating the matches table in the database """
@@ -297,7 +334,7 @@ class MatchesUpdater(DatabaseUpdater):
     def __init__(self, db_config_file: str, cmd_config_file: str):
         """ Initializes a new MatchesUpdater object, using the given configurations """
 
-        super().read_config(db_config_file)
+        super().read_db_config(db_config_file)
         super().set_command(cmd_config_file)
        
     def get_fields_list(self, data):

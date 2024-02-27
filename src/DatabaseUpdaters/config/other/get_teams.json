@@ -1,0 +1,3 @@
+{
+    "command": "SELECT team_id FROM football.teams;"
+}
