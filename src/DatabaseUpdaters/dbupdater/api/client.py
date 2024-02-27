@@ -44,9 +44,10 @@ class APIClient():
             raise type(e)(f'An error has occured while reading config file {endpoint_config}')
 
     def save_data(self, data, save_path, save_file):
-        """ Saves data to the given save_path """
+        """ Saves data to the given save_path, with creating directories if they are not present """
 
-        os.makedirs(save_path, exist_ok=True)
+        directory = os.path.dirname(save_path + save_file)
+        os.makedirs(directory, exist_ok=True)
 
         with open(save_path + save_file, mode='w') as file:
             file.write(json.dumps(data, indent=4))
@@ -70,17 +71,20 @@ class APIClient():
             data = response.read().decode('utf-8')
             json_data = json.loads(data)
 
-            if save:
-                self.save_data(json_data, save_path, save_file)
-            
             if response.status == 200 and not json_data["errors"]:
+                if save:
+                    self.save_data(json_data, save_path, save_file)
                 return json_data
             elif response.status == 499 or response.status == 500:
                 raise Exception(json_data["message"])
             else:
-                raise Exception(f'Wrong API request: {json_data["errors"]}')
+                msg = "Wrong API request: "
+                for error in json_data["errors"]:
+                    msg = msg + "\n" + json_data["errors"][error]
+
+                raise Exception(msg)
         except Exception as e:
-            raise type(e)('An error has occured while communicating to the API')
+            raise type(e)(f'An error has occured while communicating to the API:\n{str(e)}')
         finally:
             self.connection.close()
 

@@ -1,4 +1,4 @@
-""" Script for updating the standings table in the database with data from the API """
+""" Script for updating the standings table in the database with data from the API, for the current season """
 
 from dbupdater.api.client import APIClient, get_data
 from dbupdater.updaters import StandingsUpdater
@@ -30,7 +30,7 @@ try:
             try:
                 data = get_data(client=client, mode=MODE, save=True, config=STANDINGS_CONFIG_FILE, filename_parameters=(league_id, season), endpoint_parameters=(league_id, season))
             except FileNotFoundError:
-                 # This means the standings data is not available yet for the current season. Skip this update
+                 logging.log(ERROR_LOG_PATH, f'Standings data for season {season} is not available yet. Skipping this update')
                  continue
             
             if MODE == 'API':

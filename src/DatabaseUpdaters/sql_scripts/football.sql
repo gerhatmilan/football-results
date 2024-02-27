@@ -122,7 +122,7 @@ CREATE TABLE "football"."matches" (
   "venue_id" integer,
   "league_id" integer NOT NULL,
   "season" integer NOT NULL,
-  "round" integer NOT NULL,
+  "round" varchar,
   "home_team_id" integer NOT NULL,
   "away_team_id" integer NOT NULL,
   "status" varchar,
