@@ -1,0 +1,1483 @@
+{
+    "get": "standings",
+    "parameters": {
+        "league": "2",
+        "season": "2012"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "league": {
+                "id": 2,
+                "name": "UEFA Champions League",
+                "country": "World",
+                "logo": "https://media.api-sports.io/football/leagues/2.png",
+                "flag": null,
+                "season": 2012,
+                "standings": [
+                    [
+                        {
+                            "rank": 1,
+                            "team": {
+                                "id": 85,
+                                "name": "Paris Saint Germain",
+                                "logo": "https://media.api-sports.io/football/teams/85.png"
+                            },
+                            "points": 15,
+                            "goalsDiff": 11,
+                            "group": "Uefa Champions League: Group A",
+                            "form": "WWWWL",
+                            "status": "same",
+                            "description": "Next Round",
+                            "all": {
+                                "played": 6,
+                                "win": 5,
+                                "draw": 0,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 14,
+                                    "against": 3
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 3,
+                                "draw": 0,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 10,
+                                    "against": 2
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 0,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 4,
+                                    "against": 1
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 2,
+                            "team": {
+                                "id": 212,
+                                "name": "FC Porto",
+                                "logo": "https://media.api-sports.io/football/teams/212.png"
+                            },
+                            "points": 13,
+                            "goalsDiff": 6,
+                            "group": "Uefa Champions League: Group A",
+                            "form": "LWDWW",
+                            "status": "same",
+                            "description": "Next Round",
+                            "all": {
+                                "played": 6,
+                                "win": 4,
+                                "draw": 1,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 10,
+                                    "against": 4
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 3,
+                                "draw": 0,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 7,
+                                    "against": 2
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 1,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 3,
+                                    "against": 2
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 3,
+                            "team": {
+                                "id": 572,
+                                "name": "Dynamo Kyiv",
+                                "logo": "https://media.api-sports.io/football/teams/572.png"
+                            },
+                            "points": 5,
+                            "goalsDiff": -4,
+                            "group": "Uefa Champions League: Group A",
+                            "form": "DLDLW",
+                            "status": "same",
+                            "description": "UEFA Europa League",
+                            "all": {
+                                "played": 6,
+                                "win": 1,
+                                "draw": 2,
+                                "lose": 3,
+                                "goals": {
+                                    "for": 6,
+                                    "against": 10
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 1,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 2,
+                                    "against": 2
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 0,
+                                "draw": 1,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 4,
+                                    "against": 8
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 4,
+                            "team": {
+                                "id": 620,
+                                "name": "Dinamo Zagreb",
+                                "logo": "https://media.api-sports.io/football/teams/620.png"
+                            },
+                            "points": 1,
+                            "goalsDiff": -13,
+                            "group": "Uefa Champions League: Group A",
+                            "form": "DLLLL",
+                            "status": "same",
+                            "description": null,
+                            "all": {
+                                "played": 6,
+                                "win": 0,
+                                "draw": 1,
+                                "lose": 5,
+                                "goals": {
+                                    "for": 1,
+                                    "against": 14
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 0,
+                                "draw": 1,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 1,
+                                    "against": 5
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 0,
+                                "draw": 0,
+                                "lose": 3,
+                                "goals": {
+                                    "for": 0,
+                                    "against": 9
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        }
+                    ],
+                    [
+                        {
+                            "rank": 1,
+                            "team": {
+                                "id": 174,
+                                "name": "FC Schalke 04",
+                                "logo": "https://media.api-sports.io/football/teams/174.png"
+                            },
+                            "points": 12,
+                            "goalsDiff": 4,
+                            "group": "Uefa Champions League: Group B",
+                            "form": "DWDWD",
+                            "status": "same",
+                            "description": "Next Round",
+                            "all": {
+                                "played": 6,
+                                "win": 3,
+                                "draw": 3,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 10,
+                                    "against": 6
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 2,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 5,
+                                    "against": 4
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 1,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 5,
+                                    "against": 2
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 2,
+                            "team": {
+                                "id": 42,
+                                "name": "Arsenal",
+                                "logo": "https://media.api-sports.io/football/teams/42.png"
+                            },
+                            "points": 10,
+                            "goalsDiff": 2,
+                            "group": "Uefa Champions League: Group B",
+                            "form": "LWDLW",
+                            "status": "same",
+                            "description": "Next Round",
+                            "all": {
+                                "played": 6,
+                                "win": 3,
+                                "draw": 1,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 10,
+                                    "against": 8
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 0,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 5,
+                                    "against": 3
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 1,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 5,
+                                    "against": 5
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 3,
+                            "team": {
+                                "id": 553,
+                                "name": "Olympiakos Piraeus",
+                                "logo": "https://media.api-sports.io/football/teams/553.png"
+                            },
+                            "points": 9,
+                            "goalsDiff": 0,
+                            "group": "Uefa Champions League: Group B",
+                            "form": "WLWWL",
+                            "status": "same",
+                            "description": "UEFA Europa League",
+                            "all": {
+                                "played": 6,
+                                "win": 3,
+                                "draw": 0,
+                                "lose": 3,
+                                "goals": {
+                                    "for": 9,
+                                    "against": 9
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 0,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 6,
+                                    "against": 4
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 0,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 3,
+                                    "against": 5
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 4,
+                            "team": {
+                                "id": 82,
+                                "name": "Montpellier",
+                                "logo": "https://media.api-sports.io/football/teams/82.png"
+                            },
+                            "points": 2,
+                            "goalsDiff": -6,
+                            "group": "Uefa Champions League: Group B",
+                            "form": "DLLLD",
+                            "status": "same",
+                            "description": null,
+                            "all": {
+                                "played": 6,
+                                "win": 0,
+                                "draw": 2,
+                                "lose": 4,
+                                "goals": {
+                                    "for": 6,
+                                    "against": 12
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 0,
+                                "draw": 1,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 3,
+                                    "against": 5
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 0,
+                                "draw": 1,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 3,
+                                    "against": 7
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        }
+                    ],
+                    [
+                        {
+                            "rank": 1,
+                            "team": {
+                                "id": 535,
+                                "name": "Malaga",
+                                "logo": "https://media.api-sports.io/football/teams/535.png"
+                            },
+                            "points": 12,
+                            "goalsDiff": 7,
+                            "group": "Uefa Champions League: Group C",
+                            "form": "DDDWW",
+                            "status": "same",
+                            "description": "Next Round",
+                            "all": {
+                                "played": 6,
+                                "win": 3,
+                                "draw": 3,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 12,
+                                    "against": 5
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 1,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 6,
+                                    "against": 2
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 2,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 6,
+                                    "against": 3
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 2,
+                            "team": {
+                                "id": 489,
+                                "name": "AC Milan",
+                                "logo": "https://media.api-sports.io/football/teams/489.png"
+                            },
+                            "points": 8,
+                            "goalsDiff": 1,
+                            "group": "Uefa Champions League: Group C",
+                            "form": "LWDLW",
+                            "status": "same",
+                            "description": "Next Round",
+                            "all": {
+                                "played": 6,
+                                "win": 2,
+                                "draw": 2,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 7,
+                                    "against": 6
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 0,
+                                "draw": 2,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 1,
+                                    "against": 2
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 0,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 6,
+                                    "against": 4
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 3,
+                            "team": {
+                                "id": 596,
+                                "name": "Zenit Saint Petersburg",
+                                "logo": "https://media.api-sports.io/football/teams/596.png"
+                            },
+                            "points": 7,
+                            "goalsDiff": -3,
+                            "group": "Uefa Champions League: Group C",
+                            "form": "WDLWL",
+                            "status": "same",
+                            "description": "UEFA Europa League",
+                            "all": {
+                                "played": 6,
+                                "win": 2,
+                                "draw": 1,
+                                "lose": 3,
+                                "goals": {
+                                    "for": 6,
+                                    "against": 9
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 1,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 5,
+                                    "against": 5
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 0,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 1,
+                                    "against": 4
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 4,
+                            "team": {
+                                "id": 554,
+                                "name": "Anderlecht",
+                                "logo": "https://media.api-sports.io/football/teams/554.png"
+                            },
+                            "points": 5,
+                            "goalsDiff": -5,
+                            "group": "Uefa Champions League: Group C",
+                            "form": "DLWLL",
+                            "status": "same",
+                            "description": null,
+                            "all": {
+                                "played": 6,
+                                "win": 1,
+                                "draw": 2,
+                                "lose": 3,
+                                "goals": {
+                                    "for": 4,
+                                    "against": 9
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 0,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 2,
+                                    "against": 6
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 0,
+                                "draw": 2,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 2,
+                                    "against": 3
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        }
+                    ],
+                    [
+                        {
+                            "rank": 1,
+                            "team": {
+                                "id": 165,
+                                "name": "Borussia Dortmund",
+                                "logo": "https://media.api-sports.io/football/teams/165.png"
+                            },
+                            "points": 14,
+                            "goalsDiff": 6,
+                            "group": "Uefa Champions League: Group D",
+                            "form": "WWDWD",
+                            "status": "same",
+                            "description": "Next Round",
+                            "all": {
+                                "played": 6,
+                                "win": 4,
+                                "draw": 2,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 11,
+                                    "against": 5
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 3,
+                                "draw": 0,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 4,
+                                    "against": 1
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 2,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 7,
+                                    "against": 4
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 2,
+                            "team": {
+                                "id": 541,
+                                "name": "Real Madrid",
+                                "logo": "https://media.api-sports.io/football/teams/541.png"
+                            },
+                            "points": 11,
+                            "goalsDiff": 6,
+                            "group": "Uefa Champions League: Group D",
+                            "form": "WDDLW",
+                            "status": "same",
+                            "description": "Next Round",
+                            "all": {
+                                "played": 6,
+                                "win": 3,
+                                "draw": 2,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 15,
+                                    "against": 9
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 1,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 9,
+                                    "against": 5
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 1,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 6,
+                                    "against": 4
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 3,
+                            "team": {
+                                "id": 194,
+                                "name": "Ajax",
+                                "logo": "https://media.api-sports.io/football/teams/194.png"
+                            },
+                            "points": 4,
+                            "goalsDiff": -8,
+                            "group": "Uefa Champions League: Group D",
+                            "form": "LLDWL",
+                            "status": "same",
+                            "description": "UEFA Europa League",
+                            "all": {
+                                "played": 6,
+                                "win": 1,
+                                "draw": 1,
+                                "lose": 4,
+                                "goals": {
+                                    "for": 8,
+                                    "against": 16
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 0,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 5,
+                                    "against": 9
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 0,
+                                "draw": 1,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 3,
+                                    "against": 7
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 4,
+                            "team": {
+                                "id": 50,
+                                "name": "Manchester City",
+                                "logo": "https://media.api-sports.io/football/teams/50.png"
+                            },
+                            "points": 3,
+                            "goalsDiff": -4,
+                            "group": "Uefa Champions League: Group D",
+                            "form": "LDDLD",
+                            "status": "same",
+                            "description": null,
+                            "all": {
+                                "played": 6,
+                                "win": 0,
+                                "draw": 3,
+                                "lose": 3,
+                                "goals": {
+                                    "for": 7,
+                                    "against": 11
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 0,
+                                "draw": 3,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 4,
+                                    "against": 4
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 0,
+                                "draw": 0,
+                                "lose": 3,
+                                "goals": {
+                                    "for": 3,
+                                    "against": 7
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        }
+                    ],
+                    [
+                        {
+                            "rank": 1,
+                            "team": {
+                                "id": 496,
+                                "name": "Juventus",
+                                "logo": "https://media.api-sports.io/football/teams/496.png"
+                            },
+                            "points": 12,
+                            "goalsDiff": 8,
+                            "group": "Uefa Champions League: Group E",
+                            "form": "WWWDD",
+                            "status": "same",
+                            "description": "Next Round",
+                            "all": {
+                                "played": 6,
+                                "win": 3,
+                                "draw": 3,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 12,
+                                    "against": 4
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 1,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 8,
+                                    "against": 1
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 2,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 4,
+                                    "against": 3
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 2,
+                            "team": {
+                                "id": 550,
+                                "name": "Shakhtar Donetsk",
+                                "logo": "https://media.api-sports.io/football/teams/550.png"
+                            },
+                            "points": 10,
+                            "goalsDiff": 4,
+                            "group": "Uefa Champions League: Group E",
+                            "form": "LWLWD",
+                            "status": "up",
+                            "description": "Next Round",
+                            "all": {
+                                "played": 6,
+                                "win": 3,
+                                "draw": 1,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 12,
+                                    "against": 8
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 0,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 4,
+                                    "against": 2
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 1,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 8,
+                                    "against": 6
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 3,
+                            "team": {
+                                "id": 49,
+                                "name": "Chelsea",
+                                "logo": "https://media.api-sports.io/football/teams/49.png"
+                            },
+                            "points": 10,
+                            "goalsDiff": 6,
+                            "group": "Uefa Champions League: Group E",
+                            "form": "WLWLW",
+                            "status": "down",
+                            "description": "UEFA Europa League",
+                            "all": {
+                                "played": 6,
+                                "win": 3,
+                                "draw": 1,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 16,
+                                    "against": 10
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 1,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 11,
+                                    "against": 5
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 0,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 5,
+                                    "against": 5
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 4,
+                            "team": {
+                                "id": 398,
+                                "name": "FC Nordsjaelland",
+                                "logo": "https://media.api-sports.io/football/teams/398.png"
+                            },
+                            "points": 1,
+                            "goalsDiff": -18,
+                            "group": "Uefa Champions League: Group E",
+                            "form": "LLLDL",
+                            "status": "same",
+                            "description": null,
+                            "all": {
+                                "played": 6,
+                                "win": 0,
+                                "draw": 1,
+                                "lose": 5,
+                                "goals": {
+                                    "for": 4,
+                                    "against": 22
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 0,
+                                "draw": 1,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 3,
+                                    "against": 10
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 0,
+                                "draw": 0,
+                                "lose": 3,
+                                "goals": {
+                                    "for": 1,
+                                    "against": 12
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        }
+                    ],
+                    [
+                        {
+                            "rank": 1,
+                            "team": {
+                                "id": 157,
+                                "name": "Bayern Munich",
+                                "logo": "https://media.api-sports.io/football/teams/157.png"
+                            },
+                            "points": 13,
+                            "goalsDiff": 8,
+                            "group": "Uefa Champions League: Group F",
+                            "form": "WDWWL",
+                            "status": "same",
+                            "description": "Next Round",
+                            "all": {
+                                "played": 6,
+                                "win": 4,
+                                "draw": 1,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 15,
+                                    "against": 7
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 3,
+                                "draw": 0,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 12,
+                                    "against": 3
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 1,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 3,
+                                    "against": 4
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 2,
+                            "team": {
+                                "id": 532,
+                                "name": "Valencia",
+                                "logo": "https://media.api-sports.io/football/teams/532.png"
+                            },
+                            "points": 13,
+                            "goalsDiff": 7,
+                            "group": "Uefa Champions League: Group F",
+                            "form": "WDWWW",
+                            "status": "same",
+                            "description": "Next Round",
+                            "all": {
+                                "played": 6,
+                                "win": 4,
+                                "draw": 1,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 12,
+                                    "against": 5
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 1,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 7,
+                                    "against": 3
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 0,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 5,
+                                    "against": 2
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 3,
+                            "team": {
+                                "id": 388,
+                                "name": "Bate Borisov",
+                                "logo": "https://media.api-sports.io/football/teams/388.png"
+                            },
+                            "points": 6,
+                            "goalsDiff": -6,
+                            "group": "Uefa Champions League: Group F",
+                            "form": "LLLLW",
+                            "status": "same",
+                            "description": "UEFA Europa League",
+                            "all": {
+                                "played": 6,
+                                "win": 2,
+                                "draw": 0,
+                                "lose": 4,
+                                "goals": {
+                                    "for": 9,
+                                    "against": 15
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 0,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 3,
+                                    "against": 6
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 0,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 6,
+                                    "against": 9
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 4,
+                            "team": {
+                                "id": 79,
+                                "name": "Lille",
+                                "logo": "https://media.api-sports.io/football/teams/79.png"
+                            },
+                            "points": 3,
+                            "goalsDiff": -9,
+                            "group": "Uefa Champions League: Group F",
+                            "form": "LWLLL",
+                            "status": "same",
+                            "description": null,
+                            "all": {
+                                "played": 6,
+                                "win": 1,
+                                "draw": 0,
+                                "lose": 5,
+                                "goals": {
+                                    "for": 4,
+                                    "against": 13
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 0,
+                                "draw": 0,
+                                "lose": 3,
+                                "goals": {
+                                    "for": 1,
+                                    "against": 5
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 0,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 3,
+                                    "against": 8
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        }
+                    ],
+                    [
+                        {
+                            "rank": 1,
+                            "team": {
+                                "id": 529,
+                                "name": "Barcelona",
+                                "logo": "https://media.api-sports.io/football/teams/529.png"
+                            },
+                            "points": 13,
+                            "goalsDiff": 6,
+                            "group": "Uefa Champions League: Group G",
+                            "form": "DWLWW",
+                            "status": "same",
+                            "description": "Next Round",
+                            "all": {
+                                "played": 6,
+                                "win": 4,
+                                "draw": 1,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 11,
+                                    "against": 5
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 1,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 5,
+                                    "against": 3
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 0,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 6,
+                                    "against": 2
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 2,
+                            "team": {
+                                "id": 247,
+                                "name": "Celtic",
+                                "logo": "https://media.api-sports.io/football/teams/247.png"
+                            },
+                            "points": 10,
+                            "goalsDiff": 1,
+                            "group": "Uefa Champions League: Group G",
+                            "form": "WLWLW",
+                            "status": "same",
+                            "description": "Next Round",
+                            "all": {
+                                "played": 6,
+                                "win": 3,
+                                "draw": 1,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 9,
+                                    "against": 8
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 1,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 4,
+                                    "against": 2
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 0,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 5,
+                                    "against": 6
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 3,
+                            "team": {
+                                "id": 211,
+                                "name": "Benfica",
+                                "logo": "https://media.api-sports.io/football/teams/211.png"
+                            },
+                            "points": 8,
+                            "goalsDiff": 0,
+                            "group": "Uefa Champions League: Group G",
+                            "form": "DWWLL",
+                            "status": "same",
+                            "description": "UEFA Europa League",
+                            "all": {
+                                "played": 6,
+                                "win": 2,
+                                "draw": 2,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 5,
+                                    "against": 5
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 0,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 4,
+                                    "against": 3
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 0,
+                                "draw": 2,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 1,
+                                    "against": 2
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 4,
+                            "team": {
+                                "id": 558,
+                                "name": "Spartak Moscow",
+                                "logo": "https://media.api-sports.io/football/teams/558.png"
+                            },
+                            "points": 3,
+                            "goalsDiff": -7,
+                            "group": "Uefa Champions League: Group G",
+                            "form": "LLLWL",
+                            "status": "same",
+                            "description": null,
+                            "all": {
+                                "played": 6,
+                                "win": 1,
+                                "draw": 0,
+                                "lose": 5,
+                                "goals": {
+                                    "for": 7,
+                                    "against": 14
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 0,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 4,
+                                    "against": 7
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 0,
+                                "draw": 0,
+                                "lose": 3,
+                                "goals": {
+                                    "for": 3,
+                                    "against": 7
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        }
+                    ],
+                    [
+                        {
+                            "rank": 1,
+                            "team": {
+                                "id": 33,
+                                "name": "Manchester United",
+                                "logo": "https://media.api-sports.io/football/teams/33.png"
+                            },
+                            "points": 12,
+                            "goalsDiff": 3,
+                            "group": "Uefa Champions League: Group H",
+                            "form": "LLWWW",
+                            "status": "same",
+                            "description": "Next Round",
+                            "all": {
+                                "played": 6,
+                                "win": 4,
+                                "draw": 0,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 9,
+                                    "against": 6
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 0,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 4,
+                                    "against": 3
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 0,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 5,
+                                    "against": 3
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 2,
+                            "team": {
+                                "id": 645,
+                                "name": "Galatasaray",
+                                "logo": "https://media.api-sports.io/football/teams/645.png"
+                            },
+                            "points": 10,
+                            "goalsDiff": 1,
+                            "group": "Uefa Champions League: Group H",
+                            "form": "WWWDL",
+                            "status": "up",
+                            "description": "Next Round",
+                            "all": {
+                                "played": 6,
+                                "win": 3,
+                                "draw": 1,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 7,
+                                    "against": 6
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 1,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 2,
+                                    "against": 3
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 0,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 5,
+                                    "against": 3
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 3,
+                            "team": {
+                                "id": 2246,
+                                "name": "CFR 1907 Cluj",
+                                "logo": "https://media.api-sports.io/football/teams/2246.png"
+                            },
+                            "points": 10,
+                            "goalsDiff": 2,
+                            "group": "Uefa Champions League: Group H",
+                            "form": "WWLDL",
+                            "status": "down",
+                            "description": "UEFA Europa League",
+                            "all": {
+                                "played": 6,
+                                "win": 3,
+                                "draw": 1,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 9,
+                                    "against": 7
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 0,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 5,
+                                    "against": 6
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 2,
+                                "draw": 1,
+                                "lose": 0,
+                                "goals": {
+                                    "for": 4,
+                                    "against": 1
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 4,
+                            "team": {
+                                "id": 217,
+                                "name": "SC Braga",
+                                "logo": "https://media.api-sports.io/football/teams/217.png"
+                            },
+                            "points": 3,
+                            "goalsDiff": -6,
+                            "group": "Uefa Champions League: Group H",
+                            "form": "LLLLW",
+                            "status": "same",
+                            "description": null,
+                            "all": {
+                                "played": 6,
+                                "win": 1,
+                                "draw": 0,
+                                "lose": 5,
+                                "goals": {
+                                    "for": 7,
+                                    "against": 13
+                                }
+                            },
+                            "home": {
+                                "played": 3,
+                                "win": 0,
+                                "draw": 0,
+                                "lose": 3,
+                                "goals": {
+                                    "for": 2,
+                                    "against": 7
+                                }
+                            },
+                            "away": {
+                                "played": 3,
+                                "win": 1,
+                                "draw": 0,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 5,
+                                    "against": 6
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        }
+                    ]
+                ]
+            }
+        }
+    ]
+}

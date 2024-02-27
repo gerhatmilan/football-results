@@ -1,3 +1,0 @@
-{
-    "command": "INSERT INTO football.countries (country_id, flag_link) VALUES (%s, %s);"
-}

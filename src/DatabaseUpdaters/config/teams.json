@@ -1,0 +1,9 @@
+{
+    "endpoint": "/teams?league={}&season={}",
+    "command": {
+        "venues": "INSERT INTO football.venues (venue_id, country_id, city, name) VALUES (%s, %s, %s, %s);",
+        "teams": "INSERT INTO football.teams (team_id, country_id, venue_id, name, short_name, logo_link, national) VALUES (%s, %s, %s, %s, %s, %s, %s);"
+    },
+    "save_path": "data/teams/",
+    "save_file": "{}/{}.json"
+}

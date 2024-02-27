@@ -1,0 +1,929 @@
+{
+    "get": "standings",
+    "parameters": {
+        "league": "61",
+        "season": "2011"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "league": {
+                "id": 61,
+                "name": "Ligue 1",
+                "country": "France",
+                "logo": "https://media.api-sports.io/football/leagues/61.png",
+                "flag": "https://media.api-sports.io/flags/fr.svg",
+                "season": 2011,
+                "standings": [
+                    [
+                        {
+                            "rank": 1,
+                            "team": {
+                                "id": 82,
+                                "name": "Montpellier",
+                                "logo": "https://media.api-sports.io/football/teams/82.png"
+                            },
+                            "points": 82,
+                            "goalsDiff": 34,
+                            "group": "Ligue 1",
+                            "form": "WWWDW",
+                            "status": null,
+                            "description": "UEFA Champions League",
+                            "all": {
+                                "played": 38,
+                                "win": 25,
+                                "draw": 7,
+                                "lose": 6,
+                                "goals": {
+                                    "for": 68,
+                                    "against": 34
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 16,
+                                "draw": 2,
+                                "lose": 1,
+                                "goals": {
+                                    "for": 37,
+                                    "against": 11
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 9,
+                                "draw": 5,
+                                "lose": 5,
+                                "goals": {
+                                    "for": 31,
+                                    "against": 23
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 2,
+                            "team": {
+                                "id": 85,
+                                "name": "Paris Saint Germain",
+                                "logo": "https://media.api-sports.io/football/teams/85.png"
+                            },
+                            "points": 79,
+                            "goalsDiff": 34,
+                            "group": "Ligue 1",
+                            "form": "WWWWL",
+                            "status": null,
+                            "description": "UEFA Champions League",
+                            "all": {
+                                "played": 38,
+                                "win": 23,
+                                "draw": 10,
+                                "lose": 5,
+                                "goals": {
+                                    "for": 75,
+                                    "against": 41
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 14,
+                                "draw": 3,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 42,
+                                    "against": 16
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 9,
+                                "draw": 7,
+                                "lose": 3,
+                                "goals": {
+                                    "for": 33,
+                                    "against": 25
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 3,
+                            "team": {
+                                "id": 79,
+                                "name": "Lille",
+                                "logo": "https://media.api-sports.io/football/teams/79.png"
+                            },
+                            "points": 74,
+                            "goalsDiff": 33,
+                            "group": "Ligue 1",
+                            "form": "WLWWW",
+                            "status": null,
+                            "description": "UEFA Champions League Qualifiers",
+                            "all": {
+                                "played": 38,
+                                "win": 21,
+                                "draw": 11,
+                                "lose": 6,
+                                "goals": {
+                                    "for": 72,
+                                    "against": 39
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 12,
+                                "draw": 5,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 48,
+                                    "against": 23
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 9,
+                                "draw": 6,
+                                "lose": 4,
+                                "goals": {
+                                    "for": 24,
+                                    "against": 16
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 4,
+                            "team": {
+                                "id": 80,
+                                "name": "Lyon",
+                                "logo": "https://media.api-sports.io/football/teams/80.png"
+                            },
+                            "points": 64,
+                            "goalsDiff": 13,
+                            "group": "Ligue 1",
+                            "form": "LDWDW",
+                            "status": null,
+                            "description": "UEFA Europa League",
+                            "all": {
+                                "played": 38,
+                                "win": 19,
+                                "draw": 7,
+                                "lose": 12,
+                                "goals": {
+                                    "for": 64,
+                                    "against": 51
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 13,
+                                "draw": 3,
+                                "lose": 3,
+                                "goals": {
+                                    "for": 44,
+                                    "against": 27
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 6,
+                                "draw": 4,
+                                "lose": 9,
+                                "goals": {
+                                    "for": 20,
+                                    "against": 24
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 5,
+                            "team": {
+                                "id": 78,
+                                "name": "Bordeaux",
+                                "logo": "https://media.api-sports.io/football/teams/78.png"
+                            },
+                            "points": 61,
+                            "goalsDiff": 12,
+                            "group": "Ligue 1",
+                            "form": "WWWWW",
+                            "status": null,
+                            "description": null,
+                            "all": {
+                                "played": 38,
+                                "win": 16,
+                                "draw": 13,
+                                "lose": 9,
+                                "goals": {
+                                    "for": 53,
+                                    "against": 41
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 9,
+                                "draw": 8,
+                                "lose": 2,
+                                "goals": {
+                                    "for": 25,
+                                    "against": 14
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 7,
+                                "draw": 5,
+                                "lose": 7,
+                                "goals": {
+                                    "for": 28,
+                                    "against": 27
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 6,
+                            "team": {
+                                "id": 94,
+                                "name": "Rennes",
+                                "logo": "https://media.api-sports.io/football/teams/94.png"
+                            },
+                            "points": 60,
+                            "goalsDiff": 9,
+                            "group": "Ligue 1",
+                            "form": "WLLLW",
+                            "status": null,
+                            "description": null,
+                            "all": {
+                                "played": 38,
+                                "win": 17,
+                                "draw": 9,
+                                "lose": 12,
+                                "goals": {
+                                    "for": 53,
+                                    "against": 44
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 8,
+                                "draw": 8,
+                                "lose": 3,
+                                "goals": {
+                                    "for": 30,
+                                    "against": 19
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 9,
+                                "draw": 1,
+                                "lose": 9,
+                                "goals": {
+                                    "for": 23,
+                                    "against": 25
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 7,
+                            "team": {
+                                "id": 1063,
+                                "name": "Saint Etienne",
+                                "logo": "https://media.api-sports.io/football/teams/1063.png"
+                            },
+                            "points": 57,
+                            "goalsDiff": 4,
+                            "group": "Ligue 1",
+                            "form": "LLDLW",
+                            "status": null,
+                            "description": null,
+                            "all": {
+                                "played": 38,
+                                "win": 16,
+                                "draw": 9,
+                                "lose": 13,
+                                "goals": {
+                                    "for": 49,
+                                    "against": 45
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 9,
+                                "draw": 4,
+                                "lose": 6,
+                                "goals": {
+                                    "for": 27,
+                                    "against": 20
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 7,
+                                "draw": 5,
+                                "lose": 7,
+                                "goals": {
+                                    "for": 22,
+                                    "against": 25
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 8,
+                            "team": {
+                                "id": 96,
+                                "name": "Toulouse",
+                                "logo": "https://media.api-sports.io/football/teams/96.png"
+                            },
+                            "points": 56,
+                            "goalsDiff": 3,
+                            "group": "Ligue 1",
+                            "form": "LDDDL",
+                            "status": null,
+                            "description": null,
+                            "all": {
+                                "played": 38,
+                                "win": 15,
+                                "draw": 11,
+                                "lose": 12,
+                                "goals": {
+                                    "for": 37,
+                                    "against": 34
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 10,
+                                "draw": 5,
+                                "lose": 4,
+                                "goals": {
+                                    "for": 20,
+                                    "against": 11
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 5,
+                                "draw": 6,
+                                "lose": 8,
+                                "goals": {
+                                    "for": 17,
+                                    "against": 23
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 9,
+                            "team": {
+                                "id": 3006,
+                                "name": "Evian TG",
+                                "logo": "https://media.api-sports.io/football/teams/3006.png"
+                            },
+                            "points": 50,
+                            "goalsDiff": -1,
+                            "group": "Ligue 1",
+                            "form": "LDLWD",
+                            "status": null,
+                            "description": null,
+                            "all": {
+                                "played": 38,
+                                "win": 13,
+                                "draw": 11,
+                                "lose": 14,
+                                "goals": {
+                                    "for": 54,
+                                    "against": 55
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 9,
+                                "draw": 2,
+                                "lose": 8,
+                                "goals": {
+                                    "for": 29,
+                                    "against": 29
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 4,
+                                "draw": 9,
+                                "lose": 6,
+                                "goals": {
+                                    "for": 25,
+                                    "against": 26
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 10,
+                            "team": {
+                                "id": 81,
+                                "name": "Marseille",
+                                "logo": "https://media.api-sports.io/football/teams/81.png"
+                            },
+                            "points": 48,
+                            "goalsDiff": 4,
+                            "group": "Ligue 1",
+                            "form": "LWDWL",
+                            "status": null,
+                            "description": null,
+                            "all": {
+                                "played": 38,
+                                "win": 12,
+                                "draw": 12,
+                                "lose": 14,
+                                "goals": {
+                                    "for": 45,
+                                    "against": 41
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 8,
+                                "draw": 7,
+                                "lose": 4,
+                                "goals": {
+                                    "for": 26,
+                                    "against": 15
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 4,
+                                "draw": 5,
+                                "lose": 10,
+                                "goals": {
+                                    "for": 19,
+                                    "against": 26
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 11,
+                            "team": {
+                                "id": 102,
+                                "name": "Nancy",
+                                "logo": "https://media.api-sports.io/football/teams/102.png"
+                            },
+                            "points": 45,
+                            "goalsDiff": -10,
+                            "group": "Ligue 1",
+                            "form": "LWLLD",
+                            "status": null,
+                            "description": null,
+                            "all": {
+                                "played": 38,
+                                "win": 11,
+                                "draw": 12,
+                                "lose": 15,
+                                "goals": {
+                                    "for": 38,
+                                    "against": 48
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 6,
+                                "draw": 9,
+                                "lose": 4,
+                                "goals": {
+                                    "for": 24,
+                                    "against": 24
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 5,
+                                "draw": 3,
+                                "lose": 11,
+                                "goals": {
+                                    "for": 14,
+                                    "against": 24
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 12,
+                            "team": {
+                                "id": 105,
+                                "name": "Valenciennes",
+                                "logo": "https://media.api-sports.io/football/teams/105.png"
+                            },
+                            "points": 43,
+                            "goalsDiff": -10,
+                            "group": "Ligue 1",
+                            "form": "WLLLW",
+                            "status": null,
+                            "description": null,
+                            "all": {
+                                "played": 38,
+                                "win": 12,
+                                "draw": 7,
+                                "lose": 19,
+                                "goals": {
+                                    "for": 40,
+                                    "against": 50
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 11,
+                                "draw": 3,
+                                "lose": 5,
+                                "goals": {
+                                    "for": 29,
+                                    "against": 16
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 1,
+                                "draw": 4,
+                                "lose": 14,
+                                "goals": {
+                                    "for": 11,
+                                    "against": 34
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 13,
+                            "team": {
+                                "id": 84,
+                                "name": "Nice",
+                                "logo": "https://media.api-sports.io/football/teams/84.png"
+                            },
+                            "points": 42,
+                            "goalsDiff": -7,
+                            "group": "Ligue 1",
+                            "form": "WDDLL",
+                            "status": null,
+                            "description": null,
+                            "all": {
+                                "played": 38,
+                                "win": 10,
+                                "draw": 12,
+                                "lose": 16,
+                                "goals": {
+                                    "for": 39,
+                                    "against": 46
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 7,
+                                "draw": 8,
+                                "lose": 4,
+                                "goals": {
+                                    "for": 21,
+                                    "against": 13
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 3,
+                                "draw": 4,
+                                "lose": 12,
+                                "goals": {
+                                    "for": 18,
+                                    "against": 33
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 14,
+                            "team": {
+                                "id": 115,
+                                "name": "Sochaux",
+                                "logo": "https://media.api-sports.io/football/teams/115.png"
+                            },
+                            "points": 42,
+                            "goalsDiff": -20,
+                            "group": "Ligue 1",
+                            "form": "WWWLL",
+                            "status": null,
+                            "description": null,
+                            "all": {
+                                "played": 38,
+                                "win": 11,
+                                "draw": 9,
+                                "lose": 18,
+                                "goals": {
+                                    "for": 40,
+                                    "against": 60
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 8,
+                                "draw": 4,
+                                "lose": 7,
+                                "goals": {
+                                    "for": 21,
+                                    "against": 24
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 3,
+                                "draw": 5,
+                                "lose": 11,
+                                "goals": {
+                                    "for": 19,
+                                    "against": 36
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 15,
+                            "team": {
+                                "id": 106,
+                                "name": "Stade Brestois 29",
+                                "logo": "https://media.api-sports.io/football/teams/106.png"
+                            },
+                            "points": 41,
+                            "goalsDiff": -7,
+                            "group": "Ligue 1",
+                            "form": "WWDDL",
+                            "status": null,
+                            "description": null,
+                            "all": {
+                                "played": 38,
+                                "win": 8,
+                                "draw": 17,
+                                "lose": 13,
+                                "goals": {
+                                    "for": 31,
+                                    "against": 38
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 7,
+                                "draw": 8,
+                                "lose": 4,
+                                "goals": {
+                                    "for": 22,
+                                    "against": 17
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 1,
+                                "draw": 9,
+                                "lose": 9,
+                                "goals": {
+                                    "for": 9,
+                                    "against": 21
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 16,
+                            "team": {
+                                "id": 98,
+                                "name": "Ajaccio",
+                                "logo": "https://media.api-sports.io/football/teams/98.png"
+                            },
+                            "points": 41,
+                            "goalsDiff": -21,
+                            "group": "Ligue 1",
+                            "form": "WDLWL",
+                            "status": null,
+                            "description": null,
+                            "all": {
+                                "played": 38,
+                                "win": 9,
+                                "draw": 14,
+                                "lose": 15,
+                                "goals": {
+                                    "for": 40,
+                                    "against": 61
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 6,
+                                "draw": 8,
+                                "lose": 5,
+                                "goals": {
+                                    "for": 22,
+                                    "against": 24
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 3,
+                                "draw": 6,
+                                "lose": 10,
+                                "goals": {
+                                    "for": 18,
+                                    "against": 37
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 17,
+                            "team": {
+                                "id": 97,
+                                "name": "Lorient",
+                                "logo": "https://media.api-sports.io/football/teams/97.png"
+                            },
+                            "points": 39,
+                            "goalsDiff": -14,
+                            "group": "Ligue 1",
+                            "form": "LLDLW",
+                            "status": null,
+                            "description": null,
+                            "all": {
+                                "played": 38,
+                                "win": 9,
+                                "draw": 12,
+                                "lose": 17,
+                                "goals": {
+                                    "for": 35,
+                                    "against": 49
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 8,
+                                "draw": 6,
+                                "lose": 5,
+                                "goals": {
+                                    "for": 20,
+                                    "against": 14
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 1,
+                                "draw": 6,
+                                "lose": 12,
+                                "goals": {
+                                    "for": 15,
+                                    "against": 35
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 18,
+                            "team": {
+                                "id": 88,
+                                "name": "Caen",
+                                "logo": "https://media.api-sports.io/football/teams/88.png"
+                            },
+                            "points": 38,
+                            "goalsDiff": -20,
+                            "group": "Ligue 1",
+                            "form": "LLLWD",
+                            "status": null,
+                            "description": "Relegation",
+                            "all": {
+                                "played": 38,
+                                "win": 9,
+                                "draw": 11,
+                                "lose": 18,
+                                "goals": {
+                                    "for": 39,
+                                    "against": 59
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 6,
+                                "draw": 5,
+                                "lose": 8,
+                                "goals": {
+                                    "for": 20,
+                                    "against": 25
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 3,
+                                "draw": 6,
+                                "lose": 10,
+                                "goals": {
+                                    "for": 19,
+                                    "against": 34
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 19,
+                            "team": {
+                                "id": 89,
+                                "name": "Dijon",
+                                "logo": "https://media.api-sports.io/football/teams/89.png"
+                            },
+                            "points": 36,
+                            "goalsDiff": -25,
+                            "group": "Ligue 1",
+                            "form": "LDDLL",
+                            "status": null,
+                            "description": "Relegation",
+                            "all": {
+                                "played": 38,
+                                "win": 9,
+                                "draw": 9,
+                                "lose": 20,
+                                "goals": {
+                                    "for": 38,
+                                    "against": 63
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 6,
+                                "draw": 4,
+                                "lose": 9,
+                                "goals": {
+                                    "for": 23,
+                                    "against": 26
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 3,
+                                "draw": 5,
+                                "lose": 11,
+                                "goals": {
+                                    "for": 15,
+                                    "against": 37
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        },
+                        {
+                            "rank": 20,
+                            "team": {
+                                "id": 108,
+                                "name": "Auxerre",
+                                "logo": "https://media.api-sports.io/football/teams/108.png"
+                            },
+                            "points": 34,
+                            "goalsDiff": -11,
+                            "group": "Ligue 1",
+                            "form": "LLLWW",
+                            "status": null,
+                            "description": "Relegation",
+                            "all": {
+                                "played": 38,
+                                "win": 7,
+                                "draw": 13,
+                                "lose": 18,
+                                "goals": {
+                                    "for": 46,
+                                    "against": 57
+                                }
+                            },
+                            "home": {
+                                "played": 19,
+                                "win": 6,
+                                "draw": 6,
+                                "lose": 7,
+                                "goals": {
+                                    "for": 30,
+                                    "against": 28
+                                }
+                            },
+                            "away": {
+                                "played": 19,
+                                "win": 1,
+                                "draw": 7,
+                                "lose": 11,
+                                "goals": {
+                                    "for": 16,
+                                    "against": 29
+                                }
+                            },
+                            "update": "2018-02-15T00:00:00+00:00"
+                        }
+                    ]
+                ]
+            }
+        }
+    ]
+}

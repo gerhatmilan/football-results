@@ -11,7 +11,7 @@ CREATE TABLE "predictions"."prediction_games" (
   "outcome_reward" integer NOT NULL DEFAULT 8 CHECK("outcome_reward" > 0),
   "goal_count_reward" integer NOT NULL DEFAULT 5 CHECK("goal_count_reward" > 0),
   "goal_difference_reward" integer NOT NULL DEFAULT 3 CHECK("goal_difference_reward" > 0),
-  "created_at" timestamp NOT NULL,
+  "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "finished" boolean NOT NULL DEFAULT false,
   
   FOREIGN KEY ("owner_id")
@@ -39,7 +39,7 @@ CREATE TABLE "predictions"."predictions" (
   "match_id" integer,
   "home_team_goals" integer NOT NULL,
   "away_team_goals" integer NOT NULL,
-  "prediction_date" timestamp,
+  "prediction_date" timestamp DEFAULT CURRENT_TIMESTAMP,
   
   PRIMARY KEY ("user_id", "prediction_game_id", "match_id"),
 	
@@ -58,7 +58,7 @@ CREATE TABLE "predictions"."standings" (
   "prediction_game_id" integer NOT NULL,
   "user_id" integer NOT NULL,
   "points" integer NOT NULL,
-  "last_update" timestamp,
+  "last_update" timestamp DEFAULT CURRENT_TIMESTAMP,
   
   PRIMARY KEY (prediction_game_id, user_id),
   
@@ -73,6 +73,7 @@ CREATE TABLE "predictions"."standings" (
 CREATE TABLE "predictions"."participations" (
   "prediction_game_id" integer NOT NULL,
   "user_id" integer NOT NULL,
+  "join_date" timestamp DEFAULT CURRENT_TIMESTAMP,
 	
   PRIMARY KEY (prediction_game_id, user_id),
 	

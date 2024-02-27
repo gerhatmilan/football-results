@@ -5,13 +5,13 @@ CREATE TABLE "users"."users" (
   "email" varchar UNIQUE NOT NULL,
   "username" varchar UNIQUE NOT NULL,
   "password" bytea NOT NULL,
-  "registration_date" date NOT NULL
+  "registration_date" date NOT NULL DEFAULT CURRENT_DATE
 );
 
 CREATE TABLE "users"."messages" (
   "message_id" serial PRIMARY KEY,
   "user_id" integer NOT NULL,
-  "sent_at" timestamp NOT NULL,
+  "sent_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "message" text,
   "match_id" integer,
   "prediction_game_id" integer,

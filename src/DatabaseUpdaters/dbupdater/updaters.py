@@ -3,26 +3,20 @@ This module contains the definition of the database updater classes
 
 """
 
+from abc import ABC, abstractmethod
+
 from dbupdater.logging import logging
-from dbupdater.config.readers import JSONReader
-from dbupdater.base import DatabaseQuerier, DatabaseUpdater
+from dbupdater.logging.logging import SUCCESS_LOG_PATH, ERROR_LOG_PATH
+from dbupdater.config.config import JSONReader
+from dbupdater.queriers import DatabaseQuerier
 
-SUCCESS_LOG_PATH = 'logs/success_logs.txt'
-ERROR_LOG_PATH = 'logs/error_logs.txt'
-    
-def get_included_leagues(path: str) -> list[int]:
-    """ Returns the leagues for which further data has to be stored, for example teams, matches, etc. These leagues have to be defined in the parameter file """
+class DatabaseUpdater(ABC, DatabaseQuerier):
+    """ Abstract base class for classes that implement a logic of updating the database """     
 
-    included_leagues= []
-    try:
-        reader = JSONReader()
-        config_json = reader.read(path)
-        for record in config_json["leagues"]:
-            included_leagues.append(record["id"])
-    except Exception as e:
-        raise type(e)(f'An error has occured while reading config file {path}')
-    
-    return included_leagues
+    @abstractmethod
+    def update(self, data):
+        """ Updates the database with the given data """
+        pass
 
 class CountriesUpdater(DatabaseUpdater):
     """ Class for updating the countries table in the database """
@@ -78,7 +72,7 @@ class LeaguesUpdater(DatabaseUpdater):
         fields = (league_id, country_id, name, type, current_season, logo_link)
 
         try:
-            self.cur.execute(self.commands["leagues"], fields)
+            self.cur.execute(self.command["leagues"], fields)
             logging.log(SUCCESS_LOG_PATH, f'New league inserted: {fields}\n')
         except Exception as e:
             self.connection.rollback()
@@ -90,7 +84,7 @@ class LeaguesUpdater(DatabaseUpdater):
                 and record["coverage"]["top_scorers"]:
                     fields = (league_id, record["year"])
                     try:
-                        self.cur.execute(self.commands["seasons"], fields)
+                        self.cur.execute(self.command["seasons"], fields)
                         logging.log(SUCCESS_LOG_PATH, f'New available_season inserted: {fields}\n')
                     except Exception as e:
                         self.connection.rollback()
@@ -133,7 +127,7 @@ class TeamsUpdater(DatabaseUpdater):
         fields = (venue_id, country_id, city, name)
         
         try:
-            self.cur.execute(self.commands["venues"], fields)
+            self.cur.execute(self.command["venues"], fields)
             logging.log(SUCCESS_LOG_PATH, f'New venue inserted: {fields}\n')
         except Exception as e:
             self.connection.rollback()
@@ -152,7 +146,7 @@ class TeamsUpdater(DatabaseUpdater):
         fields = (team_id, country_id, venue_id, name, short_name, logo_link, national)
         
         try:
-            self.cur.execute(self.commands["teams"], fields)
+            self.cur.execute(self.command["teams"], fields)
             logging.log(SUCCESS_LOG_PATH, f'New team inserted: {fields}\n')
         except Exception as e:
             self.connection.rollback()
@@ -178,27 +172,94 @@ class TeamsUpdater(DatabaseUpdater):
             except:
                 pass
 
-class TopScorersUpdater(DatabaseUpdater):
-    """ Class for updating the top_scorers table in the database """
-
-    def __init__(self, db_config_file):
-        """ Initializes a new TopScorersUpdater object, using the given configurations """
-
-        super().read_config(db_config_file)
-       
-    def update(self, league_id, seaso, rank, player_id, played, goals, assists):
-        pass
-
 class StandingsUpdater(DatabaseUpdater):
     """ Class for updating the standings table in the database """
     
-    def __init__(self, db_config_file):
+    def __init__(self, db_config_file: str, cmd_config_file: str):
         """ Initializes a new StandingsUpdater object, using the given configurations """
 
         super().read_config(db_config_file)
+        super().set_command(cmd_config_file)
        
-    def update(self, league_id, season, rank, team_id, points, played, wins, draws, losses, scored, condeded):
-        pass
+    def update(self, data):
+        """ Function for updating the standings table in the database, with the given data """
+
+        try:
+            self.connect()
+
+            with self.connection.cursor() as cur:
+                league_data = data["response"][0]["league"]
+
+                league_id = league_data["id"]
+                season = league_data["season"]
+
+                for standings_group in league_data["standings"]:
+                    for record in standings_group:
+                        team_id = record["team"]["id"]
+                        rank = record["rank"]
+                        group = record["group"]
+                        points = record["points"]
+                        played = record["all"]["played"]
+                        wins = record["all"]["win"]
+                        draws = record["all"]["draw"]
+                        losses = record["all"]["lose"]
+                        scored = record["all"]["goals"]["for"]
+                        conceded = record["all"]["goals"]["against"]    
+
+                        fields = (league_id, season, team_id, rank, group, points, played, wins, draws, losses, scored, conceded)
+                        try:
+                            cur.execute(self.command, fields)
+                            self.connection.commit()
+                            logging.log(SUCCESS_LOG_PATH, f'New standings inserted: {fields}\n')
+                        except Exception as e:
+                            self.connection.rollback()
+                            logging.log(ERROR_LOG_PATH, f'Could not insert standings with data {fields}, cause: {str(e)}')         
+        except Exception as e:
+            raise type(e)(str(e))
+        finally:
+            self.disconnect()
+
+class TopScorersUpdater(DatabaseUpdater):
+    """ Class for updating the top_scorers table in the database """
+    
+    def __init__(self, db_config_file: str, cmd_config_file: str):
+        """ Initializes a new TopScorersUpdater object, using the given configurations """
+
+        super().read_config(db_config_file)
+        super().set_command(cmd_config_file)
+       
+    def update(self, data):
+        """ Function for updating the top_scorers table in the database, with the given data """
+
+        try:
+            self.connect()
+
+            with self.connection.cursor() as cur:
+
+                for idx, record in enumerate(data["response"]):
+                    player_data = record["player"]
+                    statistics_data = record["statistics"][0]
+
+                    league_id = statistics_data["league"]["id"]
+                    season = statistics_data["league"]["season"]
+                    player_id = player_data["id"]
+                    rank = idx + 1
+                    played = statistics_data["games"]["appearences"]
+                    goals = statistics_data["goals"]["total"]
+                    assists = statistics_data["goals"]["assists"]
+
+                    fields = (league_id, season, player_id, rank, played, goals, assists)
+                    try:
+                        cur.execute(self.command, fields)
+                        self.connection.commit()
+                        logging.log(SUCCESS_LOG_PATH, f'New top scorer inserted: {fields}\n')
+                    except Exception as e:
+                        self.connection.rollback()
+                        logging.log(ERROR_LOG_PATH, f'Could not insert top scorer with data {fields}, cause: {str(e)}')         
+        except Exception as e:
+            raise type(e)(str(e))
+        finally:
+            self.disconnect()
 
 class PlayersUpdater(DatabaseUpdater):
     """ Class for updating the players table in the database """

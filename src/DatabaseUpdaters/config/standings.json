@@ -1,0 +1,6 @@
+{
+    "endpoint": "/standings?league={}&season={}",
+    "command": "INSERT INTO football.standings (league_id, season, team_id, rank, \"group\", points, played, wins, draws, losses, scored, conceded) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
+    "save_path": "data/standings/",
+    "save_file": "{}/{}.json"
+}

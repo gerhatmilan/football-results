@@ -1,6 +1,9 @@
-""" Module containing functions for logging """
+""" Module containing functions and constants for logging """
 
 from datetime import datetime
+
+SUCCESS_LOG_PATH = 'logs/success_logs.txt'
+ERROR_LOG_PATH = 'logs/error_logs.txt'
 
 def log(path, log):
     """ Writes the given log to the given file """

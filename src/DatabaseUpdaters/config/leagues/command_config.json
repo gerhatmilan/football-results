@@ -1,4 +1,0 @@
-{
-    "leagues": "INSERT INTO football.leagues (league_id, country_id, name, type, current_season, logo_link) VALUES (%s, %s, %s, %s, %s, %s);",
-    "seasons": "INSERT INTO football.available_seasons (league_id, season) VALUES (%s, %s);"
-}

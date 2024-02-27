@@ -1,0 +1,6 @@
+{
+    "endpoint": "/topscorers?league={}&season={}",
+    "command": "INSERT INTO football.top_scorers (league_id, season, player_id, rank, played, goals, assists) VALUES (%s, %s, %s, %s, %s, %s, %s);",
+    "save_path":"data/topscorers/",
+    "save_file": "{}/{}.json"
+}
