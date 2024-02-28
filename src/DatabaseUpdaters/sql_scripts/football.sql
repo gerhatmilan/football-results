@@ -21,8 +21,8 @@ CREATE TABLE "football"."leagues" (
 CREATE TABLE "football"."venues" (
   "venue_id" integer PRIMARY KEY,
   "country_id" varchar NOT NULL,
-  "city" varchar NOT NULL,
-  "name" varchar NOT NULL,
+  "city" varchar,
+  "name" varchar,
   
   FOREIGN KEY ("country_id")
     REFERENCES "football"."countries" ("country_id")
