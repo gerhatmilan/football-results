@@ -1,0 +1,231 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "18"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 18,
+                "name": "Iceland",
+                "logo": "https://media.api-sports.io/football/teams/18.png"
+            },
+            "players": [
+                {
+                    "id": 89754,
+                    "name": "E. \u00d3lafsson",
+                    "age": 23,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/89754.png"
+                },
+                {
+                    "id": 61742,
+                    "name": "H. Valdimarsson",
+                    "age": 22,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/61742.png"
+                },
+                {
+                    "id": 2784,
+                    "name": "R. R\u00fanarsson",
+                    "age": 28,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/2784.png"
+                },
+                {
+                    "id": 28646,
+                    "name": "K. Finnsson",
+                    "age": 24,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/28646.png"
+                },
+                {
+                    "id": 57141,
+                    "name": "D. Gr\u00e9tarsson",
+                    "age": 28,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/57141.png"
+                },
+                {
+                    "id": 2785,
+                    "name": "H. Hermannsson",
+                    "age": 28,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/2785.png"
+                },
+                {
+                    "id": 2361,
+                    "name": "S. Ingason",
+                    "age": 30,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/2361.png"
+                },
+                {
+                    "id": 2793,
+                    "name": "V. P\u00e1lsson",
+                    "age": 32,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/2793.png"
+                },
+                {
+                    "id": 48190,
+                    "name": "A. Sampsted",
+                    "age": 25,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/48190.png"
+                },
+                {
+                    "id": 48201,
+                    "name": "G. \u00de\u00f3rarinsson",
+                    "age": 31,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/48201.png"
+                },
+                {
+                    "id": 37880,
+                    "name": "M. Anderson",
+                    "age": 25,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/37880.png"
+                },
+                {
+                    "id": 89723,
+                    "name": "A. Baldursson",
+                    "age": 21,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/89723.png"
+                },
+                {
+                    "id": 48198,
+                    "name": "\u00cd. Bergmann J\u00f3hannesson",
+                    "age": 20,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/48198.png"
+                },
+                {
+                    "id": 89520,
+                    "name": "M. Ellertsson",
+                    "age": 21,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/89520.png"
+                },
+                {
+                    "id": 2790,
+                    "name": "J. Gu\u00f0munds\u00adson",
+                    "age": 33,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/2790.png"
+                },
+                {
+                    "id": 191879,
+                    "name": "K. Hlynsson",
+                    "age": 19,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/191879.png"
+                },
+                {
+                    "id": 2792,
+                    "name": "A. Gunnarsson",
+                    "age": 34,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/2792.png"
+                },
+                {
+                    "id": 840,
+                    "name": "A. Sigur\u00f0sson",
+                    "age": 24,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/840.png"
+                },
+                {
+                    "id": 2795,
+                    "name": "G. Sigur\u00f0sson",
+                    "age": 33,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/2795.png"
+                },
+                {
+                    "id": 1966,
+                    "name": "A. Traustason",
+                    "age": 30,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/1966.png"
+                },
+                {
+                    "id": 28714,
+                    "name": "S. \u00de\u00f3r\u00f0arson",
+                    "age": 25,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/28714.png"
+                },
+                {
+                    "id": 2797,
+                    "name": "A. Finnbogason",
+                    "age": 34,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/2797.png"
+                },
+                {
+                    "id": 204109,
+                    "name": "A. Gu\u00f0johnsen",
+                    "age": 21,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/204109.png"
+                },
+                {
+                    "id": 61774,
+                    "name": "O. \u00d3skarsson",
+                    "age": 19,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/61774.png"
+                },
+                {
+                    "id": 2320,
+                    "name": "W. Willumsson",
+                    "age": 25,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/2320.png"
+                },
+                {
+                    "id": 15755,
+                    "name": "J. \u00deorsteinsson",
+                    "age": 25,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/15755.png"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,279 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "70"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 70,
+                "name": "Middlesbrough",
+                "logo": "https://media.api-sports.io/football/teams/70.png"
+            },
+            "players": [
+                {
+                    "id": 45021,
+                    "name": "S. Dieng",
+                    "age": 29,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/45021.png"
+                },
+                {
+                    "id": 48236,
+                    "name": "T. Glover",
+                    "age": 26,
+                    "number": 23,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/48236.png"
+                },
+                {
+                    "id": 19538,
+                    "name": "James Jones",
+                    "age": 34,
+                    "number": 32,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/19538.png"
+                },
+                {
+                    "id": 19046,
+                    "name": "T. Smith",
+                    "age": 31,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/19046.png"
+                },
+                {
+                    "id": 287916,
+                    "name": "R. van den Berg",
+                    "age": 19,
+                    "number": 3,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/287916.png"
+                },
+                {
+                    "id": 19860,
+                    "name": "M. Clarke",
+                    "age": 27,
+                    "number": 5,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/19860.png"
+                },
+                {
+                    "id": 19239,
+                    "name": "D. Fry",
+                    "age": 26,
+                    "number": 6,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/19239.png"
+                },
+                {
+                    "id": 19116,
+                    "name": "L. Ayling",
+                    "age": 32,
+                    "number": 12,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/19116.png"
+                },
+                {
+                    "id": 19828,
+                    "name": "A. Dijksteel",
+                    "age": 27,
+                    "number": 15,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/19828.png"
+                },
+                {
+                    "id": 19242,
+                    "name": "P. McNair",
+                    "age": 28,
+                    "number": 17,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/19242.png"
+                },
+                {
+                    "id": 37049,
+                    "name": "A. Bangura",
+                    "age": 24,
+                    "number": 24,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/37049.png"
+                },
+                {
+                    "id": 19467,
+                    "name": "D. Lenihan",
+                    "age": 29,
+                    "number": 26,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/19467.png"
+                },
+                {
+                    "id": 16015,
+                    "name": "L. Engel",
+                    "age": 25,
+                    "number": 27,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/16015.png"
+                },
+                {
+                    "id": 152969,
+                    "name": "L. Thomas",
+                    "age": 22,
+                    "number": 33,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/152969.png"
+                },
+                {
+                    "id": 20179,
+                    "name": "D. Barlaser",
+                    "age": 26,
+                    "number": 4,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/20179.png"
+                },
+                {
+                    "id": 179685,
+                    "name": "H. Hackney",
+                    "age": 21,
+                    "number": 7,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/179685.png"
+                },
+                {
+                    "id": 6913,
+                    "name": "R. McGree",
+                    "age": 25,
+                    "number": 8,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/6913.png"
+                },
+                {
+                    "id": 197764,
+                    "name": "I. Jones",
+                    "age": 24,
+                    "number": 11,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/197764.png"
+                },
+                {
+                    "id": 19240,
+                    "name": "J. Howson",
+                    "age": 35,
+                    "number": 16,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/19240.png"
+                },
+                {
+                    "id": 231039,
+                    "name": "F. Azaz",
+                    "age": 23,
+                    "number": 20,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/231039.png"
+                },
+                {
+                    "id": 20503,
+                    "name": "L. O&apos;Brien",
+                    "age": 25,
+                    "number": 28,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/20503.png"
+                },
+                {
+                    "id": 153400,
+                    "name": "S. Greenwood",
+                    "age": 21,
+                    "number": 29,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/153400.png"
+                },
+                {
+                    "id": 348815,
+                    "name": "L. McCabe",
+                    "age": 17,
+                    "number": 49,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/348815.png"
+                },
+                {
+                    "id": 329354,
+                    "name": "Aidan James Bridge",
+                    "age": 17,
+                    "number": 52,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/329354.png"
+                },
+                {
+                    "id": 311096,
+                    "name": "L. Woolston",
+                    "age": 19,
+                    "number": 59,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/311096.png"
+                },
+                {
+                    "id": 32137,
+                    "name": "E. Latte Lath",
+                    "age": 24,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/32137.png"
+                },
+                {
+                    "id": 203014,
+                    "name": "M. Hoppe",
+                    "age": 22,
+                    "number": 13,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/203014.png"
+                },
+                {
+                    "id": 215873,
+                    "name": "A. Gilbert",
+                    "age": 22,
+                    "number": 14,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/215873.png"
+                },
+                {
+                    "id": 126872,
+                    "name": "S. Silvera",
+                    "age": 23,
+                    "number": 18,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/126872.png"
+                },
+                {
+                    "id": 272553,
+                    "name": "J. Coburn",
+                    "age": 21,
+                    "number": 19,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/272553.png"
+                },
+                {
+                    "id": 19363,
+                    "name": "M. Forss",
+                    "age": 24,
+                    "number": 21,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/19363.png"
+                },
+                {
+                    "id": 322622,
+                    "name": "D. Nkrumah",
+                    "age": 20,
+                    "number": 38,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/322622.png"
+                }
+            ]
+        }
+    ]
+}

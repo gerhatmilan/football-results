@@ -1,0 +1,255 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "77"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 77,
+                "name": "Angers",
+                "logo": "https://media.api-sports.io/football/teams/77.png"
+            },
+            "players": [
+                {
+                    "id": 174973,
+                    "name": "M. Zinga",
+                    "age": 21,
+                    "number": 16,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/174973.png"
+                },
+                {
+                    "id": 64190,
+                    "name": "Y. Fofana",
+                    "age": 23,
+                    "number": 30,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/64190.png"
+                },
+                {
+                    "id": 396308,
+                    "name": "Oumar Pona",
+                    "age": 17,
+                    "number": 40,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/396308.png"
+                },
+                {
+                    "id": 340717,
+                    "name": "E. Pasture",
+                    "age": 20,
+                    "number": 50,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/340717.png"
+                },
+                {
+                    "id": 18942,
+                    "name": "Y. Valery",
+                    "age": 24,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/18942.png"
+                },
+                {
+                    "id": 425207,
+                    "name": "M. Courcoul",
+                    "age": 16,
+                    "number": 5,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/425207.png"
+                },
+                {
+                    "id": 174723,
+                    "name": "Z. Ould Khaled",
+                    "age": 23,
+                    "number": 12,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/174723.png"
+                },
+                {
+                    "id": 21381,
+                    "name": "J. Lefort",
+                    "age": 30,
+                    "number": 21,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/21381.png"
+                },
+                {
+                    "id": 3379,
+                    "name": "C. Hountondji",
+                    "age": 29,
+                    "number": 22,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/3379.png"
+                },
+                {
+                    "id": 3234,
+                    "name": "A. Bamba",
+                    "age": 33,
+                    "number": 25,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/3234.png"
+                },
+                {
+                    "id": 41146,
+                    "name": "F. Hanin",
+                    "age": 33,
+                    "number": 26,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/41146.png"
+                },
+                {
+                    "id": 174660,
+                    "name": "L. Rao-Lisoa",
+                    "age": 23,
+                    "number": 27,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/174660.png"
+                },
+                {
+                    "id": 271540,
+                    "name": "O. Camara",
+                    "age": 20,
+                    "number": 29,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/271540.png"
+                },
+                {
+                    "id": 327555,
+                    "name": "Y. Gaya",
+                    "age": 19,
+                    "number": 70,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/327555.png"
+                },
+                {
+                    "id": 20725,
+                    "name": "J. Lopy",
+                    "age": 31,
+                    "number": 8,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/20725.png"
+                },
+                {
+                    "id": 20692,
+                    "name": "H. Abdelli",
+                    "age": 24,
+                    "number": 10,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/20692.png"
+                },
+                {
+                    "id": 174708,
+                    "name": "Y. Belkhdim",
+                    "age": 21,
+                    "number": 14,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/174708.png"
+                },
+                {
+                    "id": 21145,
+                    "name": "P. Capelle",
+                    "age": 36,
+                    "number": 15,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/21145.png"
+                },
+                {
+                    "id": 3175,
+                    "name": "Z. Ferhat",
+                    "age": 30,
+                    "number": 20,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/3175.png"
+                },
+                {
+                    "id": 398498,
+                    "name": "D. N&apos;Diaye",
+                    "age": 18,
+                    "number": 34,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/398498.png"
+                },
+                {
+                    "id": 20537,
+                    "name": "I. Niane",
+                    "age": 24,
+                    "number": 7,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/20537.png"
+                },
+                {
+                    "id": 22100,
+                    "name": "L. Diony",
+                    "age": 31,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/22100.png"
+                },
+                {
+                    "id": 421875,
+                    "name": "S. Cherif",
+                    "age": 17,
+                    "number": 11,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/421875.png"
+                },
+                {
+                    "id": 405074,
+                    "name": "J. Kalumba",
+                    "age": 19,
+                    "number": 17,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/405074.png"
+                },
+                {
+                    "id": 163004,
+                    "name": "E. Lepaul",
+                    "age": 23,
+                    "number": 19,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/163004.png"
+                },
+                {
+                    "id": 2210,
+                    "name": "A. Hunou",
+                    "age": 29,
+                    "number": 23,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/2210.png"
+                },
+                {
+                    "id": 3177,
+                    "name": "F. El Melali",
+                    "age": 26,
+                    "number": 28,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/3177.png"
+                },
+                {
+                    "id": 327558,
+                    "name": "N. Ndeke",
+                    "age": 20,
+                    "number": 32,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/327558.png"
+                },
+                {
+                    "id": 330234,
+                    "name": "N. Nadje",
+                    "age": 20,
+                    "number": 45,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/330234.png"
+                }
+            ]
+        }
+    ]
+}

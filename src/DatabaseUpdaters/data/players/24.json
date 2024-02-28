@@ -1,0 +1,207 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "24"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 24,
+                "name": "Poland",
+                "logo": "https://media.api-sports.io/football/teams/24.png"
+            },
+            "players": [
+                {
+                    "id": 2274,
+                    "name": "M. Bu\u0142ka",
+                    "age": 24,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/2274.png"
+                },
+                {
+                    "id": 2998,
+                    "name": "\u0141. Skorupski",
+                    "age": 32,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/2998.png"
+                },
+                {
+                    "id": 851,
+                    "name": "W. Szcz\u0119sny",
+                    "age": 33,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/851.png"
+                },
+                {
+                    "id": 2999,
+                    "name": "J. Bednarek",
+                    "age": 27,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/2999.png"
+                },
+                {
+                    "id": 2164,
+                    "name": "T. K\u0119dziora",
+                    "age": 29,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/2164.png"
+                },
+                {
+                    "id": 61431,
+                    "name": "J. Kiwior",
+                    "age": 23,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/61431.png"
+                },
+                {
+                    "id": 310576,
+                    "name": "P. Peda",
+                    "age": 21,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/310576.png"
+                },
+                {
+                    "id": 40984,
+                    "name": "T. Puchacz",
+                    "age": 24,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/40984.png"
+                },
+                {
+                    "id": 122259,
+                    "name": "B. Wdowik",
+                    "age": 23,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/122259.png"
+                },
+                {
+                    "id": 40392,
+                    "name": "M. Wieteska",
+                    "age": 26,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/40392.png"
+                },
+                {
+                    "id": 3007,
+                    "name": "P. Frankowski",
+                    "age": 28,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/3007.png"
+                },
+                {
+                    "id": 3012,
+                    "name": "K. Grosicki",
+                    "age": 35,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/3012.png"
+                },
+                {
+                    "id": 1939,
+                    "name": "J. Piotrowski",
+                    "age": 26,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/1939.png"
+                },
+                {
+                    "id": 40534,
+                    "name": "B. Slisz",
+                    "age": 24,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/40534.png"
+                },
+                {
+                    "id": 125646,
+                    "name": "K. Struski",
+                    "age": 22,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/125646.png"
+                },
+                {
+                    "id": 3011,
+                    "name": "D. Szyma\u0144ski",
+                    "age": 28,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/3011.png"
+                },
+                {
+                    "id": 40403,
+                    "name": "S. Szyma\u0144ski",
+                    "age": 24,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/40403.png"
+                },
+                {
+                    "id": 19591,
+                    "name": "P. Wszo\u0142ek",
+                    "age": 31,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/19591.png"
+                },
+                {
+                    "id": 203474,
+                    "name": "N. Zalewski",
+                    "age": 21,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/203474.png"
+                },
+                {
+                    "id": 301772,
+                    "name": "M. \u0141\u0119gowski",
+                    "age": 20,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/301772.png"
+                },
+                {
+                    "id": 40594,
+                    "name": "A. Buksa",
+                    "age": 27,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/40594.png"
+                },
+                {
+                    "id": 521,
+                    "name": "R. Lewandowski",
+                    "age": 35,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/521.png"
+                },
+                {
+                    "id": 2385,
+                    "name": "K. \u015awiderski",
+                    "age": 26,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/2385.png"
+                }
+            ]
+        }
+    ]
+}
