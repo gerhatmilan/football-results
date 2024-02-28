@@ -83,13 +83,15 @@ CREATE TABLE "football"."standings" (
 );
 
 CREATE TABLE "football"."players" (
-  "player_id" integer PRIMARY KEY,
+  "player_id" integer,
   "team_id" integer,
   "name" varchar NOT NULL,
-  "age" integer NOT NULL,
+  "age" integer,
   "number" integer,
   "position" varchar,
   "photo_link" varchar,
+  
+  PRIMARY KEY("player_id", "team_id"),
   
   FOREIGN KEY ("team_id")
     REFERENCES "football"."teams" ("team_id")
@@ -110,10 +112,7 @@ CREATE TABLE "football"."top_scorers" (
   
   FOREIGN KEY ("league_id", "season")
     REFERENCES "football"."available_seasons" ("league_id", "season")
-	ON DELETE CASCADE,
-  FOREIGN KEY ("player_id")
-    REFERENCES "football"."players" ("player_id")
-	ON DELETE SET NULL
+	ON DELETE CASCADE
 );
 
 CREATE TABLE "football"."matches" (
