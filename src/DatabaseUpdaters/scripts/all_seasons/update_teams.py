@@ -32,7 +32,7 @@ try:
             try:
                 data = get_data(client=client, mode=MODE, save=True, config=TEAMS_CONFIG_FILE, filename_parameters=(league_id, season), endpoint_parameters=(league_id, season))
             except FileNotFoundError:
-                 # This means the teams data is not available yet for the current season. Skip this update
+                 logging.log(ERROR_LOG_PATH, f'Teams data for season {season} is not available yet. Skipping this update')
                  continue
             
             if MODE == 'API':

@@ -1,4 +1,4 @@
-""" Script for updating the top_scorers table in the database with data from the API, through all available seasons """
+""" Script for updating the top_scorers table in the database with data from the API, for the current season """
 
 from dbupdater.api.client import APIClient, get_data
 from dbupdater.updaters import TopScorersUpdater

@@ -96,6 +96,16 @@ class CountriesUpdater(DatabaseUpdater):
                 self.__connection.rollback()
                 logging.log(ERROR_LOG_PATH, f'Could not update country with id {id}, cause: {str(e)}\n')
 
+    def get_fields_list(self, data):
+        """ Returns the list of records to be inserted in the table """
+
+        fields_list = []
+        for record in data["response"]:
+            fields = (record["name"], record["flag"])
+            fields_list.append(fields)
+
+        return fields_list
+    
     def update(self, data):
         """ Function for updating the countries table in the database, with the given data """
 
@@ -147,7 +157,7 @@ class LeaguesUpdater(DatabaseUpdater):
             logging.log(SUCCESS_LOG_PATH, f'New league inserted: {fields}\n')
         except Exception as e:
             self.connection.rollback()
-            logging.log(ERROR_LOG_PATH, f'Could not insert league with data {fields}, cause: {str(e)}')
+            logging.log(ERROR_LOG_PATH, f'Could not insert league with data {fields}, cause: {str(e)}\n')
 
     def update_available_seasons(self, seasons_data, league_id: int):
         for record in seasons_data:
@@ -160,7 +170,7 @@ class LeaguesUpdater(DatabaseUpdater):
                         logging.log(SUCCESS_LOG_PATH, f'New available_season inserted: {fields}\n')
                     except Exception as e:
                         self.connection.rollback()
-                        logging.log(ERROR_LOG_PATH, f'Could not insert available_season with data {fields}, cause: {str(e)}')
+                        logging.log(ERROR_LOG_PATH, f'Could not insert available_season with data {fields}, cause: {str(e)}\n')
 
     def update(self, data, included_league_ids: list[int]):
         """ Function for updating the leagues table in the database, with the given data """
@@ -196,9 +206,10 @@ class TeamsUpdater(DatabaseUpdater):
             self.cur.execute(self.command["venues"], fields)
             self.connection.commit()
             logging.log(SUCCESS_LOG_PATH, f'New venue inserted: {fields}\n')
+            self.connection.commit()
         except Exception as e:
             self.connection.rollback()
-            logging.log(ERROR_LOG_PATH, f'Could not insert venue with data {fields}, cause: {str(e)}')
+            logging.log(ERROR_LOG_PATH, f'Could not insert venue with data {fields}, cause: {str(e)}\n')
 
     def update_teams(self, record):
         """ This function contains the logic of how the teams data has to be inserted to the teams table"""
@@ -216,9 +227,10 @@ class TeamsUpdater(DatabaseUpdater):
             self.cur.execute(self.command["teams"], fields)
             self.connection.commit()
             logging.log(SUCCESS_LOG_PATH, f'New team inserted: {fields}\n')
+            self.connection.commit()
         except Exception as e:
             self.connection.rollback()
-            logging.log(ERROR_LOG_PATH, f'Could not insert team with data {fields}, cause: {str(e)}')
+            logging.log(ERROR_LOG_PATH, f'Could not insert team with data {fields}, cause: {str(e)}\n')
 
     def update(self, data):
         """ Function for updating the venues and teams tables in the database, with the given data """
@@ -364,6 +376,26 @@ class TopScorersUpdater(DatabaseUpdater):
         super()._read_db_config(db_config_file)
         super()._set_commands(cmd_config_file)
        
+    def get_fields_list(self, data):
+        """ Returns the list of records to be inserted in the table """
+
+        fields_list = []
+        for idx, record in enumerate(data["response"]):
+            player_data = record["player"]
+            statistics_data = record["statistics"][0]
+
+            league_id = statistics_data["league"]["id"]
+            season = statistics_data["league"]["season"]
+            player_id = player_data["id"]
+            rank = idx + 1
+            played = statistics_data["games"]["appearences"]
+            goals = statistics_data["goals"]["total"]
+            assists = statistics_data["goals"]["assists"]
+
+            fields = (league_id, season, player_id, rank, played, goals, assists)
+            fields_list.append(fields)
+        return fields_list
+    
     def update(self, data):
         """ Function for updating the top_scorers table in the database, with the given data """
 

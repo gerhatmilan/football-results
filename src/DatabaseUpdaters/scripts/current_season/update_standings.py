@@ -1,4 +1,4 @@
-""" Script for updating the standings table in the database with data from the API """
+""" Script for updating the standings table in the database with data from the API, for the current season """
 
 from dbupdater.api.client import APIClient, get_data
 from dbupdater.updaters import StandingsUpdater

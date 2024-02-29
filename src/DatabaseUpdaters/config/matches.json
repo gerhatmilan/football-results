@@ -1,0 +1,9 @@
+{
+    "endpoint": "/fixtures?league={}&season={}",
+    "command": {
+        "venues": "INSERT INTO football.venues (venue_id, country_id, city, name) VALUES (%s, %s, %s, %s);",
+        "matches": "INSERT INTO football.matches (match_id, date, venue_id, league_id, season, round, home_team_id, away_team_id, status, minute, home_team_goals, away_team_goals) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"
+    },
+    "save_path":"data/matches/",
+    "save_file": "{}/{}.json"
+}
