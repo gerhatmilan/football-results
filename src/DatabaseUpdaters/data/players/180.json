@@ -1,0 +1,247 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "180"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 180,
+                "name": "FC Heidenheim",
+                "logo": "https://media.api-sports.io/football/teams/180.png"
+            },
+            "players": [
+                {
+                    "id": 24893,
+                    "name": "K. M\u00fcller",
+                    "age": 32,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/24893.png"
+                },
+                {
+                    "id": 24891,
+                    "name": "V. Eicher",
+                    "age": 33,
+                    "number": 22,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/24891.png"
+                },
+                {
+                    "id": 207229,
+                    "name": "P. Tschernuth",
+                    "age": 21,
+                    "number": 34,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/207229.png"
+                },
+                {
+                    "id": 328008,
+                    "name": "Frank  Feller",
+                    "age": 18,
+                    "number": 40,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/328008.png"
+                },
+                {
+                    "id": 24897,
+                    "name": "M. Busch",
+                    "age": 29,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/24897.png"
+                },
+                {
+                    "id": 177815,
+                    "name": "T. Siersleben",
+                    "age": 23,
+                    "number": 4,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/177815.png"
+                },
+                {
+                    "id": 25203,
+                    "name": "B. Gimber",
+                    "age": 26,
+                    "number": 5,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/25203.png"
+                },
+                {
+                    "id": 24899,
+                    "name": "P. Mainka",
+                    "age": 29,
+                    "number": 6,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/24899.png"
+                },
+                {
+                    "id": 24979,
+                    "name": "J. F\u00f6hrenbach",
+                    "age": 27,
+                    "number": 19,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/24979.png"
+                },
+                {
+                    "id": 25502,
+                    "name": "O. Traor\u00e9",
+                    "age": 25,
+                    "number": 23,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/25502.png"
+                },
+                {
+                    "id": 328009,
+                    "name": "Seedy Jarju",
+                    "age": 17,
+                    "number": 29,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/328009.png"
+                },
+                {
+                    "id": 24911,
+                    "name": "N. Theuerkauf",
+                    "age": 36,
+                    "number": 30,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/24911.png"
+                },
+                {
+                    "id": 24842,
+                    "name": "L. Maloney",
+                    "age": 24,
+                    "number": 33,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/24842.png"
+                },
+                {
+                    "id": 127619,
+                    "name": "J. Sch\u00f6ppner",
+                    "age": 24,
+                    "number": 3,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/127619.png"
+                },
+                {
+                    "id": 24909,
+                    "name": "K. Sessa",
+                    "age": 23,
+                    "number": 16,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/24909.png"
+                },
+                {
+                    "id": 25819,
+                    "name": "F. Pick",
+                    "age": 28,
+                    "number": 17,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/25819.png"
+                },
+                {
+                    "id": 8959,
+                    "name": "A. Beck",
+                    "age": 26,
+                    "number": 21,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/8959.png"
+                },
+                {
+                    "id": 125723,
+                    "name": "T. Keller",
+                    "age": 24,
+                    "number": 27,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/125723.png"
+                },
+                {
+                    "id": 327887,
+                    "name": "Luka Janes",
+                    "age": 17,
+                    "number": 36,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/327887.png"
+                },
+                {
+                    "id": 25313,
+                    "name": "J. Beste",
+                    "age": 24,
+                    "number": 37,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/25313.png"
+                },
+                {
+                    "id": 202526,
+                    "name": "E. Dink\u00e7i",
+                    "age": 22,
+                    "number": 8,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/202526.png"
+                },
+                {
+                    "id": 26530,
+                    "name": "S. Schimmer",
+                    "age": 29,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/26530.png"
+                },
+                {
+                    "id": 26256,
+                    "name": "T. Kleindienst",
+                    "age": 28,
+                    "number": 10,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/26256.png"
+                },
+                {
+                    "id": 24917,
+                    "name": "D. Thomalla",
+                    "age": 31,
+                    "number": 11,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/24917.png"
+                },
+                {
+                    "id": 178106,
+                    "name": "M. Pieringer",
+                    "age": 24,
+                    "number": 18,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/178106.png"
+                },
+                {
+                    "id": 24913,
+                    "name": "N. Dovedan",
+                    "age": 29,
+                    "number": 20,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/24913.png"
+                },
+                {
+                    "id": 25826,
+                    "name": "C. K\u00fchlwetter",
+                    "age": 27,
+                    "number": 24,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/25826.png"
+                },
+                {
+                    "id": 202973,
+                    "name": "E. Qenaj",
+                    "age": 20,
+                    "number": 44,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/202973.png"
+                }
+            ]
+        }
+    ]
+}

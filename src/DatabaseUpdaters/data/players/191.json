@@ -1,0 +1,279 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "191"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 191,
+                "name": "Holstein Kiel",
+                "logo": "https://media.api-sports.io/football/teams/191.png"
+            },
+            "players": [
+                {
+                    "id": 24952,
+                    "name": "T. Weiner",
+                    "age": 24,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/24952.png"
+                },
+                {
+                    "id": 40271,
+                    "name": "T. D\u00e4hne",
+                    "age": 29,
+                    "number": 21,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/40271.png"
+                },
+                {
+                    "id": 26263,
+                    "name": "M. Engelhardt",
+                    "age": 30,
+                    "number": 31,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/26263.png"
+                },
+                {
+                    "id": 203229,
+                    "name": "N. Oberbeck",
+                    "age": 21,
+                    "number": 39,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/203229.png"
+                },
+                {
+                    "id": 392134,
+                    "name": "T. Do\u011fan",
+                    "age": 18,
+                    "number": 40,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/392134.png"
+                },
+                {
+                    "id": 419805,
+                    "name": "Lio Mark Rothenhagen",
+                    "age": 17,
+                    "number": 41,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/419805.png"
+                },
+                {
+                    "id": 40415,
+                    "name": "M. Kirkeskov",
+                    "age": 32,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/40415.png"
+                },
+                {
+                    "id": 26453,
+                    "name": "M. Komenda",
+                    "age": 27,
+                    "number": 3,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/26453.png"
+                },
+                {
+                    "id": 48345,
+                    "name": "C. Johansson",
+                    "age": 29,
+                    "number": 5,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/48345.png"
+                },
+                {
+                    "id": 90977,
+                    "name": "T. Becker",
+                    "age": 26,
+                    "number": 17,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/90977.png"
+                },
+                {
+                    "id": 324957,
+                    "name": "T. Rothe",
+                    "age": 19,
+                    "number": 18,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/324957.png"
+                },
+                {
+                    "id": 202580,
+                    "name": "L. Rosenboom",
+                    "age": 21,
+                    "number": 23,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/202580.png"
+                },
+                {
+                    "id": 162476,
+                    "name": "C. Kleine-Bekel",
+                    "age": 20,
+                    "number": 34,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/162476.png"
+                },
+                {
+                    "id": 203419,
+                    "name": "N. Carrera",
+                    "age": 21,
+                    "number": 38,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/203419.png"
+                },
+                {
+                    "id": 25609,
+                    "name": "P. Erras",
+                    "age": 28,
+                    "number": 4,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/25609.png"
+                },
+                {
+                    "id": 306338,
+                    "name": "M. Ivezi\u0107",
+                    "age": 22,
+                    "number": 6,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/306338.png"
+                },
+                {
+                    "id": 26525,
+                    "name": "F. Porath",
+                    "age": 26,
+                    "number": 8,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/26525.png"
+                },
+                {
+                    "id": 24876,
+                    "name": "L. Holtby",
+                    "age": 33,
+                    "number": 10,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/24876.png"
+                },
+                {
+                    "id": 48456,
+                    "name": "M. Schulz",
+                    "age": 28,
+                    "number": 15,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/48456.png"
+                },
+                {
+                    "id": 24969,
+                    "name": "P. Sander",
+                    "age": 25,
+                    "number": 16,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/24969.png"
+                },
+                {
+                    "id": 260898,
+                    "name": "N. Remberg",
+                    "age": 23,
+                    "number": 22,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/260898.png"
+                },
+                {
+                    "id": 202565,
+                    "name": "L. Wolf",
+                    "age": 22,
+                    "number": 26,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/202565.png"
+                },
+                {
+                    "id": 327660,
+                    "name": "A. Wagbe",
+                    "age": 19,
+                    "number": 28,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/327660.png"
+                },
+                {
+                    "id": 202481,
+                    "name": "J. Sterner",
+                    "age": 21,
+                    "number": 32,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/202481.png"
+                },
+                {
+                    "id": 424,
+                    "name": "S. Skrzybski",
+                    "age": 31,
+                    "number": 7,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/424.png"
+                },
+                {
+                    "id": 7305,
+                    "name": "B. Pichler",
+                    "age": 26,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/7305.png"
+                },
+                {
+                    "id": 47696,
+                    "name": "A. Bernhardsson",
+                    "age": 25,
+                    "number": 11,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/47696.png"
+                },
+                {
+                    "id": 106851,
+                    "name": "S. Machino",
+                    "age": 24,
+                    "number": 13,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/106851.png"
+                },
+                {
+                    "id": 57162,
+                    "name": "H. Fri\u00f0j\u00f3nsson",
+                    "age": 30,
+                    "number": 19,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/57162.png"
+                },
+                {
+                    "id": 24887,
+                    "name": "J. Arp",
+                    "age": 23,
+                    "number": 20,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/24887.png"
+                },
+                {
+                    "id": 24852,
+                    "name": "J. Mees",
+                    "age": 27,
+                    "number": 27,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/24852.png"
+                },
+                {
+                    "id": 327793,
+                    "name": "N. Niehoff",
+                    "age": 19,
+                    "number": 29,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/327793.png"
+                }
+            ]
+        }
+    ]
+}

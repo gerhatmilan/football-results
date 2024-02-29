@@ -1,0 +1,247 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "349"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 349,
+                "name": "Piast Gliwice",
+                "logo": "https://media.api-sports.io/football/teams/349.png"
+            },
+            "players": [
+                {
+                    "id": 373822,
+                    "name": "B. Jelonek",
+                    "age": 22,
+                    "number": 12,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/373822.png"
+                },
+                {
+                    "id": 40411,
+                    "name": "F. Plach",
+                    "age": 31,
+                    "number": 26,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/40411.png"
+                },
+                {
+                    "id": 40545,
+                    "name": "K. Szyma\u0144ski",
+                    "age": 30,
+                    "number": 33,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/40545.png"
+                },
+                {
+                    "id": 428150,
+                    "name": "D. Rychta",
+                    "age": 17,
+                    "number": 79,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/428150.png"
+                },
+                {
+                    "id": 148345,
+                    "name": "A. Mos\u00f3r",
+                    "age": 20,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/148345.png"
+                },
+                {
+                    "id": 189968,
+                    "name": "Miguel Mu\u00f1oz",
+                    "age": 27,
+                    "number": 3,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/189968.png"
+                },
+                {
+                    "id": 40414,
+                    "name": "J. Czerwi\u0144ski",
+                    "age": 32,
+                    "number": 4,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/40414.png"
+                },
+                {
+                    "id": 61167,
+                    "name": "T. Huk",
+                    "age": 29,
+                    "number": 5,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/61167.png"
+                },
+                {
+                    "id": 61237,
+                    "name": "J. Hol\u00fabek",
+                    "age": 32,
+                    "number": 14,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/61237.png"
+                },
+                {
+                    "id": 40418,
+                    "name": "T. Mokwa",
+                    "age": 30,
+                    "number": 22,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/40418.png"
+                },
+                {
+                    "id": 393213,
+                    "name": "P. Liszewski",
+                    "age": 19,
+                    "number": 25,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/393213.png"
+                },
+                {
+                    "id": 40343,
+                    "name": "M. Chrapek",
+                    "age": 31,
+                    "number": 6,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/40343.png"
+                },
+                {
+                    "id": 1328,
+                    "name": "D. K\u0105dzior",
+                    "age": 31,
+                    "number": 11,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/1328.png"
+                },
+                {
+                    "id": 40422,
+                    "name": "P. Dziczek",
+                    "age": 25,
+                    "number": 16,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/40422.png"
+                },
+                {
+                    "id": 41048,
+                    "name": "F. Karbowy",
+                    "age": 26,
+                    "number": 17,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/41048.png"
+                },
+                {
+                    "id": 148379,
+                    "name": "M. Ameyaw",
+                    "age": 23,
+                    "number": 19,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/148379.png"
+                },
+                {
+                    "id": 40675,
+                    "name": "G. Tomasiewicz",
+                    "age": 27,
+                    "number": 20,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/40675.png"
+                },
+                {
+                    "id": 40423,
+                    "name": "T. Hateley",
+                    "age": 34,
+                    "number": 24,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/40423.png"
+                },
+                {
+                    "id": 40620,
+                    "name": "M. Szczepa\u0144ski",
+                    "age": 25,
+                    "number": 30,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/40620.png"
+                },
+                {
+                    "id": 373823,
+                    "name": "O. Le\u015bniak",
+                    "age": 19,
+                    "number": 31,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/373823.png"
+                },
+                {
+                    "id": 41073,
+                    "name": "S. Krykun",
+                    "age": 27,
+                    "number": 44,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/41073.png"
+                },
+                {
+                    "id": 148448,
+                    "name": "A. Pyrka",
+                    "age": 21,
+                    "number": 77,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/148448.png"
+                },
+                {
+                    "id": 61204,
+                    "name": "T. Kostadinov",
+                    "age": 27,
+                    "number": 96,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/61204.png"
+                },
+                {
+                    "id": 40429,
+                    "name": "Jorge F\u00e9lix",
+                    "age": 32,
+                    "number": 7,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/40429.png"
+                },
+                {
+                    "id": 40269,
+                    "name": "F. Piasecki",
+                    "age": 28,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/40269.png"
+                },
+                {
+                    "id": 15895,
+                    "name": "K. Wilczek",
+                    "age": 35,
+                    "number": 10,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/15895.png"
+                },
+                {
+                    "id": 338475,
+                    "name": "S. Mucha",
+                    "age": 19,
+                    "number": 23,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/338475.png"
+                },
+                {
+                    "id": 428151,
+                    "name": "P. Urba\u00c5\u0084ski",
+                    "age": 18,
+                    "number": 99,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/428151.png"
+                }
+            ]
+        }
+    ]
+}

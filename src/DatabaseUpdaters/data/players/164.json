@@ -1,0 +1,271 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "164"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 164,
+                "name": "FSV Mainz 05",
+                "logo": "https://media.api-sports.io/football/teams/164.png"
+            },
+            "players": [
+                {
+                    "id": 180553,
+                    "name": "L. Rie\u00df",
+                    "age": 22,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/180553.png"
+                },
+                {
+                    "id": 25906,
+                    "name": "R. Zentner",
+                    "age": 29,
+                    "number": 27,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/25906.png"
+                },
+                {
+                    "id": 90829,
+                    "name": "D. Batz",
+                    "age": 32,
+                    "number": 33,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/90829.png"
+                },
+                {
+                    "id": 25915,
+                    "name": "P. Mwene",
+                    "age": 29,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/25915.png"
+                },
+                {
+                    "id": 36922,
+                    "name": "S. van den Berg",
+                    "age": 22,
+                    "number": 3,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/36922.png"
+                },
+                {
+                    "id": 25066,
+                    "name": "M. Leitsch",
+                    "age": 25,
+                    "number": 5,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/25066.png"
+                },
+                {
+                    "id": 25907,
+                    "name": "S. Bell",
+                    "age": 32,
+                    "number": 16,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/25907.png"
+                },
+                {
+                    "id": 22244,
+                    "name": "A. Caci",
+                    "age": 26,
+                    "number": 19,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/22244.png"
+                },
+                {
+                    "id": 1812,
+                    "name": "D. da Costa",
+                    "age": 30,
+                    "number": 21,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/1812.png"
+                },
+                {
+                    "id": 39279,
+                    "name": "A. Hanche-Olsen",
+                    "age": 26,
+                    "number": 25,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/39279.png"
+                },
+                {
+                    "id": 48378,
+                    "name": "S. Widmer",
+                    "age": 30,
+                    "number": 30,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/48378.png"
+                },
+                {
+                    "id": 281926,
+                    "name": "L. Wilhelm",
+                    "age": 20,
+                    "number": 47,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/281926.png"
+                },
+                {
+                    "id": 394735,
+                    "name": "Maxim Bora Dal",
+                    "age": 16,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/394735.png"
+                },
+                {
+                    "id": 328227,
+                    "name": "T. M\u00fcller",
+                    "age": 19,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/328227.png"
+                },
+                {
+                    "id": 2906,
+                    "name": "Lee Jae-Sung",
+                    "age": 31,
+                    "number": 7,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/2906.png"
+                },
+                {
+                    "id": 25918,
+                    "name": "L. Barreiro",
+                    "age": 23,
+                    "number": 8,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/25918.png"
+                },
+                {
+                    "id": 1156,
+                    "name": "T. Krau\u00df",
+                    "age": 22,
+                    "number": 14,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/1156.png"
+                },
+                {
+                    "id": 714,
+                    "name": "N. Amiri",
+                    "age": 27,
+                    "number": 18,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/714.png"
+                },
+                {
+                    "id": 30405,
+                    "name": "E. Fernandes",
+                    "age": 27,
+                    "number": 20,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/30405.png"
+                },
+                {
+                    "id": 25410,
+                    "name": "J. Guilavogui",
+                    "age": 33,
+                    "number": 23,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/25410.png"
+                },
+                {
+                    "id": 202727,
+                    "name": "M. Papela",
+                    "age": 22,
+                    "number": 24,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/202727.png"
+                },
+                {
+                    "id": 979,
+                    "name": "D. Kohr",
+                    "age": 29,
+                    "number": 31,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/979.png"
+                },
+                {
+                    "id": 328225,
+                    "name": "B. Gruda",
+                    "age": 19,
+                    "number": 43,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/328225.png"
+                },
+                {
+                    "id": 178288,
+                    "name": "D. Mamutovic",
+                    "age": 23,
+                    "number": 45,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/178288.png"
+                },
+                {
+                    "id": 25928,
+                    "name": "K. Onisiwo",
+                    "age": 31,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/25928.png"
+                },
+                {
+                    "id": 25307,
+                    "name": "M. Richter",
+                    "age": 26,
+                    "number": 10,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/25307.png"
+                },
+                {
+                    "id": 162771,
+                    "name": "J. Ngankam",
+                    "age": 23,
+                    "number": 11,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/162771.png"
+                },
+                {
+                    "id": 22264,
+                    "name": "L. Ajorque",
+                    "age": 29,
+                    "number": 17,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/22264.png"
+                },
+                {
+                    "id": 25926,
+                    "name": "J. Burkardt",
+                    "age": 23,
+                    "number": 29,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/25926.png"
+                },
+                {
+                    "id": 342177,
+                    "name": "N. Weiper",
+                    "age": 18,
+                    "number": 44,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/342177.png"
+                },
+                {
+                    "id": 202804,
+                    "name": "M. M\u00fcller",
+                    "age": 21,
+                    "number": 48,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/202804.png"
+                }
+            ]
+        }
+    ]
+}

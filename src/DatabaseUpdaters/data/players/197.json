@@ -1,0 +1,239 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "197"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 197,
+                "name": "PSV Eindhoven",
+                "logo": "https://media.api-sports.io/football/teams/197.png"
+            },
+            "players": [
+                {
+                    "id": 22157,
+                    "name": "W. Ben\u00edtez",
+                    "age": 30,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/22157.png"
+                },
+                {
+                    "id": 36828,
+                    "name": "J. Drommel",
+                    "age": 27,
+                    "number": 16,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/36828.png"
+                },
+                {
+                    "id": 15277,
+                    "name": "B. Waterman",
+                    "age": 39,
+                    "number": 24,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/15277.png"
+                },
+                {
+                    "id": 194645,
+                    "name": "S. Sambo",
+                    "age": 22,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/194645.png"
+                },
+                {
+                    "id": 231,
+                    "name": "J. Teze",
+                    "age": 24,
+                    "number": 3,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/231.png"
+                },
+                {
+                    "id": 228,
+                    "name": "A. Obispo",
+                    "age": 24,
+                    "number": 4,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/228.png"
+                },
+                {
+                    "id": 1085,
+                    "name": "Andr\u00e9 Ramalho",
+                    "age": 31,
+                    "number": 5,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/1085.png"
+                },
+                {
+                    "id": 25061,
+                    "name": "A. Bella-Kotchap",
+                    "age": 22,
+                    "number": 6,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/25061.png"
+                },
+                {
+                    "id": 38735,
+                    "name": "S. Dest",
+                    "age": 23,
+                    "number": 8,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/38735.png"
+                },
+                {
+                    "id": 233,
+                    "name": "Mauro J\u00fanior",
+                    "age": 24,
+                    "number": 17,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/233.png"
+                },
+                {
+                    "id": 22160,
+                    "name": "O. Boscagli",
+                    "age": 26,
+                    "number": 18,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/22160.png"
+                },
+                {
+                    "id": 18845,
+                    "name": "P. van Aanholt",
+                    "age": 33,
+                    "number": 30,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/18845.png"
+                },
+                {
+                    "id": 181827,
+                    "name": "C. Egan-Riley",
+                    "age": 20,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/181827.png"
+                },
+                {
+                    "id": 162037,
+                    "name": "M. Tillman",
+                    "age": 21,
+                    "number": 10,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/162037.png"
+                },
+                {
+                    "id": 36905,
+                    "name": "G. Til",
+                    "age": 26,
+                    "number": 20,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/36905.png"
+                },
+                {
+                    "id": 37890,
+                    "name": "J. Schouten",
+                    "age": 26,
+                    "number": 22,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/37890.png"
+                },
+                {
+                    "id": 37749,
+                    "name": "J. Veerman",
+                    "age": 25,
+                    "number": 23,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/37749.png"
+                },
+                {
+                    "id": 313078,
+                    "name": "I. Babadi",
+                    "age": 18,
+                    "number": 26,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/313078.png"
+                },
+                {
+                    "id": 402272,
+                    "name": "T. Land",
+                    "age": 17,
+                    "number": 31,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/402272.png"
+                },
+                {
+                    "id": 161897,
+                    "name": "I. Saibari",
+                    "age": 22,
+                    "number": 34,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/161897.png"
+                },
+                {
+                    "id": 102851,
+                    "name": "R. Ledezma",
+                    "age": 23,
+                    "number": 37,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/102851.png"
+                },
+                {
+                    "id": 544,
+                    "name": "N. Lang",
+                    "age": 24,
+                    "number": 7,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/544.png"
+                },
+                {
+                    "id": 246,
+                    "name": "L. de Jong",
+                    "age": 33,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/246.png"
+                },
+                {
+                    "id": 290549,
+                    "name": "J. Bakayoko",
+                    "age": 20,
+                    "number": 11,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/290549.png"
+                },
+                {
+                    "id": 73868,
+                    "name": "R. Pepi",
+                    "age": 20,
+                    "number": 14,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/73868.png"
+                },
+                {
+                    "id": 248,
+                    "name": "H. Lozano",
+                    "age": 28,
+                    "number": 27,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/248.png"
+                },
+                {
+                    "id": 409840,
+                    "name": "J. Uneken",
+                    "age": 19,
+                    "number": 38,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/409840.png"
+                }
+            ]
+        }
+    ]
+}
