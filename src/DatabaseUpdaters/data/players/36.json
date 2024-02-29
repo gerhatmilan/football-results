@@ -1,0 +1,255 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "36"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 36,
+                "name": "Fulham",
+                "logo": "https://media.api-sports.io/football/teams/36.png"
+            },
+            "players": [
+                {
+                    "id": 19657,
+                    "name": "M. Rod\u00e1k",
+                    "age": 27,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/19657.png"
+                },
+                {
+                    "id": 1438,
+                    "name": "B. Leno",
+                    "age": 31,
+                    "number": 17,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/1438.png"
+                },
+                {
+                    "id": 19312,
+                    "name": "S. Benda",
+                    "age": 25,
+                    "number": 23,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/19312.png"
+                },
+                {
+                    "id": 657,
+                    "name": "K. Tete",
+                    "age": 28,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/657.png"
+                },
+                {
+                    "id": 152967,
+                    "name": "C. Bassey",
+                    "age": 24,
+                    "number": 3,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/152967.png"
+                },
+                {
+                    "id": 19145,
+                    "name": "T. Adarabioyo",
+                    "age": 26,
+                    "number": 4,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/19145.png"
+                },
+                {
+                    "id": 105,
+                    "name": "F. Ballo-Tour\u00e9",
+                    "age": 26,
+                    "number": 12,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/105.png"
+                },
+                {
+                    "id": 19023,
+                    "name": "T. Ream",
+                    "age": 36,
+                    "number": 13,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/19023.png"
+                },
+                {
+                    "id": 2920,
+                    "name": "T. Castagne",
+                    "age": 28,
+                    "number": 21,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/2920.png"
+                },
+                {
+                    "id": 18814,
+                    "name": "I. Diop",
+                    "age": 26,
+                    "number": 31,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/18814.png"
+                },
+                {
+                    "id": 19549,
+                    "name": "A. Robinson",
+                    "age": 26,
+                    "number": 33,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/19549.png"
+                },
+                {
+                    "id": 297635,
+                    "name": "Devan Austin Tanton Pedraza",
+                    "age": 19,
+                    "number": 41,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/297635.png"
+                },
+                {
+                    "id": 327738,
+                    "name": "L. De Fougerolles",
+                    "age": 17,
+                    "number": 44,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/327738.png"
+                },
+                {
+                    "id": 19480,
+                    "name": "H. Reed",
+                    "age": 28,
+                    "number": 6,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/19480.png"
+                },
+                {
+                    "id": 19221,
+                    "name": "H. Wilson",
+                    "age": 26,
+                    "number": 8,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/19221.png"
+                },
+                {
+                    "id": 19025,
+                    "name": "T. Cairney",
+                    "age": 32,
+                    "number": 10,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/19025.png"
+                },
+                {
+                    "id": 899,
+                    "name": "Andreas Pereira",
+                    "age": 27,
+                    "number": 18,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/899.png"
+                },
+                {
+                    "id": 41104,
+                    "name": "Jo\u00e3o Palhinha",
+                    "age": 28,
+                    "number": 26,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/41104.png"
+                },
+                {
+                    "id": 2823,
+                    "name": "S. Luki\u0107",
+                    "age": 27,
+                    "number": 28,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/2823.png"
+                },
+                {
+                    "id": 284470,
+                    "name": "M. Dibley-Dias",
+                    "age": 20,
+                    "number": 49,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/284470.png"
+                },
+                {
+                    "id": 335116,
+                    "name": "K. S\u030cekularac",
+                    "age": 20,
+                    "number": 57,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/335116.png"
+                },
+                {
+                    "id": 389315,
+                    "name": "Joshua King",
+                    "age": 16,
+                    "number": 62,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/389315.png"
+                },
+                {
+                    "id": 2887,
+                    "name": "R. Jim\u00e9nez",
+                    "age": 32,
+                    "number": 7,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/2887.png"
+                },
+                {
+                    "id": 138822,
+                    "name": "A. Broja",
+                    "age": 22,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/138822.png"
+                },
+                {
+                    "id": 18753,
+                    "name": "Adama Traor\u00e9",
+                    "age": 27,
+                    "number": 11,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/18753.png"
+                },
+                {
+                    "id": 19004,
+                    "name": "B. De Cordova-Reid",
+                    "age": 30,
+                    "number": 14,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/19004.png"
+                },
+                {
+                    "id": 195106,
+                    "name": "Rodrigo Muniz",
+                    "age": 22,
+                    "number": 19,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/195106.png"
+                },
+                {
+                    "id": 2294,
+                    "name": "Willian",
+                    "age": 35,
+                    "number": 20,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/2294.png"
+                },
+                {
+                    "id": 1455,
+                    "name": "A. Iwobi",
+                    "age": 27,
+                    "number": 22,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/1455.png"
+                }
+            ]
+        }
+    ]
+}

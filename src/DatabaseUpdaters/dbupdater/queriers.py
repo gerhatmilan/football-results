@@ -127,7 +127,7 @@ class DatabaseQuerier():
         except Exception as e:
             raise type(e)(f'Could not query current season for league: {league_id}, cause: {str(e)}')  
 
-    def available_seasons(self, league_id: int):
+    def available_seasons(self, league_id: int) -> list[int]:
         """ Returns the available seasons for the given league """
 
         reader = JSONReader()

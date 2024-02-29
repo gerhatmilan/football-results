@@ -24,15 +24,16 @@ try:
     team_ids = querier.get_teams() 
 
     for team_id in team_ids:
-            try:
-                data = get_data(client=client, mode=MODE, save=True, config=PLAYERS_CONFIG_FILE, filename_parameters=(team_id), endpoint_parameters=(team_id))
-            except FileNotFoundError:
-                 # This means the players data is not available yet for the current season. Skip this update
-                 continue
-            
-            if MODE == 'API':
-                 time.sleep(60. / client.get_rate_limit())
-            updater.update(data)
+        try:
+            data = get_data(client=client, mode=MODE, save=True, config=PLAYERS_CONFIG_FILE, filename_parameters=(team_id, ), endpoint_parameters=(team_id, ))
+        except FileNotFoundError:
+            logging.log(ERROR_LOG_PATH, f'Players data for the current season is not available yet. Skipping this update\n')
+            continue
+        
+        if MODE == 'API':
+                time.sleep(65. / client.get_rate_limit())
+        updater.update(data)
+
 except Exception as e:
     logging.log(ERROR_LOG_PATH, str(e) + "\n")
     exit()

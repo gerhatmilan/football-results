@@ -413,8 +413,8 @@ class TopScorersUpdater(DatabaseUpdater):
 
 class PlayersUpdater(DatabaseUpdater):
     """ Class for updating the players table in the database """
-    
-    def __init__(self, db_config_file):
+
+    def __init__(self, db_config_file: str, cmd_config_file: str):
         """ Initializes a new PlayersUpdater object, using the given configurations """
 
         super().__init__(db_config_file) 

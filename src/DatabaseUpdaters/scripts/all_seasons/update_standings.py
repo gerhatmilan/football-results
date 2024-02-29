@@ -35,7 +35,7 @@ try:
                  continue
             
             if MODE == 'API':
-                 time.sleep(60. / client.get_rate_limit())
+                 time.sleep(65. / client.get_rate_limit())
             updater.update(data)
 except Exception as e:
     logging.log(ERROR_LOG_PATH, str(e) + "\n")
