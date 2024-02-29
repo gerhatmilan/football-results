@@ -25,5 +25,3 @@ try:
 except Exception as e:
     logging.log(ERROR_LOG_PATH, str(e) + "\n")
     exit()
-
-logging.log(SUCCESS_LOG_PATH, 'Update of table football.countries has completed successfully\n')

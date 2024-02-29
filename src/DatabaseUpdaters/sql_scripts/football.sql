@@ -147,12 +147,12 @@ CREATE TABLE "football"."matches" (
 
 
 
--- ensures that no qualification standing records are inserted, only group phase records
+-- ensures that only group phase records are inserted
 
 CREATE OR REPLACE FUNCTION "football".drop_if_qualification()
 RETURNS TRIGGER AS $$
 BEGIN
-	IF NEW."group" NOT LIKE 'GROUP _' THEN
+	IF NEW."group" NOT LIKE 'GROUP _' AND NEW."group" NOT LIKE 'Ranking of%' THEN
 		RETURN NEW;
 	ELSE
 		RAISE EXCEPTION 'No need to insert qualification data.';
@@ -161,8 +161,9 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER before_new_standings_trigger
-BEFORE INSERT ON "football"."standings"
+BEFORE INSERT OR UPDATE ON "football"."standings"
 FOR EACH ROW EXECUTE FUNCTION "football".drop_if_qualification();
+
 
 
 -- create short name where it is null by default

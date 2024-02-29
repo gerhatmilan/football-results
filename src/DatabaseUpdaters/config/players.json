@@ -1,6 +1,8 @@
 {
     "endpoint": "/players/squads?team={}",
-    "command": "INSERT INTO football.players (player_id, team_id, name, age, number, position, photo_link) VALUES (%s, %s, %s, %s, %s, %s, %s);",
+    "commands": {
+        "insert_command": "INSERT INTO football.players (player_id, team_id, name, age, number, position, photo_link) VALUES (%s, %s, %s, %s, %s, %s, %s);"
+    },
     "save_path": "data/players/",
     "save_file": "{}.json"
 }

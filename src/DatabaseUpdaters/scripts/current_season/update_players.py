@@ -21,7 +21,7 @@ try:
     updater = PlayersUpdater(DATABASE_CONFIG_FILE, PLAYERS_CONFIG_FILE)
     querier = DatabaseQuerier(DATABASE_CONFIG_FILE)
     
-    team_ids = None # TODO 
+    team_ids = querier.get_teams() 
 
     for team_id in team_ids:
             try:

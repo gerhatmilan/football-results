@@ -27,12 +27,11 @@ try:
     
     for league_id in included_league_ids:
         available_seasons = querier.available_seasons(league_id)
-
         for season in available_seasons:
             try:
                 data = get_data(client=client, mode=MODE, save=True, config=STANDINGS_CONFIG_FILE, filename_parameters=(league_id, season), endpoint_parameters=(league_id, season))
             except FileNotFoundError:
-                 # This means the standings data is not available yet for the current season. Skip this update
+                 logging.log(ERROR_LOG_PATH, f'Standings data for league {league_id} and season {season} is not available yet. Skipping this update\n')
                  continue
             
             if MODE == 'API':
@@ -42,4 +41,4 @@ except Exception as e:
     logging.log(ERROR_LOG_PATH, str(e) + "\n")
     exit()
 
-logging.log(SUCCESS_LOG_PATH, 'Update of table standings has completed successfully for available seasons\n')
+logging.log(SUCCESS_LOG_PATH, f'Update of table standings has completed successfully for available seasons, changes: {updater.total_changes}\n')
