@@ -1,3 +1,5 @@
 {
-    "command": "SELECT team_id FROM football.teams;"
+    "commands": {
+        "select_command": "SELECT team_id FROM football.teams ORDER BY team_id"
+    }
 }
