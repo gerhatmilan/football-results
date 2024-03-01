@@ -1,26 +1,31 @@
 from dbupdater.api.client import APIClient, get_data
-import json
-import os
 import time
+from dbupdater.queriers import DatabaseQuerier
+from dbupdater.updaters import PlayersUpdater
 
 API_CONFIG_FILE = 'config/api_config.json'
-ENDPOINT_CONFIG_FILE = 'config/teams/endpoint_config.json'
-
-LEAGUE_ID = 140
-SEASON_FIRST = 2010
-SEASON_LAST = 2022
+ENDPOINT_CONFIG_FILE = 'config/players.json'
+DATABASE_CONFIG_FILE = 'config/database_config.json'
+CMD_CONFIG_FILE = 'config/players.json'
 
 client = APIClient(API_CONFIG_FILE, ENDPOINT_CONFIG_FILE)
+querier = DatabaseQuerier(DATABASE_CONFIG_FILE, CMD_CONFIG_FILE)
+updater = PlayersUpdater(DATABASE_CONFIG_FILE, CMD_CONFIG_FILE)
 
-#for season in [2016, 2020]:
-for season in range(SEASON_FIRST, SEASON_LAST + 1):
-    PATH = f'data/teams/{LEAGUE_ID}/'
-    os.makedirs(PATH, exist_ok=True)
+# 195 teams left
+START = 272
+END = 1000
 
+team_ids = querier.get_teams()
+
+print(team_ids[START:END])
+
+'''
+for team_id in team_ids[START:END]:
     try:
-        get_data(client, mode='API', save=True, save_path=PATH, save_file=f"{season}.json", endpoint_parameters=(LEAGUE_ID, season))
-        print('Success. Waiting...')
-        time.sleep(60. / client.get_rate_limit())
-        print('Continuing')
-    except Exception as e:
-        print(str(e))
+        data = get_data(client=client, mode='API', save=True, config=CMD_CONFIG_FILE, filename_parameters=(team_id, ), endpoint_parameters=(team_id, ))
+        updater.update(data)
+        time.sleep(6.3)
+    except:
+        print(f'Error occured, skipping team with id {team_id}')
+'''

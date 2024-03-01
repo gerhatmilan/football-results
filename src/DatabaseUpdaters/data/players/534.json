@@ -1,0 +1,295 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "534"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 534,
+                "name": "Las Palmas",
+                "logo": "https://media.api-sports.io/football/teams/534.png"
+            },
+            "players": [
+                {
+                    "id": 46673,
+                    "name": "Aar\u00f3n Escandell",
+                    "age": 28,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/46673.png"
+                },
+                {
+                    "id": 46990,
+                    "name": "\u00c1lvaro Vall\u00e9s",
+                    "age": 26,
+                    "number": 13,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/46990.png"
+                },
+                {
+                    "id": 440748,
+                    "name": "\u00c3\u0081lvaro Killane",
+                    "age": 19,
+                    "number": 30,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/440748.png"
+                },
+                {
+                    "id": 208198,
+                    "name": "\u00c1lex Gonz\u00e1lez",
+                    "age": 21,
+                    "number": 35,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/208198.png"
+                },
+                {
+                    "id": 162026,
+                    "name": "Marvin Park",
+                    "age": 23,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/162026.png"
+                },
+                {
+                    "id": 70500,
+                    "name": "Sergi Cardona",
+                    "age": 24,
+                    "number": 3,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/70500.png"
+                },
+                {
+                    "id": 131535,
+                    "name": "\u00c1lex Su\u00e1rez",
+                    "age": 30,
+                    "number": 4,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/131535.png"
+                },
+                {
+                    "id": 46993,
+                    "name": "Eric Curbelo",
+                    "age": 29,
+                    "number": 6,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/46993.png"
+                },
+                {
+                    "id": 46996,
+                    "name": "\u00c1lvaro Lemos",
+                    "age": 30,
+                    "number": 14,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/46996.png"
+                },
+                {
+                    "id": 162475,
+                    "name": "Mika M\u00e0rmol",
+                    "age": 22,
+                    "number": 15,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/162475.png"
+                },
+                {
+                    "id": 536,
+                    "name": "D. Sinkgraven",
+                    "age": 28,
+                    "number": 18,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/536.png"
+                },
+                {
+                    "id": 122468,
+                    "name": "Sa\u00fal Coco",
+                    "age": 24,
+                    "number": 23,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/122468.png"
+                },
+                {
+                    "id": 51051,
+                    "name": "J. Araujo",
+                    "age": 22,
+                    "number": 28,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/51051.png"
+                },
+                {
+                    "id": 431890,
+                    "name": "Juan Herzog",
+                    "age": 20,
+                    "number": 31,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/431890.png"
+                },
+                {
+                    "id": 208133,
+                    "name": "Gabriel Palmero",
+                    "age": 20,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/208133.png"
+                },
+                {
+                    "id": 46860,
+                    "name": "Javi Mu\u00f1oz",
+                    "age": 28,
+                    "number": 5,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/46860.png"
+                },
+                {
+                    "id": 288699,
+                    "name": "M. Perrone",
+                    "age": 20,
+                    "number": 8,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/288699.png"
+                },
+                {
+                    "id": 182519,
+                    "name": "Alberto Moleiro",
+                    "age": 20,
+                    "number": 10,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/182519.png"
+                },
+                {
+                    "id": 47111,
+                    "name": "Benito Ram\u00edrez",
+                    "age": 28,
+                    "number": 11,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/47111.png"
+                },
+                {
+                    "id": 21709,
+                    "name": "E. Loiodice",
+                    "age": 23,
+                    "number": 12,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/21709.png"
+                },
+                {
+                    "id": 70315,
+                    "name": "Kirian Rodr\u00edguez",
+                    "age": 27,
+                    "number": 20,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/70315.png"
+                },
+                {
+                    "id": 21070,
+                    "name": "O. Mfulu",
+                    "age": 29,
+                    "number": 22,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/21070.png"
+                },
+                {
+                    "id": 157194,
+                    "name": "Peji\u00f1o",
+                    "age": 27,
+                    "number": 24,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/157194.png"
+                },
+                {
+                    "id": 47004,
+                    "name": "Fabio Gonz\u00e1lez",
+                    "age": 26,
+                    "number": 25,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/47004.png"
+                },
+                {
+                    "id": 297869,
+                    "name": "I\u00f1aki Gonz\u00e1lez Zambrano",
+                    "age": 19,
+                    "number": 29,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/297869.png"
+                },
+                {
+                    "id": 453885,
+                    "name": "A. Bassinga",
+                    "age": 19,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/453885.png"
+                },
+                {
+                    "id": 47464,
+                    "name": "Campa\u00f1a",
+                    "age": 30,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/47464.png"
+                },
+                {
+                    "id": 308423,
+                    "name": "Yadam",
+                    "age": 21,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/308423.png"
+                },
+                {
+                    "id": 47180,
+                    "name": "Cristian Herrera",
+                    "age": 32,
+                    "number": 7,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/47180.png"
+                },
+                {
+                    "id": 47324,
+                    "name": "Sandro Ram\u00edrez",
+                    "age": 28,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/47324.png"
+                },
+                {
+                    "id": 21714,
+                    "name": "S. Kaba",
+                    "age": 28,
+                    "number": 16,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/21714.png"
+                },
+                {
+                    "id": 2060,
+                    "name": "M. El Haddadi",
+                    "age": 28,
+                    "number": 17,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/2060.png"
+                },
+                {
+                    "id": 47393,
+                    "name": "Marc Cardona",
+                    "age": 28,
+                    "number": 19,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/47393.png"
+                },
+                {
+                    "id": 338750,
+                    "name": "Pau Ferrer",
+                    "age": 20,
+                    "number": 27,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/338750.png"
+                }
+            ]
+        }
+    ]
+}

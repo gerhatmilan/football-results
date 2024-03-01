@@ -1,0 +1,223 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "597"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 597,
+                "name": "Lokomotiv",
+                "logo": "https://media.api-sports.io/football/teams/597.png"
+            },
+            "players": [
+                {
+                    "id": 464,
+                    "name": "Guilherme",
+                    "age": 38,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/464.png"
+                },
+                {
+                    "id": 43729,
+                    "name": "I. Lantratov",
+                    "age": 28,
+                    "number": 22,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/43729.png"
+                },
+                {
+                    "id": 281989,
+                    "name": "D. Khudyakov",
+                    "age": 19,
+                    "number": 53,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/281989.png"
+                },
+                {
+                    "id": 180922,
+                    "name": "Lucas Fasson",
+                    "age": 22,
+                    "number": 3,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/180922.png"
+                },
+                {
+                    "id": 64271,
+                    "name": "S. Magkeev",
+                    "age": 24,
+                    "number": 4,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/64271.png"
+                },
+                {
+                    "id": 2200,
+                    "name": "G. Nyamsi",
+                    "age": 26,
+                    "number": 5,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/2200.png"
+                },
+                {
+                    "id": 270613,
+                    "name": "M. Mitaj",
+                    "age": 20,
+                    "number": 21,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/270613.png"
+                },
+                {
+                    "id": 43451,
+                    "name": "M. Nenakhov",
+                    "age": 25,
+                    "number": 24,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/43451.png"
+                },
+                {
+                    "id": 162504,
+                    "name": "A. Siljanov",
+                    "age": 22,
+                    "number": 45,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/162504.png"
+                },
+                {
+                    "id": 367691,
+                    "name": "E. Pogostnov",
+                    "age": 19,
+                    "number": 59,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/367691.png"
+                },
+                {
+                    "id": 841,
+                    "name": "N. Tiknizyan",
+                    "age": 24,
+                    "number": 71,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/841.png"
+                },
+                {
+                    "id": 43511,
+                    "name": "I. Samoshnikov",
+                    "age": 26,
+                    "number": 77,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/43511.png"
+                },
+                {
+                    "id": 162598,
+                    "name": "E. Morozov",
+                    "age": 22,
+                    "number": 85,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/162598.png"
+                },
+                {
+                    "id": 476,
+                    "name": "D. Barinov",
+                    "age": 27,
+                    "number": 6,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/476.png"
+                },
+                {
+                    "id": 485,
+                    "name": "A. Miranchuk",
+                    "age": 28,
+                    "number": 11,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/485.png"
+                },
+                {
+                    "id": 494,
+                    "name": "R. Zhemaletdinov",
+                    "age": 27,
+                    "number": 17,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/494.png"
+                },
+                {
+                    "id": 342292,
+                    "name": "M. Shchetinin",
+                    "age": 18,
+                    "number": 23,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/342292.png"
+                },
+                {
+                    "id": 324420,
+                    "name": "A. Karpukas",
+                    "age": 21,
+                    "number": 93,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/324420.png"
+                },
+                {
+                    "id": 1223,
+                    "name": "A. Dzyuba",
+                    "age": 35,
+                    "number": 7,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/1223.png"
+                },
+                {
+                    "id": 43500,
+                    "name": "V. Sarveli",
+                    "age": 26,
+                    "number": 8,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/43500.png"
+                },
+                {
+                    "id": 166840,
+                    "name": "S. Pinyaev",
+                    "age": 19,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/166840.png"
+                },
+                {
+                    "id": 1781,
+                    "name": "M. Glushenkov",
+                    "age": 24,
+                    "number": 15,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/1781.png"
+                },
+                {
+                    "id": 342206,
+                    "name": "V. Rakov",
+                    "age": 18,
+                    "number": 27,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/342206.png"
+                },
+                {
+                    "id": 306532,
+                    "name": "S. Hamuli\u0107",
+                    "age": 23,
+                    "number": 97,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/306532.png"
+                },
+                {
+                    "id": 130292,
+                    "name": "T. Suleymanov",
+                    "age": 23,
+                    "number": 99,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/130292.png"
+                }
+            ]
+        }
+    ]
+}

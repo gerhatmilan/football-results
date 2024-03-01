@@ -1,0 +1,271 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "506"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 506,
+                "name": "Benevento",
+                "logo": "https://media.api-sports.io/football/teams/506.png"
+            },
+            "players": [
+                {
+                    "id": 418940,
+                    "name": "A. Nunziante",
+                    "age": 16,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/418940.png"
+                },
+                {
+                    "id": 30821,
+                    "name": "N. Manfredini",
+                    "age": 35,
+                    "number": 12,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/30821.png"
+                },
+                {
+                    "id": 445560,
+                    "name": "M. Giangregorio",
+                    "age": 17,
+                    "number": 22,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/445560.png"
+                },
+                {
+                    "id": 30642,
+                    "name": "A. Paleari",
+                    "age": 31,
+                    "number": 24,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/30642.png"
+                },
+                {
+                    "id": 30645,
+                    "name": "A. Benedetti",
+                    "age": 32,
+                    "number": 3,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/30645.png"
+                },
+                {
+                    "id": 56278,
+                    "name": "E. Masciangelo",
+                    "age": 27,
+                    "number": 5,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/56278.png"
+                },
+                {
+                    "id": 31727,
+                    "name": "B. Meccariello",
+                    "age": 32,
+                    "number": 6,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/31727.png"
+                },
+                {
+                    "id": 56185,
+                    "name": "F. Berra",
+                    "age": 28,
+                    "number": 20,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/56185.png"
+                },
+                {
+                    "id": 128476,
+                    "name": "F. Rillo",
+                    "age": 23,
+                    "number": 23,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/128476.png"
+                },
+                {
+                    "id": 431400,
+                    "name": "A. Viscardi",
+                    "age": 19,
+                    "number": 25,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/431400.png"
+                },
+                {
+                    "id": 31611,
+                    "name": "E. Terranova",
+                    "age": 36,
+                    "number": 28,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/31611.png"
+                },
+                {
+                    "id": 64023,
+                    "name": "C. Pastina",
+                    "age": 22,
+                    "number": 58,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/64023.png"
+                },
+                {
+                    "id": 56286,
+                    "name": "R. Capellini",
+                    "age": 23,
+                    "number": 96,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/56286.png"
+                },
+                {
+                    "id": 136093,
+                    "name": "N. Kari\u0107",
+                    "age": 24,
+                    "number": 7,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/136093.png"
+                },
+                {
+                    "id": 40236,
+                    "name": "K. Kubica",
+                    "age": 23,
+                    "number": 8,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/40236.png"
+                },
+                {
+                    "id": 31368,
+                    "name": "M. Pinato",
+                    "age": 28,
+                    "number": 14,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/31368.png"
+                },
+                {
+                    "id": 30636,
+                    "name": "R. Improta",
+                    "age": 30,
+                    "number": 16,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/30636.png"
+                },
+                {
+                    "id": 162954,
+                    "name": "P. Simonetti",
+                    "age": 22,
+                    "number": 18,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/162954.png"
+                },
+                {
+                    "id": 30958,
+                    "name": "D. Agazzi",
+                    "age": 30,
+                    "number": 21,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/30958.png"
+                },
+                {
+                    "id": 408857,
+                    "name": "L. Carfora",
+                    "age": 17,
+                    "number": 30,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/408857.png"
+                },
+                {
+                    "id": 30692,
+                    "name": "F. Nardi",
+                    "age": 25,
+                    "number": 31,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/30692.png"
+                },
+                {
+                    "id": 327623,
+                    "name": "A. Talia",
+                    "age": 20,
+                    "number": 38,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/327623.png"
+                },
+                {
+                    "id": 344334,
+                    "name": "R. Rossi",
+                    "age": 18,
+                    "number": 77,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/344334.png"
+                },
+                {
+                    "id": 30909,
+                    "name": "A. Marotta",
+                    "age": 37,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/30909.png"
+                },
+                {
+                    "id": 31091,
+                    "name": "C. Ciano",
+                    "age": 33,
+                    "number": 10,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/31091.png"
+                },
+                {
+                    "id": 56774,
+                    "name": "A. Ferrante",
+                    "age": 28,
+                    "number": 11,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/56774.png"
+                },
+                {
+                    "id": 57080,
+                    "name": "E. Starita",
+                    "age": 27,
+                    "number": 27,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/57080.png"
+                },
+                {
+                    "id": 456913,
+                    "name": "M. Perlingieri",
+                    "age": 19,
+                    "number": 36,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/456913.png"
+                },
+                {
+                    "id": 32167,
+                    "name": "E. Lanini",
+                    "age": 29,
+                    "number": 90,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/32167.png"
+                },
+                {
+                    "id": 37105,
+                    "name": "D. Bolsius",
+                    "age": 25,
+                    "number": 98,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/37105.png"
+                },
+                {
+                    "id": 31171,
+                    "name": "A. Ciciretti",
+                    "age": 30,
+                    "number": 99,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/31171.png"
+                }
+            ]
+        }
+    ]
+}
