@@ -1,8 +1,7 @@
 """ This module defines the base DatabaseQuerier class and custom query functions """
 
-from abc import ABC, abstractmethod
 from dbupdater.logging import logging
-from dbupdater.logging.logging import SUCCESS_LOG_PATH, ERROR_LOG_PATH
+from dbupdater.logging.logging import SUCCESS_LOG_PATH
 
 import os
 import psycopg2
@@ -19,6 +18,9 @@ class DatabaseQuerier():
 
     def __init__(self, db_config_file: str, cmd_config_file: str = None):
         """ Initializes a DatabaseQuerier object """
+
+        self._db_config_file = db_config_file
+        self._cmd_config_file = cmd_config_file
 
         self._read_db_config(db_config_file)
         self._set_commands(cmd_config_file)
@@ -68,11 +70,11 @@ class DatabaseQuerier():
             port=self.__port
         )
 
-    def get_records_from_db(self):
+    def get_records_from_db(self, command_parameters=()):
         """ Fetches the corresponding table from the database, and returns its records in an indexable format """
 
         if not self._records:
-            self._records = self.query(query=self._commands["select_command"], parameters=(), result_size='all', cursor_factory=extras.DictCursor)
+            self._records = self.query(query=self._commands["select_command"], parameters=command_parameters, result_size='all', cursor_factory=extras.DictCursor)
 
         return self._records
 
@@ -143,7 +145,7 @@ class DatabaseQuerier():
             raise type(e)(f'Could not query available seasons for league: {league_id}, cause: {str(e)}')  
 
     def get_teams(self) -> list[int]:
-        """ Returns relevant teams for the current season from the database """
+        """ Returns every team id from the database """
 
         reader = JSONReader()
         config_json = reader.read(GET_TEAMS_COMMAND_CONFIG_FILE)
@@ -151,8 +153,8 @@ class DatabaseQuerier():
 
         try:
             result = self.query(command, parameters=(), result_size='all')
-            logging.log(SUCCESS_LOG_PATH, f'Team_ids queried\n')
+            logging.log(SUCCESS_LOG_PATH, f'Team ids queried\n')
 
             return [record[0] for record in result]
         except Exception as e:
-            raise type(e)(f'Could not query team_ids, cause: {str(e)}')  
+            raise type(e)(f'Could not query team ids, cause: {str(e)}')  

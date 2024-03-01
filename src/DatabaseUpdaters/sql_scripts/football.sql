@@ -165,7 +165,7 @@ FOR EACH ROW EXECUTE FUNCTION "football".drop_if_qualification();
 
 
 
--- create short name where it is null by default
+-- create short name where it is null by default with manually calling this function
 
 CREATE OR REPLACE FUNCTION football.resolve_short_names_with_null()
 RETURNS VOID AS $$
@@ -180,7 +180,7 @@ BEGIN
 			UPDATE football.teams
 			SET short_name = UPPER(SUBSTRING(name FROM 1 FOR 3))
 			WHERE team_id = row_data.team_id;
-			RAISE NOTICE 'Update complete for %s, new short_name: %', row_data.team_id, row_data.short_name;
+			RAISE NOTICE 'Update complete for %s, new short_name: %', row_data.name, row_data.short_name;
     		updates := updates + 1;
 		END IF;
 	END LOOP;
@@ -188,3 +188,21 @@ BEGIN
 
 END;
 $$ LANGUAGE plpgsql;
+
+
+
+-- trigger for creating short_name automatically
+
+CREATE OR REPLACE FUNCTION football.create_short_name_if_null()
+RETURNS TRIGGER AS $$
+BEGIN
+	IF NEW.short_name IS NULL THEN
+		NEW.short_name := UPPER(SUBSTRING(NEW.name FROM 1 FOR 3));
+	END IF;
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR TRIGGER before_insert_or_update_on_teams
+BEFORE INSERT OR UPDATE ON "football"."teams"
+FOR EACH ROW EXECUTE FUNCTION "football".create_short_name_if_null();
