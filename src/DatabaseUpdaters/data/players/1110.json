@@ -1,0 +1,215 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "1110"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 1110,
+                "name": "Andorra",
+                "logo": "https://media.api-sports.io/football/teams/1110.png"
+            },
+            "players": [
+                {
+                    "id": 169256,
+                    "name": "Iker \u00c1lvarez",
+                    "age": 22,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/169256.png"
+                },
+                {
+                    "id": 56044,
+                    "name": "Josep G\u00f3mes",
+                    "age": 38,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/56044.png"
+                },
+                {
+                    "id": 134459,
+                    "name": "Xisco Pires",
+                    "age": 25,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/134459.png"
+                },
+                {
+                    "id": 56046,
+                    "name": "Joan Cerv\u00f3s",
+                    "age": 25,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/56046.png"
+                },
+                {
+                    "id": 169182,
+                    "name": "\u00c8ric de Pablos",
+                    "age": 24,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/169182.png"
+                },
+                {
+                    "id": 56048,
+                    "name": "Max Llovera",
+                    "age": 26,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/56048.png"
+                },
+                {
+                    "id": 348245,
+                    "name": "Ian Olivera",
+                    "age": 19,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/348245.png"
+                },
+                {
+                    "id": 123540,
+                    "name": "Kiko Pomares",
+                    "age": 25,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/123540.png"
+                },
+                {
+                    "id": 5058,
+                    "name": "Marc Reb\u00e9s",
+                    "age": 29,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/5058.png"
+                },
+                {
+                    "id": 5134,
+                    "name": "Jordi Rubio",
+                    "age": 36,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/5134.png"
+                },
+                {
+                    "id": 5059,
+                    "name": "Mois\u00e9s San Nicol\u00e1s",
+                    "age": 30,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/5059.png"
+                },
+                {
+                    "id": 56050,
+                    "name": "Marc Val\u00e9s",
+                    "age": 33,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/56050.png"
+                },
+                {
+                    "id": 56051,
+                    "name": "Jordi Al\u00e1ez",
+                    "age": 25,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/56051.png"
+                },
+                {
+                    "id": 169264,
+                    "name": "Dacu",
+                    "age": 22,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/169264.png"
+                },
+                {
+                    "id": 70355,
+                    "name": "Marc Garc\u00eda",
+                    "age": 35,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/70355.png"
+                },
+                {
+                    "id": 56055,
+                    "name": "Marc Pujol",
+                    "age": 41,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/56055.png"
+                },
+                {
+                    "id": 318528,
+                    "name": "Ot Remolins",
+                    "age": 19,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/318528.png"
+                },
+                {
+                    "id": 169178,
+                    "name": "\u00c9ric Vales",
+                    "age": 23,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/169178.png"
+                },
+                {
+                    "id": 56056,
+                    "name": "M\u00e1rcio Vieira",
+                    "age": 39,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/56056.png"
+                },
+                {
+                    "id": 5140,
+                    "name": "V\u00edctor Bernat",
+                    "age": 36,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/5140.png"
+                },
+                {
+                    "id": 123539,
+                    "name": "Cucu",
+                    "age": 24,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/123539.png"
+                },
+                {
+                    "id": 169187,
+                    "name": "Izan Fern\u00e1ndez",
+                    "age": 22,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/169187.png"
+                },
+                {
+                    "id": 56057,
+                    "name": "\u00c1lex Mart\u00ednez",
+                    "age": 25,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/56057.png"
+                },
+                {
+                    "id": 56049,
+                    "name": "Aar\u00f3n S\u00e1nchez",
+                    "age": 27,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/56049.png"
+                }
+            ]
+        }
+    ]
+}

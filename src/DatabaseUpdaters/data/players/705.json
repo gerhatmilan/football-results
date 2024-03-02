@@ -1,0 +1,191 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "705"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 705,
+                "name": "Dinamo Batumi",
+                "logo": "https://media.api-sports.io/football/teams/705.png"
+            },
+            "players": [
+                {
+                    "id": 207171,
+                    "name": "L. Kharatishvili",
+                    "age": 20,
+                    "number": 13,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/207171.png"
+                },
+                {
+                    "id": 24618,
+                    "name": "R. Kvaskhvadze",
+                    "age": 34,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/24618.png"
+                },
+                {
+                    "id": 372663,
+                    "name": "M. Turmanidze",
+                    "age": 18,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/372663.png"
+                },
+                {
+                    "id": 111372,
+                    "name": "Wanderson",
+                    "age": 32,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/111372.png"
+                },
+                {
+                    "id": 24379,
+                    "name": "L. Kapianidze",
+                    "age": 24,
+                    "number": 4,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/24379.png"
+                },
+                {
+                    "id": 995,
+                    "name": "L. Kharabadze",
+                    "age": 23,
+                    "number": 12,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/995.png"
+                },
+                {
+                    "id": 24626,
+                    "name": "M. Kobakhidze",
+                    "age": 31,
+                    "number": 23,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/24626.png"
+                },
+                {
+                    "id": 24560,
+                    "name": "N. Mali",
+                    "age": 24,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/24560.png"
+                },
+                {
+                    "id": 45451,
+                    "name": "B. Mla\u0111ovi\u0107",
+                    "age": 28,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/45451.png"
+                },
+                {
+                    "id": 196373,
+                    "name": "E. Arko-Mensah",
+                    "age": 22,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/196373.png"
+                },
+                {
+                    "id": 80294,
+                    "name": "Vitinho",
+                    "age": 26,
+                    "number": 19,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/80294.png"
+                },
+                {
+                    "id": 24728,
+                    "name": "P. Ghudushauri",
+                    "age": 26,
+                    "number": 27,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/24728.png"
+                },
+                {
+                    "id": 119355,
+                    "name": "Jean Victor",
+                    "age": 28,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/119355.png"
+                },
+                {
+                    "id": 24585,
+                    "name": "V. Mamuchashvili",
+                    "age": 26,
+                    "number": 17,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/24585.png"
+                },
+                {
+                    "id": 3603,
+                    "name": "U. Mara",
+                    "age": 24,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/3603.png"
+                },
+                {
+                    "id": 127279,
+                    "name": "T. Patsatsia",
+                    "age": 23,
+                    "number": 30,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/127279.png"
+                },
+                {
+                    "id": 24580,
+                    "name": "Alef",
+                    "age": 27,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/24580.png"
+                },
+                {
+                    "id": 2181,
+                    "name": "G. Tsitaishvili",
+                    "age": 23,
+                    "number": 20,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/2181.png"
+                },
+                {
+                    "id": 61887,
+                    "name": "H. Gomis",
+                    "age": 27,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/61887.png"
+                },
+                {
+                    "id": 24729,
+                    "name": "D. Mujiri",
+                    "age": 24,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/24729.png"
+                },
+                {
+                    "id": 24587,
+                    "name": "Gabriel Ramos",
+                    "age": 27,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/24587.png"
+                }
+            ]
+        }
+    ]
+}

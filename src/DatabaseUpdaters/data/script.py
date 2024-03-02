@@ -12,13 +12,14 @@ client = APIClient(API_CONFIG_FILE, ENDPOINT_CONFIG_FILE)
 querier = DatabaseQuerier(DATABASE_CONFIG_FILE, CMD_CONFIG_FILE)
 updater = PlayersUpdater(DATABASE_CONFIG_FILE, CMD_CONFIG_FILE)
 
-# 195 teams left
-START = 272
+# 94 teams left
+START = 373
 END = 1000
 
 team_ids = querier.get_teams()
 
 print(team_ids[START:END])
+
 
 '''
 for team_id in team_ids[START:END]:

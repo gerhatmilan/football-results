@@ -1,0 +1,207 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "1097"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 1097,
+                "name": "Lithuania",
+                "logo": "https://media.api-sports.io/football/teams/1097.png"
+            },
+            "players": [
+                {
+                    "id": 10988,
+                    "name": "V. \u010cerniauskas",
+                    "age": 34,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/10988.png"
+                },
+                {
+                    "id": 2191,
+                    "name": "E. Gertmonas",
+                    "age": 27,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/2191.png"
+                },
+                {
+                    "id": 55890,
+                    "name": "E. Zubas",
+                    "age": 33,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/55890.png"
+                },
+                {
+                    "id": 60679,
+                    "name": "M. Beneta",
+                    "age": 30,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/60679.png"
+                },
+                {
+                    "id": 70340,
+                    "name": "E. Girdvainis",
+                    "age": 30,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/70340.png"
+                },
+                {
+                    "id": 169263,
+                    "name": "K. Ka\u017eukolovas",
+                    "age": 23,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/169263.png"
+                },
+                {
+                    "id": 43181,
+                    "name": "L. Klimavi\u010dius",
+                    "age": 34,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/43181.png"
+                },
+                {
+                    "id": 128737,
+                    "name": "R. Lekiatas",
+                    "age": 25,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/128737.png"
+                },
+                {
+                    "id": 267996,
+                    "name": "M. Remeikis",
+                    "age": 20,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/267996.png"
+                },
+                {
+                    "id": 69932,
+                    "name": "P. \u0160irvys",
+                    "age": 25,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/69932.png"
+                },
+                {
+                    "id": 53655,
+                    "name": "F. \u010cernych",
+                    "age": 32,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/53655.png"
+                },
+                {
+                    "id": 343189,
+                    "name": "G. Gineitis",
+                    "age": 19,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/343189.png"
+                },
+                {
+                    "id": 40477,
+                    "name": "J. Lasickas",
+                    "age": 26,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/40477.png"
+                },
+                {
+                    "id": 40479,
+                    "name": "A. Novikovas",
+                    "age": 33,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/40479.png"
+                },
+                {
+                    "id": 69940,
+                    "name": "D. Romanovskij",
+                    "age": 27,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/69940.png"
+                },
+                {
+                    "id": 44850,
+                    "name": "V. Slivka",
+                    "age": 28,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/44850.png"
+                },
+                {
+                    "id": 70016,
+                    "name": "K. Upstas",
+                    "age": 29,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/70016.png"
+                },
+                {
+                    "id": 163019,
+                    "name": "E. Utkus",
+                    "age": 23,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/163019.png"
+                },
+                {
+                    "id": 69900,
+                    "name": "O. Verbickas",
+                    "age": 30,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/69900.png"
+                },
+                {
+                    "id": 55900,
+                    "name": "M. Vorobjovas",
+                    "age": 28,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/55900.png"
+                },
+                {
+                    "id": 69958,
+                    "name": "A. Dol\u017enikov",
+                    "age": 23,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/69958.png"
+                },
+                {
+                    "id": 169262,
+                    "name": "G. Paulauskas",
+                    "age": 24,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/169262.png"
+                },
+                {
+                    "id": 266396,
+                    "name": "F. Steponavi\u010dius",
+                    "age": 19,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/266396.png"
+                }
+            ]
+        }
+    ]
+}
