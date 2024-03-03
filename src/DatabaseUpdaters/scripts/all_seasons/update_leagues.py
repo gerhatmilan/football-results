@@ -12,7 +12,7 @@ API_CONFIG_FILE = 'config/api_config.json'
 
 # 'API' for calling the API to save the data to defined path, and also updating the database
 # 'FILE' for reading the saved data from the file, and updating the database
-MODE = 'FILE'
+MODE = 'API'
 
 try:
     client = APIClient(API_CONFIG_FILE, updaters.LEAGUES_CONFIG_FILE)

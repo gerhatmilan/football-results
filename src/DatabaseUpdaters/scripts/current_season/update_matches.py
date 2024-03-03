@@ -26,11 +26,7 @@ try:
     current_seasons = [querier.current_season(league_id) for league_id in included_league_ids]
 
     for league_id, season in zip(included_league_ids, current_seasons):
-            try:
-                data = get_data(client=client, mode=MODE, save=True, config=updaters.MATCHES_CONFIG_FILE, filename_parameters=(league_id, season), endpoint_parameters=(league_id, season))
-            except FileNotFoundError:
-                 logging.log(ERROR_LOG_PATH, f'Matches data for season {season} is not available yet. Skipping this update')
-                 continue
+            data = get_data(client=client, mode=MODE, save=True, config=updaters.MATCHES_CONFIG_FILE, filename_parameters=(league_id, season), endpoint_parameters=(league_id, season))
             
             if MODE == 'API':
                  time.sleep(65. / client.get_rate_limit())
