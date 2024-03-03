@@ -1,9 +1,9 @@
 {
-    "endpoint": "/topscorers?league={}&season={}",
+    "endpoint": "/players/topscorers?league={}&season={}",
     "commands": {
         "select_command": "SELECT * FROM football.top_scorers WHERE league_id = %s AND season = %s;",
-        "insert_command": "INSERT INTO football.top_scorers (league_id, season, player_id, rank, played, goals, assists) VALUES (%s, %s, %s, %s, %s, %s, %s);",
-        "update_command": "UPDATE football.top_scorers SET {} WHERE league_id = %s AND season = %s AND player_id = %s;"
+        "insert_command": "INSERT INTO football.top_scorers (league_id, season, player_name, photo_link, team_id, rank, played, goals, assists) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);",
+        "update_command": "UPDATE football.top_scorers SET {} WHERE league_id = %s AND season = %s AND player_name = %s;"
     },
     "save_path":"data/topscorers/",
     "save_file": "{}/{}.json"

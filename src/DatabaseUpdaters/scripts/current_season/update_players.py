@@ -14,7 +14,7 @@ API_CONFIG_FILE = 'config/api_config.json'
 
 # 'API' for calling the API to save the data to defined path, and also updating the database
 # 'FILE' for reading the saved data from the file, and updating the database
-MODE = 'FILE'
+MODE = 'API'
 
 try:
     client = APIClient(API_CONFIG_FILE, updaters.PLAYERS_CONFIG_FILE)
@@ -24,11 +24,7 @@ try:
     team_ids = querier.get_teams()
 
     for team_id in team_ids:
-        try:
-            data = get_data(client=client, mode=MODE, save=True, config=updaters.PLAYERS_CONFIG_FILE, filename_parameters=(team_id, ), endpoint_parameters=(team_id, ))
-        except FileNotFoundError:
-            logging.log(ERROR_LOG_PATH, f'Players data for team {team_id} in the current season is not available yet. Skipping this update\n')
-            continue
+        data = get_data(client=client, mode=MODE, save=True, config=updaters.PLAYERS_CONFIG_FILE, filename_parameters=(team_id, ), endpoint_parameters=(team_id, ))
         
         if MODE == 'API':
                 time.sleep(65. / client.get_rate_limit())

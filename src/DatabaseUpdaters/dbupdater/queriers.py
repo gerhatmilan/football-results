@@ -1,7 +1,7 @@
 """ This module defines the base DatabaseQuerier class and custom query functions """
 
 from dbupdater.logging import logging
-from dbupdater.logging.logging import SUCCESS_LOG_PATH
+from dbupdater.logging.logging import SUCCESS_LOG_PATH, ERROR_LOG_PATH
 
 import os
 import psycopg2
@@ -24,7 +24,7 @@ class DatabaseQuerier():
 
         self._read_db_config(db_config_file)
         self._set_commands(cmd_config_file)
-        self._records = []
+        self._records = None
 
     def _read_db_config(self, path: str):
         """ Loads database parameters from the given configuration file """
@@ -73,7 +73,7 @@ class DatabaseQuerier():
     def get_records_from_db(self, command_parameters=()):
         """ Fetches the corresponding table from the database, and returns its records in an indexable format """
 
-        if not self._records:
+        if self._records is None:
             self._records = self.query(query=self._commands["select_command"], parameters=command_parameters, result_size='all', cursor_factory=extras.DictCursor)
 
         return self._records
@@ -81,7 +81,7 @@ class DatabaseQuerier():
     def get_values_for_column(self, column):
         """ Returns all values in the table for the given column """
 
-        if not self._records:
+        if self._records is None:
             self._records = self.get_records_from_db()
 
         return [record[column] for record in self._records]
@@ -89,7 +89,7 @@ class DatabaseQuerier():
     def get_all_ids(self) -> list[int]:
         """ Returns all ids in the table, if there is only one primary key """
 
-        if not self._records:
+        if self._records is None:
             self._records = self.get_records_from_db()
 
         return [record[0] for record in self._records]

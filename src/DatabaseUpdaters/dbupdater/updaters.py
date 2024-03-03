@@ -120,6 +120,10 @@ class CountriesUpdater(DatabaseUpdater):
     def update(self, data):
         """ Function for updating the countries table in the database, with the given data """
 
+        if data["response"] == []:
+            logging.log(SUCCESS_LOG_PATH, "No countries data to update\n")
+            return
+
         with self._connect() as conn:
             with conn.cursor() as cur:
                 self.__connection = conn
@@ -181,7 +185,7 @@ class SeasonsUpdater(DatabaseUpdater):
     def get_all_ids(self) -> list[tuple]:
         """ Returns all ids in the table """
 
-        if not self._records:
+        if self._records is None:
             self._records = self.get_records_from_db()
 
         return [(record["league_id"], record["season"]) for record in self._records]
@@ -236,6 +240,10 @@ class SeasonsUpdater(DatabaseUpdater):
     
     def update(self, data):
         """ Function for updating the available_seasons table in the database, with the given data """
+
+        if data["response"] == []:
+            logging.log(SUCCESS_LOG_PATH, "No seasons data to update\n")
+            return
 
         with self._connect() as conn:
             with conn.cursor() as cur:
@@ -350,6 +358,10 @@ class LeaguesUpdater(DatabaseUpdater):
     def update(self, data):
         """ Function for updating the leagues (and available_seasons) table in the database, with the given data """
 
+        if data["response"] == []:
+            logging.log(SUCCESS_LOG_PATH, "No leagues data to update\n")
+            return
+
         # Update leagues table first
         with self._connect() as conn:
             with conn.cursor() as cur:
@@ -461,6 +473,10 @@ class VenuesUpdater(DatabaseUpdater):
     def update(self, data):
         """ Function for updating the venues table in the database, with the given data """
 
+        if data["response"] == []:
+            logging.log(SUCCESS_LOG_PATH, "No venues data to update\n")
+            return
+        
         with self._connect() as conn:
             with conn.cursor() as cur:
                 self._connection = conn
@@ -502,6 +518,10 @@ class VenuesUpdaterForMatches(VenuesUpdater):
 
     def update(self, data):
         """ Function for updating the venues table in the database, with the given data """
+
+        if data["response"] == []:
+            logging.log(SUCCESS_LOG_PATH, "No matches data to update\n")
+            return
 
         with self._connect() as conn:
             with conn.cursor() as cur:
@@ -609,6 +629,10 @@ class TeamsUpdater(DatabaseUpdater):
     def update(self, data):
         """ Function for updating the teams (and venues) table in the database, with the given data """
 
+        if data["response"] == []:
+            logging.log(SUCCESS_LOG_PATH, "No teams data to update\n")
+            return
+
         # Update venue table first
         venues_updater = VenuesUpdater(self._db_config_file, VENUES_CONFIG_FILE)
         venues_updater.update(data)
@@ -686,7 +710,7 @@ class StandingsUpdater(DatabaseUpdater):
     def get_all_ids(self) -> list[tuple]:
         """ Returns all ids in the table """
 
-        if not self._records:
+        if self._records is None:
             self._records = self.get_records_from_db()
 
         return [(record["league_id"], record["season"], record["team_id"]) for record in self._records]
@@ -746,6 +770,11 @@ class StandingsUpdater(DatabaseUpdater):
     
     def update(self, data):
         """ Function for updating the standings table in the database, with the given data """
+        
+        if data["response"] == []:
+            logging.log(SUCCESS_LOG_PATH, "No standings data to update\n")
+            return
+        
         with self._connect() as conn:
             with conn.cursor() as cur:
                 self.__connection = conn
@@ -788,7 +817,9 @@ class TopScorersUpdater(DatabaseUpdater):
             fields = {
                 'league_id': statistics_data["league"]["id"],
                 'season': statistics_data["league"]["season"],
-                'player_id': player_data["id"],
+                'player_name': player_data["name"],
+                'photo_link': player_data["photo"],
+                'team_id': statistics_data["team"]["id"],
                 'rank': idx + 1,
                 'played': statistics_data["games"]["appearences"],
                 'goals': statistics_data["goals"]["total"],
@@ -803,11 +834,11 @@ class TopScorersUpdater(DatabaseUpdater):
 
         Returns the columns for the given ID record.
         The ID must be unique in the table.
-        The ID must be in (league_id, season, player_id) format.
+        The ID must be in (league_id, season, player_name) format.
         
         """
 
-        records_list = [record for record in self.get_records_from_db() if (record['league_id'], record['season'], record['player_id']) == id]
+        records_list = [record for record in self.get_records_from_db() if (record['league_id'], record['season'], record['player_name']) == id]
         if len(records_list) > 1:
             logging.log(ERROR_LOG_PATH, f'Error: there are more than one records in top_scorers table for id {id}')
         else:
@@ -816,10 +847,10 @@ class TopScorersUpdater(DatabaseUpdater):
     def get_all_ids(self) -> list[tuple]:
         """ Returns all ids in the table """
 
-        if not self._records:
+        if self._records is None:
             self._records = self.get_records_from_db()
 
-        return [(record["league_id"], record["season"], record["player_id"]) for record in self._records]
+        return [(record["league_id"], record["season"], record["player_name"]) for record in self._records]
 
     def insert_record(self, record):
         """ Inserts a record to the database """
@@ -837,7 +868,7 @@ class TopScorersUpdater(DatabaseUpdater):
     def update_record(self, new_record):
         """ Tries to update the already existing record in the database """
 
-        id = (new_record['league_id'], new_record['season'], new_record['player_id'])
+        id = (new_record['league_id'], new_record['season'], new_record['player_name'])
         old_record = self.get_record_for_id(id)
 
         diff_list = [(f"{column} = %s", new_record[column], old_record[column], column) for column in new_record.keys() if new_record[column] != old_record[column]]       
@@ -871,6 +902,11 @@ class TopScorersUpdater(DatabaseUpdater):
     
     def update(self, data):
         """ Function for updating the top scorers table in the database, with the given data """
+        
+        if data["response"] == []:
+            logging.log(SUCCESS_LOG_PATH, "No top scorer data to update\n")
+            return
+        
         with self._connect() as conn:
             with conn.cursor() as cur:
                 self.__connection = conn
@@ -887,7 +923,7 @@ class TopScorersUpdater(DatabaseUpdater):
                 existing_ids = self.get_all_ids()
 
                 for record in records_to_insert:
-                    id = (record["league_id"], record['season'], record["player_id"])
+                    id = (record["league_id"], record['season'], record["player_name"])
                     if id not in existing_ids:
                         self.insert_record(record)
                     else:
@@ -941,7 +977,7 @@ class PlayersUpdater(DatabaseUpdater):
     def get_all_ids(self) -> list[tuple]:
         """ Returns all ids in the table """
 
-        if not self._records:
+        if self._records is None:
             self._records = self.get_records_from_db()
 
         return [(record["player_id"], record["team_id"]) for record in self._records]
@@ -996,6 +1032,11 @@ class PlayersUpdater(DatabaseUpdater):
     
     def update(self, data):
         """ Function for updating the players table in the database, with the given data """
+        
+        if data["response"] == []:
+            logging.log(SUCCESS_LOG_PATH, "No players to update\n")
+            return
+        
         with self._connect() as conn:
             with conn.cursor() as cur:
                 self.__connection = conn
@@ -1116,6 +1157,10 @@ class MatchesUpdater(DatabaseUpdater):
     
     def update(self, data):
         """ Function for updating the matches (and venues) table in the database, with the given data """
+
+        if data["response"] == []:
+            logging.log(SUCCESS_LOG_PATH, "No matches data to update\n")
+            return
 
         # Update venue table first
         venues_updater = VenuesUpdaterForMatches(self._db_config_file, VENUES_CONFIG_FILE)

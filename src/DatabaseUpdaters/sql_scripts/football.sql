@@ -101,14 +101,16 @@ CREATE TABLE "football"."players" (
 CREATE TABLE "football"."top_scorers" (
   "league_id" integer,
   "season" integer,
-  "player_id" integer,
+  "player_name" varchar,
+  "photo_link" varchar,
+  "team_id" integer NOT NULL,
   "rank" integer NOT NULL,
-  "played" integer NOT NULL,
+  "played" integer,
   "goals" integer NOT NULL,
-  "assists" integer NOT NULL,
+  "assists" integer,
   "last_update" timestamp DEFAULT CURRENT_TIMESTAMP,
   
-  PRIMARY KEY ("league_id", "season", "player_id"),
+  PRIMARY KEY ("league_id", "season", "player_name"),
   
   FOREIGN KEY ("league_id", "season")
     REFERENCES "football"."available_seasons" ("league_id", "season")
