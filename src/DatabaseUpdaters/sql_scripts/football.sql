@@ -159,7 +159,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER before_new_standings_trigger
+CREATE OR REPLACE TRIGGER before_new_standings_trigger
 BEFORE INSERT OR UPDATE ON "football"."standings"
 FOR EACH ROW EXECUTE FUNCTION "football".drop_if_qualification();
 
@@ -203,6 +203,29 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR TRIGGER before_insert_or_update_on_teams
+CREATE OR REPLACE TRIGGER before_insert_or_update_on_teams
 BEFORE INSERT OR UPDATE ON "football"."teams"
 FOR EACH ROW EXECUTE FUNCTION "football".create_short_name_if_null();
+
+
+-- triggers for updating the last_update fields of tables
+
+CREATE OR REPLACE FUNCTION football.refresh_last_update_field()
+RETURNS TRIGGER AS $$
+BEGIN
+	NEW.last_update := now();
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER after_update_on_matches
+AFTER UPDATE ON "football"."matches"
+FOR EACH ROW EXECUTE FUNCTION "football".refresh_last_update_field();
+
+CREATE OR REPLACE TRIGGER after_update_on_standings
+AFTER UPDATE ON "football"."standings"
+FOR EACH ROW EXECUTE FUNCTION "football".refresh_last_update_field();
+
+CREATE OR REPLACE TRIGGER after_update_on_top_scorers
+AFTER UPDATE ON "football"."top_scorers"
+FOR EACH ROW EXECUTE FUNCTION "football".refresh_last_update_field();
