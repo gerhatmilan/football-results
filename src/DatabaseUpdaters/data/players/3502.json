@@ -1,0 +1,199 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "3502"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 3502,
+                "name": "Saburtalo",
+                "logo": "https://media.api-sports.io/football/teams/3502.png"
+            },
+            "players": [
+                {
+                    "id": 381254,
+                    "name": "S. Botchorishvili",
+                    "age": null,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/381254.png"
+                },
+                {
+                    "id": 106885,
+                    "name": "L. Kupatadze",
+                    "age": 27,
+                    "number": 13,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/106885.png"
+                },
+                {
+                    "id": 307333,
+                    "name": "R. Kurtanidze",
+                    "age": 18,
+                    "number": 32,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/307333.png"
+                },
+                {
+                    "id": 276605,
+                    "name": "D. Agyakwa",
+                    "age": 22,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/276605.png"
+                },
+                {
+                    "id": 392652,
+                    "name": "Aleksandre Gaprindashvili",
+                    "age": 19,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/392652.png"
+                },
+                {
+                    "id": 423227,
+                    "name": "G. Gogsadze",
+                    "age": 16,
+                    "number": 10,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/423227.png"
+                },
+                {
+                    "id": 24404,
+                    "name": "G. Jgerenaia",
+                    "age": 30,
+                    "number": 4,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/24404.png"
+                },
+                {
+                    "id": 24762,
+                    "name": "T. Kapanadze",
+                    "age": 22,
+                    "number": 20,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/24762.png"
+                },
+                {
+                    "id": 24749,
+                    "name": "I. Komakhidze",
+                    "age": 26,
+                    "number": 15,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/24749.png"
+                },
+                {
+                    "id": 311243,
+                    "name": "S. Mamatsashvili",
+                    "age": 21,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/311243.png"
+                },
+                {
+                    "id": 342478,
+                    "name": "A. Narimanidze",
+                    "age": 18,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/342478.png"
+                },
+                {
+                    "id": 395822,
+                    "name": "G. Nikolaishvili",
+                    "age": null,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/395822.png"
+                },
+                {
+                    "id": 342459,
+                    "name": "G. Tabatadze",
+                    "age": 18,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/342459.png"
+                },
+                {
+                    "id": 410304,
+                    "name": "N. Dadiani",
+                    "age": 19,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/410304.png"
+                },
+                {
+                    "id": 24333,
+                    "name": "Giorgi Kakulia",
+                    "age": 20,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/24333.png"
+                },
+                {
+                    "id": 24609,
+                    "name": "B. Kardava",
+                    "age": 29,
+                    "number": 8,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/24609.png"
+                },
+                {
+                    "id": 342456,
+                    "name": "G. Khachidze",
+                    "age": null,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/342456.png"
+                },
+                {
+                    "id": 273295,
+                    "name": "G. Mamageishvili",
+                    "age": 20,
+                    "number": 17,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/273295.png"
+                },
+                {
+                    "id": 163515,
+                    "name": "S. Nonikashvili",
+                    "age": 22,
+                    "number": 6,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/163515.png"
+                },
+                {
+                    "id": 24568,
+                    "name": "G. Kokhreidze",
+                    "age": 25,
+                    "number": 12,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/24568.png"
+                },
+                {
+                    "id": 24758,
+                    "name": "I. Sikharulidze",
+                    "age": 33,
+                    "number": 18,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/24758.png"
+                },
+                {
+                    "id": 265603,
+                    "name": "C. Sylla",
+                    "age": 23,
+                    "number": 29,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/265603.png"
+                }
+            ]
+        }
+    ]
+}

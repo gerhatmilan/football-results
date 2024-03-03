@@ -1,0 +1,279 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "2596"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 2596,
+                "name": "Farul Constanta",
+                "logo": "https://media.api-sports.io/football/teams/2596.png"
+            },
+            "players": [
+                {
+                    "id": 43067,
+                    "name": "A. Buzbuchi",
+                    "age": 30,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/43067.png"
+                },
+                {
+                    "id": 342282,
+                    "name": "V. R\u0103f\u0103il\u0103",
+                    "age": 18,
+                    "number": 12,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/342282.png"
+                },
+                {
+                    "id": 162340,
+                    "name": "\u0218. Mu\u0219at",
+                    "age": 22,
+                    "number": 34,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/162340.png"
+                },
+                {
+                    "id": 396210,
+                    "name": "R. Munteanu",
+                    "age": 17,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/396210.png"
+                },
+                {
+                    "id": 45006,
+                    "name": "M. Popescu",
+                    "age": 30,
+                    "number": 3,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/45006.png"
+                },
+                {
+                    "id": 41723,
+                    "name": "Diogo Queir\u00f3s",
+                    "age": 24,
+                    "number": 5,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/41723.png"
+                },
+                {
+                    "id": 47126,
+                    "name": "C. Ganea",
+                    "age": 31,
+                    "number": 11,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/47126.png"
+                },
+                {
+                    "id": 264078,
+                    "name": "G. D\u0103nuleas\u0103",
+                    "age": 20,
+                    "number": 15,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/264078.png"
+                },
+                {
+                    "id": 43157,
+                    "name": "I. Larie",
+                    "age": 36,
+                    "number": 17,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/43157.png"
+                },
+                {
+                    "id": 42982,
+                    "name": "K. Boli",
+                    "age": 32,
+                    "number": 21,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/42982.png"
+                },
+                {
+                    "id": 301222,
+                    "name": "D. S\u00eerbu",
+                    "age": 20,
+                    "number": 22,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/301222.png"
+                },
+                {
+                    "id": 3380,
+                    "name": "D. Kiki",
+                    "age": 30,
+                    "number": 25,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/3380.png"
+                },
+                {
+                    "id": 302946,
+                    "name": "Gustavo Marins",
+                    "age": 21,
+                    "number": 45,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/302946.png"
+                },
+                {
+                    "id": 43075,
+                    "name": "D. Grosu",
+                    "age": 21,
+                    "number": 66,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/43075.png"
+                },
+                {
+                    "id": 43179,
+                    "name": "D. Dussaut",
+                    "age": 29,
+                    "number": 99,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/43179.png"
+                },
+                {
+                    "id": 43071,
+                    "name": "T. B\u0103lu\u021b\u0103",
+                    "age": 24,
+                    "number": 6,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/43071.png"
+                },
+                {
+                    "id": 43097,
+                    "name": "I. V\u00een\u0103",
+                    "age": 28,
+                    "number": 8,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/43097.png"
+                },
+                {
+                    "id": 44383,
+                    "name": "C. Budescu",
+                    "age": 34,
+                    "number": 10,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/44383.png"
+                },
+                {
+                    "id": 43025,
+                    "name": "D. Nedelcu",
+                    "age": 26,
+                    "number": 16,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/43025.png"
+                },
+                {
+                    "id": 8752,
+                    "name": "A. Benchaib",
+                    "age": 25,
+                    "number": 20,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/8752.png"
+                },
+                {
+                    "id": 161731,
+                    "name": "C. Grameni",
+                    "age": 21,
+                    "number": 24,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/161731.png"
+                },
+                {
+                    "id": 14368,
+                    "name": "R. Deaconu",
+                    "age": 26,
+                    "number": 77,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/14368.png"
+                },
+                {
+                    "id": 133113,
+                    "name": "N. Popescu",
+                    "age": 20,
+                    "number": 80,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/133113.png"
+                },
+                {
+                    "id": 342193,
+                    "name": "L. Banu",
+                    "age": 18,
+                    "number": 88,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/342193.png"
+                },
+                {
+                    "id": 43081,
+                    "name": "C. Casap",
+                    "age": 25,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/43081.png"
+                },
+                {
+                    "id": 43093,
+                    "name": "Rivaldinho",
+                    "age": 28,
+                    "number": 7,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/43093.png"
+                },
+                {
+                    "id": 43096,
+                    "name": "L. Munteanu",
+                    "age": 21,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/43096.png"
+                },
+                {
+                    "id": 268122,
+                    "name": "L. Andronache",
+                    "age": 20,
+                    "number": 19,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/268122.png"
+                },
+                {
+                    "id": 381697,
+                    "name": "I. Cojocaru",
+                    "age": 20,
+                    "number": 27,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/381697.png"
+                },
+                {
+                    "id": 445966,
+                    "name": "Iustin Doicaru",
+                    "age": 17,
+                    "number": 28,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/445966.png"
+                },
+                {
+                    "id": 65393,
+                    "name": "N. Grigoryan",
+                    "age": 22,
+                    "number": 30,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/65393.png"
+                },
+                {
+                    "id": 396389,
+                    "name": "A. Stoian",
+                    "age": 16,
+                    "number": 90,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/396389.png"
+                }
+            ]
+        }
+    ]
+}

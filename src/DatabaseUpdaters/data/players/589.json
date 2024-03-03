@@ -1,0 +1,215 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "589"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 589,
+                "name": "Spartaks Jurmala",
+                "logo": "https://media.api-sports.io/football/teams/589.png"
+            },
+            "players": [
+                {
+                    "id": 359755,
+                    "name": "K. Maculevi\u010ds",
+                    "age": 19,
+                    "number": 12,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/359755.png"
+                },
+                {
+                    "id": 130424,
+                    "name": "I\u013cja Isajevs",
+                    "age": 23,
+                    "number": 21,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/130424.png"
+                },
+                {
+                    "id": 72540,
+                    "name": "D\u0101vis O\u0161s",
+                    "age": 29,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/72540.png"
+                },
+                {
+                    "id": 72411,
+                    "name": "K. Kram\u0113ns",
+                    "age": 23,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/72411.png"
+                },
+                {
+                    "id": 359756,
+                    "name": "Timurs Azarovs",
+                    "age": 17,
+                    "number": 3,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/359756.png"
+                },
+                {
+                    "id": 72451,
+                    "name": "A. \u013bot\u010dikovs",
+                    "age": 23,
+                    "number": 22,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/72451.png"
+                },
+                {
+                    "id": 70352,
+                    "name": "Aleksandrs Solovjovs",
+                    "age": 35,
+                    "number": 29,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/70352.png"
+                },
+                {
+                    "id": 215803,
+                    "name": "D. Me\u013c\u0146iks",
+                    "age": 21,
+                    "number": 4,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/215803.png"
+                },
+                {
+                    "id": 326046,
+                    "name": "D. Patij\u010duks",
+                    "age": 20,
+                    "number": 5,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/326046.png"
+                },
+                {
+                    "id": 72430,
+                    "name": "Vladislavs Solovei\u010diks",
+                    "age": 24,
+                    "number": 8,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/72430.png"
+                },
+                {
+                    "id": 387361,
+                    "name": "A. Markhiev",
+                    "age": 21,
+                    "number": 13,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/387361.png"
+                },
+                {
+                    "id": 359486,
+                    "name": "K. Godi\u0146\u0161",
+                    "age": 19,
+                    "number": 18,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/359486.png"
+                },
+                {
+                    "id": 72591,
+                    "name": "Da\u0146iils Hvoi\u0146ickis",
+                    "age": 25,
+                    "number": 32,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/72591.png"
+                },
+                {
+                    "id": 175384,
+                    "name": "Y. Terekhov",
+                    "age": 24,
+                    "number": 33,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/175384.png"
+                },
+                {
+                    "id": 282395,
+                    "name": "D. Rogovs",
+                    "age": 20,
+                    "number": 34,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/282395.png"
+                },
+                {
+                    "id": 55341,
+                    "name": "S. Eremenko",
+                    "age": 24,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/55341.png"
+                },
+                {
+                    "id": 307630,
+                    "name": "L. Igbineweka",
+                    "age": 21,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/307630.png"
+                },
+                {
+                    "id": 296700,
+                    "name": "A. Ogunniyi",
+                    "age": 22,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/296700.png"
+                },
+                {
+                    "id": 359758,
+                    "name": "Valters Zandreiters",
+                    "age": 18,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/359758.png"
+                },
+                {
+                    "id": 266632,
+                    "name": "Kwadwo  Asamoah",
+                    "age": 21,
+                    "number": 7,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/266632.png"
+                },
+                {
+                    "id": 282186,
+                    "name": "L\u00e9o Ga\u00facho",
+                    "age": 22,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/282186.png"
+                },
+                {
+                    "id": 326061,
+                    "name": "Artjoms Zamullo",
+                    "age": 21,
+                    "number": 17,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/326061.png"
+                },
+                {
+                    "id": 191183,
+                    "name": "Heythem Kerbache",
+                    "age": 23,
+                    "number": 38,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/191183.png"
+                },
+                {
+                    "id": 98505,
+                    "name": "Okosi Edhere",
+                    "age": 25,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/98505.png"
+                }
+            ]
+        }
+    ]
+}

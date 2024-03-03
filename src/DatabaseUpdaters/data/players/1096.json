@@ -1,0 +1,239 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "1096"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 1096,
+                "name": "Azerbaijan",
+                "logo": "https://media.api-sports.io/football/teams/1096.png"
+            },
+            "players": [
+                {
+                    "id": 280475,
+                    "name": "Y. \u0130manov",
+                    "age": 21,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/280475.png"
+                },
+                {
+                    "id": 1532,
+                    "name": "\u015e. M\u0259h\u0259mm\u0259d\u0259liyev",
+                    "age": 29,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/1532.png"
+                },
+                {
+                    "id": 105922,
+                    "name": "R. \u018fzizli",
+                    "age": 29,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/105922.png"
+                },
+                {
+                    "id": 123418,
+                    "name": "S. Abdullazad\u0259",
+                    "age": 22,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/123418.png"
+                },
+                {
+                    "id": 1542,
+                    "name": "T. Bayramov",
+                    "age": 22,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/1542.png"
+                },
+                {
+                    "id": 124613,
+                    "name": "E. C\u0259f\u0259rquliyev",
+                    "age": 23,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/124613.png"
+                },
+                {
+                    "id": 29981,
+                    "name": "H. Haqqverdi",
+                    "age": 30,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/29981.png"
+                },
+                {
+                    "id": 134060,
+                    "name": "C. H\u00fcseynov",
+                    "age": 20,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/134060.png"
+                },
+                {
+                    "id": 55958,
+                    "name": "A. Krivotsyuk",
+                    "age": 25,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/55958.png"
+                },
+                {
+                    "id": 70389,
+                    "name": "B. Mustafazad\u0259",
+                    "age": 26,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/70389.png"
+                },
+                {
+                    "id": 1537,
+                    "name": "R. M\u0259mm\u0259dov",
+                    "age": 28,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/1537.png"
+                },
+                {
+                    "id": 123358,
+                    "name": "A. Seydiyev",
+                    "age": 25,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/123358.png"
+                },
+                {
+                    "id": 105969,
+                    "name": "Q. Al\u0131yev",
+                    "age": 27,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/105969.png"
+                },
+                {
+                    "id": 105968,
+                    "name": "E. Camalov",
+                    "age": 28,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/105968.png"
+                },
+                {
+                    "id": 105482,
+                    "name": "C. Diniyev",
+                    "age": 28,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/105482.png"
+                },
+                {
+                    "id": 55960,
+                    "name": "A. Isaev",
+                    "age": 28,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/55960.png"
+                },
+                {
+                    "id": 55961,
+                    "name": "E. Mahmudov",
+                    "age": 31,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/55961.png"
+                },
+                {
+                    "id": 119073,
+                    "name": "T. Manafov",
+                    "age": 25,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/119073.png"
+                },
+                {
+                    "id": 46952,
+                    "name": "E. \u0130srafilov",
+                    "age": 31,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/46952.png"
+                },
+                {
+                    "id": 375811,
+                    "name": "N. Axundzad\u0259",
+                    "age": 19,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/375811.png"
+                },
+                {
+                    "id": 41625,
+                    "name": "R. Dadashov",
+                    "age": 24,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/41625.png"
+                },
+                {
+                    "id": 1556,
+                    "name": "M. Emreli",
+                    "age": 26,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/1556.png"
+                },
+                {
+                    "id": 62262,
+                    "name": "O. K\u00f6k\u00e7\u00fc",
+                    "age": 25,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/62262.png"
+                },
+                {
+                    "id": 134058,
+                    "name": "M. Qurbanl\u0131",
+                    "age": 21,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/134058.png"
+                },
+                {
+                    "id": 53693,
+                    "name": "R. \u015eeydayev",
+                    "age": 27,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/53693.png"
+                },
+                {
+                    "id": 161714,
+                    "name": "E. S\u0259f\u0259rov",
+                    "age": 21,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/161714.png"
+                },
+                {
+                    "id": 202123,
+                    "name": "R. \u018fhm\u0259dzad\u0259",
+                    "age": 23,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/202123.png"
+                }
+            ]
+        }
+    ]
+}

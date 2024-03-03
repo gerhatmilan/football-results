@@ -1,0 +1,319 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "533"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 533,
+                "name": "Villarreal",
+                "logo": "https://media.api-sports.io/football/teams/533.png"
+            },
+            "players": [
+                {
+                    "id": 1624,
+                    "name": "Pepe Reina",
+                    "age": 41,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/1624.png"
+                },
+                {
+                    "id": 286616,
+                    "name": "F. J\u00f6rgensen",
+                    "age": 21,
+                    "number": 13,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/286616.png"
+                },
+                {
+                    "id": 169256,
+                    "name": "Iker \u00c1lvarez",
+                    "age": 22,
+                    "number": 31,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/169256.png"
+                },
+                {
+                    "id": 47529,
+                    "name": "Miguel \u00c1ngel Morro",
+                    "age": 23,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/47529.png"
+                },
+                {
+                    "id": 195717,
+                    "name": "Y. Mosquera",
+                    "age": 22,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/195717.png"
+                },
+                {
+                    "id": 314,
+                    "name": "Ra\u00fal Albiol",
+                    "age": 38,
+                    "number": 3,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/314.png"
+                },
+                {
+                    "id": 131,
+                    "name": "Jorge Cuenca",
+                    "age": 24,
+                    "number": 5,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/131.png"
+                },
+                {
+                    "id": 166,
+                    "name": "J. Foyth",
+                    "age": 25,
+                    "number": 8,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/166.png"
+                },
+                {
+                    "id": 885,
+                    "name": "E. Bailly",
+                    "age": 29,
+                    "number": 12,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/885.png"
+                },
+                {
+                    "id": 18794,
+                    "name": "Kiko Femen\u00eda",
+                    "age": 32,
+                    "number": 17,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/18794.png"
+                },
+                {
+                    "id": 288,
+                    "name": "Alberto Moreno",
+                    "age": 31,
+                    "number": 18,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/288.png"
+                },
+                {
+                    "id": 1567,
+                    "name": "A. Mandi",
+                    "age": 32,
+                    "number": 23,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/1567.png"
+                },
+                {
+                    "id": 162122,
+                    "name": "Adri\u00e0 Alti",
+                    "age": 22,
+                    "number": 26,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/162122.png"
+                },
+                {
+                    "id": 188571,
+                    "name": "Abraham del Moral",
+                    "age": 22,
+                    "number": 29,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/188571.png"
+                },
+                {
+                    "id": 184420,
+                    "name": "Carlos Romero",
+                    "age": 22,
+                    "number": 37,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/184420.png"
+                },
+                {
+                    "id": 340726,
+                    "name": "S. Lekovi\u0107",
+                    "age": 19,
+                    "number": 42,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/340726.png"
+                },
+                {
+                    "id": 336637,
+                    "name": "Espigares",
+                    "age": 19,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/336637.png"
+                },
+                {
+                    "id": 47541,
+                    "name": "Santi Comesa\u00f1a",
+                    "age": 27,
+                    "number": 4,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/47541.png"
+                },
+                {
+                    "id": 18802,
+                    "name": "\u00c9. Capoue",
+                    "age": 35,
+                    "number": 6,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/18802.png"
+                },
+                {
+                    "id": 928,
+                    "name": "Dani Parejo",
+                    "age": 34,
+                    "number": 10,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/928.png"
+                },
+                {
+                    "id": 1705,
+                    "name": "Manu Trigueros",
+                    "age": 32,
+                    "number": 14,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/1705.png"
+                },
+                {
+                    "id": 182219,
+                    "name": "\u00c1lex Baena",
+                    "age": 22,
+                    "number": 16,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/182219.png"
+                },
+                {
+                    "id": 924,
+                    "name": "F. Coquelin",
+                    "age": 32,
+                    "number": 19,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/924.png"
+                },
+                {
+                    "id": 187987,
+                    "name": "Ram\u00f3n Terrats",
+                    "age": 23,
+                    "number": 20,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/187987.png"
+                },
+                {
+                    "id": 184226,
+                    "name": "Yeremy Pino",
+                    "age": 21,
+                    "number": 21,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/184226.png"
+                },
+                {
+                    "id": 1461,
+                    "name": "Denis Su\u00e1rez",
+                    "age": 29,
+                    "number": 22,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/1461.png"
+                },
+                {
+                    "id": 1702,
+                    "name": "Pedraza",
+                    "age": 27,
+                    "number": 24,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/1702.png"
+                },
+                {
+                    "id": 671,
+                    "name": "B. Traor\u00e9",
+                    "age": 28,
+                    "number": 25,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/671.png"
+                },
+                {
+                    "id": 391131,
+                    "name": "Reque",
+                    "age": 19,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/391131.png"
+                },
+                {
+                    "id": 1707,
+                    "name": "Gerard Moreno",
+                    "age": 31,
+                    "number": 7,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/1707.png"
+                },
+                {
+                    "id": 925,
+                    "name": "Gon\u00e7alo Guedes",
+                    "age": 27,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/925.png"
+                },
+                {
+                    "id": 8492,
+                    "name": "A. S\u00f8rloth",
+                    "age": 28,
+                    "number": 11,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/8492.png"
+                },
+                {
+                    "id": 47467,
+                    "name": "Jos\u00e9 Luis Morales",
+                    "age": 36,
+                    "number": 15,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/47467.png"
+                },
+                {
+                    "id": 290740,
+                    "name": "Ilias Akhomach",
+                    "age": 19,
+                    "number": 27,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/290740.png"
+                },
+                {
+                    "id": 290482,
+                    "name": "Jorge Pascual",
+                    "age": 20,
+                    "number": 30,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/290482.png"
+                },
+                {
+                    "id": 182685,
+                    "name": "Diego Collado",
+                    "age": 22,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/182685.png"
+                },
+                {
+                    "id": 184194,
+                    "name": "\u00c1lex For\u00e9s",
+                    "age": 22,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/184194.png"
+                }
+            ]
+        }
+    ]
+}

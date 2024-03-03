@@ -1,0 +1,231 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "3342"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 3342,
+                "name": "Inter Club d'Escaldes",
+                "logo": "https://media.api-sports.io/football/teams/3342.png"
+            },
+            "players": [
+                {
+                    "id": 169266,
+                    "name": "Ion Rodr\u00edguez",
+                    "age": 22,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/169266.png"
+                },
+                {
+                    "id": 5102,
+                    "name": "Jes\u00fas Coca",
+                    "age": 34,
+                    "number": 13,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/5102.png"
+                },
+                {
+                    "id": 86213,
+                    "name": "Adri Mu\u00f1oz",
+                    "age": 29,
+                    "number": 30,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/86213.png"
+                },
+                {
+                    "id": 455808,
+                    "name": "Pacho",
+                    "age": null,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/455808.png"
+                },
+                {
+                    "id": 179214,
+                    "name": "Iv\u00e1n Alonso",
+                    "age": 24,
+                    "number": 3,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/179214.png"
+                },
+                {
+                    "id": 123008,
+                    "name": "R. Feher",
+                    "age": 26,
+                    "number": 12,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/123008.png"
+                },
+                {
+                    "id": 122786,
+                    "name": "Javi Duro",
+                    "age": 29,
+                    "number": 14,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/122786.png"
+                },
+                {
+                    "id": 5133,
+                    "name": "Chus Rubio",
+                    "age": 29,
+                    "number": 22,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/5133.png"
+                },
+                {
+                    "id": 187357,
+                    "name": "Eric Ruiz",
+                    "age": 24,
+                    "number": 25,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/187357.png"
+                },
+                {
+                    "id": 179222,
+                    "name": "Chete",
+                    "age": 28,
+                    "number": 48,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/179222.png"
+                },
+                {
+                    "id": 104459,
+                    "name": "Adri\u00e0 Gallego",
+                    "age": 33,
+                    "number": 49,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/104459.png"
+                },
+                {
+                    "id": 278592,
+                    "name": "Josep Foix",
+                    "age": 27,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/278592.png"
+                },
+                {
+                    "id": 125403,
+                    "name": "Marc Caball\u00e9",
+                    "age": 32,
+                    "number": 6,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/125403.png"
+                },
+                {
+                    "id": 177301,
+                    "name": "Joanet L\u00f3pez",
+                    "age": 24,
+                    "number": 15,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/177301.png"
+                },
+                {
+                    "id": 47231,
+                    "name": "Viti Mart\u00ednez",
+                    "age": 26,
+                    "number": 19,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/47231.png"
+                },
+                {
+                    "id": 115296,
+                    "name": "Mart\u00ed Riverola",
+                    "age": 32,
+                    "number": 20,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/115296.png"
+                },
+                {
+                    "id": 182548,
+                    "name": "Ander El Haddadi",
+                    "age": 26,
+                    "number": 21,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/182548.png"
+                },
+                {
+                    "id": 207238,
+                    "name": "Jordi Roca",
+                    "age": 34,
+                    "number": 23,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/207238.png"
+                },
+                {
+                    "id": 183920,
+                    "name": "\u00c1ngel P\u00e9rez",
+                    "age": 29,
+                    "number": 7,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/183920.png"
+                },
+                {
+                    "id": 26721,
+                    "name": "J. Assoubre",
+                    "age": 31,
+                    "number": 8,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/26721.png"
+                },
+                {
+                    "id": 181662,
+                    "name": "Sascha",
+                    "age": 37,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/181662.png"
+                },
+                {
+                    "id": 183974,
+                    "name": "Domi Berlanga",
+                    "age": 28,
+                    "number": 11,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/183974.png"
+                },
+                {
+                    "id": 442854,
+                    "name": "A. Figueiredo",
+                    "age": 17,
+                    "number": 17,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/442854.png"
+                },
+                {
+                    "id": 59005,
+                    "name": "A. Arga\u00f1araz",
+                    "age": 25,
+                    "number": 28,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/59005.png"
+                },
+                {
+                    "id": 426742,
+                    "name": "L. de la Torre",
+                    "age": 32,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/426742.png"
+                },
+                {
+                    "id": 104918,
+                    "name": "Kilian Grant",
+                    "age": 29,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/104918.png"
+                }
+            ]
+        }
+    ]
+}

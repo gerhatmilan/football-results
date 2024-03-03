@@ -1,0 +1,223 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "1419"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 1419,
+                "name": "Litex",
+                "logo": "https://media.api-sports.io/football/teams/1419.png"
+            },
+            "players": [
+                {
+                    "id": 315739,
+                    "name": "A. Bozhev",
+                    "age": 18,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/315739.png"
+                },
+                {
+                    "id": 10718,
+                    "name": "S. Simeonov",
+                    "age": 24,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/10718.png"
+                },
+                {
+                    "id": 325753,
+                    "name": "Marko Andi\u0107",
+                    "age": 19,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/325753.png"
+                },
+                {
+                    "id": 10695,
+                    "name": "I. Ivanov",
+                    "age": 34,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/10695.png"
+                },
+                {
+                    "id": 10722,
+                    "name": "M. Minkov",
+                    "age": 30,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/10722.png"
+                },
+                {
+                    "id": 295247,
+                    "name": "D. \u010cubra",
+                    "age": null,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/295247.png"
+                },
+                {
+                    "id": 10726,
+                    "name": "I. Penev",
+                    "age": 30,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/10726.png"
+                },
+                {
+                    "id": 391353,
+                    "name": "Vasil Vasilev",
+                    "age": 24,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/391353.png"
+                },
+                {
+                    "id": 201894,
+                    "name": "A. Angelov",
+                    "age": 21,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/201894.png"
+                },
+                {
+                    "id": 445243,
+                    "name": "G. Ganchev",
+                    "age": null,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/445243.png"
+                },
+                {
+                    "id": 304454,
+                    "name": "A. Buchkov",
+                    "age": 20,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/304454.png"
+                },
+                {
+                    "id": 201042,
+                    "name": "B. Mitrevski",
+                    "age": 22,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/201042.png"
+                },
+                {
+                    "id": 342300,
+                    "name": "R. Marinov",
+                    "age": 18,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/342300.png"
+                },
+                {
+                    "id": 10615,
+                    "name": "G. Tashev",
+                    "age": 26,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/10615.png"
+                },
+                {
+                    "id": 395430,
+                    "name": "S. Abdulganiyu",
+                    "age": 19,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/395430.png"
+                },
+                {
+                    "id": 357881,
+                    "name": "Y. Lozanov",
+                    "age": null,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/357881.png"
+                },
+                {
+                    "id": 10703,
+                    "name": "I. Kapitanov",
+                    "age": 31,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/10703.png"
+                },
+                {
+                    "id": 10683,
+                    "name": "Viktor Vasilev",
+                    "age": 24,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/10683.png"
+                },
+                {
+                    "id": 391356,
+                    "name": "G. Staykov",
+                    "age": 24,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/391356.png"
+                },
+                {
+                    "id": 203230,
+                    "name": "D. Salihovic",
+                    "age": 22,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/203230.png"
+                },
+                {
+                    "id": 10916,
+                    "name": "E. Ignatov",
+                    "age": 35,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/10916.png"
+                },
+                {
+                    "id": 395431,
+                    "name": "K. Buchi",
+                    "age": 20,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/395431.png"
+                },
+                {
+                    "id": 442449,
+                    "name": "M. Yankov",
+                    "age": null,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/442449.png"
+                },
+                {
+                    "id": 323721,
+                    "name": "Y. Kasov",
+                    "age": 20,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/323721.png"
+                },
+                {
+                    "id": 382285,
+                    "name": "V. Nankov",
+                    "age": null,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/382285.png"
+                }
+            ]
+        }
+    ]
+}

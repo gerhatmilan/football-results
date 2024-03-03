@@ -1,0 +1,287 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "578"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 578,
+                "name": "F91 Dudelange",
+                "logo": "https://media.api-sports.io/football/teams/578.png"
+            },
+            "players": [
+                {
+                    "id": 340167,
+                    "name": "J. Alves Margato",
+                    "age": 18,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/340167.png"
+                },
+                {
+                    "id": 23009,
+                    "name": "D. Desprez",
+                    "age": 24,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/23009.png"
+                },
+                {
+                    "id": 1654,
+                    "name": "E. Esposito",
+                    "age": 25,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/1654.png"
+                },
+                {
+                    "id": 21661,
+                    "name": "V. Decker",
+                    "age": 30,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/21661.png"
+                },
+                {
+                    "id": 93043,
+                    "name": "K. Delorge",
+                    "age": 25,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/93043.png"
+                },
+                {
+                    "id": 96422,
+                    "name": "J. Diouf",
+                    "age": 31,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/96422.png"
+                },
+                {
+                    "id": 395812,
+                    "name": "T. Mancini",
+                    "age": 17,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/395812.png"
+                },
+                {
+                    "id": 420317,
+                    "name": "G. Mbala",
+                    "age": 21,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/420317.png"
+                },
+                {
+                    "id": 373900,
+                    "name": "E. Mendes",
+                    "age": 19,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/373900.png"
+                },
+                {
+                    "id": 23000,
+                    "name": "S. Ouassiero",
+                    "age": 29,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/23000.png"
+                },
+                {
+                    "id": 310346,
+                    "name": "I. Sidib\u00e9",
+                    "age": 21,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/310346.png"
+                },
+                {
+                    "id": 119114,
+                    "name": "C. Stumpf",
+                    "age": 29,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/119114.png"
+                },
+                {
+                    "id": 374523,
+                    "name": "V. Tallarico",
+                    "age": 19,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/374523.png"
+                },
+                {
+                    "id": 136750,
+                    "name": "O. van Lingen",
+                    "age": 24,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/136750.png"
+                },
+                {
+                    "id": 314678,
+                    "name": "S. Altun",
+                    "age": 22,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/314678.png"
+                },
+                {
+                    "id": 430943,
+                    "name": "Mauro Silva",
+                    "age": 19,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/430943.png"
+                },
+                {
+                    "id": 80209,
+                    "name": "F. Boji\u0107",
+                    "age": 31,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/80209.png"
+                },
+                {
+                    "id": 354423,
+                    "name": "I. Englaro",
+                    "age": 19,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/354423.png"
+                },
+                {
+                    "id": 328162,
+                    "name": "Miguel Fernandes Goncalves",
+                    "age": 19,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/328162.png"
+                },
+                {
+                    "id": 119094,
+                    "name": "Bruno Freire",
+                    "age": 24,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/119094.png"
+                },
+                {
+                    "id": 438223,
+                    "name": "B. Rocha",
+                    "age": null,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/438223.png"
+                },
+                {
+                    "id": 318541,
+                    "name": "D. Monteiro de Oliveira",
+                    "age": 19,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/318541.png"
+                },
+                {
+                    "id": 169176,
+                    "name": "D. Nsidjine Kuete",
+                    "age": 23,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/169176.png"
+                },
+                {
+                    "id": 271519,
+                    "name": "L. Rakic",
+                    "age": 21,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/271519.png"
+                },
+                {
+                    "id": 129153,
+                    "name": "Y. Schaus",
+                    "age": 23,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/129153.png"
+                },
+                {
+                    "id": 1676,
+                    "name": "E. Agovi\u0107",
+                    "age": 30,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/1676.png"
+                },
+                {
+                    "id": 105902,
+                    "name": "S. Hadji",
+                    "age": 34,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/105902.png"
+                },
+                {
+                    "id": 428187,
+                    "name": "H. Arma",
+                    "age": 27,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/428187.png"
+                },
+                {
+                    "id": 340161,
+                    "name": "E. Lima",
+                    "age": 18,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/340161.png"
+                },
+                {
+                    "id": 457261,
+                    "name": "R\u00c3\u00baben Carvalho",
+                    "age": null,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/457261.png"
+                },
+                {
+                    "id": 21651,
+                    "name": "H. Moussaki",
+                    "age": 24,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/21651.png"
+                },
+                {
+                    "id": 37790,
+                    "name": "Y. Roemer",
+                    "age": 22,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/37790.png"
+                },
+                {
+                    "id": 208014,
+                    "name": "M. Thomas",
+                    "age": 22,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/208014.png"
+                }
+            ]
+        }
+    ]
+}

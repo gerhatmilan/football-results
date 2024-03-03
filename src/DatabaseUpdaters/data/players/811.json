@@ -1,0 +1,207 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "811"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 811,
+                "name": "Helsingborg",
+                "logo": "https://media.api-sports.io/football/teams/811.png"
+            },
+            "players": [
+                {
+                    "id": 278155,
+                    "name": "N. Arvidsson",
+                    "age": 20,
+                    "number": 30,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/278155.png"
+                },
+                {
+                    "id": 48238,
+                    "name": "K. Joelsson",
+                    "age": 25,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/48238.png"
+                },
+                {
+                    "id": 457839,
+                    "name": "D. Bergman",
+                    "age": null,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/457839.png"
+                },
+                {
+                    "id": 47901,
+                    "name": "J. Birkfeldt",
+                    "age": 27,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/47901.png"
+                },
+                {
+                    "id": 315225,
+                    "name": "E. Gigovi\u0107",
+                    "age": 20,
+                    "number": 16,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/315225.png"
+                },
+                {
+                    "id": 271050,
+                    "name": "W. Nilsson",
+                    "age": 26,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/271050.png"
+                },
+                {
+                    "id": 40551,
+                    "name": "T. Rogne",
+                    "age": 33,
+                    "number": 4,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/40551.png"
+                },
+                {
+                    "id": 420933,
+                    "name": "W. Westerlund",
+                    "age": 19,
+                    "number": 35,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/420933.png"
+                },
+                {
+                    "id": 321505,
+                    "name": "B. Acquah",
+                    "age": 23,
+                    "number": 27,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/321505.png"
+                },
+                {
+                    "id": 107402,
+                    "name": "S. Almadjed",
+                    "age": 27,
+                    "number": 8,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/107402.png"
+                },
+                {
+                    "id": 393949,
+                    "name": "S. Bengtsson",
+                    "age": 19,
+                    "number": 22,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/393949.png"
+                },
+                {
+                    "id": 48223,
+                    "name": "A. Hellborg",
+                    "age": 25,
+                    "number": 25,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/48223.png"
+                },
+                {
+                    "id": 408309,
+                    "name": "L. Kjelln\u00e4s",
+                    "age": 19,
+                    "number": 41,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/408309.png"
+                },
+                {
+                    "id": 443466,
+                    "name": "Benjamin \u00d6rn",
+                    "age": 19,
+                    "number": 39,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/443466.png"
+                },
+                {
+                    "id": 363474,
+                    "name": "Amin Al Hamawi",
+                    "age": 20,
+                    "number": 15,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/363474.png"
+                },
+                {
+                    "id": 47756,
+                    "name": "A. Kabashi",
+                    "age": 26,
+                    "number": 7,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/47756.png"
+                },
+                {
+                    "id": 139709,
+                    "name": "Amar Muhsin",
+                    "age": 26,
+                    "number": 33,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/139709.png"
+                },
+                {
+                    "id": 373946,
+                    "name": "A. Nilsson",
+                    "age": 19,
+                    "number": 18,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/373946.png"
+                },
+                {
+                    "id": 166892,
+                    "name": "D. Olsson",
+                    "age": 24,
+                    "number": 20,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/166892.png"
+                },
+                {
+                    "id": 294863,
+                    "name": "M. Rasmussen",
+                    "age": 20,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/294863.png"
+                },
+                {
+                    "id": 47734,
+                    "name": "T. Silverholt",
+                    "age": 22,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/47734.png"
+                },
+                {
+                    "id": 420934,
+                    "name": "A. Svanb\u00e4ck",
+                    "age": 19,
+                    "number": 38,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/420934.png"
+                },
+                {
+                    "id": 48323,
+                    "name": "W. Loeper",
+                    "age": 25,
+                    "number": 13,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/48323.png"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,263 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "637"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 637,
+                "name": "Sturm Graz",
+                "logo": "https://media.api-sports.io/football/teams/637.png"
+            },
+            "players": [
+                {
+                    "id": 37276,
+                    "name": "K. Scherpen",
+                    "age": 23,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/37276.png"
+                },
+                {
+                    "id": 162687,
+                    "name": "V. Jaro\u0161",
+                    "age": 22,
+                    "number": 16,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/162687.png"
+                },
+                {
+                    "id": 169514,
+                    "name": "L. Mari\u0107",
+                    "age": 21,
+                    "number": 31,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/169514.png"
+                },
+                {
+                    "id": 328258,
+                    "name": "M. Bignetti",
+                    "age": 19,
+                    "number": 40,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/328258.png"
+                },
+                {
+                    "id": 375595,
+                    "name": "H. Obi",
+                    "age": 18,
+                    "number": 43,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/375595.png"
+                },
+                {
+                    "id": 366341,
+                    "name": "E. Lorenz",
+                    "age": 17,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/366341.png"
+                },
+                {
+                    "id": 409607,
+                    "name": "C. Wiener-Pucher",
+                    "age": 17,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/409607.png"
+                },
+                {
+                    "id": 268595,
+                    "name": "M. Johnston",
+                    "age": 20,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/268595.png"
+                },
+                {
+                    "id": 950,
+                    "name": "G. W\u00fcthrich",
+                    "age": 29,
+                    "number": 5,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/950.png"
+                },
+                {
+                    "id": 7432,
+                    "name": "A. Borkovi\u0107",
+                    "age": 24,
+                    "number": 6,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/7432.png"
+                },
+                {
+                    "id": 7319,
+                    "name": "J. Gazibegovi\u0107",
+                    "age": 23,
+                    "number": 22,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/7319.png"
+                },
+                {
+                    "id": 38763,
+                    "name": "D. Laval\u00e9e",
+                    "age": 26,
+                    "number": 24,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/38763.png"
+                },
+                {
+                    "id": 7343,
+                    "name": "D. Schnegg",
+                    "age": 25,
+                    "number": 28,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/7343.png"
+                },
+                {
+                    "id": 169498,
+                    "name": "N. Geyrhofer",
+                    "age": 23,
+                    "number": 35,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/169498.png"
+                },
+                {
+                    "id": 126640,
+                    "name": "D. Affengruber",
+                    "age": 22,
+                    "number": 42,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/126640.png"
+                },
+                {
+                    "id": 19041,
+                    "name": "J. Gorenc Stankovi\u010d",
+                    "age": 27,
+                    "number": 4,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/19041.png"
+                },
+                {
+                    "id": 7327,
+                    "name": "A. Prass",
+                    "age": 22,
+                    "number": 8,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/7327.png"
+                },
+                {
+                    "id": 7586,
+                    "name": "O. Kiteishvili",
+                    "age": 27,
+                    "number": 10,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/7586.png"
+                },
+                {
+                    "id": 303378,
+                    "name": "Javi Serrano",
+                    "age": 20,
+                    "number": 14,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/303378.png"
+                },
+                {
+                    "id": 199931,
+                    "name": "W. B\u00f8ving",
+                    "age": 20,
+                    "number": 15,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/199931.png"
+                },
+                {
+                    "id": 109740,
+                    "name": "T. Horvat",
+                    "age": 24,
+                    "number": 19,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/109740.png"
+                },
+                {
+                    "id": 169513,
+                    "name": "S. St\u00fcckler",
+                    "age": 22,
+                    "number": 21,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/169513.png"
+                },
+                {
+                    "id": 7583,
+                    "name": "S. Hierl\u00e4nder",
+                    "age": 32,
+                    "number": 25,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/7583.png"
+                },
+                {
+                    "id": 339996,
+                    "name": "J. L\u00f6cker",
+                    "age": 18,
+                    "number": 33,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/339996.png"
+                },
+                {
+                    "id": 158614,
+                    "name": "S. W\u0142odarczyk",
+                    "age": 20,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/158614.png"
+                },
+                {
+                    "id": 7449,
+                    "name": "M. Sarkaria",
+                    "age": 27,
+                    "number": 11,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/7449.png"
+                },
+                {
+                    "id": 283026,
+                    "name": "M. Biereth",
+                    "age": 20,
+                    "number": 18,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/283026.png"
+                },
+                {
+                    "id": 216761,
+                    "name": "S. Jatta",
+                    "age": 20,
+                    "number": 20,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/216761.png"
+                },
+                {
+                    "id": 428504,
+                    "name": "A. Camara",
+                    "age": 18,
+                    "number": 36,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/428504.png"
+                },
+                {
+                    "id": 372585,
+                    "name": "L. Grgi\u0107",
+                    "age": 17,
+                    "number": 38,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/372585.png"
+                }
+            ]
+        }
+    ]
+}

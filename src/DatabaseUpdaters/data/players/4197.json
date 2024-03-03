@@ -1,0 +1,279 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "4197"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 4197,
+                "name": "Mura",
+                "logo": "https://media.api-sports.io/football/teams/4197.png"
+            },
+            "players": [
+                {
+                    "id": 131323,
+                    "name": "K. Mihelak",
+                    "age": 22,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/131323.png"
+                },
+                {
+                    "id": 110067,
+                    "name": "F. Raduha",
+                    "age": 26,
+                    "number": 13,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/110067.png"
+                },
+                {
+                    "id": 360319,
+                    "name": "V. \u0160umenjak",
+                    "age": 18,
+                    "number": 28,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/360319.png"
+                },
+                {
+                    "id": 109745,
+                    "name": "K. Pu\u010dko",
+                    "age": 27,
+                    "number": 3,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/109745.png"
+                },
+                {
+                    "id": 281924,
+                    "name": "D. Kati\u0107",
+                    "age": 20,
+                    "number": 4,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/281924.png"
+                },
+                {
+                    "id": 109622,
+                    "name": "L. Sadriu",
+                    "age": 22,
+                    "number": 5,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/109622.png"
+                },
+                {
+                    "id": 109689,
+                    "name": "\u017d. Kous",
+                    "age": 31,
+                    "number": 11,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/109689.png"
+                },
+                {
+                    "id": 326615,
+                    "name": "B. Proleta",
+                    "age": 22,
+                    "number": 26,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/326615.png"
+                },
+                {
+                    "id": 109940,
+                    "name": "\u017d. Trontelj",
+                    "age": 23,
+                    "number": 32,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/109940.png"
+                },
+                {
+                    "id": 361400,
+                    "name": "N. Graj",
+                    "age": 18,
+                    "number": 66,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/361400.png"
+                },
+                {
+                    "id": 119084,
+                    "name": "\u017d. Laci",
+                    "age": 21,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/119084.png"
+                },
+                {
+                    "id": 270480,
+                    "name": "A. Antolin",
+                    "age": 21,
+                    "number": 6,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/270480.png"
+                },
+                {
+                    "id": 179951,
+                    "name": "E. Saitoski",
+                    "age": 20,
+                    "number": 7,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/179951.png"
+                },
+                {
+                    "id": 153399,
+                    "name": "Ben Arron Cottrell",
+                    "age": 22,
+                    "number": 8,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/153399.png"
+                },
+                {
+                    "id": 109746,
+                    "name": "M. Maru\u0161ko",
+                    "age": 33,
+                    "number": 9,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/109746.png"
+                },
+                {
+                    "id": 290181,
+                    "name": "F. Tripi",
+                    "age": 21,
+                    "number": 16,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/290181.png"
+                },
+                {
+                    "id": 286928,
+                    "name": "T. \u0160\u010dernjavi\u010d",
+                    "age": 20,
+                    "number": 21,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/286928.png"
+                },
+                {
+                    "id": 308460,
+                    "name": "N. Jovi\u0107evi\u0107",
+                    "age": 20,
+                    "number": 22,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/308460.png"
+                },
+                {
+                    "id": 315190,
+                    "name": "J. Domjan",
+                    "age": 19,
+                    "number": 25,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/315190.png"
+                },
+                {
+                    "id": 417624,
+                    "name": "T. Ranta\u0161a",
+                    "age": null,
+                    "number": 27,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/417624.png"
+                },
+                {
+                    "id": 109884,
+                    "name": "A. Kurtovi\u010d",
+                    "age": 23,
+                    "number": 30,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/109884.png"
+                },
+                {
+                    "id": 427371,
+                    "name": "A. Jelovica",
+                    "age": 18,
+                    "number": 34,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/427371.png"
+                },
+                {
+                    "id": 345623,
+                    "name": "T. Brki\u0107",
+                    "age": 18,
+                    "number": 49,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/345623.png"
+                },
+                {
+                    "id": 340586,
+                    "name": "L. Turudija",
+                    "age": 19,
+                    "number": 77,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/340586.png"
+                },
+                {
+                    "id": 110079,
+                    "name": "S. Nuhanovi\u0107",
+                    "age": 25,
+                    "number": 88,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/110079.png"
+                },
+                {
+                    "id": 119083,
+                    "name": "K. Cipot",
+                    "age": 22,
+                    "number": 2,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/119083.png"
+                },
+                {
+                    "id": 14606,
+                    "name": "I. \u0160ari\u0107",
+                    "age": 22,
+                    "number": 10,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/14606.png"
+                },
+                {
+                    "id": 109687,
+                    "name": "A. Maro\u0161a",
+                    "age": 29,
+                    "number": 17,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/109687.png"
+                },
+                {
+                    "id": 108467,
+                    "name": "J. Lamy",
+                    "age": 24,
+                    "number": 19,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/108467.png"
+                },
+                {
+                    "id": 339975,
+                    "name": "N. Kasalo",
+                    "age": 18,
+                    "number": 20,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/339975.png"
+                },
+                {
+                    "id": 281991,
+                    "name": "R. \u010cak\u0161",
+                    "age": 22,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/281991.png"
+                },
+                {
+                    "id": 68213,
+                    "name": "A. Kyziridis",
+                    "age": 23,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/68213.png"
+                }
+            ]
+        }
+    ]
+}

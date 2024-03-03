@@ -1,0 +1,215 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "707"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 707,
+                "name": "FK Ventspils",
+                "logo": "https://media.api-sports.io/football/teams/707.png"
+            },
+            "players": [
+                {
+                    "id": 41483,
+                    "name": "Dele Sunday Alampasu",
+                    "age": 26,
+                    "number": 12,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/41483.png"
+                },
+                {
+                    "id": 307416,
+                    "name": "Edvins Vladimirs Ku\u0161nirenko",
+                    "age": 18,
+                    "number": 13,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/307416.png"
+                },
+                {
+                    "id": 72444,
+                    "name": "Ignatijs Kolesniks",
+                    "age": 21,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/72444.png"
+                },
+                {
+                    "id": 72470,
+                    "name": "Dmitrijs Litvinskis",
+                    "age": 23,
+                    "number": 18,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/72470.png"
+                },
+                {
+                    "id": 315592,
+                    "name": "Maksims Seme\u0161ko",
+                    "age": 18,
+                    "number": 26,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/315592.png"
+                },
+                {
+                    "id": 314425,
+                    "name": "Eduards Zecmanis",
+                    "age": 21,
+                    "number": 28,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/314425.png"
+                },
+                {
+                    "id": 72460,
+                    "name": "Robins Kokar\u012btis",
+                    "age": 23,
+                    "number": 45,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/72460.png"
+                },
+                {
+                    "id": 92137,
+                    "name": "Vladimirs Mukins",
+                    "age": 29,
+                    "number": 99,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/92137.png"
+                },
+                {
+                    "id": 72385,
+                    "name": "M\u0101rti\u0146\u0161 \u0112riks Veck\u0101gans",
+                    "age": 22,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/72385.png"
+                },
+                {
+                    "id": 317969,
+                    "name": "Tomass \u017diborkins",
+                    "age": 22,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/317969.png"
+                },
+                {
+                    "id": 72459,
+                    "name": "M\u0101ris Bite",
+                    "age": 23,
+                    "number": 6,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/72459.png"
+                },
+                {
+                    "id": 72462,
+                    "name": "Kristers Neilands",
+                    "age": 22,
+                    "number": 9,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/72462.png"
+                },
+                {
+                    "id": 312965,
+                    "name": "D\u0101vis Daniels Ka\u0146eps",
+                    "age": 21,
+                    "number": 14,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/312965.png"
+                },
+                {
+                    "id": 72583,
+                    "name": "D\u0101vis Indr\u0101ns",
+                    "age": 27,
+                    "number": 15,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/72583.png"
+                },
+                {
+                    "id": 314424,
+                    "name": "\u0145ikita Rozancevs",
+                    "age": 20,
+                    "number": 27,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/314424.png"
+                },
+                {
+                    "id": 202018,
+                    "name": "Milenko Malovi\u0107",
+                    "age": 28,
+                    "number": 31,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/202018.png"
+                },
+                {
+                    "id": 72409,
+                    "name": "Boriss Bogda\u0161kins",
+                    "age": 32,
+                    "number": 32,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/72409.png"
+                },
+                {
+                    "id": 316449,
+                    "name": "\u0145ikita  Fedoruks",
+                    "age": 18,
+                    "number": 88,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/316449.png"
+                },
+                {
+                    "id": 317970,
+                    "name": "Aleksejs \u0145ikiferovi\u010ds",
+                    "age": null,
+                    "number": 90,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/317970.png"
+                },
+                {
+                    "id": 317971,
+                    "name": "L\u016bkass Kristofers  Gandzs",
+                    "age": null,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/317971.png"
+                },
+                {
+                    "id": 263756,
+                    "name": "Abdulla Genaev",
+                    "age": 21,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/263756.png"
+                },
+                {
+                    "id": 165063,
+                    "name": "Dumte Christian Pyagbara",
+                    "age": 26,
+                    "number": 7,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/165063.png"
+                },
+                {
+                    "id": 98532,
+                    "name": "Dragoljub An\u0111elkovi\u0107",
+                    "age": 29,
+                    "number": 44,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/98532.png"
+                },
+                {
+                    "id": 317968,
+                    "name": "Kristers Silvestrovs",
+                    "age": 21,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/317968.png"
+                }
+            ]
+        }
+    ]
+}

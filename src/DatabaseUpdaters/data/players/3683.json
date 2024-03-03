@@ -1,0 +1,207 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "3683"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 3683,
+                "name": "Ararat-Armenia",
+                "logo": "https://media.api-sports.io/football/teams/3683.png"
+            },
+            "players": [
+                {
+                    "id": 8004,
+                    "name": "A. Beglaryan",
+                    "age": 30,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/8004.png"
+                },
+                {
+                    "id": 65458,
+                    "name": "V. Ermakov",
+                    "age": 27,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/65458.png"
+                },
+                {
+                    "id": 325575,
+                    "name": "R. Manasyan",
+                    "age": 20,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/325575.png"
+                },
+                {
+                    "id": 9698,
+                    "name": "L\u00e9o Silva",
+                    "age": 23,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/9698.png"
+                },
+                {
+                    "id": 96304,
+                    "name": "Alem\u00e3o",
+                    "age": 31,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/96304.png"
+                },
+                {
+                    "id": 130806,
+                    "name": "E. Grigoryan",
+                    "age": 25,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/130806.png"
+                },
+                {
+                    "id": 5693,
+                    "name": "J. Julio",
+                    "age": 27,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/5693.png"
+                },
+                {
+                    "id": 41884,
+                    "name": "C\u00e1ssio Scheid",
+                    "age": 29,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/41884.png"
+                },
+                {
+                    "id": 341668,
+                    "name": "E. Smbatyan",
+                    "age": 20,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/341668.png"
+                },
+                {
+                    "id": 65495,
+                    "name": "D. Terteryan",
+                    "age": 26,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/65495.png"
+                },
+                {
+                    "id": 65359,
+                    "name": "A. Ambartsumyan",
+                    "age": 29,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/65359.png"
+                },
+                {
+                    "id": 65360,
+                    "name": "A. Avanesyan",
+                    "age": 24,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/65360.png"
+                },
+                {
+                    "id": 422505,
+                    "name": "M. Ayvazyan",
+                    "age": 18,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/422505.png"
+                },
+                {
+                    "id": 41707,
+                    "name": "Adriano Castanheira",
+                    "age": 30,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/41707.png"
+                },
+                {
+                    "id": 65394,
+                    "name": "H. Hakobyan",
+                    "age": 26,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/65394.png"
+                },
+                {
+                    "id": 24781,
+                    "name": "N. Kipiani",
+                    "age": 26,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/24781.png"
+                },
+                {
+                    "id": 65477,
+                    "name": "K. Muradyan",
+                    "age": 31,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/65477.png"
+                },
+                {
+                    "id": 24679,
+                    "name": "A. Obiero",
+                    "age": 24,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/24679.png"
+                },
+                {
+                    "id": 24562,
+                    "name": "A. Tera",
+                    "age": 26,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/24562.png"
+                },
+                {
+                    "id": 59791,
+                    "name": "J. Duarte",
+                    "age": 26,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/59791.png"
+                },
+                {
+                    "id": 65374,
+                    "name": "Z. Shaghoyan",
+                    "age": 22,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/65374.png"
+                },
+                {
+                    "id": 3136,
+                    "name": "M. Yattara",
+                    "age": 30,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/3136.png"
+                },
+                {
+                    "id": 128444,
+                    "name": "T. Yenne",
+                    "age": 23,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/128444.png"
+                }
+            ]
+        }
+    ]
+}

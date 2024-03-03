@@ -1,0 +1,127 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "681"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 681,
+                "name": "Bangor City",
+                "logo": "https://media.api-sports.io/football/teams/681.png"
+            },
+            "players": [
+                {
+                    "id": 53182,
+                    "name": "Lewis Brass",
+                    "age": 26,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/53182.png"
+                },
+                {
+                    "id": 295746,
+                    "name": "Scott Reed",
+                    "age": 22,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/295746.png"
+                },
+                {
+                    "id": 338615,
+                    "name": "Jack Cain",
+                    "age": null,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/338615.png"
+                },
+                {
+                    "id": 338616,
+                    "name": "Philippe Edmonds",
+                    "age": 22,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/338616.png"
+                },
+                {
+                    "id": 338617,
+                    "name": "Ryan Leigh Evans",
+                    "age": 21,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/338617.png"
+                },
+                {
+                    "id": 338618,
+                    "name": "Lucas German Surber",
+                    "age": 30,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/338618.png"
+                },
+                {
+                    "id": 338621,
+                    "name": "Cai La Trobe-Roberts",
+                    "age": null,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/338621.png"
+                },
+                {
+                    "id": 338622,
+                    "name": "Joshua Mark Swindell",
+                    "age": null,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/338622.png"
+                },
+                {
+                    "id": 338623,
+                    "name": "Jack Samuel Walsh",
+                    "age": null,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/338623.png"
+                },
+                {
+                    "id": 338624,
+                    "name": "Gethin Tomos Williams",
+                    "age": 22,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/338624.png"
+                },
+                {
+                    "id": 338625,
+                    "name": "Dante Joaquin Isla Cacciavillani",
+                    "age": 27,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/338625.png"
+                },
+                {
+                    "id": 338626,
+                    "name": "Tizi Maninga",
+                    "age": 30,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/338626.png"
+                },
+                {
+                    "id": 338627,
+                    "name": "Enzo Agust\u00edn Zicarelli",
+                    "age": 24,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/338627.png"
+                }
+            ]
+        }
+    ]
+}

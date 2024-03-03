@@ -1,0 +1,239 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "556"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 556,
+                "name": "Qarabag",
+                "logo": "https://media.api-sports.io/football/teams/556.png"
+            },
+            "players": [
+                {
+                    "id": 24665,
+                    "name": "L. Gugeshashvili",
+                    "age": 24,
+                    "number": 23,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/24665.png"
+                },
+                {
+                    "id": 334257,
+                    "name": "A. Ramazanov",
+                    "age": 20,
+                    "number": 89,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/334257.png"
+                },
+                {
+                    "id": 1197,
+                    "name": "A. Lunev",
+                    "age": 32,
+                    "number": 99,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/1197.png"
+                },
+                {
+                    "id": 456849,
+                    "name": "Q. M\u0259h\u0259rr\u0259mov",
+                    "age": 22,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/456849.png"
+                },
+                {
+                    "id": 10018,
+                    "name": "Matheus Silva",
+                    "age": 26,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/10018.png"
+                },
+                {
+                    "id": 1536,
+                    "name": "M. Medvedev",
+                    "age": 34,
+                    "number": 5,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/1536.png"
+                },
+                {
+                    "id": 70389,
+                    "name": "B. Mustafazad\u0259",
+                    "age": 26,
+                    "number": 13,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/70389.png"
+                },
+                {
+                    "id": 1542,
+                    "name": "T. Bayramov",
+                    "age": 22,
+                    "number": 27,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/1542.png"
+                },
+                {
+                    "id": 40404,
+                    "name": "M. Ve\u0161ovi\u0107",
+                    "age": 32,
+                    "number": 29,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/40404.png"
+                },
+                {
+                    "id": 1534,
+                    "name": "A. H\u00fcseynov",
+                    "age": 28,
+                    "number": 30,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/1534.png"
+                },
+                {
+                    "id": 124613,
+                    "name": "E. C\u0259f\u0259rquliyev",
+                    "age": 23,
+                    "number": 44,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/124613.png"
+                },
+                {
+                    "id": 1535,
+                    "name": "B. H\u00fcseynov",
+                    "age": 32,
+                    "number": 55,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/1535.png"
+                },
+                {
+                    "id": 41823,
+                    "name": "K. Medina",
+                    "age": 30,
+                    "number": 81,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/41823.png"
+                },
+                {
+                    "id": 215930,
+                    "name": "N. Quliyev",
+                    "age": 22,
+                    "number": 83,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/215930.png"
+                },
+                {
+                    "id": 278547,
+                    "name": "J\u00falio Rom\u00e3o",
+                    "age": 25,
+                    "number": 6,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/278547.png"
+                },
+                {
+                    "id": 1371,
+                    "name": "Y. Benzia",
+                    "age": 29,
+                    "number": 7,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/1371.png"
+                },
+                {
+                    "id": 30864,
+                    "name": "M. Jankovi\u0107",
+                    "age": 28,
+                    "number": 8,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/30864.png"
+                },
+                {
+                    "id": 1552,
+                    "name": "A. Zoubir",
+                    "age": 32,
+                    "number": 10,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/1552.png"
+                },
+                {
+                    "id": 134320,
+                    "name": "Leandro Andrade",
+                    "age": 24,
+                    "number": 15,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/134320.png"
+                },
+                {
+                    "id": 1541,
+                    "name": "R. Almeyda",
+                    "age": 34,
+                    "number": 20,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/1541.png"
+                },
+                {
+                    "id": 55960,
+                    "name": "A. Isaev",
+                    "age": 28,
+                    "number": 24,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/55960.png"
+                },
+                {
+                    "id": 11108,
+                    "name": "Patrick Andrade",
+                    "age": 30,
+                    "number": 66,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/11108.png"
+                },
+                {
+                    "id": 19057,
+                    "name": "A. Diakhaby",
+                    "age": 27,
+                    "number": 11,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/19057.png"
+                },
+                {
+                    "id": 43284,
+                    "name": "H. Keyta",
+                    "age": 29,
+                    "number": 17,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/43284.png"
+                },
+                {
+                    "id": 9623,
+                    "name": "Juninho",
+                    "age": 27,
+                    "number": 18,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/9623.png"
+                },
+                {
+                    "id": 3587,
+                    "name": "R. Xhixha",
+                    "age": 25,
+                    "number": 19,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/3587.png"
+                },
+                {
+                    "id": 375811,
+                    "name": "N. Axundzad\u0259",
+                    "age": 19,
+                    "number": 90,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/375811.png"
+                }
+            ]
+        }
+    ]
+}

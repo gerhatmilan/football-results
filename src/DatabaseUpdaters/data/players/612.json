@@ -1,0 +1,223 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "612"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 612,
+                "name": "Suduva Marijampole",
+                "logo": "https://media.api-sports.io/football/teams/612.png"
+            },
+            "players": [
+                {
+                    "id": 374898,
+                    "name": "R. Pa\u010d\u0117sa",
+                    "age": 17,
+                    "number": 66,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/374898.png"
+                },
+                {
+                    "id": 69889,
+                    "name": "V. Stebrys",
+                    "age": 23,
+                    "number": 99,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/69889.png"
+                },
+                {
+                    "id": 315654,
+                    "name": "G. Zenkevi\u010dius",
+                    "age": 26,
+                    "number": 12,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/315654.png"
+                },
+                {
+                    "id": 215824,
+                    "name": "\u017d. Baltr\u016bnas",
+                    "age": 21,
+                    "number": 5,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/215824.png"
+                },
+                {
+                    "id": 306912,
+                    "name": "E. Burdzilauskas",
+                    "age": 20,
+                    "number": 28,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/306912.png"
+                },
+                {
+                    "id": 357742,
+                    "name": "T. Burdzilauskas",
+                    "age": 18,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/357742.png"
+                },
+                {
+                    "id": 196844,
+                    "name": "A. Dubickas",
+                    "age": 22,
+                    "number": 92,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/196844.png"
+                },
+                {
+                    "id": 360103,
+                    "name": "T. Gumbelevi\u010dius",
+                    "age": 18,
+                    "number": 97,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/360103.png"
+                },
+                {
+                    "id": 63855,
+                    "name": "I. Gonchar",
+                    "age": 30,
+                    "number": 33,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/63855.png"
+                },
+                {
+                    "id": 72411,
+                    "name": "K. Kram\u0113ns",
+                    "age": 23,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/72411.png"
+                },
+                {
+                    "id": 44944,
+                    "name": "S. Lawson",
+                    "age": 29,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/44944.png"
+                },
+                {
+                    "id": 7993,
+                    "name": "Y. Smirnov",
+                    "age": 30,
+                    "number": 6,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/7993.png"
+                },
+                {
+                    "id": 357743,
+                    "name": "S. Venckevi\u010dius",
+                    "age": 18,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/357743.png"
+                },
+                {
+                    "id": 69893,
+                    "name": "A. \u017divanovi\u0107",
+                    "age": 36,
+                    "number": 15,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/69893.png"
+                },
+                {
+                    "id": 104869,
+                    "name": "I. Zotko",
+                    "age": 27,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/104869.png"
+                },
+                {
+                    "id": 266057,
+                    "name": "Justas \u010cesnavi\u010dius",
+                    "age": 22,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/266057.png"
+                },
+                {
+                    "id": 265615,
+                    "name": "A. Fedorov",
+                    "age": 25,
+                    "number": 14,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/265615.png"
+                },
+                {
+                    "id": 69959,
+                    "name": "R. Filipavi\u010dius",
+                    "age": 24,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/69959.png"
+                },
+                {
+                    "id": 306910,
+                    "name": "M. Mi\u0161kinis",
+                    "age": 18,
+                    "number": 21,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/306910.png"
+                },
+                {
+                    "id": 209968,
+                    "name": "M. Pyrogov",
+                    "age": 27,
+                    "number": 13,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/209968.png"
+                },
+                {
+                    "id": 338732,
+                    "name": "D. Stankevi\u010dius",
+                    "age": 19,
+                    "number": 88,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/338732.png"
+                },
+                {
+                    "id": 210027,
+                    "name": "M. Burba",
+                    "age": 20,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/210027.png"
+                },
+                {
+                    "id": 72590,
+                    "name": "A. Emsis",
+                    "age": 25,
+                    "number": 10,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/72590.png"
+                },
+                {
+                    "id": 63719,
+                    "name": "A. Kovbasa",
+                    "age": 26,
+                    "number": 17,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/63719.png"
+                },
+                {
+                    "id": 7492,
+                    "name": "U. Oduenyi",
+                    "age": 27,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/7492.png"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,239 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "601"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 601,
+                "name": "Austria Vienna",
+                "logo": "https://media.api-sports.io/football/teams/601.png"
+            },
+            "players": [
+                {
+                    "id": 495,
+                    "name": "C. Fr\u00fcchtl",
+                    "age": 23,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/495.png"
+                },
+                {
+                    "id": 7138,
+                    "name": "L. Wedl",
+                    "age": 28,
+                    "number": 13,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/7138.png"
+                },
+                {
+                    "id": 7428,
+                    "name": "M. Kos",
+                    "age": 26,
+                    "number": 99,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/7428.png"
+                },
+                {
+                    "id": 25201,
+                    "name": "Lucas Galv\u00e3o",
+                    "age": 32,
+                    "number": 3,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/25201.png"
+                },
+                {
+                    "id": 277303,
+                    "name": "Z. El Sheiwi",
+                    "age": 19,
+                    "number": 4,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/277303.png"
+                },
+                {
+                    "id": 7353,
+                    "name": "T. Plavoti\u0107",
+                    "age": 26,
+                    "number": 24,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/7353.png"
+                },
+                {
+                    "id": 7447,
+                    "name": "M. Meisl",
+                    "age": 23,
+                    "number": 40,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/7447.png"
+                },
+                {
+                    "id": 7139,
+                    "name": "J. Handl",
+                    "age": 25,
+                    "number": 46,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/7139.png"
+                },
+                {
+                    "id": 70363,
+                    "name": "M. Martins",
+                    "age": 28,
+                    "number": 66,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/70363.png"
+                },
+                {
+                    "id": 340172,
+                    "name": "L. Pazourek",
+                    "age": 18,
+                    "number": 2,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/340172.png"
+                },
+                {
+                    "id": 7536,
+                    "name": "J. Holland",
+                    "age": 34,
+                    "number": 8,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/7536.png"
+                },
+                {
+                    "id": 202548,
+                    "name": "M. Polster",
+                    "age": 21,
+                    "number": 11,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/202548.png"
+                },
+                {
+                    "id": 1720,
+                    "name": "M. Potzmann",
+                    "age": 30,
+                    "number": 19,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/1720.png"
+                },
+                {
+                    "id": 993,
+                    "name": "H. Guenouche",
+                    "age": 23,
+                    "number": 21,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/993.png"
+                },
+                {
+                    "id": 277304,
+                    "name": "F. Wustinger",
+                    "age": 20,
+                    "number": 22,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/277304.png"
+                },
+                {
+                    "id": 7528,
+                    "name": "R. Ranftl",
+                    "age": 31,
+                    "number": 26,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/7528.png"
+                },
+                {
+                    "id": 7681,
+                    "name": "M. Fischer",
+                    "age": 28,
+                    "number": 30,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/7681.png"
+                },
+                {
+                    "id": 323132,
+                    "name": "M. Wels",
+                    "age": 19,
+                    "number": 37,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/323132.png"
+                },
+                {
+                    "id": 280335,
+                    "name": "F. Kr\u00e4tzig",
+                    "age": 20,
+                    "number": 41,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/280335.png"
+                },
+                {
+                    "id": 263689,
+                    "name": "M. Huskovi\u0107",
+                    "age": 20,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/263689.png"
+                },
+                {
+                    "id": 202501,
+                    "name": "F. Asllani",
+                    "age": 21,
+                    "number": 10,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/202501.png"
+                },
+                {
+                    "id": 7657,
+                    "name": "A. Gruber",
+                    "age": 28,
+                    "number": 17,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/7657.png"
+                },
+                {
+                    "id": 277305,
+                    "name": "R. Vu\u010di\u0107",
+                    "age": 20,
+                    "number": 27,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/277305.png"
+                },
+                {
+                    "id": 7225,
+                    "name": "M. Ragu\u017e",
+                    "age": 25,
+                    "number": 29,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/7225.png"
+                },
+                {
+                    "id": 7342,
+                    "name": "A. Schmidt",
+                    "age": 25,
+                    "number": 33,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/7342.png"
+                },
+                {
+                    "id": 7453,
+                    "name": "D. Fitz",
+                    "age": 24,
+                    "number": 36,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/7453.png"
+                },
+                {
+                    "id": 263226,
+                    "name": "S. Kani",
+                    "age": 20,
+                    "number": 60,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/263226.png"
+                }
+            ]
+        }
+    ]
+}

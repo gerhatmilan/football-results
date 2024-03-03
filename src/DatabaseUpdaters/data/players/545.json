@@ -1,0 +1,239 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "545"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 545,
+                "name": "Eibar",
+                "logo": "https://media.api-sports.io/football/teams/545.png"
+            },
+            "players": [
+                {
+                    "id": 732,
+                    "name": "L. Zidane",
+                    "age": 25,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/732.png"
+                },
+                {
+                    "id": 47476,
+                    "name": "Yoel Rodr\u00edguez",
+                    "age": 35,
+                    "number": 13,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/47476.png"
+                },
+                {
+                    "id": 137441,
+                    "name": "Cristian Guti\u00e9rrez",
+                    "age": 23,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/137441.png"
+                },
+                {
+                    "id": 41145,
+                    "name": "Frederico Ven\u00e2ncio",
+                    "age": 30,
+                    "number": 3,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/41145.png"
+                },
+                {
+                    "id": 46757,
+                    "name": "Rober Correa",
+                    "age": 31,
+                    "number": 4,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/46757.png"
+                },
+                {
+                    "id": 2039,
+                    "name": "Juan Berrocal",
+                    "age": 24,
+                    "number": 5,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/2039.png"
+                },
+                {
+                    "id": 46709,
+                    "name": "\u00c1lvaro Tejero",
+                    "age": 27,
+                    "number": 15,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/46709.png"
+                },
+                {
+                    "id": 131539,
+                    "name": "R\u00edos Reina",
+                    "age": 33,
+                    "number": 21,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/131539.png"
+                },
+                {
+                    "id": 31077,
+                    "name": "S. Simi\u010d",
+                    "age": 28,
+                    "number": 22,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/31077.png"
+                },
+                {
+                    "id": 47377,
+                    "name": "Anaitz Arbilla",
+                    "age": 36,
+                    "number": 23,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/47377.png"
+                },
+                {
+                    "id": 333327,
+                    "name": "Iker Alday",
+                    "age": 20,
+                    "number": 28,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/333327.png"
+                },
+                {
+                    "id": 349467,
+                    "name": "Aritz Muguruza",
+                    "age": 22,
+                    "number": 32,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/349467.png"
+                },
+                {
+                    "id": 387997,
+                    "name": "Hodei Arrillaga",
+                    "age": 19,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/387997.png"
+                },
+                {
+                    "id": 47385,
+                    "name": "Sergio \u00c1lvarez",
+                    "age": 31,
+                    "number": 6,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/47385.png"
+                },
+                {
+                    "id": 871,
+                    "name": "Matheus Pereira",
+                    "age": 25,
+                    "number": 8,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/871.png"
+                },
+                {
+                    "id": 46768,
+                    "name": "Ager Aketxe",
+                    "age": 30,
+                    "number": 10,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/46768.png"
+                },
+                {
+                    "id": 182639,
+                    "name": "Unai Vencedor",
+                    "age": 23,
+                    "number": 14,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/182639.png"
+                },
+                {
+                    "id": 46929,
+                    "name": "Jos\u00e9 Corpas",
+                    "age": 32,
+                    "number": 17,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/46929.png"
+                },
+                {
+                    "id": 47286,
+                    "name": "Peru Nolaskoain",
+                    "age": 25,
+                    "number": 24,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/47286.png"
+                },
+                {
+                    "id": 288527,
+                    "name": "Ander Madariaga",
+                    "age": 21,
+                    "number": 29,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/288527.png"
+                },
+                {
+                    "id": 161965,
+                    "name": "Mario Soriano",
+                    "age": 21,
+                    "number": 30,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/161965.png"
+                },
+                {
+                    "id": 46809,
+                    "name": "Quique Gonz\u00e1lez",
+                    "age": 33,
+                    "number": 7,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/46809.png"
+                },
+                {
+                    "id": 46985,
+                    "name": "Y. Qasmi",
+                    "age": 32,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/46985.png"
+                },
+                {
+                    "id": 1583,
+                    "name": "Sergio Le\u00f3n",
+                    "age": 34,
+                    "number": 11,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/1583.png"
+                },
+                {
+                    "id": 47318,
+                    "name": "Jon Bautista",
+                    "age": 28,
+                    "number": 18,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/47318.png"
+                },
+                {
+                    "id": 46740,
+                    "name": "Stoichkov",
+                    "age": 30,
+                    "number": 19,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/46740.png"
+                },
+                {
+                    "id": 161929,
+                    "name": "K. de La Fuente",
+                    "age": 22,
+                    "number": 27,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/161929.png"
+                }
+            ]
+        }
+    ]
+}

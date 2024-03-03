@@ -1,0 +1,255 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "663"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 663,
+                "name": "FK Rabotnicki",
+                "logo": "https://media.api-sports.io/football/teams/663.png"
+            },
+            "players": [
+                {
+                    "id": 105602,
+                    "name": "I. Aleksovski",
+                    "age": 28,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/105602.png"
+                },
+                {
+                    "id": 395801,
+                    "name": "A. Hadzibulic",
+                    "age": 17,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/395801.png"
+                },
+                {
+                    "id": 75980,
+                    "name": "F. Ilikj",
+                    "age": 26,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/75980.png"
+                },
+                {
+                    "id": 381818,
+                    "name": "P. Jakimov",
+                    "age": 18,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/381818.png"
+                },
+                {
+                    "id": 107159,
+                    "name": "S. Alomerovi\u0441",
+                    "age": 26,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/107159.png"
+                },
+                {
+                    "id": 3458,
+                    "name": "E. Belica",
+                    "age": 33,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/3458.png"
+                },
+                {
+                    "id": 304000,
+                    "name": "S. Despotovski",
+                    "age": 20,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/304000.png"
+                },
+                {
+                    "id": 431996,
+                    "name": "M. Hamzikj",
+                    "age": 18,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/431996.png"
+                },
+                {
+                    "id": 380345,
+                    "name": "M. Miserdovski",
+                    "age": 21,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/380345.png"
+                },
+                {
+                    "id": 105480,
+                    "name": "M. Murati",
+                    "age": 29,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/105480.png"
+                },
+                {
+                    "id": 16009,
+                    "name": "S. Rasheed",
+                    "age": 23,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/16009.png"
+                },
+                {
+                    "id": 109577,
+                    "name": "E. Adem",
+                    "age": 33,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/109577.png"
+                },
+                {
+                    "id": 310681,
+                    "name": "M. Angelov",
+                    "age": 19,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/310681.png"
+                },
+                {
+                    "id": 109515,
+                    "name": "S. Bilalli",
+                    "age": 26,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/109515.png"
+                },
+                {
+                    "id": 319176,
+                    "name": "C. Daley",
+                    "age": 21,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/319176.png"
+                },
+                {
+                    "id": 423221,
+                    "name": "D. Danev",
+                    "age": 17,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/423221.png"
+                },
+                {
+                    "id": 60555,
+                    "name": "M. Gando",
+                    "age": 26,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/60555.png"
+                },
+                {
+                    "id": 61384,
+                    "name": "T. Grozdanovski",
+                    "age": 23,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/61384.png"
+                },
+                {
+                    "id": 458261,
+                    "name": "E. Kadri",
+                    "age": 20,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/458261.png"
+                },
+                {
+                    "id": 274663,
+                    "name": "S. Kahraman",
+                    "age": 26,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/274663.png"
+                },
+                {
+                    "id": 67985,
+                    "name": "Shafiq Kuchi Kagimu",
+                    "age": 25,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/67985.png"
+                },
+                {
+                    "id": 270585,
+                    "name": "A. Mazari",
+                    "age": 22,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/270585.png"
+                },
+                {
+                    "id": 147853,
+                    "name": "D. Todorovski",
+                    "age": 21,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/147853.png"
+                },
+                {
+                    "id": 340111,
+                    "name": "N. Manojlov",
+                    "age": 17,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/340111.png"
+                },
+                {
+                    "id": 1401,
+                    "name": "K. Markoski",
+                    "age": 28,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/1401.png"
+                },
+                {
+                    "id": 105746,
+                    "name": "P. Petkovski",
+                    "age": 26,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/105746.png"
+                },
+                {
+                    "id": 69306,
+                    "name": "A. Reghba",
+                    "age": 23,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/69306.png"
+                },
+                {
+                    "id": 269309,
+                    "name": "Georg Stojanovski",
+                    "age": 18,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/269309.png"
+                },
+                {
+                    "id": 80233,
+                    "name": "V. Stojanovski",
+                    "age": 26,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/80233.png"
+                }
+            ]
+        }
+    ]
+}
