@@ -1,0 +1,255 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "1117"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 1117,
+                "name": "Greece",
+                "logo": "https://media.api-sports.io/football/teams/1117.png"
+            },
+            "players": [
+                {
+                    "id": 26821,
+                    "name": "G. Athanasiadis",
+                    "age": 30,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/26821.png"
+                },
+                {
+                    "id": 26730,
+                    "name": "S. Dioudis",
+                    "age": 30,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/26730.png"
+                },
+                {
+                    "id": 2355,
+                    "name": "A. Paschalakis",
+                    "age": 34,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/2355.png"
+                },
+                {
+                    "id": 557,
+                    "name": "O. Vlachodimos",
+                    "age": 29,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/557.png"
+                },
+                {
+                    "id": 2360,
+                    "name": "D. Giannoulis",
+                    "age": 28,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/2360.png"
+                },
+                {
+                    "id": 40547,
+                    "name": "D. Goutas",
+                    "age": 29,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/40547.png"
+                },
+                {
+                    "id": 36885,
+                    "name": "P. Hatzidiakos",
+                    "age": 26,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/36885.png"
+                },
+                {
+                    "id": 162409,
+                    "name": "K. Koulierakis",
+                    "age": 20,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/162409.png"
+                },
+                {
+                    "id": 1445,
+                    "name": "K. Mavropanos",
+                    "age": 26,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/1445.png"
+                },
+                {
+                    "id": 971,
+                    "name": "P. Retsos",
+                    "age": 25,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/971.png"
+                },
+                {
+                    "id": 61257,
+                    "name": "L. Rota",
+                    "age": 26,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/61257.png"
+                },
+                {
+                    "id": 27157,
+                    "name": "M. Saliakas",
+                    "age": 27,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/27157.png"
+                },
+                {
+                    "id": 49936,
+                    "name": "G. Tzavellas",
+                    "age": 36,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/49936.png"
+                },
+                {
+                    "id": 135839,
+                    "name": "G. Vagiannidis",
+                    "age": 22,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/135839.png"
+                },
+                {
+                    "id": 135842,
+                    "name": "S. Alexandropoulos",
+                    "age": 22,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/135842.png"
+                },
+                {
+                    "id": 607,
+                    "name": "A. Bakasetas",
+                    "age": 30,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/607.png"
+                },
+                {
+                    "id": 1603,
+                    "name": "A. Bouchalakis",
+                    "age": 30,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/1603.png"
+                },
+                {
+                    "id": 26748,
+                    "name": "T. Chatzigiovanis",
+                    "age": 26,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/26748.png"
+                },
+                {
+                    "id": 602,
+                    "name": "K. Galanopoulos",
+                    "age": 26,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/602.png"
+                },
+                {
+                    "id": 1295,
+                    "name": "Z. Rodrigues",
+                    "age": 35,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/1295.png"
+                },
+                {
+                    "id": 162410,
+                    "name": "G. Konstantelias",
+                    "age": 20,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/162410.png"
+                },
+                {
+                    "id": 1610,
+                    "name": "G. Masouras",
+                    "age": 29,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/1610.png"
+                },
+                {
+                    "id": 2374,
+                    "name": "D. Pelkas",
+                    "age": 30,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/2374.png"
+                },
+                {
+                    "id": 56114,
+                    "name": "M. Siopis",
+                    "age": 29,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/56114.png"
+                },
+                {
+                    "id": 2377,
+                    "name": "T. Tsingaras",
+                    "age": 23,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/2377.png"
+                },
+                {
+                    "id": 7625,
+                    "name": "T. Fountas",
+                    "age": 28,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/7625.png"
+                },
+                {
+                    "id": 26902,
+                    "name": "G. Giakoumakis",
+                    "age": 29,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/26902.png"
+                },
+                {
+                    "id": 26965,
+                    "name": "F. Ioannidis",
+                    "age": 23,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/26965.png"
+                },
+                {
+                    "id": 36798,
+                    "name": "V. Pavlidis",
+                    "age": 25,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/36798.png"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,263 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "2184"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 2184,
+                "name": "Servette FC",
+                "logo": "https://media.api-sports.io/football/teams/2184.png"
+            },
+            "players": [
+                {
+                    "id": 15423,
+                    "name": "J. Mall",
+                    "age": 32,
+                    "number": 1,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/15423.png"
+                },
+                {
+                    "id": 48595,
+                    "name": "J. Frick",
+                    "age": 30,
+                    "number": 32,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/48595.png"
+                },
+                {
+                    "id": 431118,
+                    "name": "M. Aubert",
+                    "age": 17,
+                    "number": 40,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/431118.png"
+                },
+                {
+                    "id": 324725,
+                    "name": "L. Besson",
+                    "age": 21,
+                    "number": 44,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/324725.png"
+                },
+                {
+                    "id": 163068,
+                    "name": "O. Rekik",
+                    "age": 22,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/163068.png"
+                },
+                {
+                    "id": 225104,
+                    "name": "K. Tsunemoto",
+                    "age": 25,
+                    "number": 3,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/225104.png"
+                },
+                {
+                    "id": 48600,
+                    "name": "S. Rouiller",
+                    "age": 33,
+                    "number": 4,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/48600.png"
+                },
+                {
+                    "id": 22026,
+                    "name": "A. Baron",
+                    "age": 31,
+                    "number": 6,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/22026.png"
+                },
+                {
+                    "id": 368178,
+                    "name": "I. Kaloga",
+                    "age": 19,
+                    "number": 12,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/368178.png"
+                },
+                {
+                    "id": 24217,
+                    "name": "B. Mazikou",
+                    "age": 27,
+                    "number": 18,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/24217.png"
+                },
+                {
+                    "id": 48604,
+                    "name": "Y. Severin",
+                    "age": 26,
+                    "number": 19,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/48604.png"
+                },
+                {
+                    "id": 348308,
+                    "name": "T. Magnin",
+                    "age": 20,
+                    "number": 20,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/348308.png"
+                },
+                {
+                    "id": 2945,
+                    "name": "D. Bronn",
+                    "age": 28,
+                    "number": 25,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/2945.png"
+                },
+                {
+                    "id": 1083,
+                    "name": "J. Ongu\u00e9n\u00e9",
+                    "age": 26,
+                    "number": 68,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/1083.png"
+                },
+                {
+                    "id": 27778,
+                    "name": "B. Bolla",
+                    "age": 24,
+                    "number": 77,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/27778.png"
+                },
+                {
+                    "id": 53740,
+                    "name": "G. Ondoua",
+                    "age": 28,
+                    "number": 5,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/53740.png"
+                },
+                {
+                    "id": 48609,
+                    "name": "T. Cognat",
+                    "age": 25,
+                    "number": 8,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/48609.png"
+                },
+                {
+                    "id": 48614,
+                    "name": "M. Stevanovi\u0107",
+                    "age": 33,
+                    "number": 9,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/48614.png"
+                },
+                {
+                    "id": 48607,
+                    "name": "A. Antunes",
+                    "age": 23,
+                    "number": 10,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/48607.png"
+                },
+                {
+                    "id": 48488,
+                    "name": "D. Kutesa",
+                    "age": 26,
+                    "number": 17,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/48488.png"
+                },
+                {
+                    "id": 323541,
+                    "name": "A. Lyng",
+                    "age": 19,
+                    "number": 22,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/323541.png"
+                },
+                {
+                    "id": 24022,
+                    "name": "D. Douline",
+                    "age": 30,
+                    "number": 28,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/24022.png"
+                },
+                {
+                    "id": 374504,
+                    "name": "S. Diba",
+                    "age": 20,
+                    "number": 30,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/374504.png"
+                },
+                {
+                    "id": 449240,
+                    "name": "Vasco Tritten",
+                    "age": 18,
+                    "number": 41,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/449240.png"
+                },
+                {
+                    "id": 443629,
+                    "name": "Jarell Njike Simo",
+                    "age": 20,
+                    "number": 42,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/443629.png"
+                },
+                {
+                    "id": 846,
+                    "name": "T. Nishimura",
+                    "age": 27,
+                    "number": 7,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/846.png"
+                },
+                {
+                    "id": 333083,
+                    "name": "B. M&apos;Back\u00e9 N&apos;Diay\u00e9",
+                    "age": 21,
+                    "number": 11,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/333083.png"
+                },
+                {
+                    "id": 48496,
+                    "name": "J. Guillemenot",
+                    "age": 25,
+                    "number": 21,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/48496.png"
+                },
+                {
+                    "id": 21649,
+                    "name": "E. Crivelli",
+                    "age": 28,
+                    "number": 27,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/21649.png"
+                },
+                {
+                    "id": 425200,
+                    "name": "T. Ouattara",
+                    "age": 18,
+                    "number": 31,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/425200.png"
+                }
+            ]
+        }
+    ]
+}

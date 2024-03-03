@@ -1,0 +1,231 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "3364"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 3364,
+                "name": "Borac Banja Luka",
+                "logo": "https://media.api-sports.io/football/teams/3364.png"
+            },
+            "players": [
+                {
+                    "id": 318344,
+                    "name": "N. \u0106etkovi\u0107",
+                    "age": 21,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/318344.png"
+                },
+                {
+                    "id": 46157,
+                    "name": "M. Milo\u0161evi\u0107",
+                    "age": 32,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/46157.png"
+                },
+                {
+                    "id": 77069,
+                    "name": "B. Pavlovi\u0107",
+                    "age": 37,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/77069.png"
+                },
+                {
+                    "id": 451859,
+                    "name": "D. Stjepanovi\u0107",
+                    "age": null,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/451859.png"
+                },
+                {
+                    "id": 14535,
+                    "name": "M. \u010celi\u0107",
+                    "age": 27,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/14535.png"
+                },
+                {
+                    "id": 66802,
+                    "name": "B. Goranovi\u0107",
+                    "age": 25,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/66802.png"
+                },
+                {
+                    "id": 109542,
+                    "name": "S. Herrera",
+                    "age": 28,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/109542.png"
+                },
+                {
+                    "id": 129022,
+                    "name": "R. Joki\u0107",
+                    "age": 24,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/129022.png"
+                },
+                {
+                    "id": 14503,
+                    "name": "N. Pejovi\u0107",
+                    "age": 25,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/14503.png"
+                },
+                {
+                    "id": 340178,
+                    "name": "S. Su\u0161i\u0107",
+                    "age": 18,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/340178.png"
+                },
+                {
+                    "id": 428079,
+                    "name": "S. \u00c4\u0090eki\u00c4\u0087",
+                    "age": 22,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/428079.png"
+                },
+                {
+                    "id": 45641,
+                    "name": "S. Fi\u0107ovi\u0107",
+                    "age": 25,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/45641.png"
+                },
+                {
+                    "id": 1723,
+                    "name": "S. Grahovac",
+                    "age": 31,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/1723.png"
+                },
+                {
+                    "id": 312351,
+                    "name": "D. Hrelja",
+                    "age": 22,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/312351.png"
+                },
+                {
+                    "id": 14801,
+                    "name": "A. Jurilj",
+                    "age": 27,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/14801.png"
+                },
+                {
+                    "id": 318345,
+                    "name": "E. Kula\u0161in",
+                    "age": 20,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/318345.png"
+                },
+                {
+                    "id": 14284,
+                    "name": "Z. Kvr\u017ei\u0107",
+                    "age": 35,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/14284.png"
+                },
+                {
+                    "id": 46056,
+                    "name": "J. Ni\u0161i\u0107",
+                    "age": 25,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/46056.png"
+                },
+                {
+                    "id": 58024,
+                    "name": "A. Subi\u0107",
+                    "age": 30,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/58024.png"
+                },
+                {
+                    "id": 66790,
+                    "name": "V. Terzi\u0107",
+                    "age": 24,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/66790.png"
+                },
+                {
+                    "id": 76932,
+                    "name": "S. Vranje\u0161",
+                    "age": 37,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/76932.png"
+                },
+                {
+                    "id": 14601,
+                    "name": "J. Blagai\u0107",
+                    "age": 23,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/14601.png"
+                },
+                {
+                    "id": 200216,
+                    "name": "D. \u010cavi\u0107",
+                    "age": 21,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/200216.png"
+                },
+                {
+                    "id": 77037,
+                    "name": "J. Luki\u0107",
+                    "age": 25,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/77037.png"
+                },
+                {
+                    "id": 46115,
+                    "name": "M. Makari\u0107",
+                    "age": 28,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/46115.png"
+                },
+                {
+                    "id": 316338,
+                    "name": "D. Vukovi\u00c4\u0087",
+                    "age": 20,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/316338.png"
+                }
+            ]
+        }
+    ]
+}

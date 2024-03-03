@@ -1,0 +1,295 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "2247"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 2247,
+                "name": "Apoel Nicosia",
+                "logo": "https://media.api-sports.io/football/teams/2247.png"
+            },
+            "players": [
+                {
+                    "id": 1022,
+                    "name": "A. Christodoulou",
+                    "age": 26,
+                    "number": 22,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/1022.png"
+                },
+                {
+                    "id": 30442,
+                    "name": "V. Belec",
+                    "age": 33,
+                    "number": 27,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/30442.png"
+                },
+                {
+                    "id": 193341,
+                    "name": "S. Kittos",
+                    "age": 21,
+                    "number": 78,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/193341.png"
+                },
+                {
+                    "id": 435439,
+                    "name": "S. Michos",
+                    "age": 15,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/435439.png"
+                },
+                {
+                    "id": 305812,
+                    "name": "Cipriano",
+                    "age": 21,
+                    "number": 2,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/305812.png"
+                },
+                {
+                    "id": 28327,
+                    "name": "L. Dvali",
+                    "age": 28,
+                    "number": 5,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/28327.png"
+                },
+                {
+                    "id": 311384,
+                    "name": "Jeft\u00e9",
+                    "age": 20,
+                    "number": 6,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/311384.png"
+                },
+                {
+                    "id": 49899,
+                    "name": "I. Chebake",
+                    "age": 34,
+                    "number": 14,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/49899.png"
+                },
+                {
+                    "id": 2358,
+                    "name": "Jos\u00e9 Crespo",
+                    "age": 36,
+                    "number": 15,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/2358.png"
+                },
+                {
+                    "id": 105500,
+                    "name": "M. Su\u0161i\u0107",
+                    "age": 33,
+                    "number": 16,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/105500.png"
+                },
+                {
+                    "id": 341374,
+                    "name": "K. Giannakou",
+                    "age": 18,
+                    "number": 45,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/341374.png"
+                },
+                {
+                    "id": 1491,
+                    "name": "R. Petrovi\u0107",
+                    "age": 34,
+                    "number": 3,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/1491.png"
+                },
+                {
+                    "id": 15169,
+                    "name": "A. Karamanolis",
+                    "age": 22,
+                    "number": 4,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/15169.png"
+                },
+                {
+                    "id": 15292,
+                    "name": "G. Efrem",
+                    "age": 34,
+                    "number": 7,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/15292.png"
+                },
+                {
+                    "id": 385063,
+                    "name": "F. Abdullahi",
+                    "age": 20,
+                    "number": 8,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/385063.png"
+                },
+                {
+                    "id": 49943,
+                    "name": "L. Villaf\u00e1\u00f1ez",
+                    "age": 32,
+                    "number": 10,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/49943.png"
+                },
+                {
+                    "id": 161705,
+                    "name": "G. Satsias",
+                    "age": 21,
+                    "number": 18,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/161705.png"
+                },
+                {
+                    "id": 41242,
+                    "name": "D\u00e1lcio",
+                    "age": 27,
+                    "number": 20,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/41242.png"
+                },
+                {
+                    "id": 41453,
+                    "name": "T\u00f3man\u00e9",
+                    "age": 31,
+                    "number": 21,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/41453.png"
+                },
+                {
+                    "id": 396722,
+                    "name": "P. Kattirtzis",
+                    "age": 17,
+                    "number": 23,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/396722.png"
+                },
+                {
+                    "id": 68103,
+                    "name": "P. Polycarpou",
+                    "age": 23,
+                    "number": 35,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/68103.png"
+                },
+                {
+                    "id": 100356,
+                    "name": "K. Sarfo",
+                    "age": 28,
+                    "number": 44,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/100356.png"
+                },
+                {
+                    "id": 53505,
+                    "name": "G. Kostadinov",
+                    "age": 33,
+                    "number": 70,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/53505.png"
+                },
+                {
+                    "id": 310632,
+                    "name": "S. Vrontis",
+                    "age": 19,
+                    "number": 76,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/310632.png"
+                },
+                {
+                    "id": 338784,
+                    "name": "S. Charalambous",
+                    "age": 18,
+                    "number": 79,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/338784.png"
+                },
+                {
+                    "id": 30078,
+                    "name": "S. Mehri",
+                    "age": 25,
+                    "number": 88,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/30078.png"
+                },
+                {
+                    "id": 3327,
+                    "name": "Wilson Eduardo",
+                    "age": 33,
+                    "number": 9,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/3327.png"
+                },
+                {
+                    "id": 8490,
+                    "name": "G. Kvilitaia",
+                    "age": 30,
+                    "number": 11,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/8490.png"
+                },
+                {
+                    "id": 368702,
+                    "name": "Gabriel Maioli",
+                    "age": 20,
+                    "number": 12,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/368702.png"
+                },
+                {
+                    "id": 362,
+                    "name": "E. Fardou Ben Mohamed",
+                    "age": 34,
+                    "number": 31,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/362.png"
+                },
+                {
+                    "id": 10253,
+                    "name": "Marquinhos",
+                    "age": 26,
+                    "number": 36,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/10253.png"
+                },
+                {
+                    "id": 1943,
+                    "name": "D. Ndongala",
+                    "age": 32,
+                    "number": 77,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/1943.png"
+                },
+                {
+                    "id": 343303,
+                    "name": "K. Nissis",
+                    "age": 19,
+                    "number": 98,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/343303.png"
+                },
+                {
+                    "id": 26313,
+                    "name": "A. Donis",
+                    "age": 27,
+                    "number": 99,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/26313.png"
+                }
+            ]
+        }
+    ]
+}

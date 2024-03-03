@@ -1,0 +1,263 @@
+{
+    "get": "players/squads",
+    "parameters": {
+        "team": "4626"
+    },
+    "errors": [],
+    "results": 1,
+    "paging": {
+        "current": 1,
+        "total": 1
+    },
+    "response": [
+        {
+            "team": {
+                "id": 4626,
+                "name": "Hamrun Spartans",
+                "logo": "https://media.api-sports.io/football/teams/4626.png"
+            },
+            "players": [
+                {
+                    "id": 55968,
+                    "name": "H. Bonello",
+                    "age": 35,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/55968.png"
+                },
+                {
+                    "id": 445706,
+                    "name": "J. Mangion",
+                    "age": null,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/445706.png"
+                },
+                {
+                    "id": 30764,
+                    "name": "F. Marchetti",
+                    "age": 40,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/30764.png"
+                },
+                {
+                    "id": 96473,
+                    "name": "Tom",
+                    "age": 32,
+                    "number": null,
+                    "position": "Goalkeeper",
+                    "photo": "https://media.api-sports.io/football/players/96473.png"
+                },
+                {
+                    "id": 55973,
+                    "name": "S. Borg",
+                    "age": 35,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/55973.png"
+                },
+                {
+                    "id": 91426,
+                    "name": "Christian Rutjens",
+                    "age": 25,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/91426.png"
+                },
+                {
+                    "id": 394648,
+                    "name": "K. Scicluna",
+                    "age": null,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/394648.png"
+                },
+                {
+                    "id": 440931,
+                    "name": "D. Vella Gerada",
+                    "age": 18,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/440931.png"
+                },
+                {
+                    "id": 55977,
+                    "name": "J. Zerafa",
+                    "age": 35,
+                    "number": null,
+                    "position": "Defender",
+                    "photo": "https://media.api-sports.io/football/players/55977.png"
+                },
+                {
+                    "id": 112689,
+                    "name": "R. Camenzuli",
+                    "age": 29,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/112689.png"
+                },
+                {
+                    "id": 55980,
+                    "name": "J. Corbalan",
+                    "age": 26,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/55980.png"
+                },
+                {
+                    "id": 45459,
+                    "name": "N. Krsti\u0107",
+                    "age": 29,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/45459.png"
+                },
+                {
+                    "id": 442371,
+                    "name": "G. Mangion",
+                    "age": null,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/442371.png"
+                },
+                {
+                    "id": 112421,
+                    "name": "Emerson Marcelina",
+                    "age": 32,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/112421.png"
+                },
+                {
+                    "id": 339962,
+                    "name": "G. Vella",
+                    "age": null,
+                    "number": null,
+                    "position": "Midfielder",
+                    "photo": "https://media.api-sports.io/football/players/339962.png"
+                },
+                {
+                    "id": 440930,
+                    "name": "S. Agius",
+                    "age": 18,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/440930.png"
+                },
+                {
+                    "id": 45413,
+                    "name": "O. Bjeli\u010di\u0107",
+                    "age": 26,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/45413.png"
+                },
+                {
+                    "id": 394707,
+                    "name": "F. Bugeja",
+                    "age": null,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/394707.png"
+                },
+                {
+                    "id": 160203,
+                    "name": "Jonny",
+                    "age": 25,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/160203.png"
+                },
+                {
+                    "id": 54104,
+                    "name": "Eder",
+                    "age": 34,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/54104.png"
+                },
+                {
+                    "id": 280540,
+                    "name": "Elionay",
+                    "age": 26,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/280540.png"
+                },
+                {
+                    "id": 55988,
+                    "name": "J. Mbong",
+                    "age": 26,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/55988.png"
+                },
+                {
+                    "id": 68530,
+                    "name": "L. Montebello",
+                    "age": 28,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/68530.png"
+                },
+                {
+                    "id": 7723,
+                    "name": "S. Paintsil",
+                    "age": 27,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/7723.png"
+                },
+                {
+                    "id": 80247,
+                    "name": "R. Pr\u0161a",
+                    "age": 27,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/80247.png"
+                },
+                {
+                    "id": 11173,
+                    "name": "Y. Nenov",
+                    "age": 29,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/11173.png"
+                },
+                {
+                    "id": 426214,
+                    "name": "H. Sani",
+                    "age": 19,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/426214.png"
+                },
+                {
+                    "id": 339899,
+                    "name": "K. Vella",
+                    "age": 18,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/339899.png"
+                },
+                {
+                    "id": 339965,
+                    "name": "T. Zammit",
+                    "age": 18,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/339965.png"
+                },
+                {
+                    "id": 66235,
+                    "name": "U. \u0110uranovi\u0107",
+                    "age": 29,
+                    "number": null,
+                    "position": "Attacker",
+                    "photo": "https://media.api-sports.io/football/players/66235.png"
+                }
+            ]
+        }
+    ]
+}
