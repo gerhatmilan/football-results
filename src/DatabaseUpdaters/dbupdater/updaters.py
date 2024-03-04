@@ -834,11 +834,11 @@ class TopScorersUpdater(DatabaseUpdater):
 
         Returns the columns for the given ID record.
         The ID must be unique in the table.
-        The ID must be in (league_id, season, player_name) format.
+        The ID must be in (league_id, season, rank) format.
         
         """
 
-        records_list = [record for record in self.get_records_from_db() if (record['league_id'], record['season'], record['player_name']) == id]
+        records_list = [record for record in self.get_records_from_db() if (record['league_id'], record['season'], record['rank']) == id]
         if len(records_list) > 1:
             logging.log(ERROR_LOG_PATH, f'Error: there are more than one records in top_scorers table for id {id}')
         else:
@@ -850,7 +850,7 @@ class TopScorersUpdater(DatabaseUpdater):
         if self._records is None:
             self._records = self.get_records_from_db()
 
-        return [(record["league_id"], record["season"], record["player_name"]) for record in self._records]
+        return [(record["league_id"], record["season"], record["rank"]) for record in self._records]
 
     def insert_record(self, record):
         """ Inserts a record to the database """
@@ -868,7 +868,7 @@ class TopScorersUpdater(DatabaseUpdater):
     def update_record(self, new_record):
         """ Tries to update the already existing record in the database """
 
-        id = (new_record['league_id'], new_record['season'], new_record['player_name'])
+        id = (new_record['league_id'], new_record['season'], new_record['rank'])
         old_record = self.get_record_for_id(id)
 
         diff_list = [(f"{column} = %s", new_record[column], old_record[column], column) for column in new_record.keys() if new_record[column] != old_record[column]]       
@@ -923,7 +923,7 @@ class TopScorersUpdater(DatabaseUpdater):
                 existing_ids = self.get_all_ids()
 
                 for record in records_to_insert:
-                    id = (record["league_id"], record['season'], record["player_name"])
+                    id = (record["league_id"], record['season'], record["rank"])
                     if id not in existing_ids:
                         self.insert_record(record)
                     else:

@@ -101,19 +101,23 @@ CREATE TABLE "football"."players" (
 CREATE TABLE "football"."top_scorers" (
   "league_id" integer,
   "season" integer,
-  "player_name" varchar,
+  "rank" integer NOT NULL,
+  "player_name" varchar NOT NULL,
   "photo_link" varchar,
   "team_id" integer NOT NULL,
-  "rank" integer NOT NULL,
   "played" integer,
   "goals" integer NOT NULL,
   "assists" integer,
   "last_update" timestamptz DEFAULT CURRENT_TIMESTAMP,
   
-  PRIMARY KEY ("league_id", "season", "player_name"),
+  PRIMARY KEY ("league_id", "season", "rank"),
   
   FOREIGN KEY ("league_id", "season")
     REFERENCES "football"."available_seasons" ("league_id", "season")
+	ON DELETE CASCADE,
+	
+  FOREIGN KEY ("team_id")
+    REFERENCES "football"."teams" ("team_id")
 	ON DELETE CASCADE
 );
 
