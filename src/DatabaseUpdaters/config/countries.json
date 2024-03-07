@@ -1,6 +1,10 @@
 {
     "endpoint": "/countries",
-    "command": "INSERT INTO football.countries (country_id, flag_link) VALUES (%s, %s);",
+    "commands": {
+        "select_command": "SELECT * FROM football.countries;",
+        "insert_command": "INSERT INTO football.countries (country_id, flag_link) VALUES (%s, %s);",
+        "update_command": "UPDATE football.countries SET {} WHERE country_id = %s;"
+    },
     "save_path": "data/countries/",
     "save_file": "countries.json"
 }

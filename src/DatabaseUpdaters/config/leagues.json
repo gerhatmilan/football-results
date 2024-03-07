@@ -1,8 +1,9 @@
 {
     "endpoint": "/leagues",
-    "command": {
-        "leagues": "INSERT INTO football.leagues (league_id, country_id, name, type, current_season, logo_link) VALUES (%s, %s, %s, %s, %s, %s);",
-        "seasons": "INSERT INTO football.available_seasons (league_id, season) VALUES (%s, %s);"
+    "commands": {
+        "select_command": "SELECT * FROM football.leagues;",
+        "insert_command": "INSERT INTO football.leagues (league_id, country_id, name, type, current_season, logo_link) VALUES (%s, %s, %s, %s, %s, %s);",
+        "update_command": "UPDATE football.leagues SET {} WHERE league_id = %s;"      
     },
     "save_path": "data/leagues/",
     "save_file": "leagues.json"

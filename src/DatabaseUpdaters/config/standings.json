@@ -1,6 +1,11 @@
 {
     "endpoint": "/standings?league={}&season={}",
     "command": "INSERT INTO football.standings (league_id, season, team_id, rank, \"group\", points, played, wins, draws, losses, scored, conceded) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
+    "commands": {
+        "select_command": "SELECT * FROM football.standings WHERE league_id = %s AND season = %s;",
+        "insert_command": "INSERT INTO football.standings (league_id, season, team_id, rank, \"group\", points, played, wins, draws, losses, scored, conceded) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",
+        "update_command": "UPDATE football.standings SET {} WHERE league_id = %s AND season = %s AND team_id = %s;"
+    },
     "save_path": "data/standings/",
     "save_file": "{}/{}.json"
 }

@@ -1,8 +1,8 @@
-""" Script for updating the standings table in the database with data from the API, for the current season """
+""" Script for updating the matches table in the database with data from the API, through all available seasons """
 
 from dbupdater.api.client import APIClient, get_data
 from dbupdater import updaters
-from dbupdater.updaters import StandingsUpdater
+from dbupdater.updaters import MatchesUpdater
 from dbupdater.queriers import DatabaseQuerier 
 from dbupdater.logging import logging
 from dbupdater.logging.logging import SUCCESS_LOG_PATH, ERROR_LOG_PATH
@@ -19,22 +19,24 @@ API_CONFIG_FILE = 'config/api_config.json'
 MODE = 'API'
 
 try:
-    client = APIClient(API_CONFIG_FILE, updaters.STANDINGS_CONFIG_FILE)
+    client = APIClient(API_CONFIG_FILE, updaters.MATCHES_CONFIG_FILE)
     querier = DatabaseQuerier(DATABASE_CONFIG_FILE)
     
     included_league_ids = get_included_leagues()
-    current_seasons = [querier.current_season(league_id) for league_id in included_league_ids]
+    
+    for league_id in included_league_ids:
+        available_seasons = querier.available_seasons(league_id)
 
-    for league_id, season in zip(included_league_ids, current_seasons):
-            data = get_data(client=client, mode=MODE, save=True, config=updaters.STANDINGS_CONFIG_FILE, filename_parameters=(league_id, season), endpoint_parameters=(league_id, season))
+        for season in available_seasons:
+            data = get_data(client=client, mode=MODE, save=True, config=updaters.MATCHES_CONFIG_FILE, filename_parameters=(league_id, season), endpoint_parameters=(league_id, season))
             
             if MODE == 'API':
                  time.sleep(65. / client.get_rate_limit())
 
-            updater = StandingsUpdater(DATABASE_CONFIG_FILE, updaters.STANDINGS_CONFIG_FILE)
+            updater = MatchesUpdater(DATABASE_CONFIG_FILE, updaters.MATCHES_CONFIG_FILE)
             updater.update(data)
 
-            logging.log(SUCCESS_LOG_PATH, f'Update of table standings has completed successfully for league {league_id} and season {season} changes: {updater.total_changes}\n')
+            logging.log(SUCCESS_LOG_PATH, f'Update of table matches has completed successfully for league {league_id} and season {season}, total changes: {updater.total_changes}\n')
 except Exception as e:
     logging.log(ERROR_LOG_PATH, str(e) + "\n")
     exit()
