@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\lib\**" />
+    <Content Remove="wwwroot\lib\**" />
+    <EmbeddedResource Remove="wwwroot\lib\**" />
+    <None Remove="wwwroot\lib\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <_WebToolingArtifacts Remove="Properties\launchSettings.json" />
   </ItemGroup>
 
@@ -18,14 +25,18 @@
     <None Include="Components\Pages\Error.razor" />
     <None Include="Components\Pages\Home.razor" />
     <None Include="Components\Pages\Leagues.razor" />
-    <None Include="Components\Pages\LeagueView.razor" />
+    <None Include="Components\Pages\LeagueDetails.razor" />
     <None Include="Components\Pages\Matches.razor" />
-    <None Include="Components\Pages\MatchView.razor" />
-    <None Include="Components\Pages\TeamView.razor" />
+    <None Include="Components\Pages\MatchDetails.razor" />
+    <None Include="Components\Pages\TeamDetails.razor" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FootballResults.Models\FootballResults.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\MiniComponents\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>

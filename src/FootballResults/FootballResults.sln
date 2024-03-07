@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballResults.WebApp", "FootballResults.WebApp\FootballResults.WebApp.csproj", "{111CB5CE-81EB-4042-8DEE-2596E26FF881}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballResults.WebApp", "FootballResults.WebApp\FootballResults.WebApp.csproj", "{111CB5CE-81EB-4042-8DEE-2596E26FF881}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballResults.Models", "FootballResults.Models\FootballResults.Models.csproj", "{667E4C02-39F3-4A29-B789-5EEC437C313A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballResults.Models", "FootballResults.Models\FootballResults.Models.csproj", "{667E4C02-39F3-4A29-B789-5EEC437C313A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballResults.API", "FootballResults.API\FootballResults.API.csproj", "{94066D25-F968-4AF0-AAC5-702D0845E571}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballResults.API", "FootballResults.API\FootballResults.API.csproj", "{94066D25-F968-4AF0-AAC5-702D0845E571}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

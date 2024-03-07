@@ -1,0 +1,15 @@
+﻿form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+#searchbar {
+    border-radius: 15px;
+    text-align: center;
+    width: 50%;
+    min-width: 200px;
+    max-width: 500px;
+    box-shadow: none;
+}
