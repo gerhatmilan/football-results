@@ -10,9 +10,9 @@ namespace FootballResults.API.Models
         Task<IEnumerable<Country>> GetTeamsByCountry();
         Task<IEnumerable<Country>> GetVenuesByCountry();
         Task<Country?> GetCountryByName(string countryName);
-        Task<IEnumerable<League>> GetLeaguesInCountry(string countryName);
-        Task<IEnumerable<Team>> GetTeamsInCountry(string countryName);
-        Task<IEnumerable<Venue>> GetVenuesInCountry(string countryName);
+        Task<IEnumerable<League>> GetLeaguesForCountry(string countryName);
+        Task<IEnumerable<Team>> GetTeamsForCountry(string countryName);
+        Task<IEnumerable<Venue>> GetVenuesForCountry(string countryName);
         Task<IEnumerable<Country>> Search(string? countryName);
     }
 }

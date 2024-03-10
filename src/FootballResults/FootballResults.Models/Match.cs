@@ -43,9 +43,5 @@ namespace FootballResults.Models
         public Team HomeTeam { get; set; }
 
         public Team AwayTeam { get; set; }
-
-        //public ICollection<MatchTeam> MatchTeams { get; set; }
-
-        // public ICollection<Team> Teams { get; set; }
     }
 }

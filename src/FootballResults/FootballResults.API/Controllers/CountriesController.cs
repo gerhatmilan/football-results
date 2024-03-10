@@ -21,7 +21,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await countryRepository.GetCountries();
-                return Ok(result);
+                return result.Any() ? Ok(result) : NotFound();
             }
             catch (Exception)
             {
@@ -35,7 +35,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await countryRepository.GetLeaguesByCountry();
-                return Ok(result);
+                return result.Any() ? Ok(result) : NotFound();
             }
             catch (Exception)
             {
@@ -49,7 +49,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await countryRepository.GetTeamsByCountry();
-                return Ok(result);
+                return result.Any() ? Ok(result) : NotFound();
             }
             catch (Exception)
             {
@@ -63,7 +63,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await countryRepository.GetVenuesByCountry();
-                return Ok(result);
+                return result.Any() ? Ok(result) : NotFound();
             }
             catch (Exception)
             {
@@ -79,11 +79,7 @@ namespace FootballResults.API.Controllers
                 countryName = countryName.Replace("-", " ");
 
                 var result = await countryRepository.GetCountryByName(countryName);
-                if (result == null)
-                {
-                    return NotFound();
-                }
-                return Ok(result);
+                return result != null ? Ok(result) : NotFound();
             }
             catch (Exception)
             {
@@ -92,7 +88,7 @@ namespace FootballResults.API.Controllers
         }   
 
         [HttpGet("countries/{countryName}/leagues")]
-        public async Task<ActionResult<IEnumerable<League>>> GetLeaguesInCountry(string countryName)
+        public async Task<ActionResult<IEnumerable<League>>> GetLeaguesForCountry(string countryName)
         {
             countryName = countryName.ToLower();
             var splitted = countryName.Split("-").ToList();
@@ -100,8 +96,8 @@ namespace FootballResults.API.Controllers
 
             try
             {
-                var result = await countryRepository.GetLeaguesInCountry(countryName);
-                return Ok(result);
+                var result = await countryRepository.GetLeaguesForCountry(countryName);
+                return result.Any() ? Ok(result) : NotFound();
             }
             catch (Exception)
             {
@@ -110,7 +106,7 @@ namespace FootballResults.API.Controllers
         }
 
         [HttpGet("countries/{countryName}/teams")]
-        public async Task<ActionResult<IEnumerable<Team>>> GetTeamsInCountry(string countryName)
+        public async Task<ActionResult<IEnumerable<Team>>> GetTeamsForCountry(string countryName)
         {
             countryName = countryName.ToLower();
             var splitted = countryName.Split("-").ToList();
@@ -118,8 +114,8 @@ namespace FootballResults.API.Controllers
 
             try
             {
-                var result = await countryRepository.GetTeamsInCountry(countryName);
-                return Ok(result);
+                var result = await countryRepository.GetTeamsForCountry(countryName);
+                return result.Any() ? Ok(result) : NotFound();
             }
             catch (Exception)
             {
@@ -128,7 +124,7 @@ namespace FootballResults.API.Controllers
         }
 
         [HttpGet("countries/{countryName}/venues")]
-        public async Task<ActionResult<IEnumerable<Venue>>> GetVenuesInCountry(string countryName)
+        public async Task<ActionResult<IEnumerable<Venue>>> GetVenuesForCountry(string countryName)
         {
             countryName = countryName.ToLower();
             var splitted = countryName.Split("-").ToList();
@@ -136,8 +132,8 @@ namespace FootballResults.API.Controllers
 
             try
             {
-                var result = await countryRepository.GetVenuesInCountry(countryName);
-                return Ok(result);
+                var result = await countryRepository.GetVenuesForCountry(countryName);
+                return result.Any() ? Ok(result) : NotFound();
             }
             catch (Exception)
             {
@@ -146,16 +142,12 @@ namespace FootballResults.API.Controllers
         }
 
         [HttpGet("countries/search")]
-        public async Task<ActionResult<IEnumerable<Country>>> Search(string? countryName)
+        public async Task<ActionResult<IEnumerable<Country>>> Search(string? country)
         {
             try
             {
-                var result = await countryRepository.Search(countryName);
-                if (result.Any())
-                {
-                    return Ok(result);
-                }
-                return NotFound();
+                var result = await countryRepository.Search(country);
+                return result.Any() ? Ok(result) : NotFound();
             }
             catch (Exception)
             {

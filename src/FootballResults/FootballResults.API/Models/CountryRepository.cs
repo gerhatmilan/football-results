@@ -64,7 +64,7 @@ namespace FootballResults.API.Models
             return result;
         }
 
-        public async Task<IEnumerable<League>> GetLeaguesInCountry(string countryName)
+        public async Task<IEnumerable<League>> GetLeaguesForCountry(string countryName)
         {
             var result = await dbContext.Leagues
                 .Where(l => l.CountryID.ToLower().Equals(countryName.ToLower()))
@@ -75,7 +75,7 @@ namespace FootballResults.API.Models
             return result;
         }
 
-        public async Task<IEnumerable<Team>> GetTeamsInCountry(string countryName)
+        public async Task<IEnumerable<Team>> GetTeamsForCountry(string countryName)
         {
             var result = await dbContext.Teams
                 .Where(t => t.CountryID.ToLower().Equals(countryName.ToLower()))
@@ -85,7 +85,7 @@ namespace FootballResults.API.Models
             return result;
         }
 
-        public async Task<IEnumerable<Venue>> GetVenuesInCountry(string countryName)
+        public async Task<IEnumerable<Venue>> GetVenuesForCountry(string countryName)
         {
             var result = await dbContext.Venues
                 .Where(v => v.CountryID.ToLower().Equals(countryName.ToLower()))

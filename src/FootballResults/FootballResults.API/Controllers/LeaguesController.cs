@@ -1,6 +1,7 @@
 ﻿using FootballResults.API.Models;
 using FootballResults.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 
 namespace FootballResults.API.Controllers
 {
@@ -21,11 +22,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await leagueRepository.GetLeagues();
-
-                if (result.Any())
-                    return Ok(result);
-                else
-                    return NotFound();
+                return result.Any() ? Ok(result) : NotFound();
             }
             catch (Exception)
             {
@@ -41,11 +38,7 @@ namespace FootballResults.API.Controllers
                 leagueName = leagueName.Replace("-", " ");
 
                 var result = await leagueRepository.GetLeagueByName(leagueName);
-                if (result == null)
-                {
-                    return NotFound();
-                }
-                return Ok(result);
+                return result != null ? Ok(result) : NotFound();
             }
             catch (Exception)
             {
@@ -61,11 +54,7 @@ namespace FootballResults.API.Controllers
                 leagueName = leagueName.Replace("-", " ");
 
                 var result = await leagueRepository.GetSeasonsForLeague(leagueName);
-
-                if (result.Any())
-                    return Ok(result);
-                else
-                    return NotFound();
+                return result.Any() ? Ok(result) : NotFound();
             }
             catch (Exception)
             {
@@ -73,6 +62,21 @@ namespace FootballResults.API.Controllers
             }
         }
 
+        [HttpGet("leagues/{leagueName}/{season}/teams")]
+        public async Task<ActionResult<IEnumerable<Match>>> GetTeamsForLeagueAndSeason(string leagueName, int season)
+        {
+            try
+            {
+                leagueName = leagueName.Replace("-", " ");
+
+                var result = await leagueRepository.GetTeamsForLeagueAndSeason(leagueName, season);
+                return result.Any() ? Ok(result) : NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Could not query teams data");
+            }
+        }
 
         [HttpGet("leagues/{leagueName}/{season}/rounds")]
         public async Task<ActionResult<IEnumerable<Match>>> GetRoundsForLeagueAndSeason(string leagueName, int season)
@@ -82,11 +86,7 @@ namespace FootballResults.API.Controllers
                 leagueName = leagueName.Replace("-", " ");
 
                 var result = await leagueRepository.GetRoundsForLeagueAndSeason(leagueName, season);
-
-                if (result.Any())
-                    return Ok(result);
-                else
-                    return NotFound();
+                return result.Any() ? Ok(result) : NotFound();
             }
             catch (Exception)
             {
@@ -94,19 +94,18 @@ namespace FootballResults.API.Controllers
             }
         }
 
-        [HttpGet("leagues/{leagueName}/{season}/matches/{round}")]
-        public async Task<ActionResult<IEnumerable<Match>>> GetMatchesForLeagueAndSeason(string leagueName, int season, string round)
+        [HttpGet("leagues/{leagueName}/matches")]
+        public async Task<ActionResult<IEnumerable<Match>>> GetMatchesForLeagueAndSeason(string leagueName, int? season, string? round)
         {
+            if (season == null || round == null)
+                return BadRequest("Season and round has to be specified as query parameters to retrieve matches");
+
             try
             {
                 leagueName = leagueName.Replace("-", " ");
 
-                var result = await leagueRepository.GetMatchesForLeagueAndSeasonAndRound(leagueName, season, round);
-
-                if (result.Any())
-                    return Ok(result);
-                else
-                    return NotFound();
+                var result = await leagueRepository.GetMatchesForLeagueAndSeasonAndRound(leagueName, (int)season, round);
+                return result.Any() ? Ok(result) : NotFound();
             }
             catch (Exception)
             {
@@ -114,19 +113,18 @@ namespace FootballResults.API.Controllers
             }
         }
 
-        [HttpGet("leagues/{leagueName}/{season}/standings")]
-        public async Task<ActionResult<IEnumerable<Match>>> GetStandingsForLeagueAndSeason(string leagueName, int season)
+        [HttpGet("leagues/{leagueName}/standings")]
+        public async Task<ActionResult<IEnumerable<Match>>> GetStandingsForLeagueAndSeason(string league, int? season)
         {
+            if (season == null)
+                return BadRequest("Season has to be specified as query parameter to retrieve standings");
+
             try
             {
-                leagueName = leagueName.Replace("-", " ");
+                league = league.Replace("-", " ");
 
-                var result = await leagueRepository.GetStandingsForLeagueAndSeason(leagueName, season);
-
-                if (result.Any())
-                    return Ok(result);
-                else
-                    return NotFound();
+                var result = await leagueRepository.GetStandingsForLeagueAndSeason(league, (int)season);
+                return result.Any() ? Ok(result) : NotFound();
             }
             catch (Exception)
             {
@@ -134,19 +132,18 @@ namespace FootballResults.API.Controllers
             }
         }
 
-        [HttpGet("leagues/{leagueName}/{season}/topscorers")]
-        public async Task<ActionResult<IEnumerable<Match>>> GetTopScorersForLeagueAndSeason(string leagueName, int season)
+        [HttpGet("leagues/{leagueName}/topscorers")]
+        public async Task<ActionResult<IEnumerable<Match>>> GetTopScorersForLeagueAndSeason(string league, int? season)
         {
+            if (season == null)
+                return BadRequest("Season has to be specified as query parameter to retrieve top scorers");
+
             try
             {
-                leagueName = leagueName.Replace("-", " ");
+                league = league.Replace("-", " ");
 
-                var result = await leagueRepository.GetTopScorersForLeagueAndSeason(leagueName, season);
-                
-                if (result.Any())
-                    return Ok(result);
-                else
-                    return NotFound();
+                var result = await leagueRepository.GetTopScorersForLeagueAndSeason(league, (int)season);
+                return result.Any() ? Ok(result) : NotFound();
             }
             catch (Exception)
             {
@@ -155,16 +152,12 @@ namespace FootballResults.API.Controllers
         }
 
         [HttpGet("leagues/search")]
-        public async Task<ActionResult<IEnumerable<League>>> Search(string? leagueName, string? country, string? type, int? currentSeason)
+        public async Task<ActionResult<IEnumerable<League>>> Search(string? league, string? country, string? type, int? currentSeason)
         {
             try
             {
-                var result = await leagueRepository.Search(leagueName, country, type, currentSeason);
-
-                if (result.Any())
-                    return Ok(result);
-                else
-                    return NotFound();
+                var result = await leagueRepository.Search(league, country, type, currentSeason);
+                return result.Any() ? Ok(result) : NotFound();
             }
             catch (Exception)
             {

@@ -21,7 +21,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await teamRepository.GetTeams();
-                return Ok(result);
+                return result.Any() ? Ok(result) : NotFound(); 
             }
             catch (Exception)
             {
@@ -37,11 +37,7 @@ namespace FootballResults.API.Controllers
                 teamName = teamName.Replace("-", " ");
 
                 var result = await teamRepository.GetTeamByName(teamName);
-                if (result == null)
-                {
-                    return NotFound();
-                }
-                return Ok(result);
+                return result != null ? Ok(result) : NotFound(); 
             }
             catch (Exception)
             {
@@ -49,17 +45,48 @@ namespace FootballResults.API.Controllers
             }
         }
 
-        [HttpGet("teams/search")]
-        public async Task<ActionResult<IEnumerable<Team>>> Search(string? teamName, string? country, bool? national)
+        [HttpGet("teams/{teamName}/squad")]
+        public async Task<ActionResult<IEnumerable<Player>>> GetSquadForTeam(string teamName)
         {
             try
             {
-                var result = await teamRepository.Search(teamName, country, national);
-                if (result.Any())
-                {
-                    return Ok(result);
-                }
-                return NotFound();
+                teamName = teamName.Replace("-", " ");
+
+                var result = await teamRepository.GetSquadForTeam(teamName);
+                return result.Any() ? Ok(result) : NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Could not query squad data");
+            }
+        }
+
+        [HttpGet("teams/{teamName}/matches")]
+        public async Task<ActionResult<IEnumerable<Player>>> GetMatchesForTeam(string teamName, string? league, int? season)
+        {
+            if (league == null || season == null)
+                return BadRequest("League name and season has to be specified as query parameters to retrieve match data");
+
+            try
+            {
+                league = league.Replace("-", " ");
+
+                var result = await teamRepository.GetMatchesForTeamAndLeagueAndSeason(teamName, league, (int)season);
+                return result.Any() ? Ok(result) : NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Could not query matches data");
+            }
+        }
+
+        [HttpGet("teams/search")]
+        public async Task<ActionResult<IEnumerable<Team>>> Search(string? team, string? country, bool? national)
+        {
+            try
+            {
+                var result = await teamRepository.Search(team, country, national);
+                return result.Any() ? Ok(result) : NotFound();
             }
             catch (Exception)
             {

@@ -52,6 +52,7 @@ namespace FootballResults.API
             builder.Services.AddScoped<ILeagueRepository, LeagueRepository>();
             builder.Services.AddScoped<ICountryRepository, CountryRepository>();
             builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+            builder.Services.AddScoped<IMatchRepository, MatchRepository>();
 
             var app = builder.Build();
 
@@ -67,6 +68,8 @@ namespace FootballResults.API
             app.UseAuthorization();
 
             app.MapControllers();
+
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             app.Run();
         }

@@ -8,8 +8,6 @@ namespace FootballResults.API.Models
     public class LeagueRepository : ILeagueRepository
     {
         private readonly FootballDataDbContext dbContext;
-        private const int MATCH_PAGE_SIZE = 20;
-
         public LeagueRepository(FootballDataDbContext dbContext)
         {
             this.dbContext = dbContext;
@@ -45,6 +43,22 @@ namespace FootballResults.API.Models
             return result;
         }
 
+        public async Task<IEnumerable<Team>> GetTeamsForLeagueAndSeason(string leagueName, int season)
+        {
+            var leagueSeasonQuery = dbContext.Matches
+                .Where(m => m.League.Name.ToLower().Equals(leagueName.ToLower()) && m.Season == season)
+                .Select(m => new { m.HomeTeam, m.AwayTeam });
+
+            var teams = await leagueSeasonQuery
+                .Select(teams => teams.HomeTeam)
+                .Union(
+                    leagueSeasonQuery.Select(teams => teams.AwayTeam)
+                )
+                .ToListAsync();
+
+            return teams;
+        }
+
         public async Task<IEnumerable<string>> GetRoundsForLeagueAndSeason(string leagueName, int season)
         {
 
@@ -69,8 +83,6 @@ namespace FootballResults.API.Models
                     && m.Season == season
                     && m.Round.ToLower().Equals(round.ToLower()))
                .OrderBy(m => m.Date)
-               .Include(m => m.Venue)
-               .Include(m => m.League)
                .Select(m => new Match
                {
                    MatchID = m.MatchID,
@@ -78,16 +90,19 @@ namespace FootballResults.API.Models
                    HomeTeamID = m.HomeTeamID,
                    AwayTeamID = m.AwayTeamID,
                    Date = m.Date,
-                   Venue = m.Venue,
                    Season = m.Season,
                    Round = m.Round,
+                   Status = m.Status,
+                   Minute = m.Minute,
+                   HomeTeamGoals = m.HomeTeamGoals,
+                   AwayTeamGoals = m.AwayTeamGoals,
+                   LastUpdate = m.LastUpdate,
                    HomeTeam = new Team
                    {
                        TeamID = m.HomeTeam.TeamID,
                        Name = m.HomeTeam.Name,
                        ShortName = m.HomeTeam.ShortName,
                        LogoLink = m.HomeTeam.LogoLink,
-                       National = m.HomeTeam.National,
                    },
                    AwayTeam = new Team
                    {
@@ -95,13 +110,7 @@ namespace FootballResults.API.Models
                        Name = m.AwayTeam.Name,
                        ShortName = m.AwayTeam.ShortName,
                        LogoLink = m.AwayTeam.LogoLink,
-                       National = m.AwayTeam.National,
-                   },
-                   Status = m.Status,
-                   Minute = m.Minute,
-                   HomeTeamGoals = m.HomeTeamGoals,
-                   AwayTeamGoals = m.AwayTeamGoals,
-                   LastUpdate = m.LastUpdate
+                   }
                })
                .ToListAsync();
 

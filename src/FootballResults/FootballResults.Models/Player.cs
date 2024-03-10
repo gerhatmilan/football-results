@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace FootballResults.Models
@@ -24,6 +25,7 @@ namespace FootballResults.Models
 
         public string PhotoLink { get; set; }
 
+        [JsonIgnore]
         public Team Team { get; set; }
     }
 }

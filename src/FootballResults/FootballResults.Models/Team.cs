@@ -35,10 +35,6 @@ namespace FootballResults.Models
         [JsonIgnore]
         public ICollection<Match> AwayMatches { get; set; }
 
-        // public ICollection<MatchTeam> MatchTeams { get; set; }
-
-        // public ICollection<Match> Matches { get; set; }
-
         public ICollection<Player> Squad { get; set; }
 
     }
