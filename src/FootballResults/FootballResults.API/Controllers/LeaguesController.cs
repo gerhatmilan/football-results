@@ -22,7 +22,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await leagueRepository.GetLeagues();
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -54,7 +54,7 @@ namespace FootballResults.API.Controllers
                 leagueName = leagueName.Replace("-", " ");
 
                 var result = await leagueRepository.GetSeasonsForLeague(leagueName);
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -70,7 +70,7 @@ namespace FootballResults.API.Controllers
                 leagueName = leagueName.Replace("-", " ");
 
                 var result = await leagueRepository.GetTeamsForLeagueAndSeason(leagueName, season);
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -86,7 +86,7 @@ namespace FootballResults.API.Controllers
                 leagueName = leagueName.Replace("-", " ");
 
                 var result = await leagueRepository.GetRoundsForLeagueAndSeason(leagueName, season);
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -105,7 +105,7 @@ namespace FootballResults.API.Controllers
                 leagueName = leagueName.Replace("-", " ");
 
                 var result = await leagueRepository.GetMatchesForLeagueAndSeasonAndRound(leagueName, (int)season, round);
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -124,7 +124,7 @@ namespace FootballResults.API.Controllers
                 league = league.Replace("-", " ");
 
                 var result = await leagueRepository.GetStandingsForLeagueAndSeason(league, (int)season);
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -143,7 +143,7 @@ namespace FootballResults.API.Controllers
                 league = league.Replace("-", " ");
 
                 var result = await leagueRepository.GetTopScorersForLeagueAndSeason(league, (int)season);
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -157,7 +157,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await leagueRepository.Search(league, country, type, currentSeason);
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {

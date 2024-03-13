@@ -13,7 +13,7 @@ namespace FootballResults.API.Models
         }
         public async Task<Match?> GetMatchByID(int id)
         {
-            var result = await dbContext.Matches
+            return await dbContext.Matches
                 .Where(m => m.MatchID == id)
                 .Select(m => new Match
                 {
@@ -35,14 +35,12 @@ namespace FootballResults.API.Models
                     AwayTeam = m.AwayTeam,
                     LastUpdate = m.LastUpdate,
                 })
-                .FirstAsync();
-
-            return result;
+                .FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Match>> GetHeadToHead(string teamName1, string teamName2)
         {
-            var result = await dbContext.Matches
+            return await dbContext.Matches
                 .Where(m =>
                     (m.HomeTeam.Name.ToLower().Equals(teamName1.ToLower())
                     && m.AwayTeam.Name.ToLower().Equals(teamName2.ToLower()))
@@ -83,12 +81,10 @@ namespace FootballResults.API.Models
                 })
                 .OrderBy(m => m.Date)
                 .ToListAsync();
-
-            return result;
         }
 
         public async Task<IEnumerable<Match>> Search(DateTime? date, string? teamName, string? leagueName, int? season, string? round)
-        {
+        {          
             IQueryable<Match> query = dbContext.Matches;
 
             if (!String.IsNullOrEmpty(teamName))
@@ -109,7 +105,7 @@ namespace FootballResults.API.Models
                 query = query.Where(m => m.Round.ToLower().Equals(round.ToLower()));
             }
 
-            var matches =  await query
+            query = query
                 .OrderBy(m => m.Date)
                 .Select(m => new Match
                 {
@@ -141,19 +137,16 @@ namespace FootballResults.API.Models
                         ShortName = m.AwayTeam.ShortName,
                         LogoLink = m.AwayTeam.LogoLink,
                     },
-                })
-                .ToListAsync();
+                });
 
             if (date.HasValue)
             {
-                date = date.GetValueOrDefault();
-                return matches
-                    .Where(m => m.Date.GetValueOrDefault().Date == date);
+                var dateToSearch = date.GetValueOrDefault().Date;
+                query = query
+                    .Where(m => m.Date != null && m.Date.Value.Date == dateToSearch);
             }
-            else
-            {
-                return matches;
-            }     
+
+            return await query.ToListAsync();
         }
     }
 }

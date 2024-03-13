@@ -16,19 +16,15 @@ namespace FootballResults.API.Models
 
         public async Task<IEnumerable<Team>> GetTeams()
         {
-            var result = await dbContext.Teams
+            return await dbContext.Teams
                 .OrderBy(t => t.Name)
                 .ToListAsync();
-
-            return result;
         }
 
         public async Task<Team?> GetTeamByName(string teamName)
         {
-            var result = await dbContext.Teams
+            return await dbContext.Teams
                 .FirstOrDefaultAsync(l => l.Name.ToLower().Equals(teamName.ToLower()));
-
-            return result;
         }
 
         public async Task<IEnumerable<Player>> GetSquadForTeam(string teamName)
@@ -56,7 +52,7 @@ namespace FootballResults.API.Models
                 .Where(m => m.HomeTeam.Name.ToLower().Equals(teamName.ToLower())
                 || m.AwayTeam.Name.ToLower().Equals(teamName.ToLower()));
 
-            var result = await query
+            return await query
                 .Select(m => new Match
                 {
                     MatchID = m.MatchID,
@@ -89,8 +85,6 @@ namespace FootballResults.API.Models
                 })
                 .OrderBy(m => m.Date)
                 .ToListAsync();
-
-            return result;
         }
 
         public async Task<IEnumerable<Team>> Search(string? teamName, string? country, bool? national)

@@ -1,0 +1,68 @@
+﻿@if (Match != null)
+{
+    <div class="matchCard">
+        <a href="/teams/@String.Join("-", Match.HomeTeam.Name.ToLower().Split(" "))">
+            <div class="teamDiv homeTeamDiv">
+                <div class="teamLogoDiv">
+                    <img class="teamLogo" src="@Match.HomeTeam.LogoLink" alt="@Match.HomeTeam.Name logo" />
+                </div>
+                <div class="teamName">@Match.HomeTeam.Name</div>
+            </div>
+        </a>
+        <a class="matchDetails" href="/matches/@Match.MatchID">
+            @if (Match.Date != null)
+            {
+                @if (DateTime.UtcNow > Match.Date.Value)
+                {
+                    <div class="smallDate">
+                        @Match.Date.Value.ToShortDateString() @Match.Date.Value.ToLocalTime().ToShortTimeString()
+                    </div>
+                    <div class="score">@Match.HomeTeamGoals - @Match.AwayTeamGoals</div>
+
+                    @if (Match.Status != null)
+                    {
+                        <div class="status">@Match.Status</div>
+                    }
+                    else
+                    {
+                        <div class="status">Status unknown</div>
+                    }
+
+                    @if (Match.Status != "FT")
+                    {
+                        <div class="lastUpdate">
+                            Last updated:<br />
+                            @Match.LastUpdate!.Value.ToShortDateString() @Match.LastUpdate.Value.ToLocalTime().ToShortTimeString()
+                        </div>
+                    }          
+                }
+                else
+                {
+                    <div class="bigDate">
+                    @Match.Date.Value.ToShortDateString()
+                    <br />
+                    @Match.Date.Value.ToLocalTime().ToShortTimeString()
+                    </div>
+                }            
+            }
+            else
+            {
+                <div class="date">Unknown date</div>
+            }
+        </a>
+        <a href="/teams/@String.Join("-", Match.AwayTeam.Name.ToLower().Split(" "))">
+            <div class="teamDiv awayTeamDiv">
+                <div class="teamLogoDiv">
+                    <img class="teamLogo" src="@Match.AwayTeam.LogoLink" alt="@Match.AwayTeam.Name logo" />
+                </div>
+                <div class="teamName">@Match.AwayTeam.Name</div>
+            </div>
+        </a>
+    </div>
+}
+
+
+@code {
+    [Parameter]
+    public Match? Match { get; set; }
+}

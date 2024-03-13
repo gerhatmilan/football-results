@@ -35,10 +35,6 @@
     <ProjectReference Include="..\FootballResults.Models\FootballResults.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Components\MiniComponents\" />
-  </ItemGroup>
-
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

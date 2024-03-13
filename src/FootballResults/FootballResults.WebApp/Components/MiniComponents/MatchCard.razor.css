@@ -1,0 +1,162 @@
+﻿.matchCard {
+    margin: auto;
+    padding: 10px;
+}
+
+.matchCard a {
+    color: white;
+    text-decoration: none;
+    
+}
+.homeTeamDiv {
+    float: left;
+}
+
+.teamDiv {
+    display: inline-flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.awayTeamDiv {
+    float: right;
+}
+
+.homeTeamDiv.hover, .awayTeamDiv.hover {
+    cursor: pointer;
+}
+
+.teamLogoDiv {
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.teamName {
+    margin-top: 15px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30%;
+
+}
+
+.matchDetails {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    margin: auto;
+}
+
+.score {
+    color: var(--bs-link-color);
+}
+
+.score, .bigDate, .smallDate, .status, .lastUpdate {
+    margin: auto;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+@media (min-width: 0px) {
+    .matchCard {
+        width: 100%;
+        height: 40vw;
+    }
+
+    .teamDiv {
+        width: 25%;
+    }
+
+    .teamLogo {
+        width: 70%;
+    }
+
+    .teamName {
+        font-size: 1rem;
+    }
+
+    .matchDetails {
+        width: 50%;
+    }
+
+    .smallDate, .status {
+        font-size: 0.8rem;
+    }
+
+    .score {
+        font-size: 1.5rem;
+    }
+
+    .bigDate {
+        font-size: 1.2em;
+    }
+
+    .lastUpdate {
+        font-size: 0.5em;
+    }
+
+}
+
+@media (min-width: 600px) {
+    .matchCard {
+        width: 90%;
+        height: 40vw;
+    }
+
+    .teamDiv {
+        width: 30%;
+    }
+
+    .teamLogo {
+        width: 70%;
+    }
+
+    .teamName {
+        font-size: 1.5rem;
+    }
+
+    .matchDetails {
+        width: 40%;
+    }
+
+    .smallDate, .status {
+        font-size: 1.3rem;
+    }
+
+    .score {
+        font-size: 2rem;
+    }
+
+    .bigDate {
+        font-size: 1.5rem;
+    }
+
+    .lastUpdate {
+        font-size: 1em;
+    }
+}
+
+@media (min-width: 1000px) {
+    .matchCard {
+        width: 800px;
+        height: 300px;
+    }
+
+    .teamDiv {
+        width: 25%;
+    }
+
+    .teamLogo {
+        width: 75%;
+    }
+
+    .matchDetails {
+        width: 50%;
+    }
+}

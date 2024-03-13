@@ -2,10 +2,13 @@
 
 html, body {
     font-family: 'Manrope', sans-serif;
-    background-color: #ffffff;
+    background-color: #111111;
+    color: white;
+    font-size: 1em;
 }
 
 h1 {
-    font-size: 2em;
+    font-size: calc(2rem + 0.5vw);
     text-align: center;
+    margin: 1em 0em;
 }

@@ -31,7 +31,7 @@ namespace FootballResults.API.Controllers
         }
 
         [HttpGet("matches/head2head")]
-        public async Task<ActionResult<Match?>> GetHeadToHead(string? team1, string? team2)
+        public async Task<ActionResult<IEnumerable<Match>>> GetHeadToHead(string? team1, string? team2)
         {
             if (team1 == null || team2 == null)
                 return BadRequest("Two teams has to be specified as query parameters to get head to head matches");
@@ -39,7 +39,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await matchRepository.GetHeadToHead(team1, team2);
-                return result != null ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -48,12 +48,12 @@ namespace FootballResults.API.Controllers
         }
 
         [HttpGet("matches/search")]
-        public async Task<ActionResult<IEnumerable<Country>>> Search(DateTime? date, string? team, string? league, int? season, string? round)
+        public async Task<ActionResult<IEnumerable<Match>>> Search(DateTime? date, string? team, string? league, int? season, string? round)
         {
             try
             {
                 var result = await matchRepository.Search(date, team, league, season, round);
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {

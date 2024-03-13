@@ -1,4 +1,5 @@
 using FootballResults.WebApp.Components;
+using FootballResults.WebApp.Services;
 
 namespace FootballResults.WebApp
 {
@@ -11,6 +12,11 @@ namespace FootballResults.WebApp
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+
+            builder.Services.AddHttpClient<IMatchService, MatchService>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:10001");
+            });
 
             var app = builder.Build();
 

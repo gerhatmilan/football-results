@@ -21,7 +21,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await teamRepository.GetTeams();
-                return result.Any() ? Ok(result) : NotFound(); 
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -53,7 +53,7 @@ namespace FootballResults.API.Controllers
                 teamName = teamName.Replace("-", " ");
 
                 var result = await teamRepository.GetSquadForTeam(teamName);
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -69,10 +69,11 @@ namespace FootballResults.API.Controllers
 
             try
             {
-                league = league.Replace("-", " ");
+
+                teamName = teamName.Replace("-", " ");
 
                 var result = await teamRepository.GetMatchesForTeamAndLeagueAndSeason(teamName, league, (int)season);
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -86,7 +87,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await teamRepository.Search(team, country, national);
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {

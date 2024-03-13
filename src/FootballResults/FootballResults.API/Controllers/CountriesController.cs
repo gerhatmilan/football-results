@@ -21,7 +21,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await countryRepository.GetCountries();
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -35,7 +35,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await countryRepository.GetLeaguesByCountry();
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -49,7 +49,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await countryRepository.GetTeamsByCountry();
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -63,7 +63,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await countryRepository.GetVenuesByCountry();
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -97,7 +97,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await countryRepository.GetLeaguesForCountry(countryName);
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -115,7 +115,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await countryRepository.GetTeamsForCountry(countryName);
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -133,7 +133,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await countryRepository.GetVenuesForCountry(countryName);
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -147,7 +147,7 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await countryRepository.Search(country);
-                return result.Any() ? Ok(result) : NotFound();
+                return Ok(result);
             }
             catch (Exception)
             {

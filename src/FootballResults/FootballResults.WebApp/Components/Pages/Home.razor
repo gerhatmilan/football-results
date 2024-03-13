@@ -1,5 +1,14 @@
 ﻿@page "/"
+@inherits HomeBase
 
 <PageTitle>Home</PageTitle>
 
 <h1>Matches today</h1>
+
+@if (Matches != null)
+{
+    @foreach (Match match in Matches)
+    {
+        <MatchCard Match="match" />
+    }
+}

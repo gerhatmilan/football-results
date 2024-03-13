@@ -15,48 +15,39 @@ namespace FootballResults.API.Models
 
         public async Task<IEnumerable<League>> GetLeagues()
         {
-            var result = await dbContext.Leagues
+            return await dbContext.Leagues
                 .OrderBy(l => l.Type)
                 .ThenBy(l => l.Name)
                 .ToListAsync();
-
-            return result;
         }
 
         public async Task<League?> GetLeagueByName(string leagueName)
         {
-            var result = await dbContext.Leagues
+            return await dbContext.Leagues
                 .FirstOrDefaultAsync(l => l.Name.ToLower().Equals(leagueName.ToLower()));
-
-            return result;
         }
 
         public async Task<IEnumerable<int>> GetSeasonsForLeague(string leagueName)
         {
-
-            var result = await dbContext.AvailableSeasons
+            return await dbContext.AvailableSeasons
                 .Where(s => s.League.Name.ToLower().Equals(leagueName.ToLower()))
                 .OrderBy(s => s.Season)
                 .Select(s => s.Season)
                 .ToListAsync();
-
-            return result;
         }
 
         public async Task<IEnumerable<Team>> GetTeamsForLeagueAndSeason(string leagueName, int season)
         {
-            var leagueSeasonQuery = dbContext.Matches
+            var query = dbContext.Matches
                 .Where(m => m.League.Name.ToLower().Equals(leagueName.ToLower()) && m.Season == season)
                 .Select(m => new { m.HomeTeam, m.AwayTeam });
 
-            var teams = await leagueSeasonQuery
+            return await query
                 .Select(teams => teams.HomeTeam)
                 .Union(
-                    leagueSeasonQuery.Select(teams => teams.AwayTeam)
+                    query.Select(teams => teams.AwayTeam)
                 )
                 .ToListAsync();
-
-            return teams;
         }
 
         public async Task<IEnumerable<string>> GetRoundsForLeagueAndSeason(string leagueName, int season)
@@ -78,7 +69,7 @@ namespace FootballResults.API.Models
 
         public async Task<IEnumerable<Match>> GetMatchesForLeagueAndSeasonAndRound(string leagueName, int season, string round)
         {
-            var result = await dbContext.Matches
+            return await dbContext.Matches
                .Where(m => m.League.Name.ToLower().Equals(leagueName.ToLower())
                     && m.Season == season
                     && m.Round.ToLower().Equals(round.ToLower()))
@@ -113,31 +104,25 @@ namespace FootballResults.API.Models
                    }
                })
                .ToListAsync();
-
-            return result;
         }
 
         public async Task<IEnumerable<Standing>> GetStandingsForLeagueAndSeason(string leagueName, int season)
         {
-            var result = await dbContext.Standings
+            return await dbContext.Standings
                .Where(s => s.League.Name.ToLower().Equals(leagueName.ToLower()) && s.Season == season)
                .OrderBy(s => s.Group)
                .ThenBy(s => s.Rank)
                .Include(s => s.Team)
                .ToListAsync();
-
-            return result;
         }
 
         public async Task<IEnumerable<TopScorer>> GetTopScorersForLeagueAndSeason(string leagueName, int season)
         {
-            var result = await dbContext.TopScorers
+            return await dbContext.TopScorers
                .Where(t => t.League.Name.ToLower().Equals(leagueName.ToLower()) && t.Season == season)
                .OrderBy(t => t.Rank)
                .Include(t => t.Team)
                .ToListAsync();
-
-            return result;
         }
 
         public async Task<IEnumerable<League>> Search(string? leagueName, string? country, string? type, int? currentSeason)
