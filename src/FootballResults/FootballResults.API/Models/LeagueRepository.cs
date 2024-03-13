@@ -1,6 +1,7 @@
 ﻿using FootballResults.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using System.Collections.Immutable;
 using System.Xml.Linq;
 
 namespace FootballResults.API.Models
@@ -36,17 +37,20 @@ namespace FootballResults.API.Models
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Team>> GetTeamsForLeagueAndSeason(string leagueName, int season)
+        public async Task<IEnumerable<Team>> GetTeamsForLeague(string leagueName, int? season)
         {
             var query = dbContext.Matches
-                .Where(m => m.League.Name.ToLower().Equals(leagueName.ToLower()) && m.Season == season)
-                .Select(m => new { m.HomeTeam, m.AwayTeam });
+                .Where(m => m.League.Name.ToLower().Equals(leagueName.ToLower()));
+
+            if (season != null)
+                query = query.Where(m => m.Season == season);
 
             return await query
-                .Select(teams => teams.HomeTeam)
+                .Select(m => m.HomeTeam)
                 .Union(
-                    query.Select(teams => teams.AwayTeam)
+                    query.Select(m=> m.AwayTeam)
                 )
+                .OrderBy(t => t.Name)
                 .ToListAsync();
         }
 
@@ -67,12 +71,18 @@ namespace FootballResults.API.Models
             return distinctRoundList;
         }
 
-        public async Task<IEnumerable<Match>> GetMatchesForLeagueAndSeasonAndRound(string leagueName, int season, string round)
+        public async Task<IEnumerable<Match>> GetMatchesForLeague(string leagueName, int? season, string? round)
         {
-            return await dbContext.Matches
-               .Where(m => m.League.Name.ToLower().Equals(leagueName.ToLower())
-                    && m.Season == season
-                    && m.Round.ToLower().Equals(round.ToLower()))
+            var query = dbContext.Matches
+               .Where(m => m.League.Name.ToLower().Equals(leagueName.ToLower()));
+
+            if (season != null)
+                query = query.Where(m => m.Season == season);
+
+            if (round != null)
+                query = query.Where(m => m.Round.ToLower().Equals(round.ToLower()));
+
+            return await query
                .OrderBy(m => m.Date)
                .Select(m => new Match
                {

@@ -62,14 +62,14 @@ namespace FootballResults.API.Controllers
             }
         }
 
-        [HttpGet("leagues/{leagueName}/{season}/teams")]
-        public async Task<ActionResult<IEnumerable<Match>>> GetTeamsForLeagueAndSeason(string leagueName, int season)
+        [HttpGet("leagues/{leagueName}/teams")]
+        public async Task<ActionResult<IEnumerable<Match>>> GetTeamsForLeague(string leagueName, int? season)
         {
             try
             {
                 leagueName = leagueName.Replace("-", " ");
 
-                var result = await leagueRepository.GetTeamsForLeagueAndSeason(leagueName, season);
+                var result = await leagueRepository.GetTeamsForLeague(leagueName, season);
                 return Ok(result);
             }
             catch (Exception)
@@ -78,14 +78,17 @@ namespace FootballResults.API.Controllers
             }
         }
 
-        [HttpGet("leagues/{leagueName}/{season}/rounds")]
-        public async Task<ActionResult<IEnumerable<Match>>> GetRoundsForLeagueAndSeason(string leagueName, int season)
+        [HttpGet("leagues/{leagueName}/rounds")]
+        public async Task<ActionResult<IEnumerable<Match>>> GetRoundsForLeagueAndSeason(string leagueName, int? season)
         {
+            if (season == null)
+                return BadRequest("Season has to be specified as query parameter to retrieve rounds");
+
             try
             {
                 leagueName = leagueName.Replace("-", " ");
 
-                var result = await leagueRepository.GetRoundsForLeagueAndSeason(leagueName, season);
+                var result = await leagueRepository.GetRoundsForLeagueAndSeason(leagueName, (int)season);
                 return Ok(result);
             }
             catch (Exception)
@@ -95,16 +98,13 @@ namespace FootballResults.API.Controllers
         }
 
         [HttpGet("leagues/{leagueName}/matches")]
-        public async Task<ActionResult<IEnumerable<Match>>> GetMatchesForLeagueAndSeason(string leagueName, int? season, string? round)
+        public async Task<ActionResult<IEnumerable<Match>>> GetMatchesForLeague(string leagueName, int? season, string? round)
         {
-            if (season == null || round == null)
-                return BadRequest("Season and round has to be specified as query parameters to retrieve matches");
-
             try
             {
                 leagueName = leagueName.Replace("-", " ");
 
-                var result = await leagueRepository.GetMatchesForLeagueAndSeasonAndRound(leagueName, (int)season, round);
+                var result = await leagueRepository.GetMatchesForLeague(leagueName, season, round);
                 return Ok(result);
             }
             catch (Exception)
