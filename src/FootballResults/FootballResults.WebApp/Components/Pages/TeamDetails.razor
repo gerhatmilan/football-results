@@ -1,5 +1,11 @@
-﻿<h3>Team detals</h3>
+﻿@page "/teams/{TeamName}"
+
+@if (TeamName != null)
+{
+    <h1>@TeamName</h1>
+}
 
 @code {
-
+    [Parameter]
+    public string? TeamName { get; set; }
 }

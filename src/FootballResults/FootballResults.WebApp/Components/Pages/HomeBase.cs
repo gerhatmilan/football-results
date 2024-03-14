@@ -8,7 +8,7 @@ namespace FootballResults.Components.Pages
     public partial class HomeBase : ComponentBase
     {
         [Inject]
-        private NavigationManager? NavigationManager { get; set; }
+        protected NavigationManager? NavigationManager { get; set; }
 
         [Inject]
         protected IMatchService? MatchService { get; set; }
@@ -20,7 +20,7 @@ namespace FootballResults.Components.Pages
             await LoadMatchesAsync();
         }
 
-        private async Task LoadMatchesAsync()
+        protected async Task LoadMatchesAsync()
         {
             try
             {

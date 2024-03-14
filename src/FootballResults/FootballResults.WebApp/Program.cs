@@ -18,6 +18,11 @@ namespace FootballResults.WebApp
                 client.BaseAddress = new Uri("http://localhost:10001");
             });
 
+            builder.Services.AddHttpClient<ILeagueService, LeagueService>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:10001");
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

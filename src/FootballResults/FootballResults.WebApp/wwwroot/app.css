@@ -10,5 +10,5 @@ html, body {
 h1 {
     font-size: calc(2rem + 0.5vw);
     text-align: center;
-    margin: 1em 0em;
+    margin-bottom: 50px;
 }

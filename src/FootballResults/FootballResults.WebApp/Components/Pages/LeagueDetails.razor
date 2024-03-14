@@ -1,5 +1,11 @@
-﻿<h3>League Details</h3>
+﻿@page "/leagues/{LeagueName}"
+
+@if (LeagueName != null)
+{
+    <h1>@LeagueName</h1>
+}
 
 @code {
-
+    [Parameter]
+    public string? LeagueName { get; set; }
 }

@@ -1,5 +1,25 @@
 ﻿@page "/matches"
 
-<PageTitle>Matches</PageTitle>
+@inherits MatchesBase
 
-<h1>Matches</h1>
+@rendermode InteractiveServer
+
+<input type="date" @bind="SelectedDate" @bind:after="LoadMatches" />
+
+@if (LeaguesWithMatches != null)
+{
+    @if (LeaguesWithMatches.Any())
+    @foreach (LeagueWithMatches leagueWithMatches in LeaguesWithMatches)
+    {
+        <LeagueCard League="leagueWithMatches.league" Matches="leagueWithMatches.matches" />
+    }
+
+    else
+    {
+        <h1>No matches on this day 😒</h1>
+    }
+}
+else
+{
+    <LoadingSpinner />
+}

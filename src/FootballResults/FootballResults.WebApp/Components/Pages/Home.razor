@@ -3,12 +3,24 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Matches today</h1>
 
 @if (Matches != null)
 {
-    @foreach (Match match in Matches)
+    @if (Matches.Any())
     {
-        <MatchCard Match="match" />
+        <h1>Matches today</h1>
+        @foreach (Match match in Matches)
+        {
+            <MatchCard Match="match" />
+        }
     }
+    else
+    {
+        <h1>No matches on this day 😒</h1>
+    }
+
+}
+else
+{
+    <LoadingSpinner />
 }

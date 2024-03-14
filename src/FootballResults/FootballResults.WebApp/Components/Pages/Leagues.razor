@@ -1,5 +1,16 @@
 ﻿@page "/leagues"
+@inherits LeaguesBase
 
 <PageTitle>Leagues</PageTitle>
 
-<h1>Leagues</h1>
+@if (CountriesWithLeagues != null)
+{
+    @foreach (Country country in CountriesWithLeagues)
+    {
+        <CountryCard Country="country" />
+    }
+}
+else
+{
+    <LoadingSpinner />
+}
