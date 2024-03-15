@@ -25,7 +25,6 @@ namespace FootballResults.Components.Pages
             try
             {
                 Matches = await MatchService!.GetMatchesForToday();
-
             }
             catch (HttpRequestException)
             {

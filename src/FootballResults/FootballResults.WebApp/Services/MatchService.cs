@@ -25,7 +25,7 @@ namespace FootballResults.WebApp.Services
 
         public async Task<IEnumerable<Match>> GetMatchesForToday()
         {
-            return await GetMatchesForDate(DateTime.Now.AddDays(-1));
+            return await GetMatchesForDate(DateTime.Now);
         }
 
         public async Task<IEnumerable<Match>> GetMatchesForDate(DateTime date)

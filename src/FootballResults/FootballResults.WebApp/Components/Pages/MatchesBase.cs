@@ -21,10 +21,7 @@ namespace FootballResults.WebApp.Components.Pages
         [Inject]
         protected ILeagueService? LeagueService { get; set; }
 
-        protected DateTime SelectedDate { get; set; } = DateTime.Now.AddDays(-1);
-
-        [Parameter]
-        public EventCallback<DateTime> SelectedDateChanged { get; set; }
+        protected DateTime SelectedDate { get; set; } = DateTime.Now;
 
         protected ICollection<LeagueWithMatches>? LeaguesWithMatches { get; set; }
 

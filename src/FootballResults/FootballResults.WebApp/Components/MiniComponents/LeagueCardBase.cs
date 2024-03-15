@@ -1,5 +1,4 @@
-﻿using FootballResults.Components.Pages;
-using FootballResults.Models;
+﻿using FootballResults.Models;
 using Microsoft.AspNetCore.Components;
 
 namespace FootballResults.WebApp.Components.MiniComponents
