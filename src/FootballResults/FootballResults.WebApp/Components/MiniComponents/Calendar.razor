@@ -1,0 +1,43 @@
+﻿@inherits CalendarBase
+
+@using System.Globalization
+
+<div class="calendar">
+    <div class="calendar-header">
+        <div class="title-header">
+            <button type="button" class="prev-month-btn btn btn-default" @onclick="() => AddMonth(-1)">
+                <i class="arrow left"></i>
+            </button>
+
+            <div type="button" class="calendar-title">
+                @SelectedDate.ToString("MMMM", CultureInfo.InvariantCulture) @SelectedDate.Year
+            </div>
+
+            <button class="next-month-btn btn btn-default" @onclick="() => AddMonth(1)">
+                <i class="arrow right"></i>
+            </button>
+        </div>
+        <div class="days-header">
+            <span class="day">Mon</span>
+            <span class="day">Tue</span>
+            <span class="day">Wed</span>
+            <span class="day">Thu</span>
+            <span class="day">Fri</span>
+            <span class="day">Sat</span>
+            <span class="day">Sun</span>
+        </div>
+    </div>
+    <div class="days">
+        @foreach (var week in Weeks)
+        {
+            <div class="week">
+                @foreach (var day in week)
+                {
+                    <button type="button" @onclick="() => SelectedDate = day" class="day @(IsToday(day) ? "today" : "") @(IsSelected(day) ? "selected" : "")">
+                        @day.Day
+                    </button>              
+                }
+            </div>
+        }
+    </div>
+</div>

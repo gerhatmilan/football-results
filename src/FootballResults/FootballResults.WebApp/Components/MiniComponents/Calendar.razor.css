@@ -1,0 +1,145 @@
+﻿.calendar {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 0 auto 50px auto;
+    width: 90%;
+    aspect-ratio: 1 / 1;
+}
+
+.calendar-header {
+    width: 100%;
+    text-align: center;
+}
+
+.title-header {
+    width: 100%;
+    display: inline-flex;
+    margin-bottom: 5%;
+    align-items: center;
+    justify-content: center;
+}
+
+.prev-month-btn {
+    float: left;
+}
+
+.next-month-btn {
+    float: right;
+}
+
+.arrow {
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.arrow:hover {
+    cursor: pointer;
+}
+
+.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.calendar-title {
+    width: 80%;
+}
+
+.days-header {
+    width: 100%;
+    font-weight: bold;
+    display: inline-flex;
+    justify-content: center;
+}
+
+.days {
+    width: 100%;
+    text-align: center;
+}
+
+.week {
+    width: 100%;
+    justify-content: center;
+    display: inline-flex;
+}
+
+.day {
+    display: inline-flex;
+    width: 10%;
+    aspect-ratio: 1 / 1;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    background-color: #111111;
+    border: none;
+    border-radius: 100%;
+    color: white;
+}
+
+.selected {
+    background-color: white;
+    color: #111111;
+}
+
+.today {
+    background-color: var(--bs-link-color);
+}
+
+.selected.today {
+    color: white;
+}
+
+@media (min-width: 0px) {
+    .days-header .day, .days .day {
+        margin-left: 3px;
+        margin-right: 3px;
+        font-size: 0.5rem;
+    }
+
+    .calendar-title {
+        font-size: 0.8rem;
+    }
+}
+
+@media (min-width: 350px) {
+    .calendar {
+        padding: 10px;
+    }
+
+    .days-header .day, .days .day
+    {
+        margin-left: 5px;
+        margin-right: 5px;
+        font-size: 1rem;
+    }
+
+    .calendar-title {
+        font-size: 1.2rem;
+    }
+}
+
+@media (min-width: 450px) {
+    .calendar {
+        max-width: 450px;
+    }
+
+    .calendar-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 2000px) {
+    .calendar {
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 58px;
+        position: fixed;
+    }
+}
