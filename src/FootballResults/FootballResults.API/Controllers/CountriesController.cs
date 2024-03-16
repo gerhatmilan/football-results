@@ -76,8 +76,6 @@ namespace FootballResults.API.Controllers
         {
             try
             {
-                countryName = countryName.Replace("-", " ");
-
                 var result = await countryRepository.GetCountryByName(countryName);
                 return result != null ? Ok(result) : NotFound();
             }
@@ -90,10 +88,6 @@ namespace FootballResults.API.Controllers
         [HttpGet("countries/{countryName}/leagues")]
         public async Task<ActionResult<IEnumerable<League>>> GetLeaguesForCountry(string countryName)
         {
-            countryName = countryName.ToLower();
-            var splitted = countryName.Split("-").ToList();
-            countryName = String.Join(" ", splitted.Select(word => char.ToUpper(word[0]) + word.Substring(1)));
-
             try
             {
                 var result = await countryRepository.GetLeaguesForCountry(countryName);
@@ -108,10 +102,6 @@ namespace FootballResults.API.Controllers
         [HttpGet("countries/{countryName}/teams")]
         public async Task<ActionResult<IEnumerable<Team>>> GetTeamsForCountry(string countryName)
         {
-            countryName = countryName.ToLower();
-            var splitted = countryName.Split("-").ToList();
-            countryName = String.Join(" ", splitted.Select(word => char.ToUpper(word[0]) + word.Substring(1)));
-
             try
             {
                 var result = await countryRepository.GetTeamsForCountry(countryName);
@@ -126,10 +116,6 @@ namespace FootballResults.API.Controllers
         [HttpGet("countries/{countryName}/venues")]
         public async Task<ActionResult<IEnumerable<Venue>>> GetVenuesForCountry(string countryName)
         {
-            countryName = countryName.ToLower();
-            var splitted = countryName.Split("-").ToList();
-            countryName = String.Join(" ", splitted.Select(word => char.ToUpper(word[0]) + word.Substring(1)));
-
             try
             {
                 var result = await countryRepository.GetVenuesForCountry(countryName);
