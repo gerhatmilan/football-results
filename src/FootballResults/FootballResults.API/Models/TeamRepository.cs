@@ -30,7 +30,7 @@ namespace FootballResults.API.Models
         public async Task<IEnumerable<Player>> GetSquadForTeam(string teamName)
         {
             var squad = await dbContext.Teams
-                .Where(t => t.Name.ToLower().Equals(teamName))
+                .Where(t => t.Name.ToLower().Equals(teamName.ToLower()))
                 .Include(t => t.Squad)
                 .Select(t => t.Squad)
                 .FirstOrDefaultAsync();

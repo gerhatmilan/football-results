@@ -34,8 +34,6 @@ namespace FootballResults.API.Controllers
         {
             try
             {
-                teamName = teamName.Replace("-", " ");
-
                 var result = await teamRepository.GetTeamByName(teamName);
                 return result != null ? Ok(result) : NotFound(); 
             }
@@ -50,8 +48,6 @@ namespace FootballResults.API.Controllers
         {
             try
             {
-                teamName = teamName.Replace("-", " ");
-
                 var result = await teamRepository.GetSquadForTeam(teamName);
                 return Ok(result);
             }
@@ -69,9 +65,6 @@ namespace FootballResults.API.Controllers
 
             try
             {
-
-                teamName = teamName.Replace("-", " ");
-
                 var result = await teamRepository.GetMatchesForTeamAndLeagueAndSeason(teamName, league, (int)season);
                 return Ok(result);
             }
