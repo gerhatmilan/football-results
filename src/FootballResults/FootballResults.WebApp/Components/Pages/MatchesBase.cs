@@ -50,9 +50,9 @@ namespace FootballResults.WebApp.Components.Pages
                 var leagues = await LeagueService!.GetLeagues();
                 var matches = await MatchService!.GetMatchesForDate(SelectedDate);
 
-                foreach (League league in leagues)
+                foreach (League league in leagues.OrderBy(l => l.Name))
                 {
-                    var matchesForLeagueAndDate = matches.Where(m => m.League.LeagueID == league.LeagueID);
+                    var matchesForLeagueAndDate = matches.Where(m => m.League.LeagueID == league.LeagueID).OrderBy(m => m.Date);
                     if (matchesForLeagueAndDate.Any())
                     {
                         cache.Add(new LeagueWithMatches { league = league, matches = matchesForLeagueAndDate.ToList() });

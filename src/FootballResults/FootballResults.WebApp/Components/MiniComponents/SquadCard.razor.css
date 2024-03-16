@@ -1,0 +1,49 @@
+﻿.positionBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.position {
+    text-align: center;
+    margin: 30px 0px;
+}
+
+table, th, td, tr {
+    background-color: #111111;
+    color: white;
+}
+
+th {
+    font-weight: normal;
+}
+
+.player:hover td {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.playersTable {
+    margin: auto;
+    vertical-align: middle;
+    max-width: 1000px;
+}
+
+.playerPhoto {
+    border-radius: 100%;
+}
+
+@media (min-width: 0px) {
+    .playerPhoto {
+        width: 40px;
+    }
+
+    .position {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 500px) {
+    .playerPhoto {
+        width: 70px;
+    }
+}
