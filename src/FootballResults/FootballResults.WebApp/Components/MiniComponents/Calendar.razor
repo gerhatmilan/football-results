@@ -9,11 +9,42 @@
                 <i class="arrow left"></i>
             </button>
 
-            <div type="button" class="calendar-title">
+            <!--
+            <div class="calendar-title">
                 @SelectedDate.ToString("MMMM", CultureInfo.InvariantCulture) @SelectedDate.Year
             </div>
+            -->
 
-            <button class="next-month-btn btn btn-default" @onclick="() => AddMonth(1)">
+            <div class="calendar-title">
+                <div class="dropdown">
+                    <button class="calendar-title dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @SelectedDate.ToString("MMMM", CultureInfo.InvariantCulture)
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        @foreach (var month in DateTimeFormatInfo.InvariantInfo.MonthNames)
+                        {
+                            <button type="button" class="dropdown-item" @onclick="() => AddMonth((Array.IndexOf(DateTimeFormatInfo.InvariantInfo.MonthNames, month) + 1) - SelectedDate.Month)">
+                                @month
+                            </button>
+                        }
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="calendar-title dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @SelectedDate.Year
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        @foreach (var year in GetAvailableYears())
+                        {
+                            <button type="button" class="dropdown-item" @onclick="() => AddYear(year - SelectedDate.Year)">
+                                @year
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="next-month-btn btn btn-default" @onclick="() => AddMonth(1)">
                 <i class="arrow right"></i>
             </button>
         </div>

@@ -4,7 +4,8 @@ namespace FootballResults.WebApp.Components.MiniComponents
 {
     public class CalendarBase : ComponentBase
     {
-        private DateTime _selectedDate = DateTime.Now.ToLocalTime();
+        private const int FIRST_YEAR = 2010;
+        private DateTime _selectedDate;
 
         [Parameter]
         public EventCallback<DateTime> SelectedDateValueChanged { get; set; }
@@ -17,6 +18,7 @@ namespace FootballResults.WebApp.Components.MiniComponents
                 if (_selectedDate != value)
                 {
                     _selectedDate = value;
+                    RefreshWeeks();
                     OnSelectedDateChanged(value);
                 }
             }
@@ -26,7 +28,7 @@ namespace FootballResults.WebApp.Components.MiniComponents
 
         protected override void OnInitialized()
         {
-            RefreshWeeks(SelectedDate);
+            SelectedDate = DateTime.Now.ToLocalTime();
         }
 
         private void OnSelectedDateChanged(DateTime newdate)
@@ -37,13 +39,17 @@ namespace FootballResults.WebApp.Components.MiniComponents
         protected void AddMonth(int months)
         {
             SelectedDate = SelectedDate.AddMonths(months);
-            RefreshWeeks(SelectedDate);
         }
 
-        protected void RefreshWeeks(DateTime date)
+        protected void AddYear(int years)
         {
-            int year = date.Year;
-            int month = date.Month;
+            SelectedDate = SelectedDate.AddYears(years);
+        }
+
+        protected void RefreshWeeks()
+        {
+            int year = SelectedDate.Year;
+            int month = SelectedDate.Month;
             DateTime startDate = new DateTime(year, month, 1);
             DateTime endDate = startDate.AddMonths(1).AddDays(-1);
 
@@ -75,6 +81,18 @@ namespace FootballResults.WebApp.Components.MiniComponents
         protected bool IsSelected(DateTime date)
         {
             return date.Date == SelectedDate.Date;
+        }
+
+        protected List<int> GetAvailableYears()
+        {
+            List<int> list = new List<int>();
+
+            for (int i = FIRST_YEAR; i <= (int)DateTime.Now.Year; i++)
+            {
+                list.Add(i);
+            }
+
+            return list;
         }
     }
 }
