@@ -1,17 +1,16 @@
 ﻿@page "/matches"
 
 @inherits MatchesBase
-
 @rendermode InteractiveServer
 
-<Calendar SelectedDateValueChanged="OnSelectedDateChangedInCalendar" />
+<Calendar SelectedDateValueChanged="OnSelectedDateChangedInCalendar" @rendermode="@RenderMode.InteractiveServer" />
 
 @if (LeaguesWithMatches != null)
 {
     @if (LeaguesWithMatches.Any())
     @foreach (LeagueWithMatches leagueWithMatches in LeaguesWithMatches)
     {
-        <LeagueCard League="leagueWithMatches.league" Matches="leagueWithMatches.matches" />
+        <LeagueCard League="leagueWithMatches.league" Matches="leagueWithMatches.matches" @rendermode="@RenderMode.InteractiveServer" />
     }
 
     else

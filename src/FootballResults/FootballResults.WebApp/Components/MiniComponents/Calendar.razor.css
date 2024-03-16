@@ -55,6 +55,12 @@
     align-items: center;
 }
 
+.calendar-title .dropdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .calendar-title button {
     background-color: #111111;
     border: none;

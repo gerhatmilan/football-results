@@ -10,7 +10,7 @@
         <h1>Matches today</h1>
         @foreach (LeagueWithMatches leagueWithMatches in LeaguesWithMatches)
         {
-            <LeagueCard League="leagueWithMatches.league" Matches="leagueWithMatches.matches" />
+            <LeagueCard League="leagueWithMatches.league" Matches="leagueWithMatches.matches" @rendermode="RenderMode.InteractiveServer" />
         }
     }
     else

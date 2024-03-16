@@ -12,7 +12,7 @@
         </div>
         @foreach (League league in Country.Leagues)
         {
-            <LeagueCard League="league" />
+            <LeagueCard League="league" @rendermode="InteractiveServer" />
         }
     </div>
 }
