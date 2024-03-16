@@ -18,6 +18,11 @@ u {
     text-align: center;
 }
 
+::deep .nav-link:hover  {
+    color: rgba(var(--bs-link-color-rgb));
+
+}
+
 ::deep .active {
     color: rgba(var(--bs-link-color-rgb)) !important;
 }
