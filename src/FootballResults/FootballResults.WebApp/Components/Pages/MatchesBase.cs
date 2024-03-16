@@ -21,38 +21,43 @@ namespace FootballResults.WebApp.Components.Pages
         [Inject]
         protected ILeagueService? LeagueService { get; set; }
 
-        protected DateTime SelectedDate { get; set; } = DateTime.Now;
+        protected DateTime SelectedDate { get; set; }
 
         protected ICollection<LeagueWithMatches>? LeaguesWithMatches { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            await LoadMatches();   
+            SelectedDate = DateTime.Now.ToLocalTime();
+            await LoadMatchesAsync();   
         }
 
         protected async void OnSelectedDateChangedInCalendar(DateTime newDate)
         {
-            SelectedDate = newDate;
-            await LoadMatches();
-            StateHasChanged();
+            if (newDate.Date != SelectedDate.Date)
+            {
+                SelectedDate = newDate;
+                await LoadMatchesAsync();
+                StateHasChanged();
+            }
         }
 
-        protected async Task LoadMatches()
+        protected async Task LoadMatchesAsync()
         {
             try
             {
                 LeaguesWithMatches = null;
                 var cache = new List<LeagueWithMatches>();
-
                 var leagues = await LeagueService!.GetLeagues();
+                var matches = await MatchService!.GetMatchesForDate(SelectedDate);
+
                 foreach (League league in leagues)
                 {
-                    var matches = await MatchService!.GetMatchesForLeagueAndDate(league.Name, SelectedDate);
-                    if (matches.Any())
+                    var matchesForLeagueAndDate = matches.Where(m => m.League.LeagueID == league.LeagueID);
+                    if (matchesForLeagueAndDate.Any())
                     {
-                        cache.Add(new LeagueWithMatches { league = league, matches = matches });
+                        cache.Add(new LeagueWithMatches { league = league, matches = matchesForLeagueAndDate.ToList() });
                     }
-                }
+                }    
 
                 LeaguesWithMatches = cache;
             }
