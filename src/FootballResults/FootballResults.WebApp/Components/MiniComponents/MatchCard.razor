@@ -10,16 +10,24 @@
         <a class="matchDetails" href="/matches/@Match.MatchID">
             @if (Match.Date != null)
             {
-                @if (DateTime.UtcNow > Match.Date.Value)
+                @if (Match.Date < DateTime.UtcNow)
                 {
                     <div class="smallDate">
                         @Match.Date.Value.ToShortDateString() @Match.Date.Value.ToLocalTime().ToShortTimeString()
                     </div>
-                    <div class="score">@Match.HomeTeamGoals - @Match.AwayTeamGoals</div>
+                    <div class="score">
+                        @Match.HomeTeamGoals - @Match.AwayTeamGoals
+                    </div>
 
                     @if (Match.Status != null)
                     {
-                        <div class="status">@Match.Status</div>
+                        <div class="status">
+                            @if (MatchInProgress())
+                            {
+                                <span class="liveIndicator"></span>
+                            }
+                            @Match.Status
+                        </div>
                     }
                     else
                     {
@@ -32,7 +40,7 @@
                             Last updated:<br />
                             @Match.LastUpdate!.Value.ToShortDateString() @Match.LastUpdate.Value.ToLocalTime().ToShortTimeString()
                         </div>
-                    }          
+                    }
                 }
                 else
                 {
@@ -64,7 +72,7 @@
 
     private bool MatchInProgress()
     {
-        return Match != null && (Match.Status == "1H" || Match.Status == "HT" || Match.Status == "2H"
+        return Match != null && (Match.Date < DateTime.UtcNow) && (Match.Status == "1H" || Match.Status == "HT" || Match.Status == "2H"
             || Match.Status == "ET" || Match.Status == "BT" || Match.Status == "P");
     }
 }

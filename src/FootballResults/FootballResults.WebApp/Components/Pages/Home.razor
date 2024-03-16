@@ -1,24 +1,22 @@
 ﻿@page "/"
-@inherits HomeBase
+@inherits MatchesBase
 
 <PageTitle>Home</PageTitle>
 
-
-@if (Matches != null)
+@if (LeaguesWithMatches != null)
 {
-    @if (Matches.Any())
+    @if (LeaguesWithMatches.Any())
     {
         <h1>Matches today</h1>
-        @foreach (Match match in Matches)
+        @foreach (LeagueWithMatches leagueWithMatches in LeaguesWithMatches)
         {
-            <MatchCard Match="match" />
+            <LeagueCard League="leagueWithMatches.league" Matches="leagueWithMatches.matches" />
         }
     }
     else
     {
-        <h1>No matches on this day 😒</h1>
+        <h1>No matches today 😒</h1>
     }
-
 }
 else
 {
