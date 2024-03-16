@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace FootballResults.Models
+﻿namespace FootballResults.Models
 {
     public class TopScorer
     {

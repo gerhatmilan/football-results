@@ -34,21 +34,6 @@
     text-align: left;
 }
 
-.favoriteButtonDiv {
-    width: 10%;
-    height: 10%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto 10px;
-}
-
-.favoriteButton {
-    height: 80%;
-    width: 80%;
-    max-width: 50px;
-}
-
 @media (min-width: 0px) {
     .leagueLogoDiv {
         width: 20%;

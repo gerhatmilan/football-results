@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
-
-namespace FootballResults.Models
+﻿namespace FootballResults.Models
 {
     public class Country
     {

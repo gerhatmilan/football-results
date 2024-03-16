@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FootballResults.Models
+﻿namespace FootballResults.Models
 {
-    public class League
+    public class League : IBookmarkable
     {
         public int LeagueID { get; set; }
 
@@ -31,5 +23,7 @@ namespace FootballResults.Models
         public ICollection<Standing> Standings { get; set; }
 
         public ICollection<TopScorer> TopScorers { get; set; }
+
+        public int BookmarkID { get => LeagueID; }
     }
 }

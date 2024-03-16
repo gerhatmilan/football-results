@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace FootballResults.Models
 {
-    public class Team
+    public class Team : IBookmarkable
     {
         public int TeamID { get; set; }
 
@@ -37,5 +30,6 @@ namespace FootballResults.Models
 
         public ICollection<Player> Squad { get; set; }
 
+        public int BookmarkID { get => TeamID; }
     }
 }

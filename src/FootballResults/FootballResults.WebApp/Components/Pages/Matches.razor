@@ -10,7 +10,7 @@
     @if (LeaguesWithMatches.Any())
     @foreach (LeagueWithMatches leagueWithMatches in LeaguesWithMatches)
     {
-        <LeagueCard League="leagueWithMatches.league" Matches="leagueWithMatches.matches" @rendermode="@RenderMode.InteractiveServer" />
+        <LeagueCard League="leagueWithMatches.league" Matches="leagueWithMatches.matches" />
     }
 
     else
