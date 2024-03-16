@@ -30,6 +30,13 @@ namespace FootballResults.WebApp.Components.Pages
             await LoadMatches();   
         }
 
+        protected async void OnSelectedDateChangedInCalendar(DateTime newDate)
+        {
+            SelectedDate = newDate;
+            await LoadMatches();
+            StateHasChanged();
+        }
+
         protected async Task LoadMatches()
         {
             try
