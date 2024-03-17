@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
 using FootballResults.Models;
 using FootballResults.WebApp.Services;
+using FootballResults.WebApp.Components.Other;
 
 namespace FootballResults.WebApp.Components.Pages
 {
-    public class TeamDetailsBase : ComponentBase
+    public class TeamDetailsBase : ComponentBase, IMatchFilterable
     {
         [Inject]
         protected ITeamService? TeamService { get; set; }
@@ -15,17 +16,19 @@ namespace FootballResults.WebApp.Components.Pages
         [Parameter]
         public string? TeamName { get; set; }
         protected Team? Team { get; set; }
-        protected IEnumerable<Match>? Matches { get;  set; }
+        public IEnumerable<Match>? Matches { get;  set; }
         protected IEnumerable<Player>? Squad { get; set; }
-        protected string? ActiveSubMenu { get; set; }
+        protected string? ActiveSubMenu { get; set; } = "matches";
+
+        protected MatchFilterParameters? MatchFilterParameters { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            await LoadTeam();
-            await LoadMatches();
+            await LoadTeamAsync();
+            InitializeFilters();
         }
 
-        protected async Task LoadTeam()
+        protected async Task LoadTeamAsync()
         {
             try
             {
@@ -37,25 +40,14 @@ namespace FootballResults.WebApp.Components.Pages
             }
         }
 
-        protected async Task LoadMatches()
+        protected void InitializeFilters()
         {
-            ActiveSubMenu = "matches";
-            if (Matches != null) return; // already loaded        
-
-            try
-            {
-                Matches = null;
-                /* TODO */
-
-                
-            }
-            catch (HttpRequestException)
-            {
-                NavigationManager?.NavigateTo("/Error", true);
-            }
+            MatchFilterParameters = new MatchFilterParameters();
+            MatchFilterParameters.TeamFilter = TeamName;
+            MatchFilterParameters.SeasonFilter = (DateTime.Now.ToLocalTime().Month >= 8) ? DateTime.Now.ToLocalTime().Year : DateTime.Now.ToLocalTime().Year - 1;
         }
 
-        protected async Task LoadSquad()
+        protected async Task LoadSquadAsync()
         {
             ActiveSubMenu = "squad";
             if (Squad != null) return; // already loaded
@@ -70,6 +62,22 @@ namespace FootballResults.WebApp.Components.Pages
             {
                 NavigationManager?.NavigateTo("/Error", true);
             }
+        }
+
+        protected void OnMatchFilterSubmitted(IEnumerable<Match> matches)
+        {
+            Matches = matches.ToList();
+            StateHasChanged();
+        }
+
+        protected List<(League league, List<Match> matches)> GetLeagueGroups()
+        {
+            return Matches!
+            .GroupBy(
+                m => m.League,
+                (league, matches) => (league, matches.OrderBy(m => m.Date).ToList())
+            )
+            .ToList();
         }
     }
 }

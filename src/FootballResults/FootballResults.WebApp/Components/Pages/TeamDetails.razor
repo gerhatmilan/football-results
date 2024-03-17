@@ -5,29 +5,38 @@
 @if (Team != null)
 {
     <div class="header">
-        <div class="nameHeader">
-            @Team.Name
-            <BookmarkIcon Bookmark="Team" @rendermode="@RenderMode.InteractiveServer" />
-        </div>
-        <img class="teamLogo" src="@Team.LogoLink" alt="@Team logo" />
-        <div class="subMenu">
-            <button class="@(ActiveSubMenu!.Equals("matches") ? "active" : "")" type="button" @onclick="LoadMatches">Matches</button>
-            <button class="@(ActiveSubMenu!.Equals("squad") ? "active" : "")" type="button" @onclick="LoadSquad">Squad</button>
-        </div>
+        <MatchFilter FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" />   
+        <div class="teamHeader">
+            <div class="nameHeader">
+                @Team.Name
+                <BookmarkIcon Bookmark="Team" @rendermode="@RenderMode.InteractiveServer" />
+            </div>
+            <img class="teamLogo" src="@Team.LogoLink" alt="@Team logo" />  
+        </div>    
+    </div>
+    <div class="subMenu">
+        <button class="@(ActiveSubMenu!.Equals("matches") ? "active" : "")" type="button" @onclick="@(() => {ActiveSubMenu = "matches";})">Matches</button>
+        <button class="@(ActiveSubMenu!.Equals("squad") ? "active" : "")" type="button" @onclick="LoadSquadAsync">Squad</button>
     </div>
     <div class="submenuContent">
         @if (ActiveSubMenu == "matches")
         {
             @if (Matches != null)
             {
-                <div class="matches">
-                    @foreach (Match match in Matches)
-                    {
-                        <MatchCard Match="match" />
-                    }
-                </div>
-
-            }
+                @if (Matches.Count() > 0)
+                {
+                    <div class="matches">
+                        @foreach (Match match in Matches)
+                        {
+                            <MatchCard Match="match" />
+                        }
+                    </div>
+                }
+                else
+                {
+                    <h1>No matches found</h1>
+                }
+         }
             else
             {
                 <LoadingSpinner />
