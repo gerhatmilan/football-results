@@ -48,11 +48,11 @@ namespace FootballResults.API.Controllers
         }
 
         [HttpGet("matches/search")]
-        public async Task<ActionResult<IEnumerable<Match>>> Search(DateTime? date, string? team, string? league, int? season, string? round)
+        public async Task<ActionResult<IEnumerable<Match>>> Search(DateTime? date, int? year, int? month, int? day, string? team, string? league, int? season, string? round)
         {
             try
             {
-                var result = await matchRepository.Search(date, team, league, season, round);
+                var result = await matchRepository.Search(date, year, month, day, team, league, season, round);
                 return Ok(result);
             }
             catch (Exception)

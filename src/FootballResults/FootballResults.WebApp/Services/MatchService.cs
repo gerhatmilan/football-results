@@ -52,9 +52,9 @@ namespace FootballResults.WebApp.Services
             return result ?? Enumerable.Empty<Match>();
         }
     
-        public async Task<IEnumerable<Match>> SearchForMatch(DateTime? date, string? teamName, string? leagueName, int? season, string? round)
+        public async Task<IEnumerable<Match>> SearchForMatch(int? year, int? month, int? day, string? teamName, string? leagueName, int? season, string? round)
         {
-            var result = await _httpClient.GetFromJsonAsync<IEnumerable<Match>>($"api/matches/search?date={date}&team={teamName}&league={leagueName}&season={season}&round={round}");
+            var result = await _httpClient.GetFromJsonAsync<IEnumerable<Match>>($"api/matches/search?year={year}&month={month}&day={day}&team={teamName}&league={leagueName}&season={season}&round={round}");
             return result ?? Enumerable.Empty<Match>();
         }
     }

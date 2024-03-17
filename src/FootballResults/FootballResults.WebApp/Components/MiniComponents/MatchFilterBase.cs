@@ -19,7 +19,12 @@ namespace FootballResults.WebApp.Components.MiniComponents
         [Parameter]
         public MatchFilterParameters? FilterParameters { get; set; }
 
+        [Parameter]
+        public IMatchFilterable? FilterTarget { get; set; }
+
         protected IEnumerable<Match>? Matches { get; set; }
+
+        protected string? OpponentName { get; set; }
 
         protected async override Task OnInitializedAsync()
         {
@@ -30,8 +35,11 @@ namespace FootballResults.WebApp.Components.MiniComponents
         {
             try
             {
-                var result = await MatchService!.SearchForMatch(FilterParameters!.DateFilter, FilterParameters!.TeamFilter, FilterParameters!.LeagueFilter, FilterParameters!.SeasonFilter, FilterParameters!.RoundFilter);
+                var result = await MatchService!.SearchForMatch(FilterParameters!.YearFilter, FilterParameters!.MonthFilter, FilterParameters!.DayFilter
+                    , FilterParameters!.TeamFilter, FilterParameters!.LeagueFilter, FilterParameters!.SeasonFilter, FilterParameters!.RoundFilter);
 
+                if (!String.IsNullOrEmpty(OpponentName))
+                    result = result.Where(m => m.HomeTeam.Name.ToLower().Equals(OpponentName.ToLower()) || m.AwayTeam.Name.ToLower().Equals(OpponentName.ToLower()));
                 if (FilterParameters.HomeAwayFilter == "Home")
                     result = result.Where(m => m.HomeTeam.Name == FilterParameters.TeamFilter);
                 else if (FilterParameters.HomeAwayFilter == "Away")

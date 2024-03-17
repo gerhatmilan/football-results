@@ -12,6 +12,6 @@ namespace FootballResults.WebApp.Services
         Task<IEnumerable<Match>> GetMatchesForLeagueAndDate(string leagueName, DateTime date);
         Task<IEnumerable<Match>> GetMatchesForTeamAndSeason(string teamName, int season);
         Task<IEnumerable<Match>> GetMatchesForLeagueAndSeason(string leagueName, int season);
-        Task<IEnumerable<Match>> SearchForMatch(DateTime? date, string? teamName, string? leagueName, int? season, string? round);
+        Task<IEnumerable<Match>> SearchForMatch(int? year, int? month, int? day, string? teamName, string? leagueName, int? season, string? round);
     }
 }

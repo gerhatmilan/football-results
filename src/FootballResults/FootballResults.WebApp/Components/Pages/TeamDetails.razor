@@ -5,7 +5,7 @@
 @if (Team != null)
 {
     <div class="header">
-        <MatchFilter FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" />   
+        <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" />   
         <div class="teamHeader">
             <div class="nameHeader">
                 @Team.Name

@@ -83,7 +83,7 @@ namespace FootballResults.API.Models
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Match>> Search(DateTime? date, string? teamName, string? leagueName, int? season, string? round)
+        public async Task<IEnumerable<Match>> Search(DateTime? date, int? year, int? month, int? day, string? teamName, string? leagueName, int? season, string? round)
         {          
             IQueryable<Match> query = dbContext.Matches;
 
@@ -144,6 +144,22 @@ namespace FootballResults.API.Models
                 var dateToSearch = date.GetValueOrDefault().Date;
                 query = query
                     .Where(m => m.Date != null && m.Date.Value.Date == dateToSearch);
+            }
+
+            if (year.HasValue)
+            {
+                query = query
+                    .Where(m => m.Date != null && m.Date.Value.Year == year);
+            }
+            if (month.HasValue)
+            {
+                query = query
+                    .Where(m => m.Date != null && m.Date.Value.Month == month);
+            }
+            if (day.HasValue)
+            {
+                query = query
+                    .Where(m => m.Date != null && m.Date.Value.Day == day);
             }
 
             return await query.ToListAsync();

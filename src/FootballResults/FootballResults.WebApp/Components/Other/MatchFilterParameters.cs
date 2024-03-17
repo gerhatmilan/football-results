@@ -3,7 +3,9 @@
     public class MatchFilterParameters
     {
         // Match filters
-        public DateTime? DateFilter { get; set; }
+        public int? YearFilter { get; set; }
+        public int? MonthFilter { get; set; }
+        public int? DayFilter { get; set; }
         public string? TeamFilter { get; set; }
         public  string? LeagueFilter { get; set; }
         public int? SeasonFilter { get; set; }
