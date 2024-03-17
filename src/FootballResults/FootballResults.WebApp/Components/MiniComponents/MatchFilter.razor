@@ -2,19 +2,19 @@
 
 <div class="filterSection">
     <div class="input-group mb-3">
-        <input type="date" class="form-control" placeholder="Date" @bind="FilterParameters!.DateFilter" />
+        <input type="date" class="form-control" placeholder="Date" @bind="FilterParameters!.DateFilter" @bind:after="FilterMatchesAsync" />
     </div>
     <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Competition" @bind="FilterParameters!.LeagueFilter" />
+        <input type="text" class="form-control" placeholder="Competition" @bind="FilterParameters!.LeagueFilter" @bind:after="FilterMatchesAsync" />
     </div>
     <div class="input-group mb-3">
-        <input type="number" class="form-control" placeholder="Season" @bind="FilterParameters!.SeasonFilter" />
+        <input type="number" class="form-control" placeholder="Season" @bind="FilterParameters!.SeasonFilter" @bind:after="FilterMatchesAsync" />
     </div>
     <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Round" @bind="FilterParameters!.RoundFilter" />
+        <input type="text" class="form-control" placeholder="Round" @bind="FilterParameters!.RoundFilter" @bind:after="FilterMatchesAsync" />
     </div>
     <div class="input-group mb-3">
-        <select title="Home or away only selector" class="form-select" @bind="FilterParameters!.HomeAwayFilter">
+        <select title="Home or away only selector" class="form-select" @bind="FilterParameters!.HomeAwayFilter" @bind:after="FilterMatchesAsync">
             <option selected value="All">All</option>
             <option value="Home">Home</option>
             <option value="Away">Away</option>
@@ -25,8 +25,5 @@
     </div>
     <div class="input-group mb-3">
         <button type="button" class="btn btn-outline-secondary" @onclick="SortByDateDescending">Latest first</button>
-    </div>
-    <div class="input-group mb-3">
-        <button type="button" class="btn btn-outline-secondary submitButton" @onclick="FilterMatchesAsync">Filter</button>
     </div>
 </div>

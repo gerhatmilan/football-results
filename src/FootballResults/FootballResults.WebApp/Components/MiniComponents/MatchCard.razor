@@ -34,10 +34,10 @@
                         <div class="status">Status unknown</div>
                     }
 
-                    @if (MatchInProgress())
+                    @if (Match.Status == "NS" || MatchInProgress())
                     {
                         <div class="lastUpdate">
-                            Last updated:<br />
+                            Last update:<br />
                             @Match.LastUpdate!.Value.ToShortDateString() @Match.LastUpdate.Value.ToLocalTime().ToShortTimeString()
                         </div>
                     }
@@ -74,5 +74,10 @@
     {
         return Match != null && (Match.Date < DateTime.UtcNow) && (Match.Status == "1H" || Match.Status == "HT" || Match.Status == "2H"
             || Match.Status == "ET" || Match.Status == "BT" || Match.Status == "P");
+    }
+
+    private bool MatchFinished()
+    {
+        return Match != null && (Match.Date < DateTime.UtcNow) && (Match.Status == "FT" || Match.Status == "AET" || Match.Status == "PEN");
     }
 }
