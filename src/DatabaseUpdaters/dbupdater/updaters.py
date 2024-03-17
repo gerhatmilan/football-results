@@ -1146,7 +1146,7 @@ class MatchesUpdater(DatabaseUpdater):
                 self.__cursor.execute(command, new_values)
                 self.__connection.commit()
 
-                logging.log(SUCCESS_LOG_PATH, f'Match record updated with id {id}:\n')
+                logging.log(SUCCESS_LOG_PATH, f'Match record updated with id {id}\n')
                 for column in columns:
                     logging.log(SUCCESS_LOG_PATH, f'\t{column}: {old_record[column]} --> {new_record[column]}\n')
 

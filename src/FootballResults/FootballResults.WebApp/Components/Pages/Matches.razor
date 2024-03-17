@@ -1,0 +1,24 @@
+﻿@page "/matches"
+
+@inherits MatchesBase
+@rendermode InteractiveServer
+
+<Calendar SelectedDateValueChanged="OnSelectedDateChangedInCalendar" @rendermode="@RenderMode.InteractiveServer" />
+
+@if (LeaguesWithMatches != null)
+{
+    @if (LeaguesWithMatches.Any())
+    @foreach (LeagueWithMatches leagueWithMatches in LeaguesWithMatches)
+    {
+        <LeagueCard League="leagueWithMatches.league" Matches="leagueWithMatches.matches" />
+    }
+
+    else
+    {
+        <h1>No matches on this day 😒</h1>
+    }
+}
+else
+{
+    <LoadingSpinner />
+}

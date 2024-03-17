@@ -1,0 +1,32 @@
+﻿@inherits MatchFilterBase
+
+<div class="filterSection">
+    <div class="input-group mb-3">
+        <input type="date" class="form-control" placeholder="Date" @bind="FilterParameters!.DateFilter" />
+    </div>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Competition" @bind="FilterParameters!.LeagueFilter" />
+    </div>
+    <div class="input-group mb-3">
+        <input type="number" class="form-control" placeholder="Season" @bind="FilterParameters!.SeasonFilter" />
+    </div>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Round" @bind="FilterParameters!.RoundFilter" />
+    </div>
+    <div class="input-group mb-3">
+        <select title="Home or away only selector" class="form-select" @bind="FilterParameters!.HomeAwayFilter">
+            <option selected value="All">All</option>
+            <option value="Home">Home</option>
+            <option value="Away">Away</option>
+        </select>
+    </div>
+    <div class="input-group mb-3">
+        <button type="button" class="btn btn-outline-secondary" @onclick="SortByDateAscending">Earliest first</button>
+    </div>
+    <div class="input-group mb-3">
+        <button type="button" class="btn btn-outline-secondary" @onclick="SortByDateDescending">Latest first</button>
+    </div>
+    <div class="input-group mb-3">
+        <button type="button" class="btn btn-outline-secondary submitButton" @onclick="FilterMatchesAsync">Filter</button>
+    </div>
+</div>

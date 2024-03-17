@@ -1,0 +1,11 @@
+﻿@page "/matches/{MatchID}"
+
+@if (MatchID != null)
+{
+    <h1>@MatchID</h1>
+}
+
+@code {
+    [Parameter]
+    public string? MatchID { get; set; }
+}

@@ -1,0 +1,37 @@
+﻿.countryCard {
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    max-width: 1000px;
+    text-align: center;
+    border-radius: 20px;
+}
+
+.countryDiv {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    padding: 3%;
+}
+
+.countryLogoDiv {
+    width: 20%;
+    text-align: left;
+}
+
+.countryLogo {
+    border-radius: 5px;
+    width: 60%;
+}
+
+@media (min-width: 0px) {
+    .countryName {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 500px) {
+    .countryName {
+        font-size: 1.5rem;
+    }
+}

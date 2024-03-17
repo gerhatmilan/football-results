@@ -1,0 +1,64 @@
+﻿@page "/teams/{TeamName}"
+@inherits TeamDetailsBase
+@rendermode InteractiveServer
+
+@if (Team != null)
+{
+    <div class="header">
+        <MatchFilter FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" />   
+        <div class="teamHeader">
+            <div class="nameHeader">
+                @Team.Name
+                <BookmarkIcon Bookmark="Team" @rendermode="@RenderMode.InteractiveServer" />
+            </div>
+            <img class="teamLogo" src="@Team.LogoLink" alt="@Team logo" />  
+        </div>    
+    </div>
+    <div class="subMenu">
+        <button class="@(ActiveSubMenu!.Equals("matches") ? "active" : "")" type="button" @onclick="@(() => {ActiveSubMenu = "matches";})">Matches</button>
+        <button class="@(ActiveSubMenu!.Equals("squad") ? "active" : "")" type="button" @onclick="LoadSquadAsync">Squad</button>
+    </div>
+    <div class="submenuContent">
+        @if (ActiveSubMenu == "matches")
+        {
+            @if (Matches != null)
+            {
+                @if (Matches.Count() > 0)
+                {
+                    <div class="matches">
+                        @foreach (Match match in Matches)
+                        {
+                            <MatchCard Match="match" />
+                        }
+                    </div>
+                }
+                else
+                {
+                    <h1>No matches found</h1>
+                }
+         }
+            else
+            {
+                <LoadingSpinner />
+            }
+        }
+        
+        @if (ActiveSubMenu == "squad")
+        {
+            @if (Squad != null)
+            {
+                <div class="squad">
+                    <SquadCard Squad="Squad" />
+                </div>
+            }
+            else
+            {
+                <LoadingSpinner />
+            }
+        }     
+    </div>
+}
+else
+{
+    <LoadingSpinner />
+}

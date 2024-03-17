@@ -1,0 +1,24 @@
+﻿@page "/"
+@inherits MatchesBase
+
+<PageTitle>Home</PageTitle>
+
+@if (LeaguesWithMatches != null)
+{
+    @if (LeaguesWithMatches.Any())
+    {
+        <h1>Matches today</h1>
+        @foreach (LeagueWithMatches leagueWithMatches in LeaguesWithMatches)
+        {
+            <LeagueCard League="leagueWithMatches.league" Matches="leagueWithMatches.matches" />
+        }
+    }
+    else
+    {
+        <h1>No matches today 😒</h1>
+    }
+}
+else
+{
+    <LoadingSpinner />
+}

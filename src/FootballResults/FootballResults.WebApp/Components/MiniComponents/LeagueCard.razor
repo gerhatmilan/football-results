@@ -1,0 +1,31 @@
+﻿@if (League != null)
+{
+    <div class="leagueCard">
+        <div class="leagueHeader">
+            <a class="leagueDetails"href="/leagues/@League.Name)">
+                <div class="leagueLogoDiv">
+                    <img class="leagueLogo" src="@League.LogoLink" alt="@League.Name logo" />
+                </div>
+                <div class="leagueName">
+                    @League.Name
+                </div>
+            </a>
+            <BookmarkIcon Bookmark="League" @rendermode="@RenderMode.InteractiveServer" />
+        </div>
+        @if (Matches != null)
+        {
+            @foreach (Match match in Matches)
+            {
+                <MatchCard Match="match" />
+            }
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public League? League { get; set; }
+
+    [Parameter]
+    public IEnumerable<Match>? Matches { get; set; }
+}

@@ -1,0 +1,54 @@
+﻿.filterSection {
+    margin: auto;
+    margin-bottom: 50px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.input-group {
+    justify-content: center;
+}
+
+input, select {
+    background-color: #111111;
+    color: white;
+}
+
+input:focus, select:focus {
+    background-color: #111111;
+    color: white;
+}
+
+::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+button {
+    width: 100%;
+    border-color: white;
+    color: white;
+}
+
+.submitButton {
+    background-color: var(--bs-link-color);
+    border-color: var(--bs-link-color);
+}
+
+button:hover {
+    background-color: var(--bs-link-color);
+}
+
+@media (min-width: 1200px) {
+    .filterSection {
+        left: 50px;
+        top: 235px;
+        position: absolute;
+    }
+}
+
+@media (min-width: 1600px) {
+    .filterSection {
+        position: fixed;
+        margin-left: 50px;
+    }
+}
