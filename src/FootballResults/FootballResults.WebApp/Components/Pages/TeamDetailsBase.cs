@@ -69,15 +69,5 @@ namespace FootballResults.WebApp.Components.Pages
             Matches = matches.ToList();
             StateHasChanged();
         }
-
-        protected List<(League league, List<Match> matches)> GetLeagueGroups()
-        {
-            return Matches!
-            .GroupBy(
-                m => m.League,
-                (league, matches) => (league, matches.OrderBy(m => m.Date).ToList())
-            )
-            .ToList();
-        }
     }
 }

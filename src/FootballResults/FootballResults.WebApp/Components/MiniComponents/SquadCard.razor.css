@@ -14,10 +14,6 @@ table, th, td, tr {
     color: white;
 }
 
-th {
-    font-weight: normal;
-}
-
 .player:hover td {
     background-color: rgba(255, 255, 255, 0.05);
 }

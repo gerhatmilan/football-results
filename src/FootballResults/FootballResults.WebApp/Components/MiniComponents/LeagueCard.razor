@@ -2,7 +2,7 @@
 {
     <div class="leagueCard">
         <div class="leagueHeader">
-            <a class="leagueDetails"href="/leagues/@League.Name)">
+            <a class="leagueDetails"href="/leagues/@League.Name">
                 <div class="leagueLogoDiv">
                     <img class="leagueLogo" src="@League.LogoLink" alt="@League.Name logo" />
                 </div>
@@ -14,6 +14,7 @@
         </div>
         @if (Matches != null)
         {
+            <h1>@Matches.First().Round</h1>
             @foreach (Match match in Matches)
             {
                 <MatchCard Match="match" />

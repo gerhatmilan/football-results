@@ -8,5 +8,7 @@ namespace FootballResults.WebApp.Services
 
         Task<IEnumerable<League>> GetLeagues();
         Task<IEnumerable<Country>> GetCountriesWithLeagues();
+        Task<IEnumerable<Standing>> GetStandingsForLeagueAndSeason(string leagueName, int season);
+        Task<IEnumerable<TopScorer>> GetTopScorersForLeagueAndSeason(string leagueName, int season);
     }
 }

@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: center;
     max-width: 1000px;
-    margin: 3rem auto;
+    margin: 2vh auto;
 }
 
 .matchCard a {
@@ -47,6 +47,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    word-wrap: anywhere
 }
 
 .matchDetails {
@@ -175,5 +176,9 @@
     .matchCard {
         width: 800px;
         height: 300px;
+    }
+
+    .teamName {
+        word-wrap: break-word;
     }
 }

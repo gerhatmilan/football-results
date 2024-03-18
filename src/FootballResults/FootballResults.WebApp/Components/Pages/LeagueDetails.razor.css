@@ -1,0 +1,93 @@
+﻿.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.leagueHeader {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+    width: 100%;
+}
+
+.nameHeader {
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.leagueLogo {
+    margin: auto;
+    margin-bottom: 50px;
+    width: 50%;
+    max-width: 200px;
+}
+
+.subMenu {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.subMenu button {
+    background-color: #111111;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    margin: 0 5vw;
+}
+
+.subMenu button:hover {
+    color: var(--bs-link-color);
+}
+
+.subMenu button.active {
+    color: var(--bs-link-color);
+}
+
+.roundDiv {
+    border: 1px solid white;
+    border-radius: 20px;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    width: fit-content;
+    margin: auto;
+}
+
+.roundName {
+    margin: 5vh 0;
+}
+
+.roundMatches {
+    padding: 2vh 5vw;
+}
+
+@media (min-width: 0px) {
+    .nameHeader {
+        font-size: 1.8rem;
+    }
+
+    .subMenu button {
+        font-size: 5vw;
+    }
+}
+
+@media (min-width: 500px) {
+    .nameHeader {
+        font-size: 2.5rem;
+    }
+
+    .subMenu button {
+        font-size: 1.8rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .header {
+        flex-direction: row;
+    }
+}

@@ -11,7 +11,7 @@
                 @Team.Name
                 <BookmarkIcon Bookmark="Team" @rendermode="@RenderMode.InteractiveServer" />
             </div>
-            <img class="teamLogo" src="@Team.LogoLink" alt="@Team logo" />  
+            <img class="teamLogo" src="@Team.LogoLink" alt="@Team.Name logo" />  
         </div>    
     </div>
     <div class="subMenu">
@@ -47,9 +47,7 @@
         {
             @if (Squad != null)
             {
-                <div class="squad">
-                    <SquadCard Squad="Squad" />
-                </div>
+                <SquadCard Squad="Squad" />
             }
             else
             {

@@ -1,12 +1,119 @@
 ﻿@page "/leagues/{LeagueName}"
 @inherits LeagueDetailsBase
+@rendermode InteractiveServer
 
-@if (LeagueName != null)
+@if (League != null)
 {
-    <h1>@LeagueName</h1>
-}
+    <div class="header">
+        <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" SeasonChanged="OnSeasonChanged" />
+        <div class="leagueHeader">
+            <div class="nameHeader">
+                @League.Name
+                <BookmarkIcon Bookmark="League" @rendermode="@RenderMode.InteractiveServer" />
+            </div>
+            <img class="leagueLogo" src="@League.LogoLink" alt="@League.Name logo" />
+        </div>
+    </div>
+    <div class="subMenu">
+        <button class="@(ActiveSubMenu!.Equals("matches") ? "active" : "")" type="button" @onclick="@(() => ActiveSubMenu = "matches")">Matches</button>
+        <button class="@(ActiveSubMenu!.Equals("standings") ? "active" : "")" type="button" @onclick="@(() => ActiveSubMenu = "standings")">Standings</button>
+        <button class="@(ActiveSubMenu!.Equals("topscorers") ? "active" : "")" type="button" @onclick="@(() => ActiveSubMenu = "topscorers")">Top scorers</button>
+    </div>
+    <div class="submenuContent">
+        @if (ActiveSubMenu == "matches")
+        {
+            @if (Matches != null)
+            {
+                @if (Matches.Count() > 0)
+                {
+                    <div class="matches">
+                        @foreach (var roundGroups in GetMatchesByRound())
+                        {
+                            <h1 class="roundName">@roundGroups.round</h1>
+                            <div class="roundDiv">
+                                <div class="roundMatches">
+                                    @foreach (Match match in roundGroups.matches)
+                                    {
+                                        <MatchCard Match="match" />
+                                    }
+                                </div>                    
+                            </div>               
+                        }
+                    </div>
+                }
+                else
+                {
+                    <h1>No matches found</h1>
+                }
+            }
+            else
+            {
+                <LoadingSpinner />
+            }
+        }
 
-@code {
-    [Parameter]
-    public string? LeagueName { get; set; }
+        @if (ActiveSubMenu == "standings")
+        {
+            @if (Standings != null)
+            {
+                @if (SeasonFilter != null)
+                {
+                    <h1>Season @String.Concat(SeasonFilter.ToString()!.Substring(2),
+                        "/", (SeasonFilter + 1).ToString()!.Substring(2))
+                    </h1>
+
+                    @if (Standings.Count() > 0)
+                    {
+                        <StandingsCard Standings="Standings" />
+                    }
+                    else
+                    {
+                        <h1>No data</h1>
+                    }
+                }
+                else
+                {
+                    <h1>Season has to be set</h1>
+                }
+            }
+            else
+            {
+                <LoadingSpinner />
+            }
+        }
+
+        @if (ActiveSubMenu == "topscorers")
+        {
+            @if (TopScorers != null)
+            {
+                @if (SeasonFilter != null)
+                {
+                    <h1>
+                        Season @String.Concat(SeasonFilter.ToString()!.Substring(2),
+                          "/", (SeasonFilter + 1).ToString()!.Substring(2))
+                    </h1>
+                    @if (TopScorers.Count() > 0)
+                    {
+                        <TopScorersCard TopScorers="TopScorers" />
+                    }
+                    else
+                    {
+                        <h1>No data</h1>
+                    }
+                }
+                else
+                {
+                    <h1>Season has to be set</h1>
+                }
+            }
+            else
+            {
+                <LoadingSpinner />
+            }
+        }
+    </div>
+}
+else
+{
+    <LoadingSpinner />
 }

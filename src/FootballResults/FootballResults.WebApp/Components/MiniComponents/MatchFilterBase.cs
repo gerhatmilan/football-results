@@ -17,6 +17,9 @@ namespace FootballResults.WebApp.Components.MiniComponents
         public EventCallback<IEnumerable<Match>> FilterSubmitted { get; set; }
 
         [Parameter]
+        public EventCallback<int?> SeasonChanged { get; set; }
+
+        [Parameter]
         public MatchFilterParameters? FilterParameters { get; set; }
 
         [Parameter]
@@ -52,6 +55,11 @@ namespace FootballResults.WebApp.Components.MiniComponents
             {
                 NavigationManager!.NavigateTo("Error", true);
             }
+        }
+
+        protected async Task OnSeasonChanged()
+        {
+            await SeasonChanged.InvokeAsync(FilterParameters!.SeasonFilter);
         }
 
         protected async void SortByDateAscending()

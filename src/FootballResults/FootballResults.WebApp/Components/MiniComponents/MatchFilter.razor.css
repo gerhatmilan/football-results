@@ -39,7 +39,7 @@ button {
     }
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 1900px) {
     .filterSection {
         position: fixed;
         margin-left: 50px;
