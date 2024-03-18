@@ -34,19 +34,19 @@
 }
 
 .subMenu button {
-    background-color: #111111;
+    background-color: var(--dark);
     border: none;
-    color: white;
+    color: var(--light);
     font-size: 1.5rem;
     margin: 0 5vw;
 }
 
 .subMenu button:hover {
-    color: var(--bs-link-color);
+    color: var(--link);
 }
 
 .subMenu button.active {
-    color: var(--bs-link-color);
+    color: var(--link);
 }
 
 @media (min-width: 0px) {

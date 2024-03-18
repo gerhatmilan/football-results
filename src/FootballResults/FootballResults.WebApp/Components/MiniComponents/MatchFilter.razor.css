@@ -10,25 +10,25 @@
 }
 
 input, select {
-    background-color: #111111;
-    color: white;
+    background-color: var(--dark);
+    color: var(--light);
 }
 
 input:focus, select:focus {
-    background-color: #111111;
-    color: white;
+    background-color: var(--dark);
+    color: var(--light);
 }
 
 ::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--light);
 }
 
 button {
     width: 100%;
-    border-color: white;
-    color: white;
-    background-color: var(--bs-link-color) !important;
-    border: 1px solid var(--bs-link-color) !important;
+    border-color: var(--light);
+    color: var(--light);
+    background-color: var(--link) !important;
+    border: 1px solid var(--link) !important;
 }
 
 @media (min-width: 1200px) {

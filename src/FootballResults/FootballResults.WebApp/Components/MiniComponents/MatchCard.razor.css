@@ -7,7 +7,7 @@
 }
 
 .matchCard a {
-    color: white;
+    color: var(--light);
     text-decoration: none;
     height: inherit;
 }
@@ -38,7 +38,7 @@
 
 .teamLogo {
     width: 80%;
-    max-height: 80%
+    max-height: 80%;
 }
 
 .teamName {
@@ -47,7 +47,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    word-wrap: anywhere
+    word-wrap: anywhere;
 }
 
 .matchDetails {
@@ -59,7 +59,7 @@
 }
 
 .score {
-    color: var(--bs-link-color);
+    color: var(--link);
 }
 
 .liveIndicator {
@@ -70,7 +70,7 @@
     width: 10px;
     height: 10px;
     border-radius: 100%;
-    background: black;
+    background: var(--dark);
     animation: pulse 2s infinite;
     animation-direction: alternate-reverse;
 }
@@ -81,7 +81,7 @@
     }
 
     100% {
-        background: rgba(255, 0, 0, 1);
+        background: red;
         transform: scale(1);
     }
 }

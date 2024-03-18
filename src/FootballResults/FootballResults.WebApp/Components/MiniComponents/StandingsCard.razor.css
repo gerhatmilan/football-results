@@ -1,19 +1,10 @@
-﻿.standingsCard {
-    border: 1px solid white;
-    border-radius: 20px;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
-    margin: auto;
-    max-width: 1000px;
-}
-
-table, th, td, tr {
-    background-color: #111111;
+﻿table, th, td, tr {
+    background-color: var(--dark);
     color: white;
 }
 
 .standing:hover td {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: var(--link-hover);
 }
 
 .standingsTable {
@@ -21,9 +12,13 @@ table, th, td, tr {
     vertical-align: middle;
 }
 
+.standingsTable * {
+    color: var(--light) !important;
+}
+
 .teamDiv {
     text-decoration: none;
-    color: white;
+    color: var(--light);
     display: flex;
     align-items: center;
 }
@@ -58,7 +53,7 @@ table, th, td, tr {
 }
 
 @media (min-width: 500px) {
-    .standingsCard {
+    .contentGroup {
         padding: 2vh 5vw;
     }
 

@@ -1,14 +1,12 @@
 ﻿.leagueCard {
-    margin: auto;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin: calc(0.5rem + 2vh + 0.5vw) auto;
     max-width: 1000px;
 }
 
 .leagueHeader {
     display: flex;
     max-height: 100px;
-    border : 1px solid white;
+    background-color: var(--light);
     border-radius: 10px;
 }
 
@@ -19,11 +17,13 @@
     display: inline-flex;
     align-items: center;
     width: 100%;
+    color: var(--dark);
 }
 
 .leagueDetails:hover {
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: var(--link-hover);
+    border-radius: 10px;
 }
 
 .leagueLogoDiv {

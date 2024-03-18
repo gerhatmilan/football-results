@@ -34,36 +34,23 @@
 }
 
 .subMenu button {
-    background-color: #111111;
+    background-color: var(--dark);
     border: none;
-    color: white;
+    color: var(--light);
     font-size: 1.5rem;
     margin: 0 5vw;
 }
 
 .subMenu button:hover {
-    color: var(--bs-link-color);
+    color: var(--link);
 }
 
 .subMenu button.active {
-    color: var(--bs-link-color);
-}
-
-.roundDiv {
-    border: 1px solid white;
-    border-radius: 20px;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
-    width: fit-content;
-    margin: auto;
+    color: var(--link);
 }
 
 .roundName {
     margin: 5vh 0;
-}
-
-.roundMatches {
-    padding: 2vh 5vw;
 }
 
 @media (min-width: 0px) {

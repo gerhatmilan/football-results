@@ -12,9 +12,9 @@
 }
 
 .default {
-    color: #ffffff;
+    color: var(--dark);
 }
 
 .favorite {
-    color: var(--bs-link-color);
+    color: var(--link);
 }

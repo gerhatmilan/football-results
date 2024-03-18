@@ -1,6 +1,6 @@
 #header {
     border-bottom: 1px solid white;
-    background-color: #111111;
+    background-color: var(--dark);
 }
 
 #navbarSupportedContent {
@@ -14,17 +14,16 @@ u {
 
 ::deep .nav-link {
     margin: 0.5rem 1rem 0.5rem 1rem;
-    color: white;
+    color: var(--light);
     text-align: center;
 }
 
 ::deep .nav-link:hover  {
-    color: rgba(var(--bs-link-color-rgb));
-
+    color: var(--link);
 }
 
 ::deep .active {
-    color: rgba(var(--bs-link-color-rgb)) !important;
+    color: var(--link) !important;
 }
 
 .navbar {
