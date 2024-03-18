@@ -64,6 +64,16 @@ namespace FootballResults.WebApp.Components.Pages
             }
         }
 
+        protected List<(int leagueID, List<Match> matches)> GetMatchesByLeague()
+        {
+            return Matches!
+            .GroupBy(
+                m => m.LeagueID,
+                (leagueID, matches) => (leagueID, Matches!.Where(m => m.LeagueID.Equals(leagueID)).OrderBy(m => m.Date).ToList())
+            )
+            .ToList();
+        }
+
         protected void OnMatchFilterSubmitted(IEnumerable<Match> matches)
         {
             Matches = matches.ToList();

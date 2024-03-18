@@ -14,10 +14,19 @@
         </div>
         @if (Matches != null)
         {
-            <h1>@Matches.First().Round</h1>
-            @foreach (Match match in Matches)
+            var matchesByRound = Matches
+                .GroupBy(m => m.Round,
+                    (round, matches) => (round, Matches!.Where(m => m.Round.Equals(round)).OrderBy(m => m.Date).ToList()));
+
+            @foreach (var roundGroup in matchesByRound)
             {
-                <MatchCard Match="match" />
+                <h1>@roundGroup.Item1</h1>
+                <div class="contentGroup">
+                    @foreach (Match match in roundGroup.Item2)
+                    {
+                        <MatchCard Match="match" />
+                    }
+                </div>
             }
         }
     </div>

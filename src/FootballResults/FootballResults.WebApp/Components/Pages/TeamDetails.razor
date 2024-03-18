@@ -26,9 +26,9 @@
                 @if (Matches.Count() > 0)
                 {
                     <div class="matches">
-                        @foreach (Match match in Matches)
+                        @foreach (var matchesByLeagueGroup in GetMatchesByLeague())
                         {
-                            <MatchCard Match="match" />
+                            <LeagueCard League="matchesByLeagueGroup.matches.First().League" Matches="matchesByLeagueGroup.matches" />
                         }
                     </div>
                 }
@@ -47,7 +47,14 @@
         {
             @if (Squad != null)
             {
-                <SquadCard Squad="Squad" />
+                @if (Squad.Count() > 0)
+                {
+                    <SquadCard Squad="Squad" />
+                }
+                else
+                {
+                    <h1>No squad data</h1>
+                }
             }
             else
             {
