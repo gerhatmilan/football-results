@@ -82,7 +82,7 @@ namespace FootballResults.WebApp.Components.Pages
             return Matches!
             .GroupBy(
                 m => m.Round,
-                (round, matches) => (round, Matches!.Where(m => m.Round.Equals(round)).OrderBy(m => m.Date).ToList())
+                (round, matches) => (round, Matches!.Where(m => m.Round.Equals(round)).ToList())
             )
             .ToList();
         }

@@ -69,7 +69,7 @@ namespace FootballResults.WebApp.Components.Pages
             return Matches!
             .GroupBy(
                 m => m.LeagueID,
-                (leagueID, matches) => (leagueID, Matches!.Where(m => m.LeagueID.Equals(leagueID)).OrderBy(m => m.Date).ToList())
+                (leagueID, matches) => (leagueID, Matches!.Where(m => m.LeagueID.Equals(leagueID)).ToList())
             )
             .ToList();
         }

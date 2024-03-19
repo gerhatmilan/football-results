@@ -23,9 +23,9 @@ h1 {
 
 h2 {
     color: var(--light);
-    font-size: calc(0.5rem + 0.8vw);
+    font-size: calc(1rem + 0.5vw);
     text-align: center;
-    margin: 1.5vh 0;
+    margin: 5vh 0;
 }
 
 .contentGroup {
@@ -36,5 +36,24 @@ h2 {
     margin-bottom: 5vh;
     margin: auto;
     max-width: 1000px;
-    padding: 20px;
+}
+
+.favoriteButton.defaultDark {
+    color: var(--dark);
+}
+
+.favoriteButton.defaultLight {
+    color: var(--light);
+}
+
+@media (min-width: 0px) {
+    .contentGroup {
+        padding: 5px;
+    }
+}
+
+@media (min-width: 500px) {
+    .contentGroup {
+        padding: 20px;
+    }
 }

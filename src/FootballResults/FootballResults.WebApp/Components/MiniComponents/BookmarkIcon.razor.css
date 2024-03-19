@@ -11,8 +11,12 @@
     max-width: 50px;
 }
 
-.default {
+.defualtLight {
     color: var(--light);
+}
+
+.defaultDark {
+    color: var(--dark);
 }
 
 .favorite {

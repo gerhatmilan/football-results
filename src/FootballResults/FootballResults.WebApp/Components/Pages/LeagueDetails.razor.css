@@ -49,10 +49,6 @@
     color: var(--link);
 }
 
-.roundName {
-    margin: 5vh 0;
-}
-
 @media (min-width: 0px) {
     .nameHeader {
         font-size: 1.8rem;
@@ -73,7 +69,7 @@
     }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1500px) {
     .header {
         flex-direction: row;
     }

@@ -9,7 +9,7 @@
         <div class="leagueHeader">
             <div class="nameHeader">
                 @League.Name
-                <BookmarkIcon Bookmark="League" @rendermode="@RenderMode.InteractiveServer" />
+                <BookmarkIcon Bookmark="League" DefaultColor="defaultLight" @rendermode="@RenderMode.InteractiveServer" />
             </div>
             <img class="leagueLogo" src="@League.LogoLink" alt="@League.Name logo" />
         </div>
@@ -29,7 +29,7 @@
                     <div class="matches">
                         @foreach (var roundGroups in GetMatchesByRound())
                         {
-                            <h1 class="roundName">@roundGroups.round</h1>
+                            <h2 class="roundName">@roundGroups.round</h2>
                             <div class="contentGroup">
                                 <div class="roundMatches">
                                     @foreach (Match match in roundGroups.matches)

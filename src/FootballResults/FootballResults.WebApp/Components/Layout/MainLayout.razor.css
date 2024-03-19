@@ -12,6 +12,7 @@ main {
 article {
     flex: 1;
     margin-top: 50px;
+    padding: 0px 5%;
 }
 
 #blazor-error-ui {

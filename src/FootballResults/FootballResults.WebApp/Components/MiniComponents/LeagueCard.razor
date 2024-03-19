@@ -10,17 +10,19 @@
                     @League.Name
                 </div>
             </a>
-            <BookmarkIcon Bookmark="League" @rendermode="@RenderMode.InteractiveServer" />
+            <BookmarkIcon Bookmark="League" DefaultColor="defaultDark" @rendermode="@RenderMode.InteractiveServer" />
         </div>
         @if (Matches != null)
         {
             var matchesByRound = Matches
-                .GroupBy(m => m.Round,
-                    (round, matches) => (round, Matches!.Where(m => m.Round.Equals(round)).OrderBy(m => m.Date).ToList()));
+                .GroupBy(
+                    m => m.Round,
+                    (round, matches) => (round, Matches!.Where(m => m.Round.Equals(round)).ToList())
+                );
 
             @foreach (var roundGroup in matchesByRound)
             {
-                <h1>@roundGroup.Item1</h1>
+                <h2>@roundGroup.Item1</h2>
                 <div class="contentGroup">
                     @foreach (Match match in roundGroup.Item2)
                     {

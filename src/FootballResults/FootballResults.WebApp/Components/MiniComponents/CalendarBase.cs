@@ -58,7 +58,7 @@ namespace FootballResults.WebApp.Components.MiniComponents
 
             for (int i = 0; i < 7; i++)
             {
-                week[i] = startDate.AddDays(i - (int)startDate.DayOfWeek);
+                week[i] = startDate.AddDays(i - (int)(startDate.DayOfWeek - 1));
             }
 
             // while first or last day of week is in the current month

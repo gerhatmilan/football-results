@@ -47,7 +47,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    word-wrap: anywhere;
 }
 
 .matchDetails {
@@ -106,7 +105,7 @@
     }
 
     .teamName {
-        font-size: 1rem;
+        font-size: 3vw;
     }
 
     .matchDetails {
@@ -114,15 +113,15 @@
     }
 
     .smallDate, .status {
-        font-size: 1rem;
+        font-size: 3vw;
     }
 
     .score {
-        font-size: 1.5rem;
+        font-size: 8vw;
     }
 
     .bigDate {
-        font-size: 1.2em;
+        font-size: 3vw;
     }
 
     .lastUpdate {
@@ -170,15 +169,15 @@
         width: 10px;
         height: 10px;
     }
+
+    .teamName {
+        word-wrap: break-word;
+    }
 }
 
 @media (min-width: 1000px) {
     .matchCard {
         width: 800px;
         height: 300px;
-    }
-
-    .teamName {
-        word-wrap: break-word;
     }
 }

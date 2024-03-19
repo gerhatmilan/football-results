@@ -87,6 +87,8 @@
                 </table>
             </div>
         }
+
+        <p>Last update @GetLastUpdate()</p>
     </div>
 }
 else
@@ -111,5 +113,12 @@ else
             (group, standings) => (group, standings.OrderBy(s => s.Rank).ToList())
         )
         .ToList();
+    }
+
+    private DateTime? GetLastUpdate()
+    {
+        return Standings!
+            .Select(s => s.LastUpdate)
+            .Max();
     }
 }
