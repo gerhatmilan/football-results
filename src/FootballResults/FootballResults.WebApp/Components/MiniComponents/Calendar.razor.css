@@ -1,14 +1,11 @@
 ﻿.calendar {
     background-color: var(--dark);
+    color: var(--light);
     border: 1px solid var(--light);
     border-radius: 10px;
     margin: 0 auto 50px auto;
     width: 90%;
     aspect-ratio: 1 / 1;
-}
-
-.calendar * {
-    color: var(--light) !important;
 }
 
 .calendar-header {
@@ -41,6 +38,7 @@
 
 .arrow:hover {
     cursor: pointer;
+    border-color: var(--light);
 }
 
 .left {
@@ -69,7 +67,7 @@
 .calendar-title button {
     background-color: var(--dark);
     border: none;
-    color: white;
+    color: var(--light);
 }
 
 .dropdown-menu {
@@ -109,9 +107,9 @@
     align-items: center;
     margin: 5px;
     background-color: var(--dark);
+    color: var(--light);
     border: none;
     border-radius: 100%;
-    color: white;
 }
 
 .selected {
@@ -121,6 +119,7 @@
 
 .today {
     background-color: var(--link);
+    color: var(--light)
 }
 
 .selected.today {

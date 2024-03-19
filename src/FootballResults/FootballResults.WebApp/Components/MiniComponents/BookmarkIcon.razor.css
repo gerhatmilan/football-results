@@ -12,7 +12,7 @@
 }
 
 .default {
-    color: var(--dark);
+    color: var(--light);
 }
 
 .favorite {

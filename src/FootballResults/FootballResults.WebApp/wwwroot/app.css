@@ -35,6 +35,6 @@ h2 {
     margin-top: 5vh;
     margin-bottom: 5vh;
     margin: auto;
-    padding: calc(0.5rem + 2vh + 0.5vw);
     max-width: 1000px;
+    padding: 20px;
 }
