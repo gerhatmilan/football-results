@@ -20,15 +20,17 @@
                 </select>
             </div>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Opponent" @bind="OpponentName" @bind:after="FilterMatchesAsync" />
+                <input type="text" class="form-control" placeholder="Opponent" @bind="FilterParameters!.OpponentNameFilter" @bind:after="FilterMatchesAsync" />
             </div>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Competition" @bind="FilterParameters!.LeagueFilter" @bind:after="FilterMatchesAsync" />
             </div>
         }
-        else if (FilterTarget.GetType() == typeof(LeagueDetails))
+        else if (FilterTarget.GetType() == typeof(MatchDetails))
         {
-            /*...*/
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Competition" @bind="FilterParameters!.LeagueFilter" @bind:after="FilterMatchesAsync" />
+            </div>
         }
 
         <div class="input-group mb-3">
@@ -38,10 +40,16 @@
             <input type="text" class="form-control" placeholder="Round" @bind="FilterParameters!.RoundFilter" @bind:after="FilterMatchesAsync" />
         </div>
         <div class="input-group mb-3">
-            <button type="button" class="btn btn-outline-secondary" @onclick="SortByDateAscending">Earliest first</button>
+            <button type="button" class="btn btn-outline-secondary"
+                @onclick="SortByDateAscending"
+                >
+                Earliest first
+            </button>
         </div>
         <div class="input-group mb-3">
-            <button type="button" class="btn btn-outline-secondary" @onclick="SortByDateDescending">Latest first</button>
+            <button type="button" class="btn btn-outline-secondary" @onclick="SortByDateDescending">
+                Latest first
+            </button>
         </div>
     </div>
 }

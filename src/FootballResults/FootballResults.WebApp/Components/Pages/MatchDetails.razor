@@ -1,11 +1,63 @@
 ﻿@page "/matches/{MatchID}"
+@inherits MatchDetailsBase
+@rendermode InteractiveServer
 
-@if (MatchID != null)
+
+@if (Match != null)
 {
-    <h1>@MatchID</h1>
+    <div class="header">
+        <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" />
+        <MatchCard Match="Match" />
+    </div>
+    <div class="matchDetails">
+        <h1>Details</h1>
+        <ul>
+            <li>
+                Date: @(Match.Date != null ? Match.Date.Value.ToLocalTime().ToShortDateString() : "Unknown")
+            </li>
+            <li>
+                Time: @(Match.Date != null ? Match.Date.Value.ToLocalTime().ToShortTimeString() : "Unknown")
+            </li>
+            <li>
+                League: @Match.League.Name
+            </li>
+            <li>
+                Season: @Match.Season
+            </li>
+            <li>
+                Round: @(Match.Round ?? "Unknown")
+            </li>
+            <li>
+                Country: @(Match.Venue != null ? (Match.Venue.CountryID) : "Unknown")
+            </li>
+            <li>
+                Stadium: @(Match.Venue != null ? (Match.Venue.Name != null ? Match.Venue.Name : "Unknown") : "Unknown")
+            </li>
+        </ul>
+    </div>
+    <div class="head2head">
+        @if (Matches != null)
+        {
+            <h1>Head to head</h1>
+            @if (Matches.Count() > 0)
+            {
+                <div class="head2head">
+                    <div class="roundMatches">
+                        @foreach (var matchesByLeagueGroup in GetMatchesByLeague())
+                        {
+                            <LeagueCard League="matchesByLeagueGroup.matches.First().League" Matches="matchesByLeagueGroup.matches" />
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <h2>No matches found</h2>
+            }
+        }
+    </div>
 }
-
-@code {
-    [Parameter]
-    public string? MatchID { get; set; }
+else
+{
+    <LoadingSpinner />
 }
