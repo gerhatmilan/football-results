@@ -6,12 +6,6 @@ namespace FootballResults.WebApp.Components.Pages
 {
     public partial class MatchesBase : ComponentBase
     {
-        protected struct LeagueWithMatches
-        {
-            public League league;
-            public IEnumerable<Match> matches;
-        }
-
         [Inject]
         protected NavigationManager? NavigationManager { get; set; }
 
@@ -23,12 +17,19 @@ namespace FootballResults.WebApp.Components.Pages
 
         protected DateTime SelectedDate { get; set; }
 
-        protected ICollection<LeagueWithMatches>? LeaguesWithMatches { get; set; }
+        protected IEnumerable<Match>? Matches { get; set; }
+
+        protected IEnumerable<Match>? UpcomingMatches { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
             SelectedDate = DateTime.Now.ToLocalTime();
-            await LoadMatchesAsync();   
+            await LoadMatchesAsync();
+
+            if (Matches != null && !Matches.Any())
+            {
+                await LoadUpcomingMatchesAsync();
+            }
         }
 
         protected async void OnSelectedDateChangedInCalendar(DateTime newDate)
@@ -41,25 +42,41 @@ namespace FootballResults.WebApp.Components.Pages
             }
         }
 
+        protected List<(int leagueID, List<Match> matches)> GetMatchesByLeague(IEnumerable<Match> matches)
+        {
+            return matches!
+            .GroupBy(
+                m => m.LeagueID,
+                (leagueID, matches) => (leagueID, matches!.Where(m => m.LeagueID.Equals(leagueID)).OrderBy(m => m.Date).ToList())
+            )
+            .ToList();
+        }
+
         protected async Task LoadMatchesAsync()
         {
             try
             {
-                LeaguesWithMatches = null;
-                var cache = new List<LeagueWithMatches>();
-                var leagues = await LeagueService!.GetLeagues();
+                Matches = null;
                 var matches = await MatchService!.GetMatchesForDate(SelectedDate);
+                Matches = matches.ToList();
+            }
+            catch (HttpRequestException)
+            {
+                NavigationManager?.NavigateTo("/Error", true);
+            }
+        }
 
-                foreach (League league in leagues.OrderBy(l => l.Name))
-                {
-                    var matchesForLeagueAndDate = matches.Where(m => m.League.LeagueID == league.LeagueID).OrderBy(m => m.Date);
-                    if (matchesForLeagueAndDate.Any())
-                    {
-                        cache.Add(new LeagueWithMatches { league = league, matches = matchesForLeagueAndDate.ToList() });
-                    }
-                }    
-
-                LeaguesWithMatches = cache;
+        protected async Task LoadUpcomingMatchesAsync()
+        {
+            try
+            {
+                UpcomingMatches = null;
+                var upcomingMatches = await MatchService!.GetMatchesForYear(DateTime.Now.Year);
+                UpcomingMatches = upcomingMatches
+                    .Where(m => m.Date > DateTime.UtcNow)
+                    .OrderBy(m => m.Date)
+                    .Take(5)
+                    .ToList();
             }
             catch (HttpRequestException)
             {

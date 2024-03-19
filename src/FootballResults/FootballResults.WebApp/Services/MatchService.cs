@@ -1,4 +1,5 @@
 ﻿using FootballResults.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FootballResults.WebApp.Services
 {
@@ -31,6 +32,12 @@ namespace FootballResults.WebApp.Services
         public async Task<IEnumerable<Match>> GetMatchesForDate(DateTime date)
         {
             var result = await _httpClient.GetFromJsonAsync<IEnumerable<Match>>($"api/matches/search?date={date.Date}");
+            return result ?? Enumerable.Empty<Match>();
+        }
+
+        public async Task<IEnumerable<Match>> GetMatchesForYear(int year)
+        {
+            var result = await _httpClient.GetFromJsonAsync<IEnumerable<Match>>($"api/matches/search?year={year}");
             return result ?? Enumerable.Empty<Match>();
         }
 

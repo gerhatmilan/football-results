@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
 
 :root {
-    --light: #ffffff;
-    --dark: #111111;
+    --light: #111111;
+    --dark: #ffffff;
     --link: var(--bs-link-color);
     --link-hover: rgba(255, 255, 255, 0.1);
 }

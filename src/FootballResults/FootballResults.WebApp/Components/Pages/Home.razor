@@ -3,19 +3,29 @@
 
 <PageTitle>Home</PageTitle>
 
-@if (LeaguesWithMatches != null)
+@if (Matches != null)
 {
-    @if (LeaguesWithMatches.Any())
+    @if (Matches.Any())
     {
         <h1>Matches today</h1>
-        @foreach (LeagueWithMatches leagueWithMatches in LeaguesWithMatches)
+        @foreach (var leagueWithMatchesGroup in GetMatchesByLeague(Matches))
         {
-            <LeagueCard League="leagueWithMatches.league" Matches="leagueWithMatches.matches" />
+            <LeagueCard League="leagueWithMatchesGroup.matches.ElementAt(0).League" Matches="leagueWithMatchesGroup.matches" />
         }
     }
     else
     {
         <h1>No matches today 😒</h1>
+
+        <h1>Check out upcoming matches instead</h1>
+
+        @if (UpcomingMatches != null)
+        {
+            @foreach (var leagueWithMatchesGroup in GetMatchesByLeague(UpcomingMatches))
+            {
+                <LeagueCard League="leagueWithMatchesGroup.matches.ElementAt(0).League" Matches="leagueWithMatchesGroup.matches" />
+            }
+        }    
     }
 }
 else
