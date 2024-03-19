@@ -5,7 +5,6 @@
 @if (League != null)
 {
     <div class="header">
-        <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" SeasonChanged="OnSeasonChanged" />
         <div class="leagueHeader">
             <div class="nameHeader">
                 @League.Name
@@ -22,6 +21,7 @@
     <div class="submenuContent">
         @if (ActiveSubMenu == "matches")
         {
+            <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" SeasonChanged="OnSeasonChanged" />
             @if (Matches != null)
             {
                 @if (Matches.Count() > 0)

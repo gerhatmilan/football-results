@@ -6,7 +6,6 @@
 @if (Match != null)
 {
     <div class="header">
-        <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" />
         <MatchCard Match="Match" />
     </div>
     <div class="matchDetails">
@@ -39,6 +38,7 @@
         @if (Matches != null)
         {
             <h1>Head to head</h1>
+            <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" />
             @if (Matches.Count() > 0)
             {
                 <div class="head2head">

@@ -31,17 +31,10 @@ button {
     border: 1px solid var(--link) !important;
 }
 
-@media (min-width: 1500px) {
-    .filterSection {
-        position: absolute;
-        left: 50px;
-        top: 235px;
-    }
-}
-
-@media (min-width: 1900px) {
+@media (min-width: 1920px) {
     .filterSection {
         position: fixed;
+        top: 250px;
         margin-left: 50px;
     }
 }

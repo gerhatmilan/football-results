@@ -6,7 +6,9 @@
 }
 
 #searchBar {
-    background-color: var(--light);
+    background-color: var(--dark);
+    color: var(--light);
+    border-color: var(--light);
     border-radius: 15px;
     text-align: center;
     width: 50%;
@@ -16,5 +18,5 @@
 }
 
 ::placeholder {
-    color: var(--dark);
+    color: var(--light);
 }

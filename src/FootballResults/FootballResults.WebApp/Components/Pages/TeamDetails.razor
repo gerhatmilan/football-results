@@ -5,7 +5,6 @@
 @if (Team != null)
 {
     <div class="header">
-        <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" />   
         <div class="teamHeader">
             <div class="nameHeader">
                 @Team.Name
@@ -21,6 +20,7 @@
     <div class="submenuContent">
         @if (ActiveSubMenu == "matches")
         {
+            <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" />
             @if (Matches != null)
             {
                 @if (Matches.Count() > 0)
