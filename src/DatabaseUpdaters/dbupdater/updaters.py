@@ -817,10 +817,10 @@ class TopScorersUpdater(DatabaseUpdater):
             fields = {
                 'league_id': statistics_data["league"]["id"],
                 'season': statistics_data["league"]["season"],
+                'rank': idx + 1,
                 'player_name': player_data["name"],
                 'photo_link': player_data["photo"],
                 'team_id': statistics_data["team"]["id"],
-                'rank': idx + 1,
                 'played': statistics_data["games"]["appearences"],
                 'goals': statistics_data["goals"]["total"],
                 'assists': statistics_data["goals"]["assists"]
@@ -1146,7 +1146,7 @@ class MatchesUpdater(DatabaseUpdater):
                 self.__cursor.execute(command, new_values)
                 self.__connection.commit()
 
-                logging.log(SUCCESS_LOG_PATH, f'Match record updated with id {id}:\n')
+                logging.log(SUCCESS_LOG_PATH, f'Match record updated with id {id}\n')
                 for column in columns:
                     logging.log(SUCCESS_LOG_PATH, f'\t{column}: {old_record[column]} --> {new_record[column]}\n')
 

@@ -1,0 +1,34 @@
+﻿@page "/"
+@inherits MatchesBase
+
+<PageTitle>Home</PageTitle>
+
+@if (Matches != null)
+{
+    @if (Matches.Any())
+    {
+        <h1>Matches today</h1>
+        @foreach (var leagueWithMatchesGroup in GetMatchesByLeague(Matches))
+        {
+            <LeagueCard League="leagueWithMatchesGroup.matches.ElementAt(0).League" Matches="leagueWithMatchesGroup.matches" MatchOrderOption="@MatchOrderOption.RoundThenDateAsc" />
+        }
+    }
+    else
+    {
+        <h1>No matches today 😒</h1>
+
+        <h1>Check out upcoming matches instead</h1>
+
+        @if (UpcomingMatches != null)
+        {
+            @foreach (var leagueWithMatchesGroup in GetMatchesByLeague(UpcomingMatches))
+            {
+                <LeagueCard League="leagueWithMatchesGroup.matches.ElementAt(0).League" Matches="leagueWithMatchesGroup.matches" MatchOrderOption="@MatchOrderOption.RoundThenDateAsc" />
+            }
+        }    
+    }
+}
+else
+{
+    <LoadingSpinner />
+}

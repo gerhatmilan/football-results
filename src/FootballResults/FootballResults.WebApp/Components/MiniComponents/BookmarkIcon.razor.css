@@ -1,0 +1,24 @@
+﻿.favoriteButtonDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto 10px;
+}
+
+.favoriteButton {
+    height: 80%;
+    width: 80%;
+    max-width: 50px;
+}
+
+.defualtLight {
+    color: var(--light);
+}
+
+.defaultDark {
+    color: var(--dark);
+}
+
+.favorite {
+    color: var(--link);
+}

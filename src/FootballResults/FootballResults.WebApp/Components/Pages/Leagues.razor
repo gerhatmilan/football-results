@@ -1,0 +1,16 @@
+﻿@page "/leagues"
+@inherits LeaguesBase
+
+<PageTitle>Leagues</PageTitle>
+
+@if (CountriesWithLeagues != null)
+{
+    @foreach (Country country in CountriesWithLeagues.OrderBy(c => c.CountryID))
+    {
+        <CountryCard Country="country" />
+    }
+}
+else
+{
+    <LoadingSpinner />
+}

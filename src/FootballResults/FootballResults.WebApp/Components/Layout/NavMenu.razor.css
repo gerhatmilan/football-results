@@ -1,0 +1,51 @@
+#header {
+    border-bottom: 1px solid var(--light);
+    background-color: var(--dark);
+}
+
+#navbarSupportedContent {
+    font-size: calc(1.5rem + 0.5vw);
+    justify-content: center;
+}
+
+u {
+    text-align: center;
+}
+
+::deep .nav-link {
+    margin: 0.5rem 1rem 0.5rem 1rem;
+    color: var(--light);
+    text-align: center;
+}
+
+::deep .nav-link:hover  {
+    color: var(--link);
+}
+
+::deep .active {
+    color: var(--link) !important;
+}
+
+.navbar {
+    padding: 0 !important;
+}
+
+.navbar-toggler {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    width: calc(1.5rem + 0.5vw);
+    width: calc(1.5rem + 0.5vw);
+    z-index: 1;
+    padding: 0;
+    border: 0;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.navbar-toggler-icon {
+    width: 40px;
+    height: 40px;
+}

@@ -1,0 +1,22 @@
+﻿form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+#searchBar {
+    background-color: var(--dark);
+    color: var(--light);
+    border-color: var(--light);
+    border-radius: 15px;
+    text-align: center;
+    width: 50%;
+    max-width: 1000px;
+    height: calc(2rem + 0.5vh);
+    box-shadow: none;
+}
+
+::placeholder {
+    color: var(--light);
+}

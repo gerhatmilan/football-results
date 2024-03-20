@@ -1,0 +1,57 @@
+﻿.leagueCard {
+    margin: calc(0.5rem + 1.5vh + 0.7vw) auto;
+    max-width: 1000px;
+}
+
+.leagueHeader {
+    display: flex;
+    max-height: 100px;
+    background-color: var(--light);
+    border-radius: 10px;
+}
+
+.leagueDetails {
+    text-decoration: none;
+    color: white;
+    padding: 3%;
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    color: var(--dark);
+}
+
+.leagueDetails:hover {
+    cursor: pointer;
+    background-color: var(--link-hover);
+    border-radius: 10px;
+}
+
+.leagueLogoDiv {
+    text-align: left;
+}
+
+.leagueName {
+    text-align: left;
+}
+
+@media (min-width: 0px) {
+    .leagueLogoDiv {
+        width: 20%;
+    }
+
+    .leagueLogo {
+        width: 40%;
+        aspect-ratio: 1/1;
+    }
+
+    .leagueName {
+        width: 80%;
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 500px) {
+    .leagueName {
+        font-size: 1.5rem;
+    }
+}
