@@ -1,0 +1,9 @@
+﻿.teams {
+    display: flex;
+    column-gap: 1rem;
+    row-gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1000px;
+    margin: auto;
+}
