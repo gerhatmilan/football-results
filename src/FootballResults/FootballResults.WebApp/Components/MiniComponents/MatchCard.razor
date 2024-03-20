@@ -1,12 +1,8 @@
 ﻿@if (Match != null)
 {
     <div class="matchCard">
-        <a class="teamDiv homeTeamDiv" href="/teams/@Match.HomeTeam.Name">
-            <div class="teamLogoDiv">
-                <img class="teamLogo" src="@Match.HomeTeam.LogoLink" alt="@Match.HomeTeam.Name logo" />
-            </div>
-            <div class="teamName">@Match.HomeTeam.Name</div>
-        </a>
+
+        <TeamCard Team="Match.HomeTeam" />
         <a class="matchDetails" href="/matches/@Match.MatchID">
             @if (Match.Date != null)
             {
@@ -56,12 +52,7 @@
                 <div class="date">Unknown date</div>
             }
         </a>
-        <a class="teamDiv awayTeamDiv" href="/teams/@Match.AwayTeam.Name">
-            <div class="teamLogoDiv">
-                <img class="teamLogo" src="@Match.AwayTeam.LogoLink" alt="@Match.AwayTeam.Name logo" />
-            </div>
-            <div class="teamName">@Match.AwayTeam.Name</div>
-        </a>
+        <TeamCard Team="Match.AwayTeam" />
     </div>
 }
 

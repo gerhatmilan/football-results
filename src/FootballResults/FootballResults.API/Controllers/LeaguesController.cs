@@ -137,11 +137,11 @@ namespace FootballResults.API.Controllers
         }
 
         [HttpGet("leagues/search")]
-        public async Task<ActionResult<IEnumerable<League>>> Search(string? league, string? country, string? type, int? currentSeason)
+        public async Task<ActionResult<IEnumerable<League>>> Search(string? name, string? country, string? type, int? currentSeason)
         {
             try
             {
-                var result = await leagueRepository.Search(league, country, type, currentSeason);
+                var result = await leagueRepository.Search(name, country, type, currentSeason);
                 return Ok(result);
             }
             catch (Exception)

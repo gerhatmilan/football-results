@@ -22,7 +22,6 @@
 
 .teamLogo {
     margin: auto;
-    margin-bottom: 50px;
     width: 50%;
     max-width: 200px;
 }
@@ -61,7 +60,7 @@
 
 @media (min-width: 500px) {
     .nameHeader {
-        font-size: 2.5rem;
+        font-size: 3.5rem;
     }
 
     .subMenu button {

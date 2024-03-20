@@ -6,5 +6,6 @@ namespace FootballResults.WebApp.Services
     {
         Task<Team?> GetTeamByName(string teamName);
         Task<IEnumerable<Player>> GetSquadForTeam(string teamName);
+        Task<IEnumerable<Team>> Search(string teamName);
     }
 }

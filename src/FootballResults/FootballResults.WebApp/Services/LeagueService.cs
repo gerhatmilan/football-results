@@ -43,5 +43,11 @@ namespace FootballResults.WebApp.Services
 
             return result ?? Enumerable.Empty<TopScorer>();
         }
+
+        public async Task<IEnumerable<League>> Search(string leagueName)
+        {
+            var result = await _httpClient.GetFromJsonAsync<IEnumerable<League>>($"api/leagues/search?name={leagueName}");
+            return result ?? Enumerable.Empty<League>();
+        }
     }
 }

@@ -21,5 +21,11 @@ namespace FootballResults.WebApp.Services
             var result = await _httpClient.GetFromJsonAsync<IEnumerable<Player>>($"api/teams/{teamName}/squad");
             return result ?? Enumerable.Empty<Player>();
         }
+
+        public async Task<IEnumerable<Team>> Search(string teamName)
+        {
+            var result = await _httpClient.GetFromJsonAsync<IEnumerable<Team>>($"api/teams/search?name={teamName}");
+            return result ?? Enumerable.Empty<Team>();
+        }
     }
 }

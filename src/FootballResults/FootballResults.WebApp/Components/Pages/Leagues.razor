@@ -8,6 +8,10 @@
     @foreach (Country country in CountriesWithLeagues.OrderBy(c => c.CountryID))
     {
         <CountryCard Country="country" />
+        @foreach (League league in country.Leagues)
+        {
+            <LeagueCard League="league" @rendermode="InteractiveServer" />
+        }
     }
 }
 else

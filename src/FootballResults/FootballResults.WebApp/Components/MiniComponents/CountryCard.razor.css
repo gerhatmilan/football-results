@@ -18,11 +18,12 @@
 .countryLogoDiv {
     width: 10%;
     text-align: center;
+    margin-right: 10px;
 }
 
 .countryLogo {
     border-radius: 5px;
-    width: 60%;
+    width: 80%;
 }
 
 @media (min-width: 0px) {

@@ -1,0 +1,11 @@
+﻿<a class="teamDiv" href="/teams/@Team?.Name">
+    <div class="teamLogoDiv">
+        <img class="teamLogo" src="@Team?.LogoLink" alt="@Team?.Name logo" />
+    </div>
+    <div class="teamName">@Team?.Name</div>
+</a>
+
+@code {
+    [Parameter]
+    public Team? Team { get; set; }
+}
