@@ -1,4 +1,4 @@
-﻿namespace FootballResults.WebApp.Components.Other
+﻿namespace FootballResults.WebApp.Models
 {
     public enum MatchOrderOption
     {

@@ -22,13 +22,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Components\Pages\Error.razor" />
-    <None Include="Components\Pages\Home.razor" />
-    <None Include="Components\Pages\Leagues.razor" />
-    <None Include="Components\Pages\LeagueDetails.razor" />
-    <None Include="Components\Pages\Matches.razor" />
-    <None Include="Components\Pages\MatchDetails.razor" />
-    <None Include="Components\Pages\TeamDetails.razor" />
+    <None Include="Components\Pages\General\Error.razor" />
+    <None Include="Components\Pages\MainMenu\Home.razor" />
+    <None Include="Components\Pages\MainMenu\Leagues.razor" />
+    <None Include="Components\Pages\Details\LeagueDetails.razor" />
+    <None Include="Components\Pages\MainMenu\Matches.razor" />
+    <None Include="Components\Pages\Details\MatchDetails.razor" />
+    <None Include="Components\Pages\Details\TeamDetails.razor" />
   </ItemGroup>
 
   <ItemGroup>

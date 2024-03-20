@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using FootballResults.Models;
 using FootballResults.WebApp.Services;
-using FootballResults.WebApp.Components.Other;
 using System.Numerics;
+using FootballResults.WebApp.Models;
 
-namespace FootballResults.WebApp.Components.Pages
+namespace FootballResults.WebApp.Components.Pages.Details
 {
     public class MatchDetailsBase : ComponentBase, IMatchFilterable
     {
@@ -15,7 +15,7 @@ namespace FootballResults.WebApp.Components.Pages
         protected NavigationManager? NavigationManager { get; set; }
 
         [Parameter]
-        public String? MatchID { get; set; }
+        public string? MatchID { get; set; }
         protected Match? Match { get; set; }
         public IEnumerable<Match>? Matches { get; set; }
 
@@ -33,7 +33,7 @@ namespace FootballResults.WebApp.Components.Pages
         {
             try
             {
-                Match = await MatchService!.GetMatchByID(Int32.Parse(MatchID!));
+                Match = await MatchService!.GetMatchByID(int.Parse(MatchID!));
             }
             catch (HttpRequestException)
             {
@@ -46,7 +46,7 @@ namespace FootballResults.WebApp.Components.Pages
             MatchFilterParameters = new MatchFilterParameters();
             MatchFilterParameters.TeamFilter = Match!.HomeTeam.Name;
             MatchFilterParameters.OpponentNameFilter = Match!.AwayTeam.Name;
-            MatchFilterParameters.SeasonFilter = (DateTime.Now.ToLocalTime().Month >= 8) ? DateTime.Now.ToLocalTime().Year : DateTime.Now.ToLocalTime().Year - 1;
+            MatchFilterParameters.SeasonFilter = DateTime.Now.ToLocalTime().Month >= 8 ? DateTime.Now.ToLocalTime().Year : DateTime.Now.ToLocalTime().Year - 1;
         }
 
         protected List<(int leagueID, List<Match> matches)> GetMatchesByLeague()

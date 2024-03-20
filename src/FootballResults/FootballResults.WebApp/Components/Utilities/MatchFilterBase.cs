@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using FootballResults.WebApp.Services;
 using FootballResults.Models;
-using FootballResults.WebApp.Components.Other;
+using FootballResults.WebApp.Models;
 
-namespace FootballResults.WebApp.Components.MiniComponents
+namespace FootballResults.WebApp.Components.Utilities
 {
     public class MatchFilterBase : ComponentBase
     {
@@ -42,7 +42,7 @@ namespace FootballResults.WebApp.Components.MiniComponents
                 var result = await MatchService!.SearchForMatch(FilterParameters!.YearFilter, FilterParameters!.MonthFilter, FilterParameters!.DayFilter
                     , FilterParameters!.TeamFilter, FilterParameters!.LeagueFilter, FilterParameters!.SeasonFilter, FilterParameters!.RoundFilter);
 
-                if (!String.IsNullOrEmpty(FilterParameters.OpponentNameFilter))
+                if (!string.IsNullOrEmpty(FilterParameters.OpponentNameFilter))
                     result = result.Where(m => m.HomeTeam.Name.ToLower().Equals(FilterParameters.OpponentNameFilter.ToLower()) || m.AwayTeam.Name.ToLower().Equals(FilterParameters.OpponentNameFilter.ToLower()));
                 if (FilterParameters.HomeAwayFilter == "Home")
                     result = result.Where(m => m.HomeTeam.Name == FilterParameters.TeamFilter);

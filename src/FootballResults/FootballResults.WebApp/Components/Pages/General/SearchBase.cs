@@ -2,7 +2,7 @@
 using FootballResults.WebApp.Services;
 using Microsoft.AspNetCore.Components;
 
-namespace FootballResults.WebApp.Components.Pages
+namespace FootballResults.WebApp.Components.Pages.General
 {
     public class SearchBase : ComponentBase
     {
@@ -16,7 +16,7 @@ namespace FootballResults.WebApp.Components.Pages
         protected ITeamService? TeamService { get; set; }
 
         [SupplyParameterFromQuery(Name = "value")]
-        protected String? SearchValue { get; set; }
+        protected string? SearchValue { get; set; }
 
         protected IEnumerable<League>? Leagues { get; set; }
         protected IEnumerable<Team>? Teams { get; set; }

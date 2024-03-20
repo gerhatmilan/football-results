@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using FootballResults.Models;
 using FootballResults.WebApp.Services;
-using FootballResults.WebApp.Components.Other;
+using FootballResults.WebApp.Models;
 
-namespace FootballResults.WebApp.Components.Pages
+namespace FootballResults.WebApp.Components.Pages.Details
 {
     public class TeamDetailsBase : ComponentBase, IMatchFilterable
     {
@@ -16,7 +16,7 @@ namespace FootballResults.WebApp.Components.Pages
         [Parameter]
         public string? TeamName { get; set; }
         protected Team? Team { get; set; }
-        public IEnumerable<Match>? Matches { get;  set; }
+        public IEnumerable<Match>? Matches { get; set; }
         protected IEnumerable<Player>? Squad { get; set; }
         protected string? ActiveSubMenu { get; set; } = "matches";
 
@@ -46,7 +46,7 @@ namespace FootballResults.WebApp.Components.Pages
         {
             MatchFilterParameters = new MatchFilterParameters();
             MatchFilterParameters.TeamFilter = TeamName;
-            MatchFilterParameters.SeasonFilter = (DateTime.Now.ToLocalTime().Month >= 8) ? DateTime.Now.ToLocalTime().Year : DateTime.Now.ToLocalTime().Year - 1;
+            MatchFilterParameters.SeasonFilter = DateTime.Now.ToLocalTime().Month >= 8 ? DateTime.Now.ToLocalTime().Year : DateTime.Now.ToLocalTime().Year - 1;
         }
 
         protected async Task LoadSquadAsync()

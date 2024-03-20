@@ -1,6 +1,6 @@
 ﻿using FootballResults.Models;
 
-namespace FootballResults.WebApp.Components.Other
+namespace FootballResults.WebApp.Models
 {
     public interface IMatchFilterable
     {

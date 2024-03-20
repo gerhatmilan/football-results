@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using FootballResults.Models;
 using FootballResults.WebApp.Services;
-using FootballResults.WebApp.Components.Other;
+using FootballResults.WebApp.Models;
 
-namespace FootballResults.WebApp.Components.Pages
+namespace FootballResults.WebApp.Components.Pages.Details
 {
     public class LeagueDetailsBase : ComponentBase, IMatchFilterable
     {
@@ -103,7 +103,7 @@ namespace FootballResults.WebApp.Components.Pages
                 await LoadStandingsAsync();
                 await LoadTopScorersAsync();
                 StateHasChanged();
-            }            
+            }
         }
 
         protected void OnMatchOrderChanged(MatchOrderOption newOrderOption)
@@ -112,7 +112,7 @@ namespace FootballResults.WebApp.Components.Pages
             {
                 MatchOrderOption = newOrderOption;
                 StateHasChanged();
-            }         
+            }
         }
     }
 }

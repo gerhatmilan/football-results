@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace FootballResults.WebApp.Components.MiniComponents
+namespace FootballResults.WebApp.Components.Utilities
 {
     public class CalendarBase : ComponentBase
     {
@@ -35,7 +35,7 @@ namespace FootballResults.WebApp.Components.MiniComponents
         {
             SelectedDateValueChanged.InvokeAsync(newdate);
         }
-        
+
         protected void AddMonth(int months)
         {
             SelectedDate = SelectedDate.AddMonths(months);
@@ -87,7 +87,7 @@ namespace FootballResults.WebApp.Components.MiniComponents
         {
             List<int> list = new List<int>();
 
-            for (int i = FIRST_YEAR; i <= (int)DateTime.Now.Year; i++)
+            for (int i = FIRST_YEAR; i <= DateTime.Now.Year; i++)
             {
                 list.Add(i);
             }

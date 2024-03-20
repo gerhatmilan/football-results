@@ -2,7 +2,7 @@
 using FootballResults.Models;
 using FootballResults.WebApp.Services;
 
-namespace FootballResults.WebApp.Components.Pages
+namespace FootballResults.WebApp.Components.Pages.MainMenu
 {
     public partial class MatchesBase : ComponentBase
     {
