@@ -21,23 +21,15 @@
     <div class="submenuContent">
         @if (ActiveSubMenu == "matches")
         {
-            <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" SeasonChanged="OnSeasonChanged" />
+            <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" SeasonChanged="OnSeasonChanged" MatchOrderChanged="OnMatchOrderChanged" />
             @if (Matches != null)
             {
                 @if (Matches.Count() > 0)
                 {
                     <div class="matches">
-                        @foreach (var roundGroups in GetMatchesByRound())
+                        @foreach (var matchesByLeagueGroup in GetMatchesByLeague())
                         {
-                            <h2 class="roundName">@roundGroups.round</h2>
-                            <div class="contentGroup">
-                                <div class="roundMatches">
-                                    @foreach (Match match in roundGroups.matches)
-                                    {
-                                        <MatchCard Match="match" />
-                                    }
-                                </div>                    
-                            </div>               
+                           <LeagueCard League="matchesByLeagueGroup.matches.First().League" Matches="matchesByLeagueGroup.matches" MatchOrderOption="@MatchOrderOption" />
                         }
                     </div>
                 }

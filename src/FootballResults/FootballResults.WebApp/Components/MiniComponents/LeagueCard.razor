@@ -14,21 +14,77 @@
         </div>
         @if (Matches != null)
         {
-            var matchesByRound = Matches
-                .GroupBy(
-                    m => m.Round,
-                    (round, matches) => (round, Matches!.Where(m => m.Round.Equals(round)).ToList())
-                );
-
-            @foreach (var roundGroup in matchesByRound)
+            switch (MatchOrderOption)
             {
-                <h2>@roundGroup.Item1</h2>
-                <div class="contentGroup">
-                    @foreach (Match match in roundGroup.Item2)
+                case MatchOrderOption.DateAsc:
+                        @foreach (Match match in Matches.OrderBy(m => m.Date))
+                        {
+                            <h2>@match.Round</h2>
+                            <div class="contentGroup">
+                                <MatchCard Match="match" />
+                            </div>
+                        }
+                    
+                    break;
+                case MatchOrderOption.DateDesc:
+                    @foreach (Match match in Matches.OrderByDescending(m => m.Date))
                     {
-                        <MatchCard Match="match" />
+                        <h2>@match.Round</h2>
+                        <div class="contentGroup">
+                            <MatchCard Match="match" />
+                        </div>
+                    }   
+
+                    break;
+                case MatchOrderOption.RoundThenDateAsc:
+                    var matchesByRound = Matches
+                        .GroupBy(
+                            m => m.Round,
+                            (round, matches) => (round, Matches!.Where(m => m.Round.Equals(round)).OrderBy(m => m.Date).ToList())
+                         )
+                        .OrderBy(group => group.Item2.Max(m => m.Date))
+                        .ThenBy(group => group.round.Length)
+                        .ThenBy(group => group.round)
+                        .ToList();
+
+                    @foreach (var roundGroup in matchesByRound)
+                    {
+                        <h2>@roundGroup.Item1</h2>
+                        <div class="contentGroup">
+                            @foreach (Match match in roundGroup.Item2)
+                            {
+                                <MatchCard Match="match" />
+                            }
+                        </div>
                     }
-                </div>
+
+                    break;
+
+                case MatchOrderOption.RoundThenDateDesc:
+                    matchesByRound = Matches
+                        .GroupBy(
+                            m => m.Round,
+                            (round, matches) => (round, Matches!.Where(m => m.Round.Equals(round)).OrderByDescending(m => m.Date).ToList())
+                        )
+                        .OrderByDescending(group => group.Item2.Max(m => m.Date))
+                        .ThenBy(group => group.round.Length)
+                        .ThenByDescending(group => group.round)
+                        .ToList();
+
+                    @foreach (var roundGroup in matchesByRound)
+                    {
+                        <h2>@roundGroup.Item1</h2>
+                        <div class="contentGroup">
+                            @foreach (Match match in roundGroup.Item2)
+                            {
+                                <MatchCard Match="match" />
+                            }
+                        </div>
+                    }
+
+                    break;
+                default:
+                    break;
             }
         }
     </div>
@@ -40,4 +96,7 @@
 
     [Parameter]
     public IEnumerable<Match>? Matches { get; set; }
+
+    [Parameter]
+    public MatchOrderOption MatchOrderOption { get; set; }
 }

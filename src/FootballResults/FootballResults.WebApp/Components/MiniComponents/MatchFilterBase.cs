@@ -20,6 +20,9 @@ namespace FootballResults.WebApp.Components.MiniComponents
         public EventCallback<int?> SeasonChanged { get; set; }
 
         [Parameter]
+        public EventCallback<MatchOrderOption> MatchOrderChanged { get; set; }
+
+        [Parameter]
         public MatchFilterParameters? FilterParameters { get; set; }
 
         [Parameter]
@@ -60,16 +63,9 @@ namespace FootballResults.WebApp.Components.MiniComponents
             await SeasonChanged.InvokeAsync(FilterParameters!.SeasonFilter);
         }
 
-        protected async void SortByDateAscending()
+        protected async Task OnMatchOrderChanged(MatchOrderOption newOrderOption)
         {
-            Matches = Matches!.OrderBy(m => m.Date).ToList();
-            await FilterSubmitted.InvokeAsync(Matches);
-        }
-
-        protected async void SortByDateDescending()
-        {
-            Matches = Matches!.OrderByDescending(m => m.Date).ToList();
-            await FilterSubmitted.InvokeAsync(Matches);
+            await MatchOrderChanged.InvokeAsync(newOrderOption);
         }
     }
 }

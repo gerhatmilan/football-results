@@ -21,6 +21,8 @@ namespace FootballResults.WebApp.Components.Pages
 
         protected MatchFilterParameters? MatchFilterParameters { get; set; }
 
+        protected MatchOrderOption MatchOrderOption { get; set; } = MatchOrderOption.DateDesc;
+
         protected override async Task OnInitializedAsync()
         {
             await LoadMatchAsync();
@@ -61,6 +63,15 @@ namespace FootballResults.WebApp.Components.Pages
         {
             Matches = matches.ToList();
             StateHasChanged();
+        }
+
+        protected void OnMatchOrderChanged(MatchOrderOption newOrderOption)
+        {
+            if (newOrderOption != MatchOrderOption)
+            {
+                MatchOrderOption = newOrderOption;
+                StateHasChanged();
+            }
         }
     }
 }

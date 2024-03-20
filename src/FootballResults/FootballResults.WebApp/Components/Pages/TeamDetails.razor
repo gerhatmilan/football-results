@@ -20,7 +20,7 @@
     <div class="submenuContent">
         @if (ActiveSubMenu == "matches")
         {
-            <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" />
+            <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" MatchOrderChanged="@OnMatchOrderChanged" />
             @if (Matches != null)
             {
                 @if (Matches.Count() > 0)
@@ -28,7 +28,7 @@
                     <div class="matches">
                         @foreach (var matchesByLeagueGroup in GetMatchesByLeague())
                         {
-                            <LeagueCard League="matchesByLeagueGroup.matches.First().League" Matches="matchesByLeagueGroup.matches" />
+                            <LeagueCard League="matchesByLeagueGroup.matches.First().League" Matches="matchesByLeagueGroup.matches" MatchOrderOption="@MatchOrderOption" />
                         }
                     </div>
                 }

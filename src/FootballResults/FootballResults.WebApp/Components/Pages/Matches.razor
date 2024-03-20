@@ -10,7 +10,7 @@
     @if (Matches.Any())
     @foreach (var leagueWithMatchesGroup in GetMatchesByLeague(Matches))
     {
-            <LeagueCard League="leagueWithMatchesGroup.matches.ElementAt(0).League" Matches="leagueWithMatchesGroup.matches" @rendermode="@RenderMode.InteractiveServer" />
+            <LeagueCard League="leagueWithMatchesGroup.matches.ElementAt(0).League" Matches="leagueWithMatchesGroup.matches" @rendermode="@RenderMode.InteractiveServer" MatchOrderOption="@MatchOrderOption.RoundThenDateAsc" />
     }
 
     else

@@ -25,6 +25,8 @@ namespace FootballResults.WebApp.Components.Pages
 
         protected MatchFilterParameters? MatchFilterParameters { get; set; }
 
+        protected MatchOrderOption MatchOrderOption { get; set; } = MatchOrderOption.RoundThenDateAsc;
+
         protected override async Task OnInitializedAsync()
         {
             await LoadLeagueAsync();
@@ -77,12 +79,12 @@ namespace FootballResults.WebApp.Components.Pages
             }
         }
 
-        protected List<(string round, List<Match> matches)> GetMatchesByRound()
+        protected List<(int leagueID, List<Match> matches)> GetMatchesByLeague()
         {
             return Matches!
             .GroupBy(
-                m => m.Round,
-                (round, matches) => (round, Matches!.Where(m => m.Round.Equals(round)).ToList())
+                m => m.LeagueID,
+                (leagueID, matches) => (leagueID, Matches!.Where(m => m.LeagueID.Equals(leagueID)).ToList())
             )
             .ToList();
         }
@@ -102,6 +104,15 @@ namespace FootballResults.WebApp.Components.Pages
                 await LoadTopScorersAsync();
                 StateHasChanged();
             }            
+        }
+
+        protected void OnMatchOrderChanged(MatchOrderOption newOrderOption)
+        {
+            if (newOrderOption != MatchOrderOption)
+            {
+                MatchOrderOption = newOrderOption;
+                StateHasChanged();
+            }         
         }
     }
 }

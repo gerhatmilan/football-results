@@ -2,7 +2,6 @@
 @inherits MatchDetailsBase
 @rendermode InteractiveServer
 
-
 @if (Match != null)
 {
     <div class="header">
@@ -35,17 +34,19 @@
         </ul>
     </div>
     <div class="head2head">
+        <h1>Head to head</h1>
+        <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" MatchOrderChanged="@OnMatchOrderChanged" />
         @if (Matches != null)
         {
-            <h1>Head to head</h1>
-            <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" />
             @if (Matches.Count() > 0)
             {
                 <div class="head2head">
                     <div class="roundMatches">
                         @foreach (var matchesByLeagueGroup in GetMatchesByLeague())
                         {
-                            <LeagueCard League="matchesByLeagueGroup.matches.First().League" Matches="matchesByLeagueGroup.matches" />
+                            {
+                                <LeagueCard League="matchesByLeagueGroup.matches.First().League" Matches="matchesByLeagueGroup.matches" MatchOrderOption="@MatchOrderOption" />
+                            }
                         }
                     </div>
                 </div>
