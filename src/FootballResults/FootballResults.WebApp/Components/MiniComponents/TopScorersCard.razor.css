@@ -1,6 +1,6 @@
 ﻿table, th, td, tr {
     background-color: var(--dark);
-    color: white;
+    color: var(--light);
 }
 
 .topscorer:hover td {

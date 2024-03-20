@@ -1,10 +1,11 @@
-﻿table {
+﻿/*
+table {
     table-layout: fixed;
 }
 
 table, th, td, tr {
     background-color: var(--dark);
-    color: white;
+    color: var(--light);
 }
 
 .standing:hover td {
@@ -20,11 +21,51 @@ table, th, td, tr {
     color: var(--light) !important;
 }
 
+.rank {
+    width: 10px !important;
+}
+
 .teamDiv {
     text-decoration: none;
     color: var(--light);
     display: flex;
     align-items: center;
+}
+
+.teamLogoDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.teamLogo {
+    width: 100%;
+    max-height: 100%;
+}
+
+p {
+    text-align: center;
+}
+*/
+
+table, th, td, tr {
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+.standing:hover td {
+    background-color: var(--link-hover);
+}
+
+.standingsTable {
+    width: 100%;
+    vertical-align: middle;
+}
+
+.teamDiv {
+    display: flex;
+    text-decoration: none;
+    color: var(--light)
 }
 
 .teamLogoDiv {

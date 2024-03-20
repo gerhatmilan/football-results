@@ -24,7 +24,7 @@
                         @foreach (Standing standing in standingGroup.standings)
                         {
                             <tr class="standing">
-                                <td>@standing.Rank</td>
+                                <td class="rank">@standing.Rank</td>
                                 <td>
                                     <a class="teamDiv" href="teams/@standing.Team.Name">
                                         <div class="teamLogoDiv">
@@ -33,12 +33,12 @@
                                         <div>@standing.Team.Name</div>
                                     </a>
                                 </td>
-                                <td>@standing.Played</td>
-                                <td>@standing.Wins</td>
-                                <td>@standing.Draws</td>
-                                <td>@standing.Losses</td>
-                                <td>@standing.Scored:@standing.Conceded</td>
-                                <td>@standing.Points</td>
+                                <td class="played">@standing.Played</td>
+                                <td class="wins">@standing.Wins</td>
+                                <td class="draws">@standing.Draws</td>
+                                <td class="losses">@standing.Losses</td>
+                                <td class="conceded">@standing.Scored:@standing.Conceded</td>
+                                <td class="points">@standing.Points</td>
                             </tr>
                         }
                     </tbody>
