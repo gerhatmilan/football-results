@@ -29,6 +29,22 @@ table, th, td, tr {
     max-width: 1000px;
 }
 
+.playerPhotoCell {
+    width: 10%;
+}
+
+.playerName {
+    width: 50%;
+}
+
+.playerNumber {
+    width: 10%;
+}
+
+.playerAge {
+    width: 10%;
+}
+
 .playerPhoto {
     border-radius: 100%;
 }
