@@ -1,0 +1,49 @@
+﻿@page "/signup"
+@inherits SignupBase
+
+<h1>Sign up</h1>
+<p>
+    With creating an account you gain access to additional features, like adding your favorite leagues and teams to the favorites for quick access.
+    <br />
+    You also gain access to the <span class="highlight">Prediction Games</span> subpage, where you can create and join private game rooms for competing and predicting match results of the main competitions with your friends.
+</p>
+
+<div id="signupForm">
+    <EditForm Model="@User" OnValidSubmit="RegisterUserAsync" FormName="SignUpForm">
+        <DataAnnotationsValidator />
+
+        <div class="mb-3">
+            <label>Email</label>
+            <InputText @bind-Value="@User.Email" class="input form-control" placeholder="Email" />
+            <ValidationMessage For="@(() => User.Email)" class="error" />
+            @if (SignUpResult is SignUpResult.EmailAlreadyInUse)
+            {
+                <div class="error">Email is already in use</div>
+            }
+        </div>
+        <div class="mb-3">
+            <label>Username</label>
+            <InputText @bind-Value="User.Username" class="input form-control" placeholder="Username" />
+            <ValidationMessage For="@(() => User.Username)" class="error" />
+            @if (SignUpResult is SignUpResult.UsernameAlreadyInUse)
+            {
+                <div class="error">Username is already in use</div>
+            }
+        </div>
+        <div class="mb-3">
+            <label>Password</label>
+            <InputText @bind-Value="User.Password" class="input form-control" type="password" placeholder="Password"/>
+            <ValidationMessage For="@(() => User.Password)" class="error" />
+        </div>
+        <div id="submitDiv">
+            <button type="submit" class="btn button">Sign up</button>
+        </div>
+    </EditForm>
+</div>
+
+@if (SignUpResult is SignUpResult.Success)
+{
+    <div class="alert alert-success" role="alert">
+        Registration successful! You can now <a href="/login">log in</a>.
+    </div>
+}

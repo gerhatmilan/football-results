@@ -4,7 +4,7 @@ CREATE TABLE "users"."users" (
   "user_id" serial PRIMARY KEY,
   "email" varchar UNIQUE NOT NULL,
   "username" varchar UNIQUE NOT NULL,
-  "password" bytea NOT NULL,
+  "password" varchar NOT NULL,
   "registration_date" date NOT NULL DEFAULT CURRENT_DATE
 );
 

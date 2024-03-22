@@ -43,13 +43,13 @@
         @if (FilterTarget.GetType() == typeof(LeagueDetails))
         {
             <div class="input-group mb-3">
-                <button type="button" class="btn btn-outline-secondary"
+                <button type="button" class="btn button"
                         @onclick="@(async() => await OnMatchOrderChanged(MatchOrderOption.RoundThenDateAsc))">
                     Earliest first
                 </button>
             </div>
             <div class="input-group mb-3">
-                <button type="button" class="btn btn-outline-secondary"
+                <button type="button" class="btn button"
                         @onclick="@(async () => await OnMatchOrderChanged(MatchOrderOption.RoundThenDateDesc))">
                     Latest first
                 </button>
@@ -58,13 +58,13 @@
         else if (FilterTarget.GetType() == typeof(TeamDetails))
         {
             <div class="input-group mb-3">
-                <button type="button" class="btn btn-outline-secondary"
+                <button type="button" class="btn button"
                         @onclick="@(async() => await OnMatchOrderChanged(MatchOrderOption.DateAsc))">
                     Earliest first
                 </button>
             </div>
             <div class="input-group mb-3">
-                <button type="button" class="btn btn-outline-secondary"
+                <button type="button" class="btn button"
                         @onclick="@(async () => await OnMatchOrderChanged(MatchOrderOption.DateDesc))">
                     Latest first
                 </button>
@@ -73,13 +73,13 @@
         else if (FilterTarget.GetType() == typeof(MatchDetails))
         {
             <div class="input-group mb-3">
-                <button type="button" class="btn btn-outline-secondary"
+                <button type="button" class="btn button"
                         @onclick="@(async() => await OnMatchOrderChanged(MatchOrderOption.DateAsc))">
                     Earliest first
                 </button>
             </div>
             <div class="input-group mb-3">
-                <button type="button" class="btn btn-outline-secondary"
+                <button type="button" class="btn button"
                         @onclick="@(async () => await OnMatchOrderChanged(MatchOrderOption.DateDesc))">
                     Latest first
                 </button>

@@ -32,6 +32,8 @@
 
 p {
     text-align: center;
+    font-size: 0.5rem;
+    margin: 10px;
 }
 
 @media (min-width: 0px) {

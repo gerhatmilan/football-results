@@ -2,7 +2,7 @@
 using FootballResults.Models;
 using FootballResults.WebApp.Services;
 using System.Numerics;
-using FootballResults.WebApp.Models;
+using FootballResults.WebApp.Components.Utilities;
 
 namespace FootballResults.WebApp.Components.Pages.Details
 {
