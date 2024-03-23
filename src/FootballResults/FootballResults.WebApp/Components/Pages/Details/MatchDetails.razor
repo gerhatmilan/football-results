@@ -11,10 +11,26 @@
         <h1>Details</h1>
         <ul>
             <li>
-                Date: @(Match.Date != null ? Match.Date.Value.ToLocalTime().ToShortDateString() : "Unknown")
+                Date:
+                @if (Match.Date != null)
+                {
+                    <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd" @rendermode="@RenderMode.InteractiveServer" />
+                }
+                else
+                {
+                    <span> Unknown</span>
+                }
             </li>
             <li>
-                Time: @(Match.Date != null ? Match.Date.Value.ToLocalTime().ToShortTimeString() : "Unknown")
+                Time:
+                @if (Match.Date != null)
+                {
+                    <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+                }
+                else
+                {
+                    <span> Unknown</span>
+                }
             </li>
             <li>
                 League: @Match.League.Name

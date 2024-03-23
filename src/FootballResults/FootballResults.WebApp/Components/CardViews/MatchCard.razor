@@ -9,7 +9,7 @@
                 @if (Match.Date < DateTime.UtcNow)
                 {
                     <div class="smallDate">
-                        @Match.Date.Value.ToShortDateString() @Match.Date.Value.ToLocalTime().ToShortTimeString()
+                        <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
                     </div>
                     <div class="score">
                         @Match.HomeTeamGoals - @Match.AwayTeamGoals
@@ -34,16 +34,16 @@
                     {
                         <div class="lastUpdate">
                             Last update:<br />
-                            @Match.LastUpdate!.Value.ToShortDateString() @Match.LastUpdate.Value.ToLocalTime().ToShortTimeString()
+                            <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
                         </div>
                     }
                 }
                 else
                 {
                     <div class="bigDate">
-                    @Match.Date.Value.ToShortDateString()
-                    <br />
-                    @Match.Date.Value.ToLocalTime().ToShortTimeString()
+                        <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd" @rendermode="@RenderMode.InteractiveServer" />
+                        <br />
+                        <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="HH:MM" @rendermode="@RenderMode.InteractiveServer" />
                     </div>
                 }            
             }

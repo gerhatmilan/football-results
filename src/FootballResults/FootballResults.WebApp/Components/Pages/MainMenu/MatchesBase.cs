@@ -23,7 +23,7 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
 
         protected override async Task OnInitializedAsync()
         {
-            SelectedDate = DateTime.Now.ToLocalTime();
+            SelectedDate = DateTime.Now;
             await LoadMatchesAsync();
 
             if (Matches != null && !Matches.Any())

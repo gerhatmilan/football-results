@@ -88,7 +88,18 @@
             </div>
         }
 
-        <p>Last update @GetLastUpdate()</p>
+        <p>
+            Last update
+            <br />
+            @if (LastUpdate != null)
+            {
+                <ToLocal DateTime="@DateTime.SpecifyKind(LastUpdate.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+            }
+            else
+            {
+                <span>Unknown</span>
+            }
+        </p>
     </div>
 }
 else
@@ -99,6 +110,8 @@ else
 @code {
     [Parameter]
     public IEnumerable<Standing>? Standings { get; set; }
+
+    private DateTime? LastUpdate { get; set; }
 
     private bool IsGroupStage()
     {
@@ -115,9 +128,9 @@ else
         .ToList();
     }
 
-    private DateTime? GetLastUpdate()
+    protected override void OnInitialized()
     {
-        return Standings!
+        LastUpdate =  Standings!
             .Select(s => s.LastUpdate)
             .Max();
     }

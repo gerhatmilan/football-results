@@ -6,10 +6,11 @@ namespace FootballResults.WebApp.Services
 {
     public enum SignUpResult
     {
+        None,
         Success,
+        Error,
         EmailAlreadyInUse,
         UsernameAlreadyInUse,
-        Error
     }
 
     public class SignupService : ISignupService

@@ -28,7 +28,7 @@ namespace FootballResults.WebApp.Components.Utilities
 
         protected override void OnInitialized()
         {
-            SelectedDate = DateTime.Now.ToLocalTime();
+            SelectedDate = DateTime.Now;
         }
 
         private void OnSelectedDateChanged(DateTime newdate)
@@ -75,7 +75,7 @@ namespace FootballResults.WebApp.Components.Utilities
 
         protected bool IsToday(DateTime date)
         {
-            return date.Date == DateTime.Now.ToLocalTime().Date;
+            return date.Date == DateTime.Now.Date;
         }
 
         protected bool IsSelected(DateTime date)

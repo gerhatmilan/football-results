@@ -36,8 +36,10 @@ namespace FootballResults.WebApp
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
+            // Custom services
             builder.Services.AddScoped<ISignupService, SignupService>();
 
+            // HttpClient services
             builder.Services.AddHttpClient<IMatchService, MatchService>(client =>
             {
                 client.BaseAddress = new Uri("http://localhost:10001");
@@ -53,6 +55,7 @@ namespace FootballResults.WebApp
                 client.BaseAddress = new Uri("http://localhost:10001");
             });
 
+            // Authentication
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
@@ -64,10 +67,12 @@ namespace FootballResults.WebApp
 
             builder.Services.AddCascadingAuthenticationState();
 
+            // Database
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseNpgsql(GetConnectionString());
             });
+
 
             var app = builder.Build();
 

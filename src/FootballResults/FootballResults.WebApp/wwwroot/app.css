@@ -30,6 +30,7 @@ h2 {
 }
 
 p {
+    width: 100%;
     max-width: 800px;
     margin: 50px auto;
     font-size: 1rem;
@@ -38,18 +39,16 @@ p {
 
 .button {
     width: 100%;
-    border-color: var(--light);
     background-color: var(--link) !important;
     border: 1px solid var(--link) !important;
+    color: var(--light) !important;
 }
 
 .contentGroup {
     border: 1px solid var(--light);
     background-color: var(--dark);
     border-radius: 20px;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
-    margin: auto;
+    margin: 80px auto;
     max-width: 1000px;
 }
 

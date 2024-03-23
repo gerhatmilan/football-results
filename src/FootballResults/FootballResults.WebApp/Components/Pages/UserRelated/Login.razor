@@ -1,2 +1,28 @@
 ﻿@page "/login"
+@inherits LoginBase
 
+<h1>Login</h1>
+
+<div id="loginForm">
+    <EditForm Model="@User" OnValidSubmit="AuthenticateUserAsync" FormName="LoginForm">
+        <DataAnnotationsValidator />
+
+        <div class="mb-3">
+            <label for="">Username</label>
+            <InputText @bind-Value="User.Username" class="input form-control" placeholder="Username" />
+            <ValidationMessage For="@(() => User.Username)" class="error" />
+            @if (false)
+            {
+                <div class="error">User does not exist with the given username</div>
+            }
+        </div>
+        <div class="mb-3">
+            <label>Password</label>
+            <InputText @bind-Value="User.Password" class="input form-control" type="password" placeholder="Password" />
+            <ValidationMessage For="@(() => User.Password)" class="error" />
+        </div>
+        <div id="submitDiv">
+            <button type="submit" class="btn button">Log in</button>
+        </div>
+    </EditForm>
+</div>
