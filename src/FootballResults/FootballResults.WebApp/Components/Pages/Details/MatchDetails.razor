@@ -4,6 +4,15 @@
 
 @if (Match != null)
 {
+    <PageTitle>@Match.HomeTeam.Name vs @Match.AwayTeam.Name</PageTitle>
+}
+else
+{
+    <PageTitle>Match details</PageTitle>
+}
+
+@if (Match != null)
+{
     <div class="header">
         <MatchCard Match="Match" />
     </div>
