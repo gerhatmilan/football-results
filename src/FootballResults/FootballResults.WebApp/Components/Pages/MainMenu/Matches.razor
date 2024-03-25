@@ -1,11 +1,11 @@
 ﻿@page "/matches"
 
 @inherits MatchesBase
-@rendermode InteractiveServer
+@inject IJSRuntime JSRuntime
 
 <PageTitle>Matches</PageTitle>
 
-<Calendar SelectedDateValueChanged="OnSelectedDateChangedInCalendar" @rendermode="@RenderMode.InteractiveServer" />
+<Calendar SelectedDateValueChanged="RefreshClientTime" @rendermode="@RenderMode.InteractiveServer" />
 
 @if (Matches != null)
 {
@@ -23,4 +23,44 @@
 else
 {
     <LoadingSpinner />
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        SelectedDate = DateTime.Now;
+        await LoadMatchesAsync();
+        FilterMatchesBasedOnClientDate();
+
+        if (Matches != null && !Matches.Any())
+        {
+            await LoadUpcomingMatchesAsync();
+        }
+    }
+
+    protected async Task RefreshClientTime(DateTime newDate)
+    {
+        try
+        {
+            // refersh client date
+            await JSRuntime.InvokeVoidAsync("getClientDate", DotNetObjectReference.Create(this), "UpdateClientDate");
+
+            OnSelectedDateChangedInCalendar(newDate);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    [JSInvokable]
+    public void UpdateClientDate(string clientDateString)
+    {
+        DateTime utcTime = DateTime.UtcNow;
+        var clientDate = DateTime.Parse(clientDateString);
+        ClientUtcDiff = clientDate - utcTime;
+
+        // round up diff based on hour
+        ClientUtcDiff = TimeSpan.FromHours((int)(Math.Round((ClientUtcDiff.Hours * 60 + ClientUtcDiff.Minutes) / 60.0)));
+    }
 }

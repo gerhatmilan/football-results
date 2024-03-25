@@ -17,19 +17,17 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
 
         protected DateTime SelectedDate { get; set; }
 
+        protected TimeSpan ClientUtcDiff { get; set; }
+
         protected IEnumerable<Match>? Matches { get; set; }
 
         protected IEnumerable<Match>? UpcomingMatches { get; set; }
 
-        protected override async Task OnInitializedAsync()
+        protected void FilterMatchesBasedOnClientDate()
         {
-            SelectedDate = DateTime.Now;
-            await LoadMatchesAsync();
-
-            if (Matches != null && !Matches.Any())
-            {
-                await LoadUpcomingMatchesAsync();
-            }
+            Matches = Matches!
+                .Where(m => m.Date.GetValueOrDefault().Add(ClientUtcDiff).Day == SelectedDate.Date.Day)
+                .ToList();
         }
 
         protected async void OnSelectedDateChangedInCalendar(DateTime newDate)
@@ -38,6 +36,7 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
             {
                 SelectedDate = newDate;
                 await LoadMatchesAsync();
+                FilterMatchesBasedOnClientDate();
                 StateHasChanged();
             }
         }
@@ -58,6 +57,8 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
             {
                 Matches = null;
                 var matches = await MatchService!.GetMatchesForDate(SelectedDate);
+                matches = matches.Concat(await MatchService!.GetMatchesForDate(SelectedDate.AddDays(-1).Date));
+                matches = matches.Concat(await MatchService!.GetMatchesForDate(SelectedDate.AddDays(1).Date));
                 Matches = matches.ToList();
             }
             catch (HttpRequestException)
