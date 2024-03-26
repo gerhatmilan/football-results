@@ -41,6 +41,13 @@ else
     {
         await GetClientDate();
         SelectedDate = DateTime.UtcNow.Add(ClientUtcDiff);
+
+        await LoadMatchesAsync();
+        FilterMatchesBasedOnClientDate();
+        if (Matches != null && !Matches.Any())
+        {
+            await LoadUpcomingMatchesAsync();
+        }
     }
 
     protected async Task GetClientDate()

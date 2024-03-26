@@ -23,12 +23,6 @@ namespace FootballResults.WebApp.Services
             return result ?? Enumerable.Empty<Match>();
         }
 
-
-        public async Task<IEnumerable<Match>> GetMatchesForToday()
-        {
-            return await GetMatchesForDate(DateTime.Now);
-        }
-
         public async Task<IEnumerable<Match>> GetMatchesForDate(DateTime date)
         {
             var result = await _httpClient.GetFromJsonAsync<IEnumerable<Match>>($"api/matches/search?date={date.Date}");
