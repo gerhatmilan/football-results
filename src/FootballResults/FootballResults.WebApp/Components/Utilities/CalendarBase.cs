@@ -24,12 +24,9 @@ namespace FootballResults.WebApp.Components.Utilities
             }
         }
 
-        protected List<DateTime[]> Weeks { get; set; } = new List<DateTime[]>();
+        protected TimeSpan ClientUtcDiff { get; set; }
 
-        protected override void OnInitialized()
-        {
-            SelectedDate = DateTime.Now;
-        }
+        protected List<DateTime[]> Weeks { get; set; } = new List<DateTime[]>();
 
         private void OnSelectedDateChanged(DateTime newdate)
         {
@@ -75,7 +72,7 @@ namespace FootballResults.WebApp.Components.Utilities
 
         protected bool IsToday(DateTime date)
         {
-            return date.Date == DateTime.Now.Date;
+            return date.Date == DateTime.UtcNow.Add(ClientUtcDiff).Date;
         }
 
         protected bool IsSelected(DateTime date)

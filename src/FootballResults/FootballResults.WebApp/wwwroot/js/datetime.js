@@ -1,4 +1,4 @@
-﻿window.getClientDate = function (dotnetHelper) {
+﻿window.getClientDate = function (dotnetHelper, methodToCall) {
     const currentDate = new Date();
 
     const year = currentDate.getFullYear();
@@ -9,5 +9,5 @@
 
     const formattedDateString = `${year}-${month}-${day} ${hour}:${minute}`;
 
-    dotnetHelper.invokeMethodAsync('UpdateClientDate', formattedDateString);
+    dotnetHelper.invokeMethodAsync(methodToCall, formattedDateString);
 }

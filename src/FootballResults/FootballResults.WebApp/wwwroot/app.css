@@ -2,7 +2,7 @@
 
 :root {
     --light: #ffffff;
-    --dark: #000000;
+    --dark: #080808;
     --link: var(--bs-link-color);
     --link-hover: rgba(255, 255, 255, 0.1);
     --error: rgb(255, 0, 0);
