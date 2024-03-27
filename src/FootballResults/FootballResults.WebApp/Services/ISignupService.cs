@@ -2,11 +2,16 @@
 
 namespace FootballResults.WebApp.Services
 {
+    public enum SignUpResult
+    {
+        None,
+        Success,
+        EmailAlreadyInUse,
+        UsernameAlreadyInUse,
+    }
+
     public interface ISignupService
     {
         Task<SignUpResult> RegisterUserAsync(User user);
-        bool IsDupliateEmail(User user);
-        bool IsDuplicateUsername(User user);
-        string GetHashedPassword(User user);
     }
 }

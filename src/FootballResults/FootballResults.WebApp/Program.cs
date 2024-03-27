@@ -38,6 +38,7 @@ namespace FootballResults.WebApp
 
             // Custom services
             builder.Services.AddScoped<ISignupService, SignupService>();
+            builder.Services.AddScoped<ILoginService, LoginService>();
 
             // HttpClient services
             builder.Services.AddHttpClient<IMatchService, MatchService>(client =>
@@ -61,11 +62,12 @@ namespace FootballResults.WebApp
                 {
                     options.Cookie.Name = "auth_cookie";
                     options.LoginPath = "/login";
-                    options.Cookie.MaxAge = TimeSpan.FromDays(30);
+                    options.Cookie.MaxAge = TimeSpan.FromDays(7);
                     options.AccessDeniedPath = "/access-denied";
                 });
 
             builder.Services.AddCascadingAuthenticationState();
+            builder.Services.AddAuthorization();
 
             // Database
             builder.Services.AddDbContext<AppDbContext>(options =>
@@ -87,6 +89,8 @@ namespace FootballResults.WebApp
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAntiforgery();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();

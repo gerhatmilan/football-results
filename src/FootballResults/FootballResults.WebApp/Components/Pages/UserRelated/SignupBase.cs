@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Components;
 
 namespace FootballResults.WebApp.Components.Pages.UserRelated
 {
-    public class SignupBase : ComponentBase
+    public partial class SignupBase : ComponentBase
     {
-        [SupplyParameterFromForm]
-        public User User { get; set; } = new User();
+        [SupplyParameterFromForm(FormName = "SignUpForm")]
+        public SignupModel SignupModel { get; set; } = new SignupModel();
 
         [Inject]
         public ISignupService? SignupService { get; set; }
@@ -15,16 +15,25 @@ namespace FootballResults.WebApp.Components.Pages.UserRelated
         [Inject]
         public NavigationManager? NavigationManager { get; set; }
 
-        protected String? ErrorMessage { get; set; }
-
         protected SignUpResult SignUpResult { get; set; }
 
         protected async Task RegisterUserAsync()
         {
-            SignUpResult = await SignupService!.RegisterUserAsync(User);
+            User user = new User
+            {
+                Email = SignupModel.Email,
+                Username = SignupModel.Username,
+                Password = SignupModel.Password
+            };
 
-            if (SignUpResult == SignUpResult.Error)
-                NavigationManager!.NavigateTo("Error", true);
+            try
+            {
+                SignUpResult = await SignupService!.RegisterUserAsync(user);
+            }
+            catch (Exception)
+            {
+                NavigationManager!.NavigateTo("/Error", true);
+            }
         }
     }
 }

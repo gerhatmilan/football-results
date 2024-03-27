@@ -3,26 +3,46 @@
 
 <PageTitle>Log in</PageTitle>
 
-<div id="loginForm">
-    <EditForm Model="@User" OnValidSubmit="AuthenticateUserAsync" FormName="LoginForm">
-        <DataAnnotationsValidator />
+<h1>Log in</h1>
 
-        <div class="mb-3">
-            <label for="">Username</label>
-            <InputText @bind-Value="User.Username" class="input form-control" placeholder="Username" />
-            <ValidationMessage For="@(() => User.Username)" class="error" />
-            @if (false)
-            {
-                <div class="error">User does not exist with the given username</div>
-            }
+@if (LoginModel != null)
+{
+    <div id="loginForm">
+        <EditForm FormName="LoginForm" Model="@LoginModel" OnValidSubmit="AuthenticateUserAsync">
+            <DataAnnotationsValidator />
+
+            <div class="mb-3">
+                <label>Username</label>
+                <InputText @bind-Value="@LoginModel.Username" class="input form-control" placeholder="Username" />
+                <ValidationMessage For="@(() => LoginModel.Username)" class="error" />
+                @if (LoginResult is LoginResult.UserNotFound)
+                {
+                    <div class="error">User not found</div>
+                }
+            </div>
+            <div class="mb-3">
+                <label>Password</label>
+                <InputText @bind-Value="@LoginModel.Password" class="input form-control" type="password" placeholder="Password" />
+                <ValidationMessage For="@(() => LoginModel.Password)" class="error" />
+                @if (LoginResult is LoginResult.InvalidPassword)
+                {
+                    <div class="error">Invalid password</div>
+                }
+            </div>
+            <div id="submitDiv">
+                <button type="submit" class="btn button">Log in</button>
+            </div>
+        </EditForm>
+    </div>
+
+    @if (LoginResult is LoginResult.Success)
+    {
+        <div class="alert alert-success" role="alert">
+            Logged in successfully
         </div>
-        <div class="mb-3">
-            <label>Password</label>
-            <InputText @bind-Value="User.Password" class="input form-control" type="password" placeholder="Password" />
-            <ValidationMessage For="@(() => User.Password)" class="error" />
-        </div>
-        <div id="submitDiv">
-            <button type="submit" class="btn button">Log in</button>
-        </div>
-    </EditForm>
-</div>
+    }
+}
+else
+{
+    <LoadingSpinner />
+}

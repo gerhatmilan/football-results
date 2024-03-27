@@ -4,36 +4,35 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FootballResults.WebApp.Services
 {
-    public enum SignUpResult
-    {
-        None,
-        Success,
-        Error,
-        EmailAlreadyInUse,
-        UsernameAlreadyInUse,
-    }
-
     public class SignupService : ISignupService
-    {
-        
+    {  
         private AppDbContext _dbContext;
 
         public SignupService(AppDbContext dbContext)
         {
             this._dbContext = dbContext;
         }
-        public string GetHashedPassword(User user)
+        private string GetHashedPassword(User user)
         {
             return new PasswordHasher<User>().HashPassword(user, user.Password!);
+        }
+        private async Task<bool> IsDupliateEmail(User user)
+        {
+            return await _dbContext!.Users.AnyAsync(u => u.Email == user.Email);
+        }
+
+        private async Task<bool> IsDuplicateUsername(User user)
+        {
+            return await _dbContext!.Users.AnyAsync(u => u.Username == user.Username);
         }
 
         public async Task<SignUpResult> RegisterUserAsync(User user)
         {
-            if (IsDupliateEmail(user))
+            if (await IsDupliateEmail(user))
             {
                 return SignUpResult.EmailAlreadyInUse;
             }
-            if (IsDuplicateUsername(user))
+            if (await IsDuplicateUsername(user))
             {
                 return SignUpResult.UsernameAlreadyInUse;
             }
@@ -46,27 +45,10 @@ namespace FootballResults.WebApp.Services
                 Password = hashedPassword,
             };
 
-            try
-            {
-                _dbContext.Add(hashedUser);
-                await _dbContext.SaveChangesAsync();
+            _dbContext.Add(hashedUser);
+            await _dbContext.SaveChangesAsync();
 
-                return SignUpResult.Success;
-            }
-            catch (Exception)
-            {
-                return SignUpResult.Error;
-            }
-        }
-
-        public bool IsDupliateEmail(User user)
-        {
-            return _dbContext!.Users.Any(u => u.Email == user.Email);
-        }
-
-        public bool IsDuplicateUsername(User user)
-        {
-            return _dbContext!.Users.Any(u => u.Username == user.Username);
+            return SignUpResult.Success;
         }
     }
 }
