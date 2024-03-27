@@ -54,10 +54,9 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
                 // in case the matches based on client's date extends to the next or previous day according to UTC time
                 // e.g if the client time is UTC+5, and the match is at 3:00 at client's time, then the match starts at 22:00 UTC, but
                 // if a match starts at 5:00 at client's time, then the match starts at 0:00 UTC, which extends to the next day
-                if (SelectedDate > selectedDateInUtc)
-                    matches = matches.Concat(await MatchService!.GetMatchesForDate(selectedDateInUtc.AddDays(1).Date));
-                else if (SelectedDate < selectedDateInUtc)
-                    matches = matches.Concat(await MatchService!.GetMatchesForDate(selectedDateInUtc.AddDays(-1).Date));
+
+                matches = matches.Concat(await MatchService!.GetMatchesForDate(selectedDateInUtc.AddDays(1).Date));
+                matches = matches.Concat(await MatchService!.GetMatchesForDate(selectedDateInUtc.AddDays(-1).Date));
 
                 Matches = matches.ToList();
             }
