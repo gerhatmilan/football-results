@@ -26,7 +26,7 @@
 
 .dropdown-item {
     padding: 10px;
-    font-size: calc(0.8rem + 0.3vw);
+    font-size: calc(0.8rem + 0.5vw);
     color: var(--light);
     background-color: var(--dark);
     border-radius: var(--bs-dropdown-border-radius);

@@ -1,4 +1,4 @@
-﻿namespace FootballResults.WebApp.Models
+﻿namespace FootballResults.WebApp.Components.Utilities
 {
     public class MatchFilterParameters
     {

@@ -1,9 +1,12 @@
 ﻿@page "/matches"
 
 @inherits MatchesBase
-@rendermode InteractiveServer
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@inject IJSRuntime JSRuntime
 
-<Calendar SelectedDateValueChanged="OnSelectedDateChangedInCalendar" />
+<PageTitle>Matches</PageTitle>
+
+<Calendar SelectedDateValueChanged="OnSelectedDateChangedInCalendarAsync" />
 
 @if (Matches != null)
 {
@@ -21,4 +24,28 @@
 else
 {
     <LoadingSpinner />
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await GetClientDate();
+    }
+
+    protected async Task GetClientDate()
+    {
+        // refersh client utc time difference
+        await JSRuntime.InvokeVoidAsync("getClientDate", DotNetObjectReference.Create(this), "UpdateClientUtcDiff");
+    }
+  
+    [JSInvokable]
+    public void UpdateClientUtcDiff(string clientDateString)
+    {
+        DateTime utcTime = DateTime.UtcNow;
+        var clientDate = DateTime.Parse(clientDateString);
+        ClientUtcDiff = clientDate - utcTime;
+
+        // round up diff based on hour
+        ClientUtcDiff = TimeSpan.FromHours((int)(Math.Round((ClientUtcDiff.Hours * 60 + ClientUtcDiff.Minutes) / 60.0)));
+    }
 }

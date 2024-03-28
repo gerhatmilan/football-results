@@ -1,5 +1,8 @@
 ﻿@page "/"
-@inherits MatchesBase
+
+@inherits HomeBase
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@inject IJSRuntime JSRuntime
 
 <PageTitle>Home</PageTitle>
 
@@ -31,4 +34,36 @@
 else
 {
     <LoadingSpinner />
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await GetClientDate();
+        SelectedDate = DateTime.UtcNow.Add(ClientUtcDiff);
+
+        await LoadMatchesAsync();
+        FilterMatchesBasedOnClientDate();
+        if (Matches != null && !Matches.Any())
+        {
+            await LoadUpcomingMatchesAsync();
+        }
+    }
+
+    protected async Task GetClientDate()
+    {
+        // refersh client utc time difference
+        await JSRuntime.InvokeVoidAsync("getClientDate", DotNetObjectReference.Create(this), "UpdateClientUtcDiff");
+    }
+
+    [JSInvokable]
+    public void UpdateClientUtcDiff(string clientDateString)
+    {
+        DateTime utcTime = DateTime.UtcNow;
+        var clientDate = DateTime.Parse(clientDateString);
+        ClientUtcDiff = clientDate - utcTime;
+
+        // round up diff based on hour
+        ClientUtcDiff = TimeSpan.FromHours((int)(Math.Round((ClientUtcDiff.Hours * 60 + ClientUtcDiff.Minutes) / 60.0)));
+    }
 }

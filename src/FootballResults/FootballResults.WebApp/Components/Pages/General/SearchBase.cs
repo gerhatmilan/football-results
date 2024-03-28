@@ -25,8 +25,15 @@ namespace FootballResults.WebApp.Components.Pages.General
         {
             try
             {
-                Leagues = await LeagueService!.Search(SearchValue!);
-                Teams = await TeamService!.Search(SearchValue!);
+                if (String.IsNullOrEmpty(SearchValue))
+                {
+                    NavigationManager!.NavigateTo("/", true);
+                }
+                else
+                {
+                    Leagues = await LeagueService!.Search(SearchValue!);
+                    Teams = await TeamService!.Search(SearchValue!);
+                }
             }
             catch (HttpRequestException)
             {

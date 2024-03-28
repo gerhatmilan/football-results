@@ -1,6 +1,8 @@
 ﻿@page "/leagues/{LeagueName}"
 @inherits LeagueDetailsBase
-@rendermode InteractiveServer
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<PageTitle>@LeagueName</PageTitle>
 
 @if (League != null)
 {

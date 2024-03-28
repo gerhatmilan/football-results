@@ -1,4 +1,7 @@
 ﻿@inherits MatchFilterBase
+
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@inject IJSRuntime JSRuntime
 @using FootballResults.WebApp.Components.Pages.Details
 
 @if (FilterTarget != null)
@@ -43,13 +46,13 @@
         @if (FilterTarget.GetType() == typeof(LeagueDetails))
         {
             <div class="input-group mb-3">
-                <button type="button" class="btn btn-outline-secondary"
+                <button type="button" class="btn button"
                         @onclick="@(async() => await OnMatchOrderChanged(MatchOrderOption.RoundThenDateAsc))">
                     Earliest first
                 </button>
             </div>
             <div class="input-group mb-3">
-                <button type="button" class="btn btn-outline-secondary"
+                <button type="button" class="btn button"
                         @onclick="@(async () => await OnMatchOrderChanged(MatchOrderOption.RoundThenDateDesc))">
                     Latest first
                 </button>
@@ -58,13 +61,13 @@
         else if (FilterTarget.GetType() == typeof(TeamDetails))
         {
             <div class="input-group mb-3">
-                <button type="button" class="btn btn-outline-secondary"
+                <button type="button" class="btn button"
                         @onclick="@(async() => await OnMatchOrderChanged(MatchOrderOption.DateAsc))">
                     Earliest first
                 </button>
             </div>
             <div class="input-group mb-3">
-                <button type="button" class="btn btn-outline-secondary"
+                <button type="button" class="btn button"
                         @onclick="@(async () => await OnMatchOrderChanged(MatchOrderOption.DateDesc))">
                     Latest first
                 </button>
@@ -73,13 +76,13 @@
         else if (FilterTarget.GetType() == typeof(MatchDetails))
         {
             <div class="input-group mb-3">
-                <button type="button" class="btn btn-outline-secondary"
+                <button type="button" class="btn button"
                         @onclick="@(async() => await OnMatchOrderChanged(MatchOrderOption.DateAsc))">
                     Earliest first
                 </button>
             </div>
             <div class="input-group mb-3">
-                <button type="button" class="btn btn-outline-secondary"
+                <button type="button" class="btn button"
                         @onclick="@(async () => await OnMatchOrderChanged(MatchOrderOption.DateDesc))">
                     Latest first
                 </button>
@@ -87,4 +90,29 @@
         }
                
     </div>
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await GetClientDate();
+        await FilterMatchesAsync();
+    }
+
+    protected async Task GetClientDate()
+    {
+        // refersh client utc time difference
+        await JSRuntime.InvokeVoidAsync("getClientDate", DotNetObjectReference.Create(this), "UpdateClientUtcDiff");
+    }
+
+    [JSInvokable]
+    public void UpdateClientUtcDiff(string clientDateString)
+    {
+        DateTime utcTime = DateTime.UtcNow;
+        var clientDate = DateTime.Parse(clientDateString);
+        ClientUtcDiff = clientDate - utcTime;
+
+        // round up diff based on hour
+        ClientUtcDiff = TimeSpan.FromHours((int)(Math.Round((ClientUtcDiff.Hours * 60 + ClientUtcDiff.Minutes) / 60.0)));
+    }
 }

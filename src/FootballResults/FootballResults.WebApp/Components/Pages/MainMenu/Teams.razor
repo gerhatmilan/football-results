@@ -1,6 +1,8 @@
 ﻿@page "/teams"
 @inherits TeamsBase
 
+<PageTitle>Teams</PageTitle>
+
 @if (CountriesWithTeams != null)
 {
     @foreach (Country country in CountriesWithTeams.OrderBy(c => c.CountryID))

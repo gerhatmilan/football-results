@@ -7,7 +7,6 @@ namespace FootballResults.WebApp.Services
     {
         Task<Match?> GetMatchByID(int id);
         Task<IEnumerable<Match>> GetHeadToHead(string teamName1, string teamName2);
-        Task<IEnumerable<Match>> GetMatchesForToday();
         Task<IEnumerable<Match>> GetMatchesForDate(DateTime date);
         Task<IEnumerable<Match>> GetMatchesForYear(int year);
         Task<IEnumerable<Match>> GetMatchesForLeagueAndDate(string leagueName, DateTime date);
