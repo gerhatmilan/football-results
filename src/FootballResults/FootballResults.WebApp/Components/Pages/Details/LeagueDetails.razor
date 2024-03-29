@@ -1,6 +1,5 @@
 ﻿@page "/leagues/{LeagueName}"
 @inherits LeagueDetailsBase
-@rendermode @(new InteractiveServerRenderMode(prerender: false))
 
 <PageTitle>@LeagueName</PageTitle>
 
@@ -10,7 +9,11 @@
         <div class="leagueHeader">
             <div class="nameHeader">
                 @League.Name
-                <BookmarkIcon Bookmark="League" DefaultColor="defaultLight" />
+                <AuthorizeView>
+                    <Authorized>
+                        <BookmarkIcon Bookmark="League" DefaultColor="defaultLight" ButtonClicked="OnBookmarkClicked" />
+                    </Authorized>
+                </AuthorizeView>
             </div>
             <img class="leagueLogo" src="@League.LogoLink" alt="@League.Name logo" />
         </div>
@@ -31,7 +34,7 @@
                     <div class="matches">
                         @foreach (var matchesByLeagueGroup in GetMatchesByLeague())
                         {
-                           <LeagueCard League="matchesByLeagueGroup.matches.First().League" Matches="matchesByLeagueGroup.matches" MatchOrderOption="@MatchOrderOption" />
+                            <LeagueCard League="matchesByLeagueGroup.matches.First().League" Matches="matchesByLeagueGroup.matches" MatchOrderOption="@MatchOrderOption" BookmarkClicked="OnBookmarkClicked" />
                         }
                     </div>
                 }

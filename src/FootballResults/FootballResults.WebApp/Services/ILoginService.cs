@@ -13,7 +13,7 @@ namespace FootballResults.WebApp.Services
 
     public interface ILoginService
     {
-        Task<LoginResult> AuthenticateUserAsync(User user);
+        Task<Tuple<User?, LoginResult>> AuthenticateUserAsync(User user);
         Task<User?> GetUserAsync(User user);
     }
 }

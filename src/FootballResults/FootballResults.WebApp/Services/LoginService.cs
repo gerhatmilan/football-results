@@ -18,17 +18,17 @@ namespace FootballResults.WebApp.Services
             return new PasswordHasher<User>().VerifyHashedPassword(providedUser, actualUser.Password!, providedUser.Password!) == PasswordVerificationResult.Success;
         }
 
-        public async Task<LoginResult> AuthenticateUserAsync(User user)
+        public async Task<Tuple<User?, LoginResult>> AuthenticateUserAsync(User user)
         {
             User? userInDatabase = await GetUserAsync(user);
 
             if (userInDatabase == null)
-                return LoginResult.UserNotFound;
+                return Tuple.Create<User?, LoginResult>(null, LoginResult.UserNotFound);
 
             if (!IsCorrectPassword(user, userInDatabase))
-                return LoginResult.InvalidPassword;
+                return Tuple.Create<User?, LoginResult>(null, LoginResult.InvalidPassword);
 
-            return LoginResult.Success;
+            return Tuple.Create<User?, LoginResult>(userInDatabase, LoginResult.Success);
         }
 
         public async Task<User?> GetUserAsync(User user)

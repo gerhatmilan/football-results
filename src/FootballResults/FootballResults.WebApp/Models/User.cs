@@ -16,10 +16,10 @@ namespace FootballResults.WebApp.Models
 
         public DateTime? RegistrataionDate { get; set; }
 
-        public ICollection<FavoriteLeague>? FavoriteLeagues { get; set; }
+        public IEnumerable<FavoriteLeague>? FavoriteLeagues { get; set; }
 
-        public ICollection<FavoriteTeam>? FavoriteTeams { get; set; }
+        public IEnumerable<FavoriteTeam>? FavoriteTeams { get; set; }
 
-        public ICollection<Message>? Messages { get; set; }
+        public IEnumerable<Message>? Messages { get; set; }
     }
 }

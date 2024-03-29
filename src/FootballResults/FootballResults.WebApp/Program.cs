@@ -39,6 +39,7 @@ namespace FootballResults.WebApp
             // Custom services
             builder.Services.AddScoped<ISignupService, SignupService>();
             builder.Services.AddScoped<ILoginService, LoginService>();
+            builder.Services.AddScoped<IUserService, UserService>();
 
             // HttpClient services
             builder.Services.AddHttpClient<IMatchService, MatchService>(client =>
@@ -62,6 +63,7 @@ namespace FootballResults.WebApp
                 {
                     options.Cookie.Name = "auth_cookie";
                     options.LoginPath = "/login";
+                    options.LogoutPath = "/logout";
                     options.Cookie.MaxAge = TimeSpan.FromDays(7);
                     options.AccessDeniedPath = "/access-denied";
                 });

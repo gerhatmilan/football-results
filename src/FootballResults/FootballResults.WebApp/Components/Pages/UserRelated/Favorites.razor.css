@@ -1,0 +1,14 @@
+﻿.teams {
+    max-width: 1000px;
+    margin: auto;
+}
+
+p {
+    text-align: center;
+}
+
+.teamContainer {
+    display: flex;
+    justify-content: center;
+    margin: 3rem 0;
+}

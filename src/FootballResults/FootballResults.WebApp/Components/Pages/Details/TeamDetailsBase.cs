@@ -34,7 +34,7 @@ namespace FootballResults.WebApp.Components.Pages.Details
         {
             try
             {
-                Team = await TeamService!.GetTeamByName(TeamName!);
+                Team = await TeamService!.GetTeamByNameAsync(TeamName!);
             }
             catch (HttpRequestException)
             {
@@ -57,7 +57,7 @@ namespace FootballResults.WebApp.Components.Pages.Details
             try
             {
                 Squad = null;
-                var players = await TeamService!.GetSquadForTeam(Team!.Name);
+                var players = await TeamService!.GetSquadForTeamAsync(Team!.Name);
                 Squad = players.ToList();
             }
             catch (HttpRequestException)

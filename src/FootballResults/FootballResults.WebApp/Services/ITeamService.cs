@@ -1,12 +1,15 @@
 ﻿using FootballResults.Models;
+using FootballResults.WebApp.Models;
 
 namespace FootballResults.WebApp.Services
 {
     public interface ITeamService
     {
-        Task<Team?> GetTeamByName(string teamName);
-        Task<IEnumerable<Country>> GetCountriesWithTeams();
-        Task<IEnumerable<Player>> GetSquadForTeam(string teamName);
-        Task<IEnumerable<Team>> Search(string teamName);
+        Task<Team?> GetTeamByNameAsync(string teamName);
+        Task<IEnumerable<Country>> GetCountriesWithTeamsAsync();
+        Task<IEnumerable<Player>> GetSquadForTeamAsync(string teamName);
+        Task<IEnumerable<Team>> SearchAsync(string teamName);
+        Task<IEnumerable<Team>> GetFavoriteTeamsAsync(User? user);
+
     }
 }

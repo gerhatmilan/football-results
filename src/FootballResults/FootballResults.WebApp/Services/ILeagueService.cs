@@ -1,15 +1,17 @@
 ﻿using FootballResults.Models;
+using FootballResults.WebApp.Models;
 
 namespace FootballResults.WebApp.Services
 {
     public interface ILeagueService
     {
-        Task<League?> GetLeagueByName(string leagueName);
+        Task<League?> GetLeagueByNameAsync(string leagueName);
 
-        Task<IEnumerable<League>> GetLeagues();
-        Task<IEnumerable<Country>> GetCountriesWithLeagues();
-        Task<IEnumerable<Standing>> GetStandingsForLeagueAndSeason(string leagueName, int season);
-        Task<IEnumerable<TopScorer>> GetTopScorersForLeagueAndSeason(string leagueName, int season);
-        Task<IEnumerable<League>> Search(string leagueName);
+        Task<IEnumerable<League>> GetLeaguesAsync();
+        Task<IEnumerable<Country>> GetCountriesWithLeaguesAsync();
+        Task<IEnumerable<Standing>> GetStandingsForLeagueAndSeasonAsync(string leagueName, int season);
+        Task<IEnumerable<TopScorer>> GetTopScorersForLeagueAndSeasonAsync(string leagueName, int season);
+        Task<IEnumerable<League>> SearchAsync(string leagueName);
+        Task<IEnumerable<League>> GetFavoriteLeaguesAsync(User? user);
     }
 }

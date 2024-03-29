@@ -1,35 +1,18 @@
-﻿@rendermode InteractiveServer
+﻿@inherits BookmarkIconBase
 
 <div class="favoriteButtonDiv">
-    <svg type="button" class="favoriteButton bi bi-bookmark-fill @(isFavorite ? "favorite" : DefaultColor)"
-         @onclick="FavoriteButtonClicked" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-        <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2" />
-    </svg>
-</div>
-
-@code {
-    [Parameter]
-    public IBookmarkable? Bookmark { get; set; }
-
-    [Parameter]
-    public String? DefaultColor { get; set; }
-
-    protected bool isFavorite = false; // TODO: implement favorite functionality
-
-    protected void FavoriteButtonClicked()
+    @if (Bookmark is League)
     {
-        // Get the type of the bookmark
-        // Bookmark.GetType() == typeof(Team) ...
-
-        if (isFavorite)
-        {
-            isFavorite = false;
-            // TODO: remove from favorites
-        }
-        else
-        {
-            isFavorite = true;
-            // TODO: add to favorites
-        }
+        <svg type="button" class="favoriteButton bi bi-bookmark-fill @(FavoriteLeagueIDs.Contains(Bookmark.BookmarkID) ? "favorite" : DefaultColor)"
+                @onclick="FavoriteLeagueButtonClickedAsync" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2" />
+        </svg>
     }
-}
+    else if (Bookmark is Team)
+    {
+        <svg type="button" class="favoriteButton bi bi-bookmark-fill @(FavoriteTeamIDs.Contains(Bookmark.BookmarkID) ? "favorite" : DefaultColor)"
+                @onclick="FavoriteTeamButtonClickedAsync" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2" />
+        </svg>
+    }
+</div>

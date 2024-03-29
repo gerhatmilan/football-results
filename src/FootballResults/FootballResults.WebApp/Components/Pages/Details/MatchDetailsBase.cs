@@ -33,7 +33,7 @@ namespace FootballResults.WebApp.Components.Pages.Details
         {
             try
             {
-                Match = await MatchService!.GetMatchByID(int.Parse(MatchID!));
+                Match = await MatchService!.GetMatchByIDAsync(int.Parse(MatchID!));
             }
             catch (HttpRequestException)
             {

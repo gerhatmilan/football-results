@@ -39,7 +39,7 @@ namespace FootballResults.WebApp.Components.Pages.Details
         {
             try
             {
-                League = await LeagueService!.GetLeagueByName(LeagueName!);
+                League = await LeagueService!.GetLeagueByNameAsync(LeagueName!);
             }
             catch (HttpRequestException)
             {
@@ -59,7 +59,7 @@ namespace FootballResults.WebApp.Components.Pages.Details
         {
             try
             {
-                Standings = await LeagueService!.GetStandingsForLeagueAndSeason(LeagueName!, (int)SeasonFilter!);
+                Standings = await LeagueService!.GetStandingsForLeagueAndSeasonAsync(LeagueName!, (int)SeasonFilter!);
             }
             catch (HttpRequestException)
             {
@@ -71,7 +71,7 @@ namespace FootballResults.WebApp.Components.Pages.Details
         {
             try
             {
-                TopScorers = await LeagueService!.GetTopScorersForLeagueAndSeason(LeagueName!, (int)SeasonFilter!);
+                TopScorers = await LeagueService!.GetTopScorersForLeagueAndSeasonAsync(LeagueName!, (int)SeasonFilter!);
             }
             catch (HttpRequestException)
             {
@@ -113,6 +113,11 @@ namespace FootballResults.WebApp.Components.Pages.Details
                 MatchOrderOption = newOrderOption;
                 StateHasChanged();
             }
+        }
+
+        protected void OnBookmarkClicked()
+        {
+            StateHasChanged();
         }
     }
 }

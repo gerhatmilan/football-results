@@ -9,7 +9,7 @@
     {
         <CountryCard Country="country" />
         <div class="teams contentGroup">
-            @foreach (Team team in country.Teams)
+            @foreach (Team team in country.Teams.OrderBy(t => t.Name))
             {
                 <TeamCard Team="team" />
             }

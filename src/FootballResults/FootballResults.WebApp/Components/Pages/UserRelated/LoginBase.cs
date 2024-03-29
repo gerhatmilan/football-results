@@ -23,6 +23,14 @@ namespace FootballResults.WebApp.Components.Pages.UserRelated
         [SupplyParameterFromForm(FormName = "LoginForm")]
         public LoginModel LoginModel { get; set; } = new LoginModel();
 
+        protected override void OnInitialized()
+        {
+            if (HttpContext == null)
+            {
+                NavigationManager!.NavigateTo("/login", true);
+            }
+        }
+
         protected async Task AuthenticateUserAsync()
         {
             try
@@ -33,13 +41,14 @@ namespace FootballResults.WebApp.Components.Pages.UserRelated
                     Password = LoginModel.Password
                 };
 
-                LoginResult = await LoginService!.AuthenticateUserAsync(user);
+                (User? userInDatabase, LoginResult) = await LoginService!.AuthenticateUserAsync(user);
 
                 if (LoginResult == LoginResult.Success)
                 {
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name, user.Username!),
+                        new Claim("UserID", userInDatabase!.UserID!.ToString()),
+                        new Claim(ClaimTypes.Name, userInDatabase!.Username!),
                         new Claim(ClaimTypes.Role, "User")
                     };
 

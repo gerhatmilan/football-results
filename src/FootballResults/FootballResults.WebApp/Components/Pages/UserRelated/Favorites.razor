@@ -2,8 +2,64 @@
 @using Microsoft.AspNetCore.Authorization
 @attribute [Authorize(Roles = "User")]
 
+@inject ILeagueService LeagueService
+@inject ITeamService TeamService
+@inject NavigationManager NavigationManager
+
 <PageTitle>Favorites</PageTitle>
 
-@code {
+<h1>Favorites</h1>
 
+@if (FavoriteLeagues != null && FavoriteLeagues.Count() > 0)
+{
+    <h2>Leagues</h2>
+    <div class="leagues">
+        @foreach (var league in FavoriteLeagues.OrderBy(l => l.CountryID).ThenBy(l => l.Name))
+        {
+            <LeagueCard League="league" BookmarkClicked="OnBookmarkClicked" />
+        }
+    </div>
+}
+@if (FavoriteTeams != null && FavoriteTeams.Count() > 0)
+{
+    <h2>Teams</h2>
+    <div class="teams">
+        @foreach (var team in FavoriteTeams.OrderBy(t => t.CountryID).ThenBy(t => t.Name))
+        {
+            <div class="teamContainer">
+                <TeamCard Team="team" />
+                <BookmarkIcon Bookmark="team" DefaultColor="defaultLight" ButtonClicked="OnBookmarkClicked" />
+            </div>
+        }
+    </div>
+}
+@if ((FavoriteLeagues != null && FavoriteLeagues.Count() == 0) && (FavoriteTeams != null && FavoriteTeams.Count() == 0))
+{
+    <p>You can bookmark your favorite leagues and teams for quick access</p>
+}
+
+@code {
+    [CascadingParameter(Name = "User")]
+    public User? User { get; set; }
+
+    private IEnumerable<League>? FavoriteLeagues { get; set; }
+    private IEnumerable<Team>? FavoriteTeams { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            FavoriteLeagues = await LeagueService.GetFavoriteLeaguesAsync(User);
+            FavoriteTeams = await TeamService.GetFavoriteTeamsAsync(User);
+        }
+        catch (HttpRequestException)
+        {
+            NavigationManager.NavigateTo("/Error", true);
+        }
+    }
+
+    private void OnBookmarkClicked()
+    {
+        StateHasChanged();
+    }
 }

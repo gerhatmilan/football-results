@@ -1,5 +1,4 @@
-﻿@rendermode InteractiveServer
-@inject AuthenticationStateProvider AuthenticationStateProvider
+﻿@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <button id="profileButton" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <img id="profileIcon" src="icons/user-icon.png" alt="Profile avatar" />
@@ -9,16 +8,16 @@
         <ul class="dropdown-menu">
             <AuthorizeView>
                 <Authorized>
-                    <li class="username dropdown-item">@userName</li>
+                    <li class="username dropdown-item">@User?.Username</li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="./prediction-games">Prediction games</a></li>
-                    <li><a class="dropdown-item" href="./favorites">Favorites</a></li>
-                    <li><a class="dropdown-item" href="./settings">Settings</a></li>
-                    <li><a class="dropdown-item" href="./logout">Log out</a></li>
+                    <li><a class="dropdown-item" href="/prediction-games">Prediction games</a></li>
+                    <li><a class="dropdown-item" href="/favorites">Favorites</a></li>
+                    <li><a class="dropdown-item" href="/settings">Settings</a></li>
+                    <li><a class="dropdown-item" href="/logout">Log out</a></li>
                 </Authorized>
                 <NotAuthorized>
-                    <li><a class="dropdown-item" href="./login">Log in</a></li>
-                    <li><a class="dropdown-item" href="./signup">Sign up</a></li>
+                    <li><a class="dropdown-item" href="/login">Log in</a></li>
+                    <li><a class="dropdown-item" href="/signup">Sign up</a></li>
                 </NotAuthorized>
             </AuthorizeView>
         </ul>
@@ -26,15 +25,6 @@
 </ul>
 
 @code {
-    private string? userName;
-
-    protected override void OnInitialized()
-    {
-        var authState = AuthenticationStateProvider.GetAuthenticationStateAsync().Result;
-        var user = authState.User;
-        if (user.Identity?.IsAuthenticated ?? false)
-        {
-            userName = user.Identity.Name!;
-        }
-    }
+    [CascadingParameter(Name = "User")]
+    public User? User { get; set; }
 }

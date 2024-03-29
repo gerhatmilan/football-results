@@ -31,8 +31,8 @@ namespace FootballResults.WebApp.Components.Pages.General
                 }
                 else
                 {
-                    Leagues = await LeagueService!.Search(SearchValue!);
-                    Teams = await TeamService!.Search(SearchValue!);
+                    Leagues = await LeagueService!.SearchAsync(SearchValue!);
+                    Teams = await TeamService!.SearchAsync(SearchValue!);
                 }
             }
             catch (HttpRequestException)

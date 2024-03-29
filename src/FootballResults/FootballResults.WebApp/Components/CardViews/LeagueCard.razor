@@ -10,7 +10,11 @@
                     @League.Name
                 </div>
             </a>
-            <BookmarkIcon Bookmark="League" DefaultColor="defaultDark" />
+            <AuthorizeView>
+                <Authorized>
+                    <BookmarkIcon Bookmark="League" DefaultColor="defaultDark" ButtonClicked="OnBookmarkClicked" />
+                </Authorized>
+            </AuthorizeView>
         </div>
         @if (Matches != null)
         {
@@ -91,12 +95,20 @@
 }
 
 @code {
-    [Parameter]
-    public League? League { get; set; }
+        [Parameter]
+        public League? League { get; set; }
 
-    [Parameter]
-    public IEnumerable<Match>? Matches { get; set; }
+        [Parameter]
+        public IEnumerable<Match>? Matches { get; set; }
 
-    [Parameter]
-    public MatchOrderOption MatchOrderOption { get; set; }
+        [Parameter]
+        public MatchOrderOption MatchOrderOption { get; set; }
+
+        [Parameter]
+        public EventCallback BookmarkClicked { get; set; }
+
+        private async Task OnBookmarkClicked()
+        {
+            await BookmarkClicked.InvokeAsync();
+        }
 }

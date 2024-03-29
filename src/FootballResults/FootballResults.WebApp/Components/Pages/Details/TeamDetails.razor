@@ -1,6 +1,5 @@
 ﻿@page "/teams/{TeamName}"
 @inherits TeamDetailsBase
-@rendermode @(new InteractiveServerRenderMode(prerender: false))
 
 <PageTitle>@TeamName</PageTitle>
 
@@ -10,7 +9,11 @@
         <div class="teamHeader">
             <div class="nameHeader">
                 @Team.Name
-                <BookmarkIcon Bookmark="Team" DefaultColor="defaultLight" />
+                <AuthorizeView>
+                    <Authorized>
+                        <BookmarkIcon Bookmark="Team" DefaultColor="defaultLight" />
+                    </Authorized>
+                </AuthorizeView>
             </div>
             <img class="teamLogo" src="@Team.LogoLink" alt="@Team.Name logo" />  
         </div>    

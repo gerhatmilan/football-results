@@ -23,7 +23,7 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
         {
             try
             {
-                CountriesWithTeams = await TeamService!.GetCountriesWithTeams();
+                CountriesWithTeams = await TeamService!.GetCountriesWithTeamsAsync();
             }
             catch (HttpRequestException)
             {

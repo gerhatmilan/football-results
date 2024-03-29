@@ -16,7 +16,7 @@ namespace FootballResults.WebApp.Services
         {
             return new PasswordHasher<User>().HashPassword(user, user.Password!);
         }
-        private async Task<bool> IsDupliateEmail(User user)
+        private async Task<bool> IsDupliateEmailAsync(User user)
         {
             return await _dbContext!.Users.AnyAsync(u => u.Email == user.Email);
         }
@@ -28,7 +28,7 @@ namespace FootballResults.WebApp.Services
 
         public async Task<SignUpResult> RegisterUserAsync(User user)
         {
-            if (await IsDupliateEmail(user))
+            if (await IsDupliateEmailAsync(user))
             {
                 return SignUpResult.EmailAlreadyInUse;
             }
@@ -45,7 +45,7 @@ namespace FootballResults.WebApp.Services
                 Password = hashedPassword,
             };
 
-            _dbContext.Add(hashedUser);
+            await _dbContext.AddAsync(hashedUser);
             await _dbContext.SaveChangesAsync();
 
             return SignUpResult.Success;
