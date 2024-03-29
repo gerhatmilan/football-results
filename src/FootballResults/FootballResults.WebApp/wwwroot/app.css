@@ -17,7 +17,7 @@ html, body {
 
 h1 {
     color: var(--light);
-    font-size: calc(1rem + 1vw);
+    font-size: calc(1.5rem + 1vw);
     text-align: center;
     margin: 3rem 0;
 }
