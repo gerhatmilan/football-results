@@ -21,5 +21,7 @@ namespace FootballResults.WebApp.Models
         public IEnumerable<FavoriteTeam>? FavoriteTeams { get; set; }
 
         public IEnumerable<Message>? Messages { get; set; }
+
+        public IEnumerable<PredictionGame>? PredictionGames { get; set; }
     }
 }

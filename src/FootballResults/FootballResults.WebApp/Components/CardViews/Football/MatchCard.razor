@@ -30,11 +30,11 @@
                         <div class="status">Status unknown</div>
                     }
 
-                    @if (Match.Status == "NS" || MatchInProgress())
+                    @if ((Match.Status == "NS" || MatchInProgress()) && Match.LastUpdate != null)
                     {
                         <div class="lastUpdate">
                             Last update:<br />
-                            <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+                            <ToLocal DateTime="@DateTime.SpecifyKind(Match.LastUpdate.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
                         </div>
                     }
                 }
