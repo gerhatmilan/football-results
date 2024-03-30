@@ -14,7 +14,6 @@ namespace FootballResults.WebApp.Services
         public async Task<User?> GetUserAsync(int userID)
         {
             return await _dbContext.Users
-               .AsNoTracking()
                .Include(u => u.FavoriteLeagues)
                .Include(u => u.FavoriteTeams)
                .Include(u => u.PredictionGames)
