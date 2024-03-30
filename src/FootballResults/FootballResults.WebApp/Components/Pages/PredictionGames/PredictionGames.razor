@@ -6,7 +6,7 @@
 
 <PageTitle>Prediction games</PageTitle>
 
-<h1>Welcome to Prediction Games, <span class="username">@User?.Username</span>!</h1>
+<h1>Prediction Games</h1>
 
 @if (User != null)
 {
@@ -18,47 +18,17 @@
     <div class="submenuContent">
         @if (ActiveSubMenu == "games")
         {
-            @if (PredictionGames != null)
-            {
-                @if (PredictionGames.Count() > 0)
-                {
-                    
-                }
-                else
-                {
-                    <p>
-                        You are not participating in any prediction game yet.You can create your own game or join an existing one via
-                        the <span @onclick="@(() => ActiveSubMenu = "create")">Create game</span> and <span @onclick="@(() => ActiveSubMenu = "join")">Join game</span> menupoints
-                    </p>
-                }
-            }
-            else
-            {
-                <LoadingSpinner />
-            }
+            <GameList UserCreatedGames="@User.PredictionGames" />
         }
 
         @if (ActiveSubMenu == "create")
         {
-            @if (false)
-            {
-            }
-            else
-            {
-                <LoadingSpinner />
-            }
+            <CreateGame />
         }
 
         @if (ActiveSubMenu == "join")
         {
-            @if (false)
-            {
-                
-            }
-            else
-            {
-                <LoadingSpinner />
-            }
+            <JoinGame />
         }
     </div>
 }

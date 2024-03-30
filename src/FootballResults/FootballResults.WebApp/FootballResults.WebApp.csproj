@@ -41,6 +41,10 @@
     <ProjectReference Include="..\FootballResults.Models\FootballResults.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\prediction-games\backgrounds\" />
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

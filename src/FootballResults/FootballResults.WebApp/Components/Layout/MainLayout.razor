@@ -36,7 +36,7 @@
             int userIDConverted;
             if (int.TryParse(userID, out userIDConverted))
             {
-                User = await UserService!.GetUserIncludingFavoritesAsync(userIDConverted);
+                User = await UserService!.GetUserAsync(userIDConverted);
                 if (User == null)
                 {
                     NavigationManager.NavigateTo("/logout", true);

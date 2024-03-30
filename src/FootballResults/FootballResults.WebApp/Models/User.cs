@@ -14,6 +14,8 @@ namespace FootballResults.WebApp.Models
 
         public string? Password { get; set; }
 
+        public string? ProfilePicturePath { get; set; }
+
         public DateTime? RegistrataionDate { get; set; }
 
         public IEnumerable<FavoriteLeague>? FavoriteLeagues { get; set; }

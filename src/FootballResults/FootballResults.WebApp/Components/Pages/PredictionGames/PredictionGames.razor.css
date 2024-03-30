@@ -19,9 +19,6 @@
 .subMenu button.active {
     color: var(--link);
 }
-span {
-    color: var(--link);
-}
 
 p {
     text-align: center;
@@ -37,7 +34,7 @@ p span:hover {
     }
 }
 
-@media (min-width: 500px) {
+@media (min-width: 400px) {
     .subMenu button {
         font-size: 1.5rem;
     }

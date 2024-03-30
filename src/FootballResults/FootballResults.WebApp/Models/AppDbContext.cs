@@ -61,6 +61,11 @@ namespace FootballResults.WebApp.Models
                 .HasColumnName("password")
                 .IsRequired(false);
             modelBuilder.Entity<User>()
+                .Property(u => u.ProfilePicturePath)
+                .HasColumnName("profile_pic_path")
+                .ValueGeneratedNever()
+                .IsRequired(false);
+            modelBuilder.Entity<User>()
                 .Property(u => u.RegistrataionDate)
                 .HasColumnName("registration_date")
                 .ValueGeneratedNever()

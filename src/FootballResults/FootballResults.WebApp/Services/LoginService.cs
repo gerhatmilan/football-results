@@ -33,7 +33,10 @@ namespace FootballResults.WebApp.Services
 
         public async Task<User?> GetUserAsync(User user)
         {
-            return await _dbContext.Users.Where(u => u.Username == user.Username).FirstOrDefaultAsync();
+            return await _dbContext.Users
+                .AsNoTracking()
+                .Where(u => u.Username == user.Username)
+                .FirstOrDefaultAsync();
         }
     }
 }

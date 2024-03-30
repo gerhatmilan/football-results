@@ -5,6 +5,7 @@ CREATE TABLE "users"."users" (
   "email" varchar UNIQUE NOT NULL,
   "username" varchar UNIQUE NOT NULL,
   "password" varchar NOT NULL,
+  "profile_pic_path" varchar
   "registration_date" date NOT NULL DEFAULT CURRENT_DATE
 );
 

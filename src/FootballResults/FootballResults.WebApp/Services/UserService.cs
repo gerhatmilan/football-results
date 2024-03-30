@@ -11,21 +11,15 @@ namespace FootballResults.WebApp.Services
             _dbContext = dbContext;
         }
 
-        public async Task<User?> GetUserIncludingFavoritesAsync(int userID)
+        public async Task<User?> GetUserAsync(int userID)
         {
             return await _dbContext.Users
-                .Include(u => u.FavoriteLeagues)
-                .Include(u => u.FavoriteTeams)
-                .FirstOrDefaultAsync(u => u.UserID == userID);
+               .AsNoTracking()
+               .Include(u => u.FavoriteLeagues)
+               .Include(u => u.FavoriteTeams)
+               .Include(u => u.PredictionGames)
+               .FirstOrDefaultAsync(u => u.UserID == userID);
         }
-
-        public async Task<User?> GetUserIncludingPredictionGamesAsync(int userID)
-        {
-            return await _dbContext.Users
-                .Include(u => u.PredictionGames)
-                .FirstOrDefaultAsync(u => u.UserID == userID);
-        }
-
         public async Task AddToFavoriteLeaguesAsync(int userID, int leagueID)
         {
             await _dbContext.FavoriteLeagues.AddAsync(new FavoriteLeague { UserID = userID, LeagueID = leagueID });

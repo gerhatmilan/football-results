@@ -1,0 +1,37 @@
+﻿<h2>My games</h2>
+
+@if (UserCreatedGames != null)
+{
+    @if (UserCreatedGames.Count() > 0)
+    {
+        <div class="gameList">
+            @foreach (var game in UserCreatedGames.OrderBy(g => g.IsFinished))
+            {
+                <GameCard Game="game" />
+            }
+        </div> 
+    }
+    else
+    {
+        <p>
+            You are not participating in any prediction game yet. You can create your own game or join an existing one via
+            the Create game and Join game menupoints
+        </p>
+    }
+}
+else
+{
+    <LoadingSpinner />
+}
+
+<h2>Joined games</h2>
+
+@code {
+    [Parameter]
+    public IEnumerable<PredictionGame>? UserCreatedGames { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+}
