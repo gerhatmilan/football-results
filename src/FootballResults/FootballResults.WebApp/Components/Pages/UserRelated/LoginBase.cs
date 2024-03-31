@@ -1,5 +1,5 @@
-﻿using FootballResults.WebApp.Models;
-using FootballResults.WebApp.Services;
+﻿using FootballResults.Models.Users;
+using FootballResults.WebApp.Services.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;

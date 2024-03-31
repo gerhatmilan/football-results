@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
-using FootballResults.Models;
-using FootballResults.WebApp.Services;
-using System.Numerics;
+using FootballResults.Models.Football;
 using FootballResults.WebApp.Components.Utilities;
+using FootballResults.WebApp.Services.Football;
 
 namespace FootballResults.WebApp.Components.Pages.Details
 {

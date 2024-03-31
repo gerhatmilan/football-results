@@ -1,0 +1,99 @@
+﻿using FootballResults.WebApp.Database;
+using FootballResults.Models.Predictions;
+using FootballResults.Models.Users;
+
+namespace FootballResults.WebApp.Services.Predictions
+{
+    public class PredictionGameService : IPredictionGameService
+    {
+        private AppDbContext _dbContext;
+        public PredictionGameService(AppDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        private PredictionGame CreateGameFromModel(CreateGameModel model, int userID)
+        {
+            return new PredictionGame
+            {
+                Name = model.Name,
+                OwnerID = userID,
+                JoinKey = Guid.NewGuid().ToString(),
+                Description = model.Description,
+                ImagePath = "prediction-games/backgrounds/default.jpg",
+                ExactScorelineReward = model.ExactScorelineReward,
+                OutcomeReward = model.OutcomeReward,
+                GoalCountReward = model.GoalCountReward,
+                GoalDifferenceReward = model.GoalDifferenceReward,
+                IsFinished = false,
+            };
+        }
+
+        private async Task SaveImageAsync(byte[] image, string path)
+        {
+            // save the picture to the file system, only the path will be saved in the database
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await stream.WriteAsync(image, 0, image.Length);
+            }
+        }
+        
+        private async Task AddIncludedLeaguesAsync(int predictionGameID, CreateGameModel model)
+        {
+            foreach (var pair in model.IncludedLeagues)
+            {
+                if (pair.Second)
+                {
+                    await _dbContext.IncludedLeagues.AddAsync(new IncludedLeague
+                    {
+                        PredictionGameID = predictionGameID,
+                        LeagueID = pair.First.LeagueID
+                    });
+                }
+            }
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> CreatePredictionGameAsync(User user, CreateGameModel model)
+        {
+
+            using var transaction = _dbContext.Database.BeginTransaction();
+            try
+            {
+                PredictionGame gameToBeSaved = CreateGameFromModel(model, user.UserID);
+
+                // save the new entry to the database, and obtain the entity entry with the generated ID
+                var entityEntry = await _dbContext.PredictionGames.AddAsync(gameToBeSaved);
+                PredictionGame savedGame = entityEntry.Entity;
+                await _dbContext.SaveChangesAsync();
+
+                // save the picture to the file system based on the generated ID, also update the entity in the database
+                if (model.Picture != null)
+                {
+                    string path = "wwwroot/prediction-games/backgrounds/" + $"{savedGame.GameID}.jpg";
+                    await SaveImageAsync(model.Picture, path);
+
+                    savedGame.ImagePath = String.Concat(path.SkipWhile(c => c != '/').Skip(1));
+                }
+
+                // add the selected leagues to the included leagues table
+                await AddIncludedLeaguesAsync(savedGame.GameID, model);
+
+                transaction.Commit();
+
+                return true;
+            }
+            catch(Exception)
+            {
+                transaction.Rollback();
+                return false;
+            }  
+        }
+
+        public Task GetPredictionGameAsync(string joinKey)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

@@ -1,5 +1,5 @@
 ﻿using FootballResults.API.Models;
-using FootballResults.Models;
+using FootballResults.Models.Football;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FootballResults.API.Controllers

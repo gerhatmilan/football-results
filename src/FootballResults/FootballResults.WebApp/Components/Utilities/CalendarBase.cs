@@ -36,11 +36,13 @@ namespace FootballResults.WebApp.Components.Utilities
         protected void AddMonth(int months)
         {
             SelectedDate = SelectedDate.AddMonths(months);
+            SelectedDate = new DateTime(SelectedDate.Year, SelectedDate.Month, 1);
         }
 
         protected void AddYear(int years)
         {
             SelectedDate = SelectedDate.AddYears(years);
+            SelectedDate = new DateTime(SelectedDate.Year, SelectedDate.Month, 1);
         }
 
         protected void RefreshWeeks()

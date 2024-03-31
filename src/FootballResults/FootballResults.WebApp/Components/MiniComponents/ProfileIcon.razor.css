@@ -5,6 +5,10 @@
     margin: auto
 }
 
+#profileButton:focus {
+    box-shadow: none;
+}
+
 #profileButton::after {
     display: none;
 }
@@ -22,6 +26,7 @@
     align-items: center;
     font-size: 25px;
     border: 2px solid var(--light);
+    background-color: var(--link);
 }
 
 #profileIconNoPicture:hover, #profileButton:hover {

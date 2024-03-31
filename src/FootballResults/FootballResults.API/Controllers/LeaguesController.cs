@@ -1,7 +1,6 @@
 ﻿using FootballResults.API.Models;
-using FootballResults.Models;
+using FootballResults.Models.Football;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata.Ecma335;
 
 namespace FootballResults.API.Controllers
 {

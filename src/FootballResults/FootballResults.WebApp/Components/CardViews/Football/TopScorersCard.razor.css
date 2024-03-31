@@ -31,7 +31,7 @@
 
 p {
     text-align: center;
-    font-size: 0.8em;
+    font-size: 0.5em;
     margin: 20px auto;
 }
 
@@ -67,6 +67,10 @@ p {
 
     .teamLogo, .playerPhoto {
         width: 50px;
+    }
+
+    p {
+        font-size: 0.8rem;
     }
 }
 

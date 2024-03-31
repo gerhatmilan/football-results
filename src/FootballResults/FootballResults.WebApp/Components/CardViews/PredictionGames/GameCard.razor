@@ -2,14 +2,7 @@
 {
     <div class="gameCard @(Game.IsFinished ? "finished" : "")">
         <div class="gameName">@Game.Name</div>
-        @if (@Game.ImagePath != null)
-        {
-            <div class="gameBackground" style="background-image: url(@Game.ImagePath)"></div>
-        }
-        else
-        {
-            <div class="gameBackground" style="background-image: url(./prediction-games/backgrounds/default.jpg)"></div>
-        }
+         <div class="gameBackground" style="background-image: url(@Game.ImagePath)"></div>
     </div>
 }
 

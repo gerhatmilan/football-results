@@ -6,6 +6,8 @@
     --link: var(--bs-link-color);
     --link-hover: rgba(255, 255, 255, 0.1);
     --error: rgb(255, 0, 0);
+    --placeholder-light: rgba(255, 255, 255, 0.6);
+    --placeholder-dark: rgba(0, 0, 0, 0.6);
 }
 
 html, body {
@@ -46,7 +48,7 @@ p {
     width: 100%;
     background-color: var(--link) !important;
     border: 1px solid var(--link) !important;
-    color: var(--light) !important;
+    color: white;
 }
 
 .contentGroup {
@@ -57,12 +59,8 @@ p {
     max-width: 1000px;
 }
 
-.favoriteButton.defaultDark {
-    color: var(--dark);
-}
-
-.favoriteButton.defaultLight {
-    color: var(--light);
+.alert {
+    font-size: 1rem !important;
 }
 
 @media (min-width: 0px) {

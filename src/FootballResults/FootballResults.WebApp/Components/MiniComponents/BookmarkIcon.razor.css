@@ -3,7 +3,6 @@
     justify-content: center;
     align-items: center;
     margin: auto 10px;
-    width: 10%;
 }
 
 .favoriteButton {
@@ -12,12 +11,8 @@
     max-width: 50px;
 }
 
-.defualtLight {
-    color: var(--light);
-}
-
-.defaultDark {
-    color: var(--dark);
+.defaultLight {
+    color: white;
 }
 
 .favorite {

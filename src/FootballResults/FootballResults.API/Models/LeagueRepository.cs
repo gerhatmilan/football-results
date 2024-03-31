@@ -1,8 +1,5 @@
-﻿using FootballResults.Models;
+﻿using FootballResults.Models.Football;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-using System.Collections.Immutable;
-using System.Xml.Linq;
 
 namespace FootballResults.API.Models
 {

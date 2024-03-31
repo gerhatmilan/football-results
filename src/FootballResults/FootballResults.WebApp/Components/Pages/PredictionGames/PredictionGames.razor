@@ -12,18 +12,18 @@
 {
     <div class="subMenu">
         <button class="@(ActiveSubMenu!.Equals("games") ? "active" : "")" type="button" @onclick="@(() => ActiveSubMenu = "games")">Games</button>
-        <button class="@(ActiveSubMenu!.Equals("create") ? "active" : "")" type="button" @onclick="@(() => ActiveSubMenu = "create")">Create game</button>
-        <button class="@(ActiveSubMenu!.Equals("join") ? "active" : "")" type="button" @onclick="@(() => ActiveSubMenu = "join")">Join game</button>
+        <button class="@(ActiveSubMenu!.Equals("create") ? "active" : "")" type="button" @onclick="@(() => ActiveSubMenu = "create")">Create</button>
+        <button class="@(ActiveSubMenu!.Equals("join") ? "active" : "")" type="button" @onclick="@(() => ActiveSubMenu = "join")">Join</button>
     </div>
     <div class="submenuContent">
         @if (ActiveSubMenu == "games")
         {
-            <GameList UserCreatedGames="@User.PredictionGames" />
+            <GameList User="@User" />
         }
 
         @if (ActiveSubMenu == "create")
         {
-            <CreateGame />
+            <CreateGame User="@User" />
         }
 
         @if (ActiveSubMenu == "join")

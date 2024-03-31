@@ -1,8 +1,11 @@
 using FootballResults.WebApp.Components;
-using FootballResults.WebApp.Models;
-using FootballResults.WebApp.Services;
+using FootballResults.WebApp.Database;
+using FootballResults.WebApp.Services.Football;
+using FootballResults.WebApp.Services.Predictions;
+using FootballResults.WebApp.Services.Users;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting.Internal;
 
 namespace FootballResults.WebApp
 {
@@ -40,6 +43,7 @@ namespace FootballResults.WebApp
             builder.Services.AddScoped<ISignupService, SignupService>();
             builder.Services.AddScoped<ILoginService, LoginService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IPredictionGameService, PredictionGameService>();
 
             // HttpClient services
             builder.Services.AddHttpClient<IMatchService, MatchService>(client =>
@@ -53,6 +57,11 @@ namespace FootballResults.WebApp
             });
 
             builder.Services.AddHttpClient<ITeamService, TeamService>(client =>
+            {
+                client.BaseAddress = new Uri("http://localhost:10001");
+            });
+
+            builder.Services.AddHttpClient<IUserService, UserService>(client =>
             {
                 client.BaseAddress = new Uri("http://localhost:10001");
             });

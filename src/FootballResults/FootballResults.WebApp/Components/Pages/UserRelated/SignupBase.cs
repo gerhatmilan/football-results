@@ -1,5 +1,5 @@
-﻿using FootballResults.WebApp.Models;
-using FootballResults.WebApp.Services;
+﻿using FootballResults.Models.Users;
+using FootballResults.WebApp.Services.Users;
 using Microsoft.AspNetCore.Components;
 
 namespace FootballResults.WebApp.Components.Pages.UserRelated

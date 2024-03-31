@@ -1,5 +1,4 @@
-﻿using FootballResults.Models;
-using System.Collections;
+﻿using FootballResults.Models.Football;
 
 namespace FootballResults.API.Models
 {
