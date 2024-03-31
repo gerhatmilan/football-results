@@ -5,7 +5,7 @@ namespace FootballResults.WebApp.Services.Predictions
 {
     public interface IPredictionGameService
     {
-        Task<bool> CreatePredictionGameAsync(User user, CreateGameModel game);
-        Task GetPredictionGameAsync(string joinKey);
+        Task<PredictionGame?> CreatePredictionGameAsync(User user, CreateGameModel game);
+        Task<PredictionGame?> GetPredictionGameAsync(int gameID);
     }
 }

@@ -1,4 +1,9 @@
-﻿.gameCard {
+﻿a {
+    text-decoration: none;
+    color: var(--light);
+}
+
+.gameCard {
     display: flex;
     flex-direction: column;
     align-items: center;

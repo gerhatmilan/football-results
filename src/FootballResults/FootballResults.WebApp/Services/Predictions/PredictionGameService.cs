@@ -1,6 +1,8 @@
 ﻿using FootballResults.WebApp.Database;
 using FootballResults.Models.Predictions;
 using FootballResults.Models.Users;
+using FootballResults.Models.General;
+using Microsoft.EntityFrameworkCore;
 
 namespace FootballResults.WebApp.Services.Predictions
 {
@@ -28,15 +30,6 @@ namespace FootballResults.WebApp.Services.Predictions
                 IsFinished = false,
             };
         }
-
-        private async Task SaveImageAsync(byte[] image, string path)
-        {
-            // save the picture to the file system, only the path will be saved in the database
-            using (var stream = new FileStream(path, FileMode.Create))
-            {
-                await stream.WriteAsync(image, 0, image.Length);
-            }
-        }
         
         private async Task AddIncludedLeaguesAsync(int predictionGameID, CreateGameModel model)
         {
@@ -55,7 +48,7 @@ namespace FootballResults.WebApp.Services.Predictions
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<bool> CreatePredictionGameAsync(User user, CreateGameModel model)
+        public async Task<PredictionGame?> CreatePredictionGameAsync(User user, CreateGameModel model)
         {
 
             using var transaction = _dbContext.Database.BeginTransaction();
@@ -72,7 +65,7 @@ namespace FootballResults.WebApp.Services.Predictions
                 if (model.Picture != null)
                 {
                     string path = "wwwroot/prediction-games/backgrounds/" + $"{savedGame.GameID}.jpg";
-                    await SaveImageAsync(model.Picture, path);
+                    await ImageSaver.SaveImageAsync(model.Picture, path);
 
                     savedGame.ImagePath = String.Concat(path.SkipWhile(c => c != '/').Skip(1));
                 }
@@ -82,18 +75,23 @@ namespace FootballResults.WebApp.Services.Predictions
 
                 transaction.Commit();
 
-                return true;
+                return savedGame;
             }
             catch(Exception)
             {
                 transaction.Rollback();
-                return false;
+                return null;
             }  
         }
 
-        public Task GetPredictionGameAsync(string joinKey)
+        public async Task<PredictionGame?> GetPredictionGameAsync(int gameID)
         {
-            throw new NotImplementedException();
+            return await _dbContext.PredictionGames
+                .Where(g => g.GameID == gameID)
+                .Include(g => g.Participants)
+                .Include(g => g.IncludedLeagues)
+                .Include(g => g.Predictions)
+                .FirstAsync();
         }
     }
 }

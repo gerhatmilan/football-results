@@ -1,0 +1,17 @@
+﻿@page "/prediction-games/{GameID}"
+@inherits GameBase
+
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "User")]
+
+@if (Game != null && UserAuthorized)
+{
+    <PageTitle>@Game.Name</PageTitle>
+
+    <h1>@Game.Name</h1>
+}
+else
+{
+    <PageTitle>Prediction game</PageTitle>
+    <LoadingSpinner />
+}

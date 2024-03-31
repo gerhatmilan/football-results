@@ -1,0 +1,86 @@
+﻿@inherits PredictionGameFormBase
+
+<EditForm FormName="CreateGameForm" Model="@CreateGameModel" OnValidSubmit="Submit">
+    <DataAnnotationsValidator />
+
+    <div class="formContent">
+        <div class="inputsDiv">
+            <div class="col1">
+                <div class="nameDiv mb-3">
+                    <label for="name">Name</label>
+                    <InputText id="name" @bind-Value="@CreateGameModel.Name" class="input form-control" placeholder="You can give a name to your game" />
+                    <ValidationMessage For="@(() => CreateGameModel.Name)" class="error" />
+                </div>
+                <div class="descriptionDiv mb-3">
+                    <label for="description">Description</label>
+                    <InputTextArea id="description" @bind-Value="@CreateGameModel.Description" class="input form-control" rows="5" placeholder="You can write a short description about your game" />
+                </div>
+                <div class="pictureDiv mb-3">
+                    <label for="picture">Picture</label>
+                    <div class="gameBackground" style="background-image: url(@SelectedImage)"></div>
+                    <InputFile id="picture" class="input form-control" OnChange="OnImageSelectedAsync" />
+                    @if (ImageErrorMessage != null)
+                    {
+                        <div class="error">@ImageErrorMessage</div>
+                    }
+                </div>
+            </div>
+            <div class="col2">
+                <div class="leaguesIncludedDiv mb-3">
+                    <label>Leagues to be included in the prediction game</label>
+                    @if (IncludedLeaguesErrorMessage != null)
+                    {
+                        <div class="error">@IncludedLeaguesErrorMessage</div>
+                    }
+
+                    @if (CreateGameModel.IncludedLeagues != null)
+                    {
+                        <ul>
+                            @foreach (var leagueWithBindValue in CreateGameModel.IncludedLeagues)
+                            {
+                                <li>
+                                    <InputCheckbox id="@leagueWithBindValue.First.LeagueID" @bind-Value="@leagueWithBindValue.Second" />
+                                    <label for="@leagueWithBindValue.First.LeagueID">@leagueWithBindValue.First.Name</label>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <LoadingSpinner />
+                    }
+                </div>
+                <div class="rewardsDiv mb-3">
+                    <label>Reward system settings</label><br />
+
+                    <label class="labelSecondary" for="exact-score">Exact scoreline</label>
+                    <InputNumber id="exact-score" @bind-Value="@CreateGameModel.ExactScorelineReward" class="input form-control rewardInput" />
+                    <br />
+                    <ValidationMessage For="@(() => CreateGameModel.ExactScorelineReward)" class="error" />
+
+                    <label class="labelSecondary" for="outcome">Outcome</label>
+                    <InputNumber id="outcome" @bind-Value="@CreateGameModel.OutcomeReward" class="input form-control rewardInput" />
+                    <br />
+                    <ValidationMessage For="@(() => CreateGameModel.OutcomeReward)" class="error" />
+
+                    <label class="labelSecondary" for="goal-count">Goal count per team</label>
+                    <InputNumber id="goal-count" @bind-Value="@CreateGameModel.GoalCountReward" class="input form-control rewardInput" />
+                    <br />
+                    <ValidationMessage For="@(() => CreateGameModel.GoalCountReward)" class="error" />
+
+                    <label class="labelSecondary" for="goal-diff">Goal difference</label>
+                    <InputNumber id="goal-diff" @bind-Value="@CreateGameModel.GoalDifferenceReward" class="input form-control rewardInput" />
+                    <br />
+                    <ValidationMessage For="@(() => CreateGameModel.GoalDifferenceReward)" class="error" />
+                </div>
+            </div>
+        </div>
+        <div class="submitDiv">
+            <button type="submit" class="btn button">Create</button>
+        </div>
+        @if (ImageErrorMessage != null)
+        {
+            <div class="error">@NotCreatedErrorMessage</div>
+        }
+    </div>
+</EditForm>

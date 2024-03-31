@@ -5,31 +5,23 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
 using System.Security.Claims;
 
-namespace FootballResults.WebApp.Components.Pages.UserRelated
+namespace FootballResults.WebApp.Components.Forms
 {
-    public partial class LoginBase : ComponentBase
+    public class LoginFormBase : ComponentBase
     {
-        [CascadingParameter]
+        [Parameter]
         public HttpContext? HttpContext { get; set; }
 
         [Inject]
-        public ILoginService? LoginService { get; set; }
+        protected ILoginService? LoginService { get; set; }
 
         [Inject]
-        public NavigationManager? NavigationManager { get; set; }
+        protected NavigationManager? NavigationManager { get; set; }
 
         protected LoginResult LoginResult { get; set; }
 
         [SupplyParameterFromForm(FormName = "LoginForm")]
         public LoginModel LoginModel { get; set; } = new LoginModel();
-
-        protected override void OnInitialized()
-        {
-            if (HttpContext == null)
-            {
-                NavigationManager!.NavigateTo("/login", true);
-            }
-        }
 
         protected async Task AuthenticateUserAsync()
         {
@@ -55,7 +47,13 @@ namespace FootballResults.WebApp.Components.Pages.UserRelated
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                     await HttpContext!.SignInAsync(claimsPrincipal);
+
+                    NavigationManager!.NavigateTo("/", true);
                 }
+            }
+            catch (NavigationException)
+            {
+                NavigationManager!.NavigateTo("/", true);
             }
             catch (Exception)
             {

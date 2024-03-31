@@ -1,5 +1,4 @@
 ﻿@page "/signup"
-@inherits SignupBase
 
 <PageTitle>Sign up</PageTitle>
 
@@ -10,58 +9,4 @@
     You also gain access to the <span class="highlight">Prediction Games</span> subpage, where you can create and join private game rooms for competing and predicting match results of the main competitions with your friends.
 </p>
 
-@if (SignupModel != null)
-{
-    <div id="signupForm">
-        <EditForm Model="@SignupModel" OnValidSubmit="RegisterUserAsync" FormName="SignUpForm">
-            <DataAnnotationsValidator />
-
-            <div class="mb-3">
-                <label>Email</label>
-                <InputText @bind-Value="@SignupModel.Email" class="input form-control" placeholder="Email" />
-                <ValidationMessage For="@(() => SignupModel.Email)" class="error" />
-                @if (SignUpResult is SignUpResult.EmailAlreadyInUse)
-                {
-                    <div class="error">Email is already in use</div>
-                }
-            </div>
-            <div class="mb-3">
-                <label>Username</label>
-                <InputText @bind-Value="@SignupModel.Username" class="input form-control" placeholder="Username" />
-                <ValidationMessage For="@(() => SignupModel.Username)" class="error" />
-                @if (SignUpResult is SignUpResult.UsernameAlreadyInUse)
-                {
-                    <div class="error">Username is already in use</div>
-                }
-            </div>
-            <div class="mb-3">
-                <label>Password</label>
-                <InputText @bind-Value="@SignupModel.Password" class="input form-control" type="password" placeholder="Password" />
-                <ValidationMessage For="@(() => SignupModel.Password)" class="error" />
-            </div>
-            <div id="submitDiv">
-                <button type="submit" class="btn button">Sign up</button>
-            </div>
-        </EditForm>
-    </div>
-
-    @if (SignUpResult is SignUpResult.Success)
-    {
-        <div class="alert alert-success" role="alert">
-            Registration successful! You can now <a href="/login">log in</a>.
-        </div>
-    }
-}
-else
-{
-    <LoadingSpinner />
-}
-
-@code
-{
-    protected override Task OnInitializedAsync()
-    {
-        return base.OnInitializedAsync();
-    }
-}
-                 
+<SignupForm />            

@@ -6,9 +6,9 @@ using FootballResults.WebApp.Services.Predictions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace FootballResults.WebApp.Components.Pages.PredictionGames
+namespace FootballResults.WebApp.Components.Forms
 {
-    public partial class CreateGameBase : ComponentBase
+    public partial class PredictionGameFormBase : ComponentBase
     {
         private const string DEFAULT_IMAGE = "prediction-games/backgrounds/default.jpg";
 
@@ -51,8 +51,8 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
             if (!ValidateIncludedLeagues())
                 return;
 
-            var success = await PredictionGameService.CreatePredictionGameAsync(User, CreateGameModel);
-            if (success)
+            PredictionGame? createdGame = await PredictionGameService.CreatePredictionGameAsync(User, CreateGameModel);
+            if (createdGame != null)
             {
                 NavigationManager.NavigateTo("/prediction-games", true);
             }

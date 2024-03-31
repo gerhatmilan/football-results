@@ -2,9 +2,9 @@
 using FootballResults.WebApp.Services.Users;
 using Microsoft.AspNetCore.Components;
 
-namespace FootballResults.WebApp.Components.Pages.UserRelated
+namespace FootballResults.WebApp.Components.Forms
 {
-    public partial class SignupBase : ComponentBase
+    public partial class SignupFormBase : ComponentBase
     {
         [SupplyParameterFromForm(FormName = "SignUpForm")]
         public SignupModel SignupModel { get; set; } = new SignupModel();
