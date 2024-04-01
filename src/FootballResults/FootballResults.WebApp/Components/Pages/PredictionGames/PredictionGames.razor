@@ -15,7 +15,7 @@
         <button class="@(ActiveSubMenu!.Equals("create") ? "active" : "")" type="button" @onclick="@(() => ActiveSubMenu = "create")">Create</button>
         <button class="@(ActiveSubMenu!.Equals("join") ? "active" : "")" type="button" @onclick="@(() => ActiveSubMenu = "join")">Join</button>
     </div>
-    <div class="submenuContent">
+    <div class="subMenuContent">
         @if (ActiveSubMenu == "games")
         {
             <GameList User="@User" />
@@ -28,7 +28,7 @@
 
         @if (ActiveSubMenu == "join")
         {
-            <JoinGame />
+            <JoinGame User="@User" />
         }
     </div>
 }

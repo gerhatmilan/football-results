@@ -1,5 +1,7 @@
 ﻿#explanation {
-    text-align: left;
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
 }
 
 span {
@@ -10,9 +12,4 @@ span {
     width: 100%;
     color: var(--light);
     text-align: center;
-}
-
-.subMenuContent {
-    max-width: 800px;
-    margin: auto;
 }

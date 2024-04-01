@@ -1,6 +1,8 @@
 ﻿a {
     text-decoration: none;
     color: var(--light);
+    width: inherit;
+    text-align: center;
 }
 
 .gameCard {
@@ -8,8 +10,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 350px;
-    height: 200px;
     border: 1px solid var(--light);
     border-radius: 10px;
     overflow: hidden;
@@ -47,13 +47,18 @@
 
 @media (max-width: 400px) {
     .gameCard {
-        width: 90%;
-        height: 50vw;
+        width: 100%;
+        aspect-ratio: 3.5 / 2;
     }
 }
 
 @media (min-width: 400px)
 {
+    .gameCard {
+        width: 350px;
+        height: 200px;
+    }
+
     .gameName {
         font-size: 1.2rem;
     }

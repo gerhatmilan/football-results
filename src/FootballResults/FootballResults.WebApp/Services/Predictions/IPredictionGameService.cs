@@ -7,5 +7,7 @@ namespace FootballResults.WebApp.Services.Predictions
     {
         Task<PredictionGame?> CreatePredictionGameAsync(User user, CreateGameModel game);
         Task<PredictionGame?> GetPredictionGameAsync(int gameID);
+        Task<PredictionGame?> GetPredictionGameByKeyAsync(string joinKey);
+        Task<bool> JoinGameAsync(User user, PredictionGame game);
     }
 }

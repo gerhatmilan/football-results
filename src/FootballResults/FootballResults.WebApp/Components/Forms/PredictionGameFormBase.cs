@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Components.Forms;
 
 namespace FootballResults.WebApp.Components.Forms
 {
-    public partial class PredictionGameFormBase : ComponentBase
+    public partial class PredictionGameFormBase : FormBase
     {
         private const string DEFAULT_IMAGE = "prediction-games/backgrounds/default.jpg";
 
@@ -31,6 +31,13 @@ namespace FootballResults.WebApp.Components.Forms
         protected string? ImageErrorMessage { get; set; }
         protected string SelectedImage { get; set; } = DEFAULT_IMAGE;
 
+        protected override void ResetErrorMessages()
+        {
+            NotCreatedErrorMessage = null;
+            IncludedLeaguesErrorMessage = null;
+            ImageErrorMessage = null;
+        }
+
         protected bool ValidateIncludedLeagues()
         {
             // at least one league needs to be selected
@@ -48,8 +55,13 @@ namespace FootballResults.WebApp.Components.Forms
 
         protected async void Submit()
         {
+            DisableForm();
+
             if (!ValidateIncludedLeagues())
+            {
+                await EnableForm();
                 return;
+            }
 
             PredictionGame? createdGame = await PredictionGameService.CreatePredictionGameAsync(User, CreateGameModel);
             if (createdGame != null)
@@ -60,6 +72,8 @@ namespace FootballResults.WebApp.Components.Forms
             {
                 NotCreatedErrorMessage = "The game could not be created. Please try again later.";
             }
+
+            await EnableForm();
         }
 
         protected override async Task OnInitializedAsync()

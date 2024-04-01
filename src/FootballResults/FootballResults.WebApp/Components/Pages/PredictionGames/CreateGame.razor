@@ -1,30 +1,28 @@
-﻿<div class="subMenuContent">
-    <p>
-        Here you can create a private game room for predicting matches.
-        You will be able to invite people after the room is created.
-        You can set which leagues' matches the participants will be able to predict (at least one is required)
-        , and how many points the participants will be given if their prediction meet the conditions.<br /><br />
-    </p>
+﻿<p>
+    Here you can create a private game room for predicting matches.
+    You will be able to invite people after the room is created.
+    You can set which leagues' matches the participants will be able to predict (at least one is required),
+    and how many points the participants will be given if their prediction meet the conditions.<br /><br />
+</p>
 
-    <PredictionGameForm User="@User" />
+<PredictionGameForm User="@User" />
 
-    <div id="explanation">
-        <div class="title">A short explanation for the reward system</div><br />
-        Only one of the following conditions can be met per prediction.<br /><br />
-        <span>Exact scoreline</span>: the participant predicts the exact scoreline of the match<br />
-        For example:<br />
-        Prediction: 2-1, Actual: 2-1 -> 10 points<br /><br />
-        <span>Outcome</span>: the participant predicts the outcome of the match (win, draw, lose)<br />
-        For example:<br />
-        Prediction: 2-0, Actual: 1-0, 2-0, 2-1, etc. -> 8 points<br /><br />
-        <span>Goal count per team</span>: the participant predicts the number of goals scored by each team<br />
-        For example:<br />
-        Prediction: 1-0, Actual: 1-3 -> 5 points<br /><br />
-        <span>Goal difference</span>: the participant predicts the difference between the goals scored by the two teams<br />
-        For example:<br />
-        Prediction: 1-0, Actual: 0-1 -> 3 points<br /><br />
-        If the participant does not meet any of the above, they will not receive any points for that match.
-    </div>
+<div id="explanation">
+    <div class="title">A short explanation for the reward system</div><br />
+    Only one of the following conditions can be met per prediction.<br /><br />
+    <span>Exact scoreline</span>: the participant predicts the exact scoreline of the match<br />
+    For example:<br />
+    Prediction: 2-1, Actual: 2-1 -> 10 points<br /><br />
+    <span>Outcome</span>: the participant predicts the outcome of the match (win, draw, lose)<br />
+    For example:<br />
+    Prediction: 2-0, Actual: 1-0, 2-0, 2-1, etc. -> 8 points<br /><br />
+    <span>Goal count per team</span>: the participant predicts the number of goals scored by each team<br />
+    For example:<br />
+    Prediction: 1-0, Actual: 1-3 -> 5 points<br /><br />
+    <span>Goal difference</span>: the participant predicts the difference between the goals scored by the two teams<br />
+    For example:<br />
+    Prediction: 1-0, Actual: 0-1 -> 3 points<br /><br />
+    If the participant does not meet any of the above, they will not receive any points for that match.
 </div>
 
 @code {

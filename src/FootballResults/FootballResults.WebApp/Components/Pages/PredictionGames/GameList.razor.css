@@ -7,3 +7,9 @@
     margin: auto;
     max-width: 1920px;
 }
+
+@media (max-width: 400px) {
+    .gameList {
+        width: 100%;
+    }
+}

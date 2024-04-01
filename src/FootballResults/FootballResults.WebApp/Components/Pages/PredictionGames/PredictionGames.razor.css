@@ -3,7 +3,13 @@
     justify-content: center;
     margin: auto;
     margin-bottom: 50px;
-    max-width: 800px
+    width: 100%;
+    max-width: 800px;
+}
+
+.subMenuContent {
+    max-width: 1920px;
+    margin: auto;
 }
 
 .subMenu button {
@@ -30,13 +36,38 @@ p span:hover {
     cursor: pointer;
 }
 
+::deep .submitDiv {
+    text-align: center;
+    margin: 1.5rem auto;
+}
+
+::deep input {
+    text-align: center;
+}
+
+::deep .error {
+    margin: 1rem auto;
+    text-align: center;
+}
+
 @media (min-width: 0px) {
+    ::deep .submitDiv {
+        width: 100%;
+        max-width: 150px;
+    }
+
     .subMenu button {
         font-size: 5vw;
+        width: 100%;
+        max-width: 100px;
     }
 }
 
 @media (min-width: 400px) {
+    .subMenu {
+        column-gap: 3rem;
+    }
+
     .subMenu button {
         font-size: 1.5rem;
     }

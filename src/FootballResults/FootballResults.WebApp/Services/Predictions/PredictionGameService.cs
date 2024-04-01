@@ -3,6 +3,7 @@ using FootballResults.Models.Predictions;
 using FootballResults.Models.Users;
 using FootballResults.Models.General;
 using Microsoft.EntityFrameworkCore;
+using FootballResults.WebApp.Components.Pages.PredictionGames;
 
 namespace FootballResults.WebApp.Services.Predictions
 {
@@ -91,7 +92,34 @@ namespace FootballResults.WebApp.Services.Predictions
                 .Include(g => g.Participants)
                 .Include(g => g.IncludedLeagues)
                 .Include(g => g.Predictions)
-                .FirstAsync();
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<PredictionGame?> GetPredictionGameByKeyAsync(string joinKey)
+        {
+            return await _dbContext.PredictionGames
+                .Where(g => g.JoinKey.Equals(joinKey))
+                .Include(g => g.Participants)
+                .Include(g => g.IncludedLeagues)
+                .Include(g => g.Predictions)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> JoinGameAsync(User user, PredictionGame game)
+        {
+            if (user == null || game == null)
+            {
+                return false;
+            }
+
+            await _dbContext.Participations.AddAsync(new Participation
+            {
+                PredictionGameID = game.GameID,
+                UserID = user.UserID
+            });
+
+            await _dbContext.SaveChangesAsync();
+            return true;
         }
     }
 }

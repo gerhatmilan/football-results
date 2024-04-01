@@ -1,7 +1,12 @@
-﻿@if (false)
+﻿<h2>Ask the game owner for the key to join a game</h2>
+
+@if (User != null)
 {
+    <JoinGameForm User="@User" />
+
 }
-else
-{
-    <LoadingSpinner />
+
+@code {
+    [Parameter]
+    public User? User { get; set; }
 }

@@ -10,15 +10,6 @@
     display: flex;
 }
 
-.submitDiv {
-    text-align: center;
-}
-
-.submitDiv button {
-    width: 150px;
-    margin: 3rem 0;
-}
-
 .leaguesIncludedDiv ::deep input {
     width: 20px;
     height: 20px;
@@ -43,9 +34,9 @@ ul {
     padding: 0;
 }
 
-    ul ::deep label {
-        margin: 0.2rem 1rem;
-    }
+ul ::deep label {
+    margin: 0.2rem 1rem;
+}
 
 li {
     list-style-type: none;
@@ -53,13 +44,13 @@ li {
     align-items: center;
 }
 
-    li ::deep input {
-        width: 10%;
-    }
+li ::deep input {
+    width: 10%;
+}
 
-    li label {
-        width: 90%;
-    }
+li label {
+    width: 90%;
+}
 
 .error, ::deep .error {
     margin: 0.5rem 0;

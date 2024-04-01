@@ -28,6 +28,11 @@ article {
     color: red;
 }
 
+::deep .submitDiv button:disabled {
+    background-color: var(--dark);
+    color: var(--light);
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
