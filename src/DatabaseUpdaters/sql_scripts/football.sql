@@ -70,7 +70,7 @@ CREATE TABLE "football"."standings" (
   "losses" integer NOT NULL,
   "scored" integer NOT NULL,
   "conceded" integer NOT NULL,
-  "last_update" timestamptz DEFAULT CURRENT_TIMESTAMP,
+  "last_update" timestamp default (now() at time zone 'utc'),
   
   PRIMARY KEY ("league_id", "season", "team_id"),
   
@@ -108,7 +108,7 @@ CREATE TABLE "football"."top_scorers" (
   "played" integer,
   "goals" integer NOT NULL,
   "assists" integer,
-  "last_update" timestamptz DEFAULT CURRENT_TIMESTAMP,
+  "last_update" timestamp default (now() at time zone 'utc'),
   
   PRIMARY KEY ("league_id", "season", "rank"),
   
@@ -134,7 +134,7 @@ CREATE TABLE "football"."matches" (
   "minute" integer,
   "home_team_goals" integer,
   "away_team_goals" integer,
-  "last_update" timestamptz DEFAULT CURRENT_TIMESTAMP,
+  "last_update" timestamp DEFAULT (now() at time zone 'utc'),
   
   FOREIGN KEY ("venue_id")
     REFERENCES "football"."venues" ("venue_id")

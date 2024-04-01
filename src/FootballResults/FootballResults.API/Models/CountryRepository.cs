@@ -1,7 +1,5 @@
-﻿using FootballResults.Models;
+﻿using FootballResults.Models.Football;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
-using System;
 
 namespace FootballResults.API.Models
 {

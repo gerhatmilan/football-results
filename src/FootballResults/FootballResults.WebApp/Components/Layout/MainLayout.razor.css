@@ -15,6 +15,24 @@ article {
     padding: 0px 5%;
 }
 
+::deep input, ::deep input:focus, ::deep input:active, ::deep textarea, ::deep textarea:active, ::deep textarea:focus {
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+::deep input::placeholder, ::deep textarea::placeholder {
+    color: var(--placeholder-light);
+}
+
+.error, ::deep .error {
+    color: red;
+}
+
+::deep .submitDiv button:disabled {
+    background-color: var(--dark);
+    color: var(--light);
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

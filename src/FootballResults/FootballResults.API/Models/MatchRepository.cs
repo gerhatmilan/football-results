@@ -1,4 +1,4 @@
-﻿using FootballResults.Models;
+﻿using FootballResults.Models.Football;
 using Microsoft.EntityFrameworkCore;
 
 namespace FootballResults.API.Models

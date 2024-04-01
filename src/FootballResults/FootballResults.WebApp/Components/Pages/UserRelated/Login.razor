@@ -1,48 +1,23 @@
 ﻿@page "/login"
-@inherits LoginBase
 
 <PageTitle>Log in</PageTitle>
 
 <h1>Log in</h1>
 
-@if (LoginModel != null)
-{
-    <div id="loginForm">
-        <EditForm FormName="LoginForm" Model="@LoginModel" OnValidSubmit="AuthenticateUserAsync">
-            <DataAnnotationsValidator />
+<LoginForm HttpContext="@HttpContext" />
 
-            <div class="mb-3">
-                <label>Username</label>
-                <InputText @bind-Value="@LoginModel.Username" class="input form-control" placeholder="Username" />
-                <ValidationMessage For="@(() => LoginModel.Username)" class="error" />
-                @if (LoginResult is LoginResult.UserNotFound)
-                {
-                    <div class="error">User not found</div>
-                }
-            </div>
-            <div class="mb-3">
-                <label>Password</label>
-                <InputText @bind-Value="@LoginModel.Password" class="input form-control" type="password" placeholder="Password" />
-                <ValidationMessage For="@(() => LoginModel.Password)" class="error" />
-                @if (LoginResult is LoginResult.InvalidPassword)
-                {
-                    <div class="error">Invalid password</div>
-                }
-            </div>
-            <div id="submitDiv">
-                <button type="submit" class="btn button">Log in</button>
-            </div>
-        </EditForm>
-    </div>
+@code {
+    [CascadingParameter]
+    public HttpContext? HttpContext { get; set; }
 
-    @if (LoginResult is LoginResult.Success)
+    [Inject]
+    public NavigationManager? NavigationManager { get; set; }
+
+    protected override void OnInitialized()
     {
-        <div class="alert alert-success" role="alert">
-            Logged in successfully
-        </div>
+        if (HttpContext == null)
+        {
+            NavigationManager!.NavigateTo("/login", true);
+        }
     }
-}
-else
-{
-    <LoadingSpinner />
 }

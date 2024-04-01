@@ -1,0 +1,14 @@
+﻿@if (Game != null)
+{
+    <a href="/prediction-games/@Game.GameID">
+        <div class="gameCard @(Game.IsFinished ? "finished" : "")">
+            <div class="gameName">@Game.Name</div>
+            <div class="gameBackground" style="background-image: url(@Game.ImagePath)"></div>
+        </div>
+    </a>
+}
+
+@code {
+    [Parameter]
+    public PredictionGame? Game { get; set; }
+}

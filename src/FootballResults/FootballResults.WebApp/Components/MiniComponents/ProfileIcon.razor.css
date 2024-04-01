@@ -2,19 +2,36 @@
     position: absolute;
     top: 30px;
     right: 30px;
-    margin: auto;
+    margin: auto
+}
+
+#profileButton:focus {
+    box-shadow: none;
 }
 
 #profileButton::after {
     display: none;
 }
 
-#profileIcon {
-    
+#profileIcon, #profileIconNoPicture {
     width: calc(2.5rem + 0.5vw);
     height: calc(2.5rem + 0.5vw);
     border-radius: 50%;
     z-index: 1;
+}
+
+#profileIconNoPicture {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    border: 2px solid var(--light);
+    background-color: var(--link);
+}
+
+#profileIconNoPicture:hover, #profileButton:hover {
+    text-decoration: none;
+    color: var(--light);
 }
 
 .dropdown-menu {
@@ -26,7 +43,6 @@
 
 .dropdown-item {
     padding: 10px;
-    font-size: calc(0.8rem + 0.5vw);
     color: var(--light);
     background-color: var(--dark);
     border-radius: var(--bs-dropdown-border-radius);
@@ -45,4 +61,17 @@
 hr {
     margin: 0;
     border-color: var(--light);
+}
+
+
+@media (min-width: 0px) {
+    .dropdown-item {
+        font-size: 5vw;
+    }
+}
+
+@media (min-width: 500px) {
+    .dropdown-item {
+        font-size: 1.5rem;
+    }
 }

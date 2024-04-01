@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="wwwroot\lib\**" />
+    <Compile Remove="wwwroot\prediction-games\**" />
     <Content Remove="wwwroot\lib\**" />
+    <Content Remove="wwwroot\prediction-games\**" />
     <EmbeddedResource Remove="wwwroot\lib\**" />
+    <EmbeddedResource Remove="wwwroot\prediction-games\**" />
     <None Remove="wwwroot\lib\**" />
+    <None Remove="wwwroot\prediction-games\**" />
   </ItemGroup>
 
   <ItemGroup>

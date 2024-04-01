@@ -1,33 +1,3 @@
-﻿input, ::deep input {
-    margin: 10px 0;
-    font-size: 1rem;
-}
-
-.error, ::deep .error {
-    color: red;
-}
-
-#signupForm {
-    max-width: 800px;
-    margin: auto;
-}
-
-#submitDiv {
-    text-align: center;
-}
-
-.button {
-    max-width: 100px;
-}
-
-.highlight {
+﻿.highlight {
     color: var(--link);
-}
-
-.alert {
-    max-width: 800px;
-    margin: auto;
-    margin-top: 50px;
-    text-align: center;
-    font-size: 0.8rem;
 }

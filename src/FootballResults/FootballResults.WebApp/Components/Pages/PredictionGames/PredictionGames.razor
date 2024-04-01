@@ -1,11 +1,38 @@
 ﻿@page "/prediction-games"
-@using Microsoft.AspNetCore.Authorization
+@inherits PredictionGamesBase
 @attribute [Authorize(Roles = "User")]
+
+@using Microsoft.AspNetCore.Authorization
 
 <PageTitle>Prediction games</PageTitle>
 
-<h3>Welcome to Prediction Games!</h3>
+<h1>Prediction Games</h1>
 
-@code {
+@if (User != null)
+{
+    <div class="subMenu">
+        <button class="@(ActiveSubMenu!.Equals("games") ? "active" : "")" type="button" @onclick="@(() => ActiveSubMenu = "games")">Games</button>
+        <button class="@(ActiveSubMenu!.Equals("create") ? "active" : "")" type="button" @onclick="@(() => ActiveSubMenu = "create")">Create</button>
+        <button class="@(ActiveSubMenu!.Equals("join") ? "active" : "")" type="button" @onclick="@(() => ActiveSubMenu = "join")">Join</button>
+    </div>
+    <div class="subMenuContent">
+        @if (ActiveSubMenu == "games")
+        {
+            <GameList User="@User" />
+        }
 
+        @if (ActiveSubMenu == "create")
+        {
+            <CreateGame User="@User" />
+        }
+
+        @if (ActiveSubMenu == "join")
+        {
+            <JoinGame User="@User" />
+        }
+    </div>
+}
+else
+{
+    <LoadingSpinner />
 }

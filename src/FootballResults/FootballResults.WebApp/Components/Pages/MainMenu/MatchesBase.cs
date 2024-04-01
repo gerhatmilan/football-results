@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
-using FootballResults.Models;
-using FootballResults.WebApp.Services;
+using FootballResults.Models.Football;
+using FootballResults.WebApp.Services.Football;
 
 namespace FootballResults.WebApp.Components.Pages.MainMenu
 {
