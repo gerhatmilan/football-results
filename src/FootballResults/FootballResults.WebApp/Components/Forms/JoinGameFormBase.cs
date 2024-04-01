@@ -35,7 +35,7 @@ namespace FootballResults.WebApp.Components.Forms
 
             if (gameByKey == null)
                 ErrorMessage = "No game found with the provided key";
-            else if (gameByKey.Participants.Contains(User))
+            else if (gameByKey.Players.Contains(User))
                 ErrorMessage = "You have already joined this game";
             else
             {

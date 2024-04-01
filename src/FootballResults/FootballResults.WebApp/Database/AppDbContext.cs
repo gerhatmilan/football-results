@@ -18,6 +18,7 @@ namespace FootballResults.WebApp.Database
         public DbSet<PredictionGame> PredictionGames { get; set; }
         public DbSet<IncludedLeague> IncludedLeagues { get; set; }
         public DbSet<Prediction> Predictions { get; set; }
+        public DbSet<GameStanding> Standings { get; set; }
         public DbSet<Participation> Participations { get; set; }
 
 
@@ -44,6 +45,8 @@ namespace FootballResults.WebApp.Database
                 .ToTable(name: "included_leagues", schema: "predictions");
             modelBuilder.Entity<Prediction>()
                 .ToTable(name: "predictions", schema: "predictions");
+            modelBuilder.Entity<GameStanding>()
+                .ToTable(name: "standings", schema: "predictions");
             modelBuilder.Entity<Participation>()
                 .ToTable(name: "participations", schema: "predictions");
             #endregion
@@ -200,7 +203,7 @@ namespace FootballResults.WebApp.Database
 
             #region Included leagues
             modelBuilder.Entity<IncludedLeague>()
-                .Property(il => il.PredictionGameID)
+                .Property(il => il.GameID)
                 .HasColumnName("prediction_game_id")
                 .IsRequired(true);
             modelBuilder.Entity<IncludedLeague>()
@@ -215,7 +218,7 @@ namespace FootballResults.WebApp.Database
                 .HasColumnName("user_id")
                 .IsRequired(true);
             modelBuilder.Entity<Prediction>()
-                .Property(p => p.PredictionGameID)
+                .Property(p => p.GameID)
                 .HasColumnName("prediction_game_id")
                 .IsRequired(true);
             modelBuilder.Entity<Prediction>()
@@ -236,9 +239,28 @@ namespace FootballResults.WebApp.Database
                 .IsRequired(false);
             #endregion
 
+            #region Standings
+            modelBuilder.Entity<GameStanding>()
+                .Property(s => s.UserID)
+                .HasColumnName("user_id")
+                .IsRequired(true);
+            modelBuilder.Entity<GameStanding>()
+                .Property(s => s.GameID)
+                .HasColumnName("prediction_game_id")
+                .IsRequired(true);
+            modelBuilder.Entity<GameStanding>()
+                .Property(s => s.Points)
+                .HasColumnName("points")
+                .IsRequired(true);
+            modelBuilder.Entity<GameStanding>()
+                .Property(s => s.LastUpdate)
+                .HasColumnName("last_update")
+                .IsRequired(false);
+            #endregion
+
             #region Participations
             modelBuilder.Entity<Participation>()
-                .Property(p => p.PredictionGameID)
+                .Property(p => p.GameID)
                 .HasColumnName("prediction_game_id")
                 .IsRequired(true);
             modelBuilder.Entity<Participation>()
@@ -278,13 +300,16 @@ namespace FootballResults.WebApp.Database
                 .HasKey(g => g.GameID);
 
             modelBuilder.Entity<IncludedLeague>()
-                .HasKey(il => new { il.PredictionGameID, il.LeagueID });
+                .HasKey(il => new { il.GameID, il.LeagueID });
 
             modelBuilder.Entity<Prediction>()
-                .HasKey(p => new { p.UserID, p.PredictionGameID, p.MatchID });
+                .HasKey(p => new { p.UserID, p.GameID, p.MatchID });
+
+            modelBuilder.Entity<GameStanding>()
+                .HasKey(s => new { s.UserID, s.GameID });
 
             modelBuilder.Entity<Participation>()
-                .HasKey(p => new { p.PredictionGameID, p.UserID });
+                .HasKey(p => new { p.GameID, p.UserID });
 
             #endregion
         }
@@ -308,11 +333,11 @@ namespace FootballResults.WebApp.Database
 
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Games)
-                .WithMany(g => g.Participants)
+                .WithMany(g => g.Players)
                 .UsingEntity<Participation>(
-                    l => l.HasOne(l => l.PredictionGame)
+                    l => l.HasOne(l => l.Game)
                         .WithMany(g => g.Participations)
-                        .HasForeignKey(l => l.PredictionGameID),
+                        .HasForeignKey(l => l.GameID),
                     r => r.HasOne(r => r.User)
                         .WithMany(u => u.Participations)
                         .HasForeignKey(r => r.UserID));
@@ -322,10 +347,20 @@ namespace FootballResults.WebApp.Database
                 .WithOne(p => p.User)
                 .HasForeignKey(p => p.UserID);
 
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Standings)
+                .WithOne(s => s.User)
+                .HasForeignKey(s => s.UserID);
+
             modelBuilder.Entity<PredictionGame>()
                 .HasMany(g => g.Predictions)
-                .WithOne(p => p.PredictionGame)
-                .HasForeignKey(p => p.PredictionGameID);
+                .WithOne(p => p.Game)
+                .HasForeignKey(p => p.GameID);
+
+            modelBuilder.Entity<PredictionGame>()
+                .HasMany(g => g.Standings)
+                .WithOne(s => s.Game)
+                .HasForeignKey(s => s.GameID);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -366,6 +401,12 @@ namespace FootballResults.WebApp.Database
                 .Where(e => e.Entity is Participation &&
                     e.State == EntityState.Added);
 
+            var standingsEntries = ChangeTracker
+                .Entries()
+                .Where(e => e.Entity is GameStanding &&
+                    (e.State == EntityState.Added
+                    || e.State == EntityState.Modified));
+
             foreach (var user in userEntries)
             {
                 ((User)user.Entity).RegistrataionDate = DateTime.UtcNow;
@@ -389,6 +430,11 @@ namespace FootballResults.WebApp.Database
             foreach (var participation in participationEntries)
             {
                 ((Participation)participation.Entity).JoinDate = DateTime.UtcNow;
+            }
+
+            foreach (var standing in standingsEntries)
+            {
+                ((GameStanding)standing.Entity).LastUpdate = DateTime.UtcNow;
             }
 
             return await base.SaveChangesAsync();

@@ -18,7 +18,7 @@ namespace FootballResults.WebApp.Components.Pages.Details
         protected League? League { get; set; }
         public IEnumerable<Match>? Matches { get; set; }
 
-        protected IEnumerable<Standing>? Standings { get; set; }
+        protected IEnumerable<LeagueStanding>? Standings { get; set; }
         protected IEnumerable<TopScorer>? TopScorers { get; set; }
         protected string? ActiveSubMenu { get; set; } = "matches";
         protected int? SeasonFilter { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace FootballResults.Models.Predictions
+﻿namespace FootballResults.Models.General
 {
     public class Pair<T1, T2>
     {

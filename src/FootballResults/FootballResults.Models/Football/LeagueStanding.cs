@@ -1,6 +1,6 @@
 ﻿namespace FootballResults.Models.Football
 {
-    public class Standing
+    public class LeagueStanding
     {
         public int LeagueID { get; set; }
 

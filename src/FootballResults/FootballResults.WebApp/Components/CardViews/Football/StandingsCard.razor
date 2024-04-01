@@ -21,7 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (Standing standing in standingGroup.standings)
+                        @foreach (LeagueStanding standing in standingGroup.standings)
                         {
                             <tr class="standing">
                                 <td class="rank">@standing.Rank</td>
@@ -63,7 +63,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (Standing standing in Standings)
+                        @foreach (LeagueStanding standing in Standings)
                         {
                             <tr class="standing">
                                 <td>@standing.Rank</td>
@@ -109,7 +109,7 @@ else
 
 @code {
     [Parameter]
-    public IEnumerable<Standing>? Standings { get; set; }
+    public IEnumerable<LeagueStanding>? Standings { get; set; }
 
     private DateTime? LastUpdate { get; set; }
 
@@ -118,7 +118,7 @@ else
         return Standings!.Select(s => s.Group).Distinct().Count() > 1;
     }
 
-    private List<(string group, List<Standing> standings)> GetStandingGroups()
+    private List<(string group, List<LeagueStanding> standings)> GetStandingGroups()
     {
         return Standings!
         .GroupBy(

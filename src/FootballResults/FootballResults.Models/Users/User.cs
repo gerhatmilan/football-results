@@ -14,8 +14,9 @@ namespace FootballResults.Models.Users
         public IEnumerable<FavoriteLeague> FavoriteLeagues { get; set; }
         public IEnumerable<FavoriteTeam> FavoriteTeams { get; set; }
         public IEnumerable<Message> Messages { get; set; }
-        public IEnumerable<Prediction> Predictions { get; set; }
-        public IEnumerable<Participation> Participations { get; set; }
         public IEnumerable<PredictionGame> Games { get; set; }
+        public IEnumerable<Prediction> Predictions { get; set; }
+        public IEnumerable<GameStanding> Standings { get; set; }
+        public IEnumerable<Participation> Participations { get; set; }
     }
 }

@@ -18,7 +18,9 @@ namespace FootballResults.Models.Predictions
         public bool IsFinished { get; set; }
         public IEnumerable<IncludedLeague> IncludedLeagues { get; set; }
         public IEnumerable<Prediction> Predictions { get; set; }
+        public IEnumerable<User> Players { get; set; }
+
+        public IEnumerable<GameStanding> Standings { get; set; } 
         public IEnumerable<Participation> Participations { get; set; }
-        public IEnumerable<User> Participants { get; set; }
     }
 }

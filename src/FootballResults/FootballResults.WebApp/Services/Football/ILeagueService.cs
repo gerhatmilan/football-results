@@ -7,7 +7,7 @@ namespace FootballResults.WebApp.Services.Football
         Task<League?> GetLeagueByNameAsync(string leagueName);
         Task<IEnumerable<League>> GetLeaguesAsync();
         Task<IEnumerable<Country>> GetCountriesWithLeaguesAsync();
-        Task<IEnumerable<Standing>> GetStandingsForLeagueAndSeasonAsync(string leagueName, int season);
+        Task<IEnumerable<LeagueStanding>> GetStandingsForLeagueAndSeasonAsync(string leagueName, int season);
         Task<IEnumerable<TopScorer>> GetTopScorersForLeagueAndSeasonAsync(string leagueName, int season);
         Task<IEnumerable<League>> SearchAsync(string leagueName);
     }

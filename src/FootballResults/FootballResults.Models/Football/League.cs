@@ -20,7 +20,7 @@
 
         public ICollection<Match> Matches { get; set; }
 
-        public ICollection<Standing> Standings { get; set; }
+        public ICollection<LeagueStanding> Standings { get; set; }
 
         public ICollection<TopScorer> TopScorers { get; set; }
 

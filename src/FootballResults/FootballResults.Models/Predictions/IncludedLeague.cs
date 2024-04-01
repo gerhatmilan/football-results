@@ -2,9 +2,9 @@
 {
     public class IncludedLeague
     {
-        public int PredictionGameID { get; set; }
+        public int GameID { get; set; }
         public int LeagueID { get; set; }
 
-        public PredictionGame PredictionGame { get; set; }
+        public PredictionGame Game { get; set; }
     }
 }
