@@ -41,10 +41,6 @@ p span:hover {
     margin: 1.5rem auto;
 }
 
-::deep input {
-    text-align: center;
-}
-
 ::deep .error {
     margin: 1rem auto;
     text-align: center;

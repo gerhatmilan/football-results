@@ -30,11 +30,11 @@ namespace FootballResults.WebApp.Services.Football
             return result ?? Enumerable.Empty<Country>();
         }
 
-        public async Task<IEnumerable<Standing>> GetStandingsForLeagueAndSeasonAsync(string leagueName, int season)
+        public async Task<IEnumerable<LeagueStanding>> GetStandingsForLeagueAndSeasonAsync(string leagueName, int season)
         {
-            var result = await _httpClient.GetFromJsonAsync<IEnumerable<Standing>>($"api/leagues/{leagueName}/standings?season={season}");
+            var result = await _httpClient.GetFromJsonAsync<IEnumerable<LeagueStanding>>($"api/leagues/{leagueName}/standings?season={season}");
 
-            return result ?? Enumerable.Empty<Standing>();
+            return result ?? Enumerable.Empty<LeagueStanding>();
         }
 
         public async Task<IEnumerable<TopScorer>> GetTopScorersForLeagueAndSeasonAsync(string leagueName, int season)

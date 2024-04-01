@@ -40,7 +40,7 @@ namespace FootballResults.WebApp.Services.Predictions
                 {
                     await _dbContext.IncludedLeagues.AddAsync(new IncludedLeague
                     {
-                        PredictionGameID = predictionGameID,
+                        GameID = predictionGameID,
                         LeagueID = pair.First.LeagueID
                     });
                 }
@@ -52,46 +52,49 @@ namespace FootballResults.WebApp.Services.Predictions
         public async Task<PredictionGame?> CreatePredictionGameAsync(User user, CreateGameModel model)
         {
 
-            using var transaction = _dbContext.Database.BeginTransaction();
-            try
+            using(var transaction = _dbContext.Database.BeginTransaction())
             {
-                PredictionGame gameToBeSaved = CreateGameFromModel(model, user.UserID);
-
-                // save the new entry to the database, and obtain the entity entry with the generated ID
-                var entityEntry = await _dbContext.PredictionGames.AddAsync(gameToBeSaved);
-                PredictionGame savedGame = entityEntry.Entity;
-                await _dbContext.SaveChangesAsync();
-
-                // save the picture to the file system based on the generated ID, also update the entity in the database
-                if (model.Picture != null)
+                try
                 {
-                    string path = "wwwroot/prediction-games/backgrounds/" + $"{savedGame.GameID}.jpg";
-                    await ImageSaver.SaveImageAsync(model.Picture, path);
+                    PredictionGame gameToBeSaved = CreateGameFromModel(model, user.UserID);
 
-                    savedGame.ImagePath = String.Concat(path.SkipWhile(c => c != '/').Skip(1));
+                    // save the new entry to the database, and obtain the entity entry with the generated ID
+                    var entityEntry = await _dbContext.PredictionGames.AddAsync(gameToBeSaved);
+                    PredictionGame savedGame = entityEntry.Entity;
+                    await _dbContext.SaveChangesAsync();
+
+                    // save the picture to the file system based on the generated ID, also update the entity in the database
+                    if (model.Picture != null)
+                    {
+                        string path = "wwwroot/prediction-games/backgrounds/" + $"{savedGame.GameID}.jpg";
+                        await ImageSaver.SaveImageAsync(model.Picture, path);
+
+                        savedGame.ImagePath = String.Concat(path.SkipWhile(c => c != '/').Skip(1));
+                    }
+
+                    // add the selected leagues to the included leagues table
+                    await AddIncludedLeaguesAsync(savedGame.GameID, model);
+
+                    transaction.Commit();
+
+                    return savedGame;
                 }
-
-                // add the selected leagues to the included leagues table
-                await AddIncludedLeaguesAsync(savedGame.GameID, model);
-
-                transaction.Commit();
-
-                return savedGame;
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    return null;
+                }
             }
-            catch(Exception)
-            {
-                transaction.Rollback();
-                return null;
-            }  
         }
 
         public async Task<PredictionGame?> GetPredictionGameAsync(int gameID)
         {
             return await _dbContext.PredictionGames
                 .Where(g => g.GameID == gameID)
-                .Include(g => g.Participants)
+                .Include(g => g.Players)
                 .Include(g => g.IncludedLeagues)
                 .Include(g => g.Predictions)
+                .Include(g => g.Standings)
                 .FirstOrDefaultAsync();
         }
 
@@ -99,7 +102,7 @@ namespace FootballResults.WebApp.Services.Predictions
         {
             return await _dbContext.PredictionGames
                 .Where(g => g.JoinKey.Equals(joinKey))
-                .Include(g => g.Participants)
+                .Include(g => g.Players)
                 .Include(g => g.IncludedLeagues)
                 .Include(g => g.Predictions)
                 .FirstOrDefaultAsync();
@@ -114,7 +117,7 @@ namespace FootballResults.WebApp.Services.Predictions
 
             await _dbContext.Participations.AddAsync(new Participation
             {
-                PredictionGameID = game.GameID,
+                GameID = game.GameID,
                 UserID = user.UserID
             });
 

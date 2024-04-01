@@ -5,6 +5,7 @@ using FootballResults.WebApp.Services.Football;
 using FootballResults.WebApp.Services.Predictions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using FootballResults.Models.General;
 
 namespace FootballResults.WebApp.Components.Forms
 {

@@ -60,7 +60,7 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
 
         protected void AuthorizeUser()
         {
-            if (!Game!.Participants.Select(p => p.UserID).Contains(User!.UserID))
+            if (!Game!.Players.Select(p => p.UserID).Contains(User!.UserID))
             {
                 NavigationManager!.NavigateTo("/access-denied", true);
             }

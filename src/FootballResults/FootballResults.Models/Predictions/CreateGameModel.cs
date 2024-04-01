@@ -1,4 +1,5 @@
 ﻿using FootballResults.Models.Football;
+using FootballResults.Models.General;
 using System.ComponentModel.DataAnnotations;
 
 namespace FootballResults.Models.Predictions
