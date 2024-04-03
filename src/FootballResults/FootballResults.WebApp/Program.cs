@@ -3,9 +3,9 @@ using FootballResults.WebApp.Database;
 using FootballResults.WebApp.Services.Football;
 using FootballResults.WebApp.Services.Predictions;
 using FootballResults.WebApp.Services.Users;
+using FootballResults.WebApp.Services.Files;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting.Internal;
 
 namespace FootballResults.WebApp
 {
@@ -44,6 +44,7 @@ namespace FootballResults.WebApp
             builder.Services.AddScoped<ILoginService, LoginService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IPredictionGameService, PredictionGameService>();
+            builder.Services.AddScoped<IFileUploadService, FileUploadService>();
 
             // HttpClient services
             builder.Services.AddHttpClient<IMatchService, MatchService>(client =>

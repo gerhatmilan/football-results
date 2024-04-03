@@ -11,8 +11,6 @@ namespace FootballResults.WebApp.Components.Forms
 {
     public partial class PredictionGameFormBase : FormBase
     {
-        private const string DEFAULT_IMAGE = "prediction-games/backgrounds/default.jpg";
-
         [Inject]
         protected IPredictionGameService PredictionGameService { get; set; } = default!;
 
@@ -22,6 +20,9 @@ namespace FootballResults.WebApp.Components.Forms
         [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
 
+        [Inject]
+        protected IConfiguration Configuration { get; set; } = default!;
+
         [Parameter]
         public User User { get; set; } = default!;
 
@@ -30,7 +31,7 @@ namespace FootballResults.WebApp.Components.Forms
         protected string? NotCreatedErrorMessage { get; set; }
         protected string? IncludedLeaguesErrorMessage { get; set; }
         protected string? ImageErrorMessage { get; set; }
-        protected string SelectedImage { get; set; } = DEFAULT_IMAGE;
+        protected string? SelectedImage { get; set; } 
 
         protected override void ResetErrorMessages()
         {
@@ -54,7 +55,7 @@ namespace FootballResults.WebApp.Components.Forms
             }
         }
 
-        protected async void Submit()
+        protected async Task SubmitAsync()
         {
             DisableForm();
 
@@ -81,6 +82,7 @@ namespace FootballResults.WebApp.Components.Forms
         {
             try
             {
+                SelectedImage = Configuration.GetValue<string>("Images:PredictionGameDefault");
                 var leagues = await LeagueService.GetLeaguesAsync();
 
                 CreateGameModel.IncludedLeagues = new List<Pair<League, bool>>();
@@ -113,7 +115,7 @@ namespace FootballResults.WebApp.Components.Forms
                 catch (IOException ex)
                 {
                     ImageErrorMessage = ex.Message + " Using default image.";
-                    SelectedImage = DEFAULT_IMAGE;
+                    SelectedImage = Configuration.GetValue<string>("Images:PredictionGameDefault");
                 }
             }
         }

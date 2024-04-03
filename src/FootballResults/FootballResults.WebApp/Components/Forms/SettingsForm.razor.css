@@ -1,0 +1,40 @@
+﻿input, ::deep input {
+    margin: 10px 0;
+    font-size: 1rem;
+}
+
+#submitDiv {
+    text-align: center;
+}
+
+.button {
+    max-width: 150px;
+    text-align: center;
+}
+
+.profilePicture {
+    margin: 2rem auto;
+    border-radius: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: none;
+}
+
+.profilePicture.show {
+    display: block;
+}
+
+@media (min-width: 0px) {
+    .profilePicture {
+        width: 50vw;
+        height: 50vw
+    }
+}
+
+@media (min-width: 500px) {
+    .profilePicture {
+        width: 200px;
+        height: 200px;
+    }
+}

@@ -2,7 +2,7 @@
 
 @if (SignupModel != null)
 {
-    <div id="signupForm">
+    <div id="signupForm" class="form">
         <EditForm Model="@SignupModel" OnValidSubmit="RegisterUserAsync" FormName="SignUpForm">
             <DataAnnotationsValidator />
 

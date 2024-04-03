@@ -1,9 +1,9 @@
 ﻿@inherits PredictionGameFormBase
 
-<EditForm FormName="CreateGameForm" Model="@CreateGameModel" OnValidSubmit="Submit">
+<EditForm FormName="CreateGameForm" Model="@CreateGameModel" OnValidSubmit="SubmitAsync">
     <DataAnnotationsValidator />
 
-    <div class="formContent">
+    <div class="form">
         <div class="inputsDiv">
             <div class="col1">
                 <div class="nameDiv mb-3">

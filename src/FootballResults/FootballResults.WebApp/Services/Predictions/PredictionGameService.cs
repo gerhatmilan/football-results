@@ -3,16 +3,17 @@ using FootballResults.Models.Predictions;
 using FootballResults.Models.Users;
 using FootballResults.Models.General;
 using Microsoft.EntityFrameworkCore;
-using FootballResults.WebApp.Components.Pages.PredictionGames;
 
 namespace FootballResults.WebApp.Services.Predictions
 {
     public class PredictionGameService : IPredictionGameService
     {
         private AppDbContext _dbContext;
-        public PredictionGameService(AppDbContext dbContext)
+        private IConfiguration _config;
+        public PredictionGameService(AppDbContext dbContext, IConfiguration config)
         {
             _dbContext = dbContext;
+            _config = config;
         }
 
         private PredictionGame CreateGameFromModel(CreateGameModel model, int userID)
@@ -23,7 +24,7 @@ namespace FootballResults.WebApp.Services.Predictions
                 OwnerID = userID,
                 JoinKey = Guid.NewGuid().ToString(),
                 Description = model.Description,
-                ImagePath = "prediction-games/backgrounds/default.jpg",
+                ImagePath = _config.GetValue<string>("Images:PredictionGameDefault"),
                 ExactScorelineReward = model.ExactScorelineReward,
                 OutcomeReward = model.OutcomeReward,
                 GoalCountReward = model.GoalCountReward,
@@ -66,10 +67,10 @@ namespace FootballResults.WebApp.Services.Predictions
                     // save the picture to the file system based on the generated ID, also update the entity in the database
                     if (model.Picture != null)
                     {
-                        string path = "wwwroot/prediction-games/backgrounds/" + $"{savedGame.GameID}.jpg";
-                        await ImageSaver.SaveImageAsync(model.Picture, path);
+                        string path = _config.GetValue<string>("Directories:PredictionGamePictures")!;
+                        await ImageManager.SaveImageAsync(model.Picture, path, $"{savedGame.GameID}.jpg");
 
-                        savedGame.ImagePath = String.Concat(path.SkipWhile(c => c != '/').Skip(1));
+                        savedGame.ImagePath = Path.Combine(path, $"{savedGame.GameID}.jpg");
                     }
 
                     // add the selected leagues to the included leagues table

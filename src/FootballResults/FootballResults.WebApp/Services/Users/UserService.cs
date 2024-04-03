@@ -1,7 +1,9 @@
 ﻿using FootballResults.Models.Football;
+using FootballResults.Models.General;
 using FootballResults.Models.Users;
 using FootballResults.WebApp.Database;
 using Microsoft.EntityFrameworkCore;
+using System.Net.NetworkInformation;
 
 namespace FootballResults.WebApp.Services.Users
 {
@@ -9,10 +11,13 @@ namespace FootballResults.WebApp.Services.Users
     {
         private readonly HttpClient _httpClient;
         private readonly AppDbContext _dbContext;
-        public UserService(HttpClient httpClient, AppDbContext dbContext)
+        private readonly IConfiguration _config;
+
+        public UserService(HttpClient httpClient, AppDbContext dbContext, IConfiguration config)
         {
             _httpClient = httpClient;
             _dbContext = dbContext;
+            _config = config;
         }
 
         public async Task<User?> GetUserAsync(int userID)
@@ -23,6 +28,34 @@ namespace FootballResults.WebApp.Services.Users
                .Include(u => u.Games)
                .FirstOrDefaultAsync(u => u.UserID == userID);
         }
+
+        public async Task<bool> ModifyUserAsync(User user, SettingsModel settingsModel)
+        {
+            using (var transaction = _dbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    user.Username = settingsModel.Username;
+
+                    if (settingsModel.ProfilePicture != null)
+                    {
+                        var profilePicPath = _config.GetValue<string>("Directories:ProfilePictures")!;
+                        user.ProfilePicturePath = Path.Combine(profilePicPath, $"{user.UserID}.png");
+                        await ImageManager.SaveImageAsync(settingsModel.ProfilePicture, profilePicPath, $"{user.UserID}.png");
+                    }
+
+                    await _dbContext.SaveChangesAsync();
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+        }
+
         public async Task AddToFavoriteLeaguesAsync(int userID, int leagueID)
         {
             await _dbContext.FavoriteLeagues.AddAsync(new FavoriteLeague { UserID = userID, LeagueID = leagueID });

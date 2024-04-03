@@ -24,6 +24,11 @@ article {
     color: var(--placeholder-light);
 }
 
+::deep .form {
+    max-width: 800px;
+    margin: auto;
+}
+
 .error, ::deep .error {
     color: red;
 }
