@@ -44,7 +44,6 @@ namespace FootballResults.WebApp
             builder.Services.AddScoped<ILoginService, LoginService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IPredictionGameService, PredictionGameService>();
-            builder.Services.AddScoped<IFileUploadService, FileUploadService>();
 
             // HttpClient services
             builder.Services.AddHttpClient<IMatchService, MatchService>(client =>

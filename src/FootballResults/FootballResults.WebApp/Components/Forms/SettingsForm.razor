@@ -11,7 +11,7 @@
         </div>
         <div class="mb-3">
             <label for="profilePic">Profile picture</label>
-            <div class="profilePicture @(SelectedImage != null ? "show" : "")" style="background-image: url(@SelectedImage)"></div>
+            <img class="profilePicture @(SettingsModel.ProfilePicturePath != null ? "show" : "")" src="@SettingsModel.ProfilePicturePath" alt="Avatar">
             <InputFile id="profilePic" class="input form-control" OnChange="OnImageSelectedAsync" />
             @if (ImageErrorMessage != null)
             {

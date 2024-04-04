@@ -7,7 +7,7 @@ using FootballResults.WebApp.Services.Files;
 
 namespace FootballResults.WebApp.Components.Forms
 {
-    public class SettingsFormBase : FormBase
+    public class SettingsFormBase : FileUploaderForm
     {
         [CascadingParameter(Name = "User")]
         public User? User { get; set; }
@@ -16,14 +16,12 @@ namespace FootballResults.WebApp.Components.Forms
         protected IUserService UserService { get; set; } = default!;
 
         [Inject]
-        protected IFileUploadService FileUploadService { get; set; } = default!;
-
-        [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
 
-        protected SettingsModel SettingsModel { get; set; } = new SettingsModel();
+        [Inject]
+        protected IConfiguration Configuration { get; set; } = default!;
 
-        protected string? SelectedImage { get; set; }
+        protected SettingsModel SettingsModel { get; set; } = new SettingsModel();
 
         protected string? ImageErrorMessage { get; set; }
 
@@ -33,17 +31,20 @@ namespace FootballResults.WebApp.Components.Forms
         {
             ImageErrorMessage = null;
             ErrorMessage = null;
+            FileUploadService = new FileUploadService(uploadDirectory: Configuration.GetValue<String>("Directories:ProfilePictures")!,
+                               maxAllowedBytes: 1000000, allowedFiles: new string[] { "image/png", "image/jpeg" });
         }
 
-        protected override async Task OnParametersSetAsync()
+        protected override void OnParametersSet()
         {
             SettingsModel.Username = User?.Username;
+            SettingsModel.ProfilePicturePath = User?.ProfilePicturePath;
+        }
 
-            if (User!.ProfilePicturePath != null)
-            {
-                var profilePicture = await ImageManager.LoadImageAsync(User.ProfilePicturePath);
-                SelectedImage = $"data:image/png;base64,{Convert.ToBase64String(profilePicture)}";
-            }
+        protected override void OnInitialized()
+        {
+            base.Initialize(uploadDirectory: Configuration.GetValue<String>("Directories:ProfilePictures")!,
+                maxAllowedBytes: 1000000, allowedFiles: new string[] { "image/png", "image/jpeg" });
         }
 
         protected async Task SubmitAsync()
@@ -53,7 +54,7 @@ namespace FootballResults.WebApp.Components.Forms
                 ErrorMessage = "An error has occurred. Please try again.";
                 return;
             }
-            else if (SettingsModel.Username == User.Username && SettingsModel.ProfilePicture == null)
+            else if (SettingsModel.Username == User.Username && SettingsModel.ProfilePicturePath == User.ProfilePicturePath)
                 return;
             else
             {
@@ -75,24 +76,24 @@ namespace FootballResults.WebApp.Components.Forms
         protected async Task OnImageSelectedAsync(InputFileChangeEventArgs e)
         {
             ResetErrorMessages();
+
             var file = e.File;
 
-            if (file != null)
+            if (User != null && file != null)
             {
-                try
-                {
-                    var buffer = new byte[file.Size];
-                    await file.OpenReadStream().ReadAsync(buffer);
-                    var imageBase64 = Convert.ToBase64String(buffer);
-                    SelectedImage = $"data:{file.ContentType};base64,{imageBase64}";
-                    SettingsModel.ProfilePicture = buffer;
 
-                    StateHasChanged();
-                }
-                catch (Exception ex)
+                var (success, retVal) = await FileUploadService.UploadFileAsync(file: file, newFileName: TemporaryFileName);
+
+                if (success)
                 {
-                    ImageErrorMessage = ex.Message;
+                    SettingsModel.ProfilePicturePath = retVal;
                 }
+                else
+                {
+                    ImageErrorMessage = retVal;
+                }
+
+                StateHasChanged();
             }
         }
     }

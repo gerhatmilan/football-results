@@ -35,13 +35,24 @@ namespace FootballResults.WebApp.Services.Users
             {
                 try
                 {
-                    user.Username = settingsModel.Username;
-
-                    if (settingsModel.ProfilePicture != null)
+                    if (user.Username != settingsModel.Username)
                     {
-                        var profilePicPath = _config.GetValue<string>("Directories:ProfilePictures")!;
-                        user.ProfilePicturePath = Path.Combine(profilePicPath, $"{user.UserID}.png");
-                        await ImageManager.SaveImageAsync(settingsModel.ProfilePicture, profilePicPath, $"{user.UserID}.png");
+                        user.Username = settingsModel.Username;
+
+                    }
+
+                    if (user.ProfilePicturePath != settingsModel.ProfilePicturePath)
+                    {
+                        string saveFilePath = _config.GetValue<string>("Directories:ProfilePictures")!;
+                        string saveFileName = $"{user.UserID}{Path.GetExtension(settingsModel.ProfilePicturePath)}";
+
+                        // delete all old profile pictures for this user, regardless of extension
+                        await FileManager.DeleteFilesWithNameAsync(saveFilePath, user.UserID.ToString());
+
+                        // rename the uploaded profile picture file to the user's ID
+                        await FileManager.MoveFileAsync(settingsModel.ProfilePicturePath, Path.Combine(saveFilePath, saveFileName));
+
+                        user.ProfilePicturePath = saveFilePath + $"/{saveFileName}";
                     }
 
                     await _dbContext.SaveChangesAsync();

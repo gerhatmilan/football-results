@@ -6,6 +6,7 @@ namespace FootballResults.Models.Users
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "Username is required")]
         public string Username { get; set; }
-        public byte[] ProfilePicture { get; set; }
+
+        public string ProfilePicturePath { get; set; }
     }
 }

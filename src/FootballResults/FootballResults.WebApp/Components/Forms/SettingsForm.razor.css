@@ -15,9 +15,7 @@
 .profilePicture {
     margin: 2rem auto;
     border-radius: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    object-fit: cover;
     display: none;
 }
 

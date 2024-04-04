@@ -24,7 +24,7 @@ namespace FootballResults.WebApp.Services.Predictions
                 OwnerID = userID,
                 JoinKey = Guid.NewGuid().ToString(),
                 Description = model.Description,
-                ImagePath = _config.GetValue<string>("Images:PredictionGameDefault"),
+                ImagePath = model.PicturePath,
                 ExactScorelineReward = model.ExactScorelineReward,
                 OutcomeReward = model.OutcomeReward,
                 GoalCountReward = model.GoalCountReward,
@@ -65,12 +65,18 @@ namespace FootballResults.WebApp.Services.Predictions
                     await _dbContext.SaveChangesAsync();
 
                     // save the picture to the file system based on the generated ID, also update the entity in the database
-                    if (model.Picture != null)
+                    if (model.PicturePath != null)
                     {
-                        string path = _config.GetValue<string>("Directories:PredictionGamePictures")!;
-                        await ImageManager.SaveImageAsync(model.Picture, path, $"{savedGame.GameID}.jpg");
+                        string saveFilePath = _config.GetValue<string>("Directories:PredictionGamePictures")!;
+                        string saveFileName = $"{savedGame.GameID}{Path.GetExtension(model.PicturePath)}";
 
-                        savedGame.ImagePath = Path.Combine(path, $"{savedGame.GameID}.jpg");
+                        // delete all old game pictures for this game, regardless of extension
+                        await FileManager.DeleteFilesWithNameAsync(saveFilePath, savedGame.GameID.ToString());
+
+                        // rename the uploaded picture file to the game's ID
+                        await FileManager.MoveFileAsync(model.PicturePath, Path.Combine(saveFilePath, saveFileName));
+
+                        savedGame.ImagePath = saveFilePath + $"/{saveFileName}";
                     }
 
                     // add the selected leagues to the included leagues table

@@ -1,37 +1,51 @@
-﻿using FootballResults.Models.Users;
+﻿using FootballResults.Models.General;
 using Microsoft.AspNetCore.Components.Forms;
 
 namespace FootballResults.WebApp.Services.Files
 {
     public class FileUploadService : IFileUploadService
     {
-        public Task<bool> UploadFileAsync(IBrowserFile file, int maxAllowedBytes, string[] allowedFormats)
+        private readonly string _uploadDirectory;
+        private int _maxAllowedBytes;
+        private string[] _allowedFiles;
+        private const string ROOT_DIRECTORY = "wwwroot";
+
+        public FileUploadService(string uploadDirectory, int maxAllowedBytes, string[] allowedFiles)
         {
-            throw new NotImplementedException();
-            /*
-            var uploadDirectory = Path.Combine(_environment.WebRootPath, "Uploads");
-            if (!Directory.Exists(uploadDirectory))
+            _uploadDirectory = uploadDirectory;
+            _maxAllowedBytes = maxAllowedBytes;
+            _allowedFiles = allowedFiles;
+        }
+
+        public async Task<(bool, string)> UploadFileAsync(IBrowserFile file, string newFileName)
+        {
+            var combinedPath = Path.Combine(ROOT_DIRECTORY, _uploadDirectory);
+            if (!Directory.Exists(combinedPath))
             {
-                Directory.CreateDirectory(uploadDirectory);
+                Directory.CreateDirectory(combinedPath);
             }
 
-            if (file.Size > maxFileSize)
+            if (file.Size > _maxAllowedBytes)
             {
-                return (0, $"File: {file.Name} exceeds the maximum allowed file size.");
+                return (false, $"The file size exceeds the maximum allowed size of {_maxAllowedBytes} bytes");
+            }
+
+            if (!_allowedFiles.Contains(file.ContentType))
+            {
+                return (false, "File type not allowed");
             }
 
             var fileExtension = Path.GetExtension(file.Name);
-            if (!allowedExtensions.Contains(fileExtension))
-            {
-                return (0, $"File: {file.Name}, File type not allowed");
-            }
+            var fileName = $"{newFileName}{fileExtension}";
+            await using var fs = new FileStream(Path.Combine(combinedPath, fileName), FileMode.Create);
+            await file.OpenReadStream(_maxAllowedBytes).CopyToAsync(fs);
 
-            var fileName = $"{Guid.NewGuid()}{fileExtension}";
-            var path = Path.Combine(uploadDirectory, fileName);
-            await using var fs = new FileStream(path, FileMode.Create);
-            await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
-            return (1, fileName);
-            */
+            return (true, _uploadDirectory + "/" + fileName);
+        }
+
+        public async Task DeletePreviousUploadsByNameAsync(string fileName)
+        {
+            await FileManager.DeleteFilesWithNameAsync(_uploadDirectory, fileName);
         }
     }
 }

@@ -16,7 +16,8 @@
 #profileIcon, #profileIconNoPicture {
     width: calc(2.5rem + 0.5vw);
     height: calc(2.5rem + 0.5vw);
-    border-radius: 50%;
+    border-radius: 100%;
+    object-fit: cover;
     z-index: 1;
 }
 

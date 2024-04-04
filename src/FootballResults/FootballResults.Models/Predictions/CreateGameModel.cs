@@ -12,7 +12,7 @@ namespace FootballResults.Models.Predictions
         
         public string Description { get; set; }
         
-        public byte[] Picture { get; set; }
+        public string PicturePath { get; set; }
 
         public ICollection<Pair<League, bool>> IncludedLeagues { get; set; }
 

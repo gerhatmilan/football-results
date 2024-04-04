@@ -4,6 +4,7 @@ namespace FootballResults.WebApp.Services.Files
 {
     public interface IFileUploadService
     {
-        Task<bool> UploadFileAsync(IBrowserFile file, int maxAllowedBytes, string[] allowedFormats);
+        Task<(bool, string)> UploadFileAsync(IBrowserFile file, string newFileName);
+        Task DeletePreviousUploadsByNameAsync(string fileName);
     }
 }

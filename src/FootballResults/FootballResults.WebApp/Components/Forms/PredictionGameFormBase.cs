@@ -6,10 +6,11 @@ using FootballResults.WebApp.Services.Predictions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using FootballResults.Models.General;
+using FootballResults.WebApp.Services.Files;
 
 namespace FootballResults.WebApp.Components.Forms
 {
-    public partial class PredictionGameFormBase : FormBase
+    public partial class PredictionGameFormBase : FileUploaderForm
     {
         [Inject]
         protected IPredictionGameService PredictionGameService { get; set; } = default!;
@@ -31,7 +32,6 @@ namespace FootballResults.WebApp.Components.Forms
         protected string? NotCreatedErrorMessage { get; set; }
         protected string? IncludedLeaguesErrorMessage { get; set; }
         protected string? ImageErrorMessage { get; set; }
-        protected string? SelectedImage { get; set; } 
 
         protected override void ResetErrorMessages()
         {
@@ -39,6 +39,29 @@ namespace FootballResults.WebApp.Components.Forms
             IncludedLeaguesErrorMessage = null;
             ImageErrorMessage = null;
         }
+
+        protected override async Task OnInitializedAsync()
+        {
+            base.Initialize(uploadDirectory: Configuration.GetValue<String>("Directories:PredictionGamePictures")!,
+                maxAllowedBytes: 1000000, allowedFiles: new string[] { "image/png", "image/jpeg" });
+
+            try
+            {
+                CreateGameModel.PicturePath = Configuration.GetValue<string>("Images:PredictionGameDefault");
+                var leagues = await LeagueService.GetLeaguesAsync();
+
+                CreateGameModel.IncludedLeagues = new List<Pair<League, bool>>();
+                foreach (League league in leagues.OrderByDescending(l => l.Type).ThenBy(l => l.Name))
+                {
+                    CreateGameModel.IncludedLeagues.Add(new Pair<League, bool>(league, false));
+                }
+            }
+            catch (HttpRequestException)
+            {
+                NavigationManager.NavigateTo("/Error", true);
+            }
+        }
+
 
         protected bool ValidateIncludedLeagues()
         {
@@ -78,45 +101,28 @@ namespace FootballResults.WebApp.Components.Forms
             await EnableForm();
         }
 
-        protected override async Task OnInitializedAsync()
-        {
-            try
-            {
-                SelectedImage = Configuration.GetValue<string>("Images:PredictionGameDefault");
-                var leagues = await LeagueService.GetLeaguesAsync();
-
-                CreateGameModel.IncludedLeagues = new List<Pair<League, bool>>();
-                foreach (League league in leagues.OrderByDescending(l => l.Type).ThenBy(l => l.Name))
-                {
-                    CreateGameModel.IncludedLeagues.Add(new Pair<League, bool>(league, false));
-                }
-            }
-            catch (HttpRequestException)
-            {
-                NavigationManager.NavigateTo("/Error", true);
-            }
-        }
-
         protected async Task OnImageSelectedAsync(InputFileChangeEventArgs e)
         {
             ImageErrorMessage = null;
             var file = e.File;
 
-            if (file != null)
+            if (User != null && file != null)
             {
-                try
+                FileUploadService uploadService = new FileUploadService(uploadDirectory: Configuration.GetValue<String>("Directories:PredictionGamePictures")!,
+                    maxAllowedBytes: 1000000, allowedFiles: new string[] { "image/png", "image/jpeg" });
+
+                var (success, retVal) = await uploadService.UploadFileAsync(file: file, newFileName: TemporaryFileName);
+
+                if (success)
                 {
-                    var buffer = new byte[file.Size];
-                    await file.OpenReadStream().ReadAsync(buffer);
-                    var imageBase64 = Convert.ToBase64String(buffer);
-                    SelectedImage = $"data:{file.ContentType};base64,{imageBase64}";
-                    CreateGameModel.Picture = buffer;
+                    CreateGameModel.PicturePath = retVal;
                 }
-                catch (IOException ex)
+                else
                 {
-                    ImageErrorMessage = ex.Message + " Using default image.";
-                    SelectedImage = Configuration.GetValue<string>("Images:PredictionGameDefault");
+                    ImageErrorMessage = retVal;
                 }
+
+                StateHasChanged();
             }
         }
     }
