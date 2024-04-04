@@ -1,4 +1,9 @@
-﻿.matchDetails {
+﻿.matchContainer {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.matchDetails {
     text-align: center;
     margin: 5vh 0;
 }
