@@ -9,6 +9,23 @@
     <PageTitle>@Game.Name</PageTitle>
 
     <h1>@Game.Name</h1>
+    <p>
+        @Game.Description
+        <br /><br />
+        Created by <span class="highlight">@User?.Username</span>
+    </p>
+
+    <div id="gameContent">
+        <div class="gameStandingCol">
+            <GameStandingsCard Standings="@Game.Standings" />
+        </div>
+        <div class="matchesCol">
+            <h1>456</h1>
+        </div>
+        <div class="leagueStandingsCol">
+
+        </div>
+    </div>
 }
 else
 {

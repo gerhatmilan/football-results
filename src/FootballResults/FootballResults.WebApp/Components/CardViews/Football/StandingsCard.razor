@@ -7,43 +7,43 @@
             {
                 <h2>@standingGroup.group</h2>
                 <div class="table-responsive">
-                <table class="table table-striped table-borderless standingsTable">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Team</th>
-                            <th scope="col">P</th>
-                            <th scope="col">W</th>
-                            <th scope="col">D</th>
-                            <th scope="col">L</th>
-                            <th scope="col">GD</th>
-                            <th scope="col">Pts</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (LeagueStanding standing in standingGroup.standings)
-                        {
-                            <tr class="standing">
-                                <td class="rank">@standing.Rank</td>
-                                <td>
-                                    <a class="teamDiv" href="teams/@standing.Team.Name">
-                                        <div class="teamLogoDiv">
-                                            <img class="teamLogo" src="@standing.Team.LogoLink" alt="@standing.Team.Name logo" />
-                                        </div>
-                                        <div>@standing.Team.Name</div>
-                                    </a>
-                                </td>
-                                <td class="played">@standing.Played</td>
-                                <td class="wins">@standing.Wins</td>
-                                <td class="draws">@standing.Draws</td>
-                                <td class="losses">@standing.Losses</td>
-                                <td class="conceded">@standing.Scored:@standing.Conceded</td>
-                                <td class="points">@standing.Points</td>
+                    <table class="table table-striped table-borderless standingsTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Team</th>
+                                <th scope="col">P</th>
+                                <th scope="col">W</th>
+                                <th scope="col">D</th>
+                                <th scope="col">L</th>
+                                <th scope="col">GD</th>
+                                <th scope="col">Pts</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            @foreach (LeagueStanding standing in standingGroup.standings)
+                            {
+                                <tr class="standing">
+                                    <td class="rank">@standing.Rank</td>
+                                    <td>
+                                        <a class="teamDiv" href="teams/@standing.Team.Name">
+                                            <div class="teamLogoDiv">
+                                                <img class="teamLogo" src="@standing.Team.LogoLink" alt="@standing.Team.Name logo" />
+                                            </div>
+                                            <div>@standing.Team.Name</div>
+                                        </a>
+                                    </td>
+                                    <td class="played">@standing.Played</td>
+                                    <td class="wins">@standing.Wins</td>
+                                    <td class="draws">@standing.Draws</td>
+                                    <td class="losses">@standing.Losses</td>
+                                    <td class="conceded">@standing.Scored:@standing.Conceded</td>
+                                    <td class="points">@standing.Points</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             }
         }
         else

@@ -64,8 +64,9 @@ namespace FootballResults.WebApp.Services.Predictions
                     PredictionGame savedGame = entityEntry.Entity;
                     await _dbContext.SaveChangesAsync();
 
+                    var defaultPicturePath = _config.GetValue<string>("Images:PredictionGameDefault")!;
                     // save the picture to the file system based on the generated ID, also update the entity in the database
-                    if (model.PicturePath != null)
+                    if (model.PicturePath != defaultPicturePath)
                     {
                         string saveFilePath = _config.GetValue<string>("Directories:PredictionGamePictures")!;
                         string saveFileName = $"{savedGame.GameID}{Path.GetExtension(model.PicturePath)}";
@@ -73,9 +74,9 @@ namespace FootballResults.WebApp.Services.Predictions
                         // delete all old game pictures for this game, regardless of extension
                         await FileManager.DeleteFilesWithNameAsync(saveFilePath, savedGame.GameID.ToString());
 
-                        // rename the uploaded picture file to the game's ID
                         await FileManager.MoveFileAsync(model.PicturePath, Path.Combine(saveFilePath, saveFileName));
 
+                        // rename the uploaded picture file to the game's ID
                         savedGame.ImagePath = saveFilePath + $"/{saveFileName}";
                     }
 

@@ -1,0 +1,54 @@
+﻿@if (Standings != null)
+{
+    <div class="table-responsive">
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th scope="col" class="rank">#</th>
+                    <th scope="col" class="player">Player</th>
+                    <th scope="col" class="points">Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int rank = 1; rank <= Standings.Count(); rank++)
+                {
+                    var standing = Standings.ElementAt(rank - 1);
+
+                    <tr class="standing">
+                        <td class="rank">@rank</td>
+                        <td class="player">
+                            <div class="playerDiv">
+                                <div class="playerAvatarDiv">
+                                    @if (standing.User.ProfilePicturePath != null)
+                                    {
+                                        <img class="playerAvatar" src="@standing.User.ProfilePicturePath" alt />
+                                    }
+                                    else
+                                    {
+                                        <div class="playerAvatar noPictureAvatar">@standing.User.Username.Substring(0, 1).ToUpper()</div>
+                                    }
+                                </div>
+                                <div>@standing.User.Username</div>
+                            </div>
+                        </td>
+                        <td class="points">@standing.Points</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <LoadingSpinner />
+}
+
+@code {
+    [Parameter]
+    public IEnumerable<GameStanding>? Standings { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Standings = Standings!.OrderByDescending(s => s.Points);
+    }
+}

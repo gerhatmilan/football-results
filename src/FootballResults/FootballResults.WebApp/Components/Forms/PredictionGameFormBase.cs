@@ -47,7 +47,7 @@ namespace FootballResults.WebApp.Components.Forms
 
             try
             {
-                CreateGameModel.PicturePath = Configuration.GetValue<string>("Images:PredictionGameDefault");
+                CreateGameModel.PicturePath = Configuration.GetValue<String>("Images:PredictionGameDefault")!;
                 var leagues = await LeagueService.GetLeaguesAsync();
 
                 CreateGameModel.IncludedLeagues = new List<Pair<League, bool>>();

@@ -1,0 +1,82 @@
+﻿table, th, td, tr {
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+.standing:hover td {
+    background-color: var(--link-hover);
+}
+
+table {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    vertical-align: middle;
+    border: 1px solid var(--light);
+    border-radius: 5px;
+}
+
+tr {
+    border: 1px solid var(--light);
+}
+
+.playerDiv {
+    display: flex;
+    align-items: center;
+}
+
+.playerAvatarDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    aspect-ratio: 1/1;
+}
+
+.playerAvatar {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+.noPictureAvatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: var(--link);
+}
+
+.rank, .points {
+    width: auto;
+    text-align: center;
+}
+
+@media (min-width: 0px) {
+    table {
+        font-size: 1rem;
+    }
+
+    .playerAvatarDiv {
+        margin-right: 10px;
+        height: 30px;
+    }
+
+    th, td {
+        padding: 5px;
+        text-align: left;
+    }
+}
+
+@media (min-width: 500px) {
+    .playerAvatarDiv {
+        height: 50px;
+        margin-right: 20px;
+    }
+
+    th, td {
+        font-size: 1rem;
+        padding: 10px;
+    }
+}

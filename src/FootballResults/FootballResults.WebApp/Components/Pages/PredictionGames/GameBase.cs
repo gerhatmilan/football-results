@@ -1,5 +1,7 @@
-﻿using FootballResults.Models.Predictions;
+﻿using FootballResults.Models.Football;
+using FootballResults.Models.Predictions;
 using FootballResults.Models.Users;
+using FootballResults.WebApp.Services.Football;
 using FootballResults.WebApp.Services.Predictions;
 using Microsoft.AspNetCore.Components;
 
@@ -11,7 +13,7 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
         protected IPredictionGameService? GameService { get; set; }
 
         [Inject]
-        protected NavigationManager? NavigationManager { get; set; }
+        protected NavigationManager NavigationManager { get; set; } = default!;
 
         [CascadingParameter(Name = "User")]
         protected User? User { get; set; }
@@ -21,6 +23,10 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
 
         protected PredictionGame? Game { get; set; }
 
+        protected IEnumerable<League>? Leagues { get; set; }
+
+        protected IEnumerable<Match>? Matches { get; set; }
+
         protected bool UserAuthorized { get; set; }
 
         protected override async Task OnParametersSetAsync()
@@ -28,10 +34,15 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
             // both parameters are set
             if (GameID != null && User != null)
             {
-                await LoadGameAsync();
+                // Game not loaded yet
                 if (Game == null)
                 {
-                    // Game not found
+                    await LoadGameAsync();
+                }
+
+                // Game loaded but not found
+                if (Game == null)
+                {
                     NavigationManager!.NavigateTo("/Error", true);
                 }
                 else

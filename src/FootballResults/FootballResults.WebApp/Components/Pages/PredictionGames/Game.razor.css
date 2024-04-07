@@ -1,0 +1,34 @@
+﻿#gameContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    max-width: 1920px;
+    margin: auto;
+}
+
+.gameStandingCol, .leagueStandingsCol, .matchesCol {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+p {
+    text-align: center;
+    margin-top: 20px;
+}
+
+@media (min-width: 1024px) {
+    #gameContent {
+        flex-direction: row;
+    }
+
+    .gameStandingCol, .leagueStandingsCol {
+        width: 30%;
+    }
+
+    .matchesCol {
+        width: 40%;
+    }
+}
