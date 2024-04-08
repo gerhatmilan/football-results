@@ -26,36 +26,39 @@ namespace FootballResults.WebApp.Components.MiniComponents
         [Parameter]
         public String? DefaultColor { get; set; }
 
-        protected IEnumerable<int> FavoriteLeagueIDs { get => User?.FavoriteLeagues?.Select(fl => fl.LeagueID) ?? new List<int>(); }
-
-        protected IEnumerable<int> FavoriteTeamIDs { get => User?.FavoriteTeams?.Select(ft => ft.TeamID) ?? new List<int>(); }
-
         protected async Task FavoriteLeagueButtonClickedAsync()
         {
-            if (FavoriteLeagueIDs.Contains(Bookmark!.BookmarkID))
+            if (User!.FavoriteLeagues.Select(fl => fl.BookmarkID).Contains(Bookmark!.BookmarkID))
             {
-                await UserService!.RemoveFromFavoriteLeaguesAsync(User!.UserID, Bookmark!.BookmarkID);
+                await UserService!.RemoveFromFavoriteLeaguesAsync(User!, (League)Bookmark);
             }
             else
             {
-                await UserService!.AddToFavoriteLeaguesAsync(User!.UserID, Bookmark!.BookmarkID);
+                await UserService!.AddToFavoriteLeaguesAsync(User!, (League)Bookmark);
             }
 
+            await ReloadUser();
             await ButtonClicked.InvokeAsync();
         }
 
         protected async Task FavoriteTeamButtonClickedAsync()
         {
-            if (FavoriteTeamIDs.Contains(Bookmark!.BookmarkID))
+            if (User!.FavoriteTeams.Select(ft => ft.BookmarkID).Contains(Bookmark!.BookmarkID))
             {
-                await UserService!.RemoveFromFavoriteTeamsAsync(User!.UserID, Bookmark!.BookmarkID);
+                await UserService!.RemoveFromFavoriteTeamsAsync(User!, (Team)Bookmark);
             }
             else
             {
-                await UserService!.AddToFavoriteTeamsAsync(User!.UserID, Bookmark!.BookmarkID);
+                await UserService!.AddToFavoriteTeamsAsync(User!, (Team)Bookmark);
             }
 
+            await ReloadUser();
             await ButtonClicked.InvokeAsync();
+        }
+
+        protected async Task ReloadUser()
+        {
+            User = await UserService!.GetUserAsync(User!.UserID);
         }
     }
 }

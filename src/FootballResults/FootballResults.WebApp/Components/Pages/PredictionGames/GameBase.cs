@@ -10,7 +10,10 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
     public class GameBase : ComponentBase
     {
         [Inject]
-        protected IPredictionGameService? GameService { get; set; }
+        protected IPredictionGameService GameService { get; set; } = default!;
+
+        [Inject]
+        protected ILeagueService LeagueService { get; set; } = default!;
 
         [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
@@ -23,7 +26,7 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
 
         protected PredictionGame? Game { get; set; }
 
-        protected IEnumerable<League>? Leagues { get; set; }
+        protected IEnumerable<LeagueStanding> LeagueStandings { get; set; } = new List<LeagueStanding>();
 
         protected IEnumerable<Match>? Matches { get; set; }
 
@@ -48,6 +51,7 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
                 else
                 {
                     AuthorizeUser();
+                    await LoadStandingsForLeaguesAsync();
                 }
             }
         }
@@ -61,6 +65,21 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
                 if (Game == null)
                 {
                     NavigationManager!.NavigateTo("/Error", true);
+                }
+            }
+            catch (Exception)
+            {
+                NavigationManager!.NavigateTo("/Error", true);
+            }
+        }
+
+        protected async Task LoadStandingsForLeaguesAsync()
+        {
+            try
+            {
+                foreach (League league in Game!.Leagues)
+                {
+                    LeagueStandings = LeagueStandings.Concat(await LeagueService.GetStandingsForLeagueAndSeasonAsync(league.Name, (int)league.CurrentSeason!));
                 }
             }
             catch (Exception)

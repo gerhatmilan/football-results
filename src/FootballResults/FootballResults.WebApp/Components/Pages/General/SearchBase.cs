@@ -21,7 +21,7 @@ namespace FootballResults.WebApp.Components.Pages.General
         protected IEnumerable<League>? Leagues { get; set; }
         protected IEnumerable<Team>? Teams { get; set; }
 
-        protected override async Task OnInitializedAsync()
+        protected override async Task OnParametersSetAsync()
         {
             try
             {

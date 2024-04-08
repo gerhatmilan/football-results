@@ -1,16 +1,16 @@
 ﻿@inherits BookmarkIconBase
 
 <div class="favoriteButtonDiv">
-    @if (Bookmark is League)
+    @if (Bookmark is League && User != null)
     {
-        <svg type="button" class="favoriteButton bi bi-bookmark-fill @(FavoriteLeagueIDs.Contains(Bookmark.BookmarkID) ? "favorite" : DefaultColor)"
+        <svg type="button" class="favoriteButton bi bi-bookmark-fill @(User.FavoriteLeagues.Select(fl => fl.BookmarkID).Contains(Bookmark.BookmarkID) ? "favorite" : DefaultColor)"
                 @onclick="FavoriteLeagueButtonClickedAsync" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
             <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2" />
         </svg>
     }
-    else if (Bookmark is Team)
+    else if (Bookmark is Team && User != null)
     {
-        <svg type="button" class="favoriteButton bi bi-bookmark-fill @(FavoriteTeamIDs.Contains(Bookmark.BookmarkID) ? "favorite" : DefaultColor)"
+        <svg type="button" class="favoriteButton bi bi-bookmark-fill @(User.FavoriteTeams.Select(ft => ft.BookmarkID).Contains(Bookmark.BookmarkID) ? "favorite" : DefaultColor)"
                 @onclick="FavoriteTeamButtonClickedAsync" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
             <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2" />
         </svg>

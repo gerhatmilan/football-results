@@ -1,4 +1,5 @@
-﻿using FootballResults.Models.Users;
+﻿using FootballResults.Models.Football;
+using FootballResults.Models.Users;
 
 namespace FootballResults.Models.Predictions
 {
@@ -16,11 +17,13 @@ namespace FootballResults.Models.Predictions
         public int GoalDifferenceReward { get; set; }
         public DateTime? CreatedAt { get; set; }
         public bool IsFinished { get; set; }
-        public IEnumerable<IncludedLeague> IncludedLeagues { get; set; }
-        public IEnumerable<Prediction> Predictions { get; set; }
-        public IEnumerable<User> Players { get; set; }
-
+        public ICollection<League> Leagues { get; set; }
+        public ICollection<Prediction> Predictions { get; set; }
+        public ICollection<User> Players { get; set; }
         public IEnumerable<GameStanding> Standings { get; set; } 
+
+        // skip navigations
         public IEnumerable<Participation> Participations { get; set; }
+        public IEnumerable<GameLeague> GameLeagues { get; set; }
     }
 }

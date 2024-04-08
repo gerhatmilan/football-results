@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using FootballResults.Models.Users;
+using System.Text.Json.Serialization;
 
 namespace FootballResults.Models.Football
 {
@@ -30,6 +31,14 @@ namespace FootballResults.Models.Football
 
         public ICollection<Player> Squad { get; set; }
 
+        [JsonIgnore]
         public int BookmarkID { get => TeamID; }
+
+        [JsonIgnore]
+        public IEnumerable<User> UsersWhoBookmarked { get; set; }
+
+        // skip navigations
+        [JsonIgnore]
+        public IEnumerable<FavoriteTeam> UserTeams { get; set; }
     }
 }

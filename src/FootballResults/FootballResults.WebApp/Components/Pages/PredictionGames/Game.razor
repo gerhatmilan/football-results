@@ -10,20 +10,29 @@
 
     <h1>@Game.Name</h1>
     <p>
-        @Game.Description
-        <br /><br />
+        @if (@Game.Description != null)
+        {
+            @Game.Description
+            <br />
+        }
+        <br />
         Created by <span class="highlight">@User?.Username</span>
     </p>
 
     <div id="gameContent">
         <div class="gameStandingCol">
+            <h2>Standings</h2>
             <GameStandingsCard Standings="@Game.Standings" />
         </div>
         <div class="matchesCol">
             <h1>456</h1>
         </div>
         <div class="leagueStandingsCol">
-
+            @foreach (League league in Game.Leagues)
+            {
+                <h2>@league.Name</h2>
+                <StandingsCard Standings="@LeagueStandings.Where(s => s.LeagueID == league.LeagueID)" />
+            }
         </div>
     </div>
 }

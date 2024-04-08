@@ -365,6 +365,21 @@ namespace FootballResults.API.Models
                 .HasKey(p => new { p.PlayerID, p.TeamID });
         }
 
+        private void SetIgnoredProperties(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<League>()
+               .Ignore(l => l.BookmarkID)
+               .Ignore(l => l.UsersWhoBookmarked)
+               .Ignore(l => l.UserLeagues)
+               .Ignore(l => l.GameLeagues)
+               .Ignore(l => l.GamesWhereIncluded);
+
+            modelBuilder.Entity<Team>()
+                .Ignore(t => t.BookmarkID)
+                .Ignore(t => t.UsersWhoBookmarked)
+                .Ignore(t => t.UserTeams);
+        }
+
         private void SetRelationShips(ModelBuilder modelBuilder)
         {
             #region Countries
@@ -457,6 +472,7 @@ namespace FootballResults.API.Models
 
             SetTableNames(modelBuilder);
             SetColumns(modelBuilder);
+            SetIgnoredProperties(modelBuilder);
             SetPrimaryKeys(modelBuilder);
             SetRelationShips(modelBuilder);
         }

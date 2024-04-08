@@ -1,4 +1,8 @@
-﻿namespace FootballResults.Models.Football
+﻿using FootballResults.Models.Predictions;
+using FootballResults.Models.Users;
+using System.Text.Json.Serialization;
+
+namespace FootballResults.Models.Football
 {
     public class League : IBookmarkable
     {
@@ -24,6 +28,20 @@
 
         public ICollection<TopScorer> TopScorers { get; set; }
 
+        [JsonIgnore]
         public int BookmarkID { get => LeagueID; }
+
+        [JsonIgnore]
+        public IEnumerable<User> UsersWhoBookmarked { get; set; }
+
+        [JsonIgnore]
+        public IEnumerable<PredictionGame> GamesWhereIncluded { get; set; }
+        
+        // skip navigations
+        [JsonIgnore]
+        public IEnumerable<FavoriteLeague> UserLeagues { get; set; }
+
+        [JsonIgnore]
+        public IEnumerable<GameLeague> GameLeagues { get; set; }
     }
 }

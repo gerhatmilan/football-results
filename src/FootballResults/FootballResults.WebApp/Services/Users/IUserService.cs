@@ -8,11 +8,9 @@ namespace FootballResults.WebApp.Services.Users
         Task<User?> GetUserAsync(int userID);
 
         Task<bool> ModifyUserAsync(User user, SettingsModel settingsModel);
-        Task AddToFavoriteLeaguesAsync(int userID, int leagueID);
-        Task AddToFavoriteTeamsAsync(int userID, int teamID);
-        Task RemoveFromFavoriteLeaguesAsync(int userID, int leagueID);
-        Task RemoveFromFavoriteTeamsAsync(int userID, int teamID);
-        Task<IEnumerable<League>> GetFavoriteLeaguesAsync(User? user);
-        Task<IEnumerable<Team>> GetFavoriteTeamsAsync(User? user);
+        Task AddToFavoriteLeaguesAsync(User user, League league);
+        Task AddToFavoriteTeamsAsync(User user, Team team);
+        Task RemoveFromFavoriteLeaguesAsync(User user, League League);
+        Task RemoveFromFavoriteTeamsAsync(User user, Team team);
     }
 }

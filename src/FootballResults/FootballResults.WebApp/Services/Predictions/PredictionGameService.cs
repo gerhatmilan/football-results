@@ -3,6 +3,7 @@ using FootballResults.Models.Predictions;
 using FootballResults.Models.Users;
 using FootballResults.Models.General;
 using Microsoft.EntityFrameworkCore;
+using FootballResults.Models.Football;
 
 namespace FootballResults.WebApp.Services.Predictions
 {
@@ -30,20 +31,17 @@ namespace FootballResults.WebApp.Services.Predictions
                 GoalCountReward = model.GoalCountReward,
                 GoalDifferenceReward = model.GoalDifferenceReward,
                 IsFinished = false,
+                Leagues = new List<League>()
             };
         }
         
-        private async Task AddIncludedLeaguesAsync(int predictionGameID, CreateGameModel model)
+        private async Task AddIncludedLeaguesAsync(PredictionGame game, CreateGameModel model)
         {
             foreach (var pair in model.IncludedLeagues)
             {
                 if (pair.Second)
                 {
-                    await _dbContext.IncludedLeagues.AddAsync(new IncludedLeague
-                    {
-                        GameID = predictionGameID,
-                        LeagueID = pair.First.LeagueID
-                    });
+                    _dbContext.IncludedLeagues.Add(new GameLeague { GameID = game.GameID, LeagueID = pair.First.LeagueID });
                 }
             }
 
@@ -80,8 +78,8 @@ namespace FootballResults.WebApp.Services.Predictions
                         savedGame.ImagePath = saveFilePath + $"/{saveFileName}";
                     }
 
-                    // add the selected leagues to the included leagues table
-                    await AddIncludedLeaguesAsync(savedGame.GameID, model);
+                    // add the selected leagues to the game
+                    await AddIncludedLeaguesAsync(savedGame, model);
 
                     transaction.Commit();
 
@@ -100,7 +98,7 @@ namespace FootballResults.WebApp.Services.Predictions
             return await _dbContext.PredictionGames
                 .Where(g => g.GameID == gameID)
                 .Include(g => g.Players)
-                .Include(g => g.IncludedLeagues)
+                .Include(g => g.Leagues)
                 .Include(g => g.Predictions)
                 .Include(g => g.Standings)
                 .FirstOrDefaultAsync();
@@ -111,8 +109,6 @@ namespace FootballResults.WebApp.Services.Predictions
             return await _dbContext.PredictionGames
                 .Where(g => g.JoinKey.Equals(joinKey))
                 .Include(g => g.Players)
-                .Include(g => g.IncludedLeagues)
-                .Include(g => g.Predictions)
                 .FirstOrDefaultAsync();
         }
 

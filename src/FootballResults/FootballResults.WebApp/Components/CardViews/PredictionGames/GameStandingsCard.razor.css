@@ -9,15 +9,8 @@
 
 table {
     width: 100%;
-    max-width: 600px;
     margin: auto;
     vertical-align: middle;
-    border: 1px solid var(--light);
-    border-radius: 5px;
-}
-
-tr {
-    border: 1px solid var(--light);
 }
 
 .playerDiv {
@@ -53,6 +46,12 @@ tr {
     text-align: center;
 }
 
+p {
+    text-align: center;
+    font-size: 0.5rem;
+    margin: 20px auto;
+}
+
 @media (min-width: 0px) {
     table {
         font-size: 1rem;
@@ -72,11 +71,14 @@ tr {
 @media (min-width: 500px) {
     .playerAvatarDiv {
         height: 50px;
-        margin-right: 20px;
     }
 
     th, td {
         font-size: 1rem;
         padding: 10px;
+    }
+
+    p {
+        font-size: 0.8rem;
     }
 }

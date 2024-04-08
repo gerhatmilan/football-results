@@ -1,6 +1,7 @@
 ﻿using FootballResults.Models.Football;
 using FootballResults.Models.General;
 using FootballResults.Models.Users;
+using FootballResults.WebApp.Components.Pages.MainMenu;
 using FootballResults.WebApp.Database;
 using Microsoft.EntityFrameworkCore;
 using System.Net.NetworkInformation;
@@ -67,21 +68,21 @@ namespace FootballResults.WebApp.Services.Users
             }
         }
 
-        public async Task AddToFavoriteLeaguesAsync(int userID, int leagueID)
+        public async Task AddToFavoriteLeaguesAsync(User user, League league)
         {
-            await _dbContext.FavoriteLeagues.AddAsync(new FavoriteLeague { UserID = userID, LeagueID = leagueID });
+            await _dbContext.FavoriteLeagues.AddAsync(new FavoriteLeague { UserID = user.UserID, LeagueID = league.LeagueID });
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task AddToFavoriteTeamsAsync(int userID, int teamID)
+        public async Task AddToFavoriteTeamsAsync(User user, Team team)
         {
-            await _dbContext.FavoriteTeams.AddAsync(new FavoriteTeam { UserID = userID, TeamID = teamID });
+            await _dbContext.FavoriteTeams.AddAsync(new FavoriteTeam { UserID = user.UserID, TeamID = team.TeamID });
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task RemoveFromFavoriteLeaguesAsync(int userID, int leagueID)
+        public async Task RemoveFromFavoriteLeaguesAsync(User user, League league)
         {
-            var entity = await _dbContext.FavoriteLeagues.FindAsync(userID, leagueID);
+            var entity = await _dbContext.FavoriteLeagues.FindAsync(user.UserID, league.LeagueID);
 
             if (entity != null)
             {
@@ -90,43 +91,14 @@ namespace FootballResults.WebApp.Services.Users
             }
         }
 
-        public async Task RemoveFromFavoriteTeamsAsync(int userID, int teamID)
+        public async Task RemoveFromFavoriteTeamsAsync(User user, Team team)
         {
-            var entity = await _dbContext.FavoriteTeams.FindAsync(userID, teamID);
+            var entity = await _dbContext.FavoriteTeams.FindAsync(user.UserID, team.TeamID);
 
             if (entity != null)
             {
                 _dbContext.FavoriteTeams.Remove(entity);
                 await _dbContext.SaveChangesAsync();
-            }
-        }
-        public async Task<IEnumerable<League>> GetFavoriteLeaguesAsync(User? user)
-        {
-            var leagues = await _httpClient.GetFromJsonAsync<IEnumerable<League>>("api/leagues");
-
-            if (leagues != null && user?.FavoriteLeagues != null)
-            {
-                var userFavorites = user.FavoriteLeagues.Select(fl => fl.LeagueID);
-                return leagues.Where(l => userFavorites.Contains(l.LeagueID));
-            }
-            else
-            {
-                return Enumerable.Empty<League>();
-            }
-        }
-
-        public async Task<IEnumerable<Team>> GetFavoriteTeamsAsync(User? user)
-        {
-            var teams = await _httpClient.GetFromJsonAsync<IEnumerable<Team>>("api/teams");
-
-            if (teams != null && user?.FavoriteTeams != null)
-            {
-                var userFavorites = user.FavoriteTeams.Select(ft => ft.TeamID);
-                return teams.Where(t => userFavorites.Contains(t.TeamID));
-            }
-            else
-            {
-                return Enumerable.Empty<Team>();
             }
         }
     }

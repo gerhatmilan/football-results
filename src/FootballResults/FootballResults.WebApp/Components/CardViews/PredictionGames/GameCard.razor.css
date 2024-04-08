@@ -52,8 +52,7 @@
     }
 }
 
-@media (min-width: 400px)
-{
+@media (min-width: 400px) {
     .gameCard {
         width: 350px;
         height: 200px;

@@ -9,54 +9,41 @@
 
 <h1>Favorites</h1>
 
-@if (FavoriteLeagues != null && FavoriteLeagues.Count() > 0)
+@if (User != null)
 {
-    <h2>Leagues</h2>
-    <div class="leagues">
-        @foreach (var league in FavoriteLeagues.OrderBy(l => l.CountryID).ThenBy(l => l.Name))
-        {
-            <LeagueCard League="league" BookmarkClicked="OnBookmarkClicked" />
-        }
-    </div>
+    @if (User.FavoriteLeagues.Count() > 0)
+    {
+        <h2>Leagues</h2>
+        <div class="leagues">
+            @foreach (var league in User.FavoriteLeagues.OrderBy(l => l.CountryID).ThenBy(l => l.Name))
+            {
+                <LeagueCard League="league" BookmarkClicked="OnBookmarkClicked" />
+            }
+        </div>
+    }
+    @if (User.FavoriteTeams.Count() > 0)
+    {
+        <h2>Teams</h2>
+        <div class="teams">
+            @foreach (var team in User.FavoriteTeams.OrderBy(t => t.Name))
+            {
+                <div class="teamContainer">
+                    <TeamCard Team="team" />
+                    <BookmarkIcon Bookmark="team" DefaultColor="defaultLight" ButtonClicked="OnBookmarkClicked" />
+                </div>
+            }
+        </div>
+    }
+    @if ((User.FavoriteLeagues.Count() == 0) && (User.FavoriteTeams.Count() == 0))
+    {
+        <p>You can bookmark your favorite leagues and teams for quick access</p>
+    }
 }
-@if (FavoriteTeams != null && FavoriteTeams.Count() > 0)
-{
-    <h2>Teams</h2>
-    <div class="teams">
-        @foreach (var team in FavoriteTeams.OrderBy(t => t.CountryID).ThenBy(t => t.Name))
-        {
-            <div class="teamContainer">
-                <TeamCard Team="team" />
-                <BookmarkIcon Bookmark="team" DefaultColor="defaultLight" ButtonClicked="OnBookmarkClicked" />
-            </div>
-        }
-    </div>
-}
-@if ((FavoriteLeagues != null && FavoriteLeagues.Count() == 0) && (FavoriteTeams != null && FavoriteTeams.Count() == 0))
-{
-    <p>You can bookmark your favorite leagues and teams for quick access</p>
-}
+
 
 @code {
     [CascadingParameter(Name = "User")]
     public User? User { get; set; }
-
-    private IEnumerable<League>? FavoriteLeagues { get; set; }
-    private IEnumerable<Team>? FavoriteTeams { get; set; }
-
-    protected override async Task OnParametersSetAsync()
-    {
-        try
-        {
-            FavoriteLeagues = await UserService.GetFavoriteLeaguesAsync(User);
-            FavoriteTeams = await UserService.GetFavoriteTeamsAsync(User);
-        }
-        catch (HttpRequestException)
-        {
-            NavigationManager.NavigateTo("/Error", true);
-        }
-
-    }
 
     private void OnBookmarkClicked()
     {
