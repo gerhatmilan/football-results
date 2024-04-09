@@ -82,7 +82,7 @@ namespace FootballResults.API.Models
             modelBuilder.Entity<League>()
                 .Property(l => l.CurrentSeason)
                 .HasColumnName("current_season")
-                .IsRequired(false);
+                .IsRequired(true);
             modelBuilder.Entity<League>()
                 .Property(l => l.LogoLink)
                 .HasColumnName("logo_link")

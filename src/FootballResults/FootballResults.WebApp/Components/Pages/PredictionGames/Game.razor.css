@@ -14,23 +14,22 @@
 
 p {
     text-align: center;
-    margin-top: 20px;
 }
 
-::deep .contentGroup {
+.leagueStanding {
     font-size: 0.5rem !important;
-    max-height: 500px;
     padding: 10px;
     overflow-y: auto;
 }
 
-::deep .contentGroup::-webkit-scrollbar {
+::deep .highlight::-webkit-scrollbar {
     display: none;
 }
 
 ::deep th, ::deep td {
     font-size: 1rem
 }
+
 
 @media (min-width: 1024px) {
     #gameContent {
@@ -42,6 +41,11 @@ p {
     }
 
     .matchesCol {
+        padding: 0 50px;
         width: 40%;
+    }
+
+    .leagueStanding {
+        max-height: 500px;
     }
 }

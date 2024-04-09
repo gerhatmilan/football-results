@@ -35,5 +35,17 @@
         public Team HomeTeam { get; set; }
 
         public Team AwayTeam { get; set; }
+
+
+        public bool IsInProgress()
+        {
+            return (Date < DateTime.UtcNow) && (Status == "1H" || Status == "HT" || Status == "2H"
+                || Status == "ET" || Status == "BT" || Status == "P");
+        }
+
+        public bool IsFinished()
+        {
+            return (Date < DateTime.UtcNow) && (Status == "FT" || Status == "AET" || Status == "PEN");
+        }
     }
 }

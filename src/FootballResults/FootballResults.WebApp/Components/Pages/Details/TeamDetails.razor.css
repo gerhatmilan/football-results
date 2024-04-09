@@ -50,6 +50,10 @@
     color: var(--link);
 }
 
+::deep .favoriteButton {
+    width: 50px;
+}
+
 @media (min-width: 0px) {
     .nameHeader {
         font-size: 1.8rem;

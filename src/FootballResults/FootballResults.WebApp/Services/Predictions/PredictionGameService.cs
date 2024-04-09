@@ -41,7 +41,7 @@ namespace FootballResults.WebApp.Services.Predictions
             {
                 if (pair.Second)
                 {
-                    _dbContext.IncludedLeagues.Add(new GameLeague { GameID = game.GameID, LeagueID = pair.First.LeagueID });
+                    _dbContext.IncludedLeagues.Add(new GameLeague { GameID = game.GameID, LeagueID = pair.First.LeagueID, Season = pair.First.CurrentSeason });
                 }
             }
 

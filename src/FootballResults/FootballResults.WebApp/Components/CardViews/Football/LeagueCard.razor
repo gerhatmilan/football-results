@@ -21,22 +21,18 @@
             switch (MatchOrderOption)
             {
                 case MatchOrderOption.DateAsc:
-                        @foreach (Match match in Matches.OrderBy(m => m.Date))
-                        {
-                            <h2>@match.Round</h2>
-                            <div class="contentGroup">
-                                <MatchCard Match="match" />
-                            </div>
-                        }
+                    @foreach (Match match in Matches.OrderBy(m => m.Date))
+                    {
+                        <h2>@match.Round</h2>
+                        <MatchCard Match="match" />
+                    }
                     
                     break;
                 case MatchOrderOption.DateDesc:
                     @foreach (Match match in Matches.OrderByDescending(m => m.Date))
                     {
                         <h2>@match.Round</h2>
-                        <div class="contentGroup">
-                            <MatchCard Match="match" />
-                        </div>
+                        <MatchCard Match="match" />
                     }   
 
                     break;
@@ -54,12 +50,10 @@
                     @foreach (var roundGroup in matchesByRound)
                     {
                         <h2>@roundGroup.Item1</h2>
-                        <div class="contentGroup">
-                            @foreach (Match match in roundGroup.Item2)
-                            {
-                                <MatchCard Match="match" />
-                            }
-                        </div>
+                        @foreach (Match match in roundGroup.Item2)
+                        {
+                            <MatchCard Match="match" />
+                        }
                     }
 
                     break;
@@ -78,12 +72,10 @@
                     @foreach (var roundGroup in matchesByRound)
                     {
                         <h2>@roundGroup.Item1</h2>
-                        <div class="contentGroup">
-                            @foreach (Match match in roundGroup.Item2)
-                            {
-                                <MatchCard Match="match" />
-                            }
-                        </div>
+                        @foreach (Match match in roundGroup.Item2)
+                        {
+                            <MatchCard Match="match" />
+                        }
                     }
 
                     break;

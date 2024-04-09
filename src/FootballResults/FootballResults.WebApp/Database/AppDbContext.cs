@@ -138,7 +138,7 @@ namespace FootballResults.WebApp.Database
             modelBuilder.Entity<League>()
                 .Property(l => l.CurrentSeason)
                 .HasColumnName("current_season")
-                .IsRequired(false);
+                .IsRequired(true);
             modelBuilder.Entity<League>()
                 .Property(l => l.LogoLink)
                 .HasColumnName("logo_link")
@@ -549,6 +549,10 @@ namespace FootballResults.WebApp.Database
                 .Property(il => il.LeagueID)
                 .HasColumnName("league_id")
                 .IsRequired(true);
+            modelBuilder.Entity<GameLeague>()
+                .Property(il => il.Season)
+                .HasColumnName("season")
+                .IsRequired(true);
             #endregion
 
             #region Predictions
@@ -613,25 +617,6 @@ namespace FootballResults.WebApp.Database
             #endregion
 
             #endregion
-        }
-
-        private void SetIgnoredProperties(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<League>()
-               .Ignore(l => l.BookmarkID)
-               .Ignore(l => l.UsersWhoBookmarked)
-               .Ignore(l => l.GamesWhereIncluded)
-               .Ignore(l => l.UserLeagues)
-               .Ignore(l => l.GameLeagues);
-
-            modelBuilder.Entity<Team>()
-                .Ignore(t => t.BookmarkID)
-                .Ignore(t => t.UsersWhoBookmarked)
-                .Ignore(t => t.UserTeams);
-
-            modelBuilder.Entity<FavoriteLeague>()
-                .Ignore(fl => fl.League)
-                .Ignore(fl => fl.User);
         }
 
         private void SetPrimaryKeys(ModelBuilder modelBuilder)
@@ -833,6 +818,12 @@ namespace FootballResults.WebApp.Database
                         .WithMany(u => u.Participations)
                         .HasForeignKey(r => r.UserID));
 
+            // User 1 : N PredictionGame (created games by user)
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.CreatedGames)
+                .WithOne(g => g.Owner)
+                .HasForeignKey(g => g.OwnerID);
+
             // PredictionGame N : N League (included leagues in competition)
             modelBuilder.Entity<PredictionGame>()
                 .HasMany(g => g.Leagues)
@@ -877,7 +868,6 @@ namespace FootballResults.WebApp.Database
             SetTableNames(modelBuilder);
             SetColumns(modelBuilder);
             SetPrimaryKeys(modelBuilder);
-            SetIgnoredProperties(modelBuilder);
             SetRelationShips(modelBuilder);
         }
 

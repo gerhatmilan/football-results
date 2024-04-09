@@ -16,6 +16,9 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
         protected ILeagueService LeagueService { get; set; } = default!;
 
         [Inject]
+        protected IMatchService MatchService { get; set; } = default!;
+
+        [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
 
         [CascadingParameter(Name = "User")]
@@ -28,7 +31,7 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
 
         protected IEnumerable<LeagueStanding> LeagueStandings { get; set; } = new List<LeagueStanding>();
 
-        protected IEnumerable<Match>? Matches { get; set; }
+        protected ICollection<(League, IEnumerable<Match>)> MatchesByLeagues { get; set; } = new List<(League, IEnumerable<Match>)>();
 
         protected bool UserAuthorized { get; set; }
 
@@ -48,10 +51,14 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
                 {
                     NavigationManager!.NavigateTo("/Error", true);
                 }
+                else if (AuthorizeUser())
+                {
+                    await LoadStandingsForLeaguesAsync();
+                    await LoadMatchesForLeaguesAsync();
+                }
                 else
                 {
-                    AuthorizeUser();
-                    await LoadStandingsForLeaguesAsync();
+                    NavigationManager!.NavigateTo("/access-denied", true);
                 }
             }
         }
@@ -77,9 +84,9 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
         {
             try
             {
-                foreach (League league in Game!.Leagues)
+                foreach (GameLeague gameLeague in Game!.GameLeagues)
                 {
-                    LeagueStandings = LeagueStandings.Concat(await LeagueService.GetStandingsForLeagueAndSeasonAsync(league.Name, (int)league.CurrentSeason!));
+                    LeagueStandings = LeagueStandings.Concat(await LeagueService.GetStandingsForLeagueAndSeasonAsync(gameLeague.League.Name, gameLeague.Season));
                 }
             }
             catch (Exception)
@@ -88,16 +95,25 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
             }
         }
 
-        protected void AuthorizeUser()
+        protected async Task LoadMatchesForLeaguesAsync()
         {
-            if (!Game!.Players.Select(p => p.UserID).Contains(User!.UserID))
+            try
             {
-                NavigationManager!.NavigateTo("/access-denied", true);
+                foreach (GameLeague gameLeague in Game!.GameLeagues)
+                {
+                    var matches = await MatchService.GetMatchesForLeagueAndSeasonAsync(gameLeague.League.Name, gameLeague.Season);
+                    MatchesByLeagues.Add((gameLeague.League, matches));
+                }
             }
-            else
+            catch (Exception)
             {
-                UserAuthorized = true;
+                NavigationManager!.NavigateTo("/Error", true);
             }
+        }
+
+        protected bool AuthorizeUser()
+        {
+            return (UserAuthorized = Game!.Players.Select(p => p.UserID).Contains(User!.UserID));
         }
     }
 }

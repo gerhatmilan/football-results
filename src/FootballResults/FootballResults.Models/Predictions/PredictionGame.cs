@@ -21,6 +21,7 @@ namespace FootballResults.Models.Predictions
         public ICollection<Prediction> Predictions { get; set; }
         public ICollection<User> Players { get; set; }
         public IEnumerable<GameStanding> Standings { get; set; } 
+        public User Owner { get; set; }
 
         // skip navigations
         public IEnumerable<Participation> Participations { get; set; }

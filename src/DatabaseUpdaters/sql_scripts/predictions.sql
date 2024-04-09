@@ -22,14 +22,15 @@ CREATE TABLE "predictions"."prediction_games" (
 CREATE TABLE "predictions"."included_leagues" (
   "prediction_game_id" integer NOT NULL,
   "league_id" integer NOT NULL,
+  "season" integer NOT NULL,
   
-  PRIMARY KEY (prediction_game_id, league_id),
+  PRIMARY KEY (prediction_game_id, league_id, season),
   
   FOREIGN KEY ("prediction_game_id")
     REFERENCES "predictions"."prediction_games" ("prediction_game_id")
 	ON DELETE CASCADE,
-  FOREIGN KEY ("league_id")
-    REFERENCES "football"."leagues" ("league_id")
+  FOREIGN KEY ("league_id", "season")
+    REFERENCES "football"."available_seasons" ("league_id", "season")
 	ON DELETE CASCADE
 );
 

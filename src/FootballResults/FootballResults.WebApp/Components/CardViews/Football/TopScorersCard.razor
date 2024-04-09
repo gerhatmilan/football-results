@@ -1,63 +1,61 @@
 ﻿@if (TopScorers != null)
 {
-    <div class="contentGroup">
-        <div class="table-responsive">
-            <table class="table table-striped table-borderless topscorersTable">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Player</th>
-                        <th scope="col">Team</th>
-                        <th scope="col">P</th>
-                        <th scope="col">G</th>
-                        <th scope="col">A</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (TopScorer topscorer in TopScorers)
-                    {
-                        <tr class="topscorer">
-                            <td>@topscorer.Rank</td>
-                            <td>
-                                <div class="player">
-                                    <div class="playerPhotoDiv">
-                                        <img class="playerPhoto" src="@topscorer.PhotoLink" alt="@topscorer.PlayerName photo"/>
-                                    </div>
-                                        @topscorer.PlayerName
+    <div class="table-responsive">
+        <table class="table table-striped table-borderless topscorersTable">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Player</th>
+                    <th scope="col">Team</th>
+                    <th scope="col">P</th>
+                    <th scope="col">G</th>
+                    <th scope="col">A</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (TopScorer topscorer in TopScorers)
+                {
+                    <tr class="topscorer">
+                        <td>@topscorer.Rank</td>
+                        <td>
+                            <div class="player">
+                                <div class="playerPhotoDiv">
+                                    <img class="playerPhoto" src="@topscorer.PhotoLink" alt="@topscorer.PlayerName photo"/>
                                 </div>
+                                    @topscorer.PlayerName
+                            </div>
                                 
-                            </td>
-                            <td>
-                                <a class="teamLogoDiv" href="teams/@topscorer.Team.Name">
-                                    <img class="teamLogo" src="@topscorer.Team.LogoLink" alt="@topscorer.Team.Name logo" />
-                                </a>
-                            </td>
-                            <td>
-                                @(topscorer.Played != null ? topscorer.Played : "?")
-                            </td>
-                            <td>@topscorer.Goals</td>
-                            <td>
-                                @topscorer.Assists.GetValueOrDefault(0)
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-
-        <p>
-            Last update
-            <br />
-            @if (LastUpdate != null)
-            {
-                <ToLocal DateTime="@DateTime.SpecifyKind(LastUpdate.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
-            }
-            else
-            {
-                <span>Unknown</span>
-            }
-        </p>
+                        </td>
+                        <td>
+                            <a class="teamLogoDiv" href="teams/@topscorer.Team.Name">
+                                <img class="teamLogo" src="@topscorer.Team.LogoLink" alt="@topscorer.Team.Name logo" />
+                            </a>
+                        </td>
+                        <td>
+                            @(topscorer.Played != null ? topscorer.Played : "?")
+                        </td>
+                        <td>@topscorer.Goals</td>
+                        <td>
+                            @topscorer.Assists.GetValueOrDefault(0)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
+
+    <p>
+        Last update
+        <br />
+        @if (LastUpdate != null)
+        {
+            <ToLocal DateTime="@DateTime.SpecifyKind(LastUpdate.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+        }
+        else
+        {
+            <span>Unknown</span>
+        }
+    </p>
 }
 else
 {

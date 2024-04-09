@@ -24,13 +24,10 @@
     @if (User.FavoriteTeams.Count() > 0)
     {
         <h2>Teams</h2>
-        <div class="teams">
+        <div class="teams highlight">
             @foreach (var team in User.FavoriteTeams.OrderBy(t => t.Name))
             {
-                <div class="teamContainer">
-                    <TeamCard Team="team" />
-                    <BookmarkIcon Bookmark="team" DefaultColor="defaultLight" ButtonClicked="OnBookmarkClicked" />
-                </div>
+                <TeamCard Team="team" BookmarkClicked="OnBookmarkClicked" ShowBookmark />
             }
         </div>
     }

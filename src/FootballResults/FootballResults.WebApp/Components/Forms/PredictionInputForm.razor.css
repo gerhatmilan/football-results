@@ -1,0 +1,52 @@
+﻿label {
+    display: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+}
+
+input {
+    border: 2px solid;
+    width: 20%;
+    aspect-ratio: 1 / 1;
+    display: inline-block;
+    text-align: center;
+    padding: 0;
+    margin: 5%;
+    font-size: 5vw;
+}
+
+input.default {
+    border-color: var(--link);
+
+}
+
+input.invalid {
+    border-color: var(--error);
+}
+
+input.success {
+    border-color: var(--bs-success);
+}
+
+input:disabled {
+    background-color: inherit;
+}
+
+@media (min-width: 0px) {
+    input {
+        border-radius: 5px;
+        font-size: 5vw;
+    }
+
+}
+
+@media (min-width: 500px) {
+    input {
+        border-radius: 10px;
+        font-size: 2rem;
+    }
+}

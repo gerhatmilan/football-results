@@ -1,11 +1,37 @@
-﻿<a class="teamDiv" href="/teams/@Team?.Name">
-    <div class="teamLogoDiv">
-        <img class="teamLogo" src="@Team?.LogoLink" alt="@Team?.Name logo" />
+﻿<div class="teamDiv">
+    <a href="/teams/@Team?.Name">
+        <div class="teamLogoDiv">
+            <img class="teamLogo" src="@Team?.LogoLink" alt="@Team?.Name logo" />
+        </div>
+        <div class="teamName">
+            @Team?.Name
+        </div>
+    </a>
+    <div>
+        @if (ShowBookmark)
+        {
+            <AuthorizeView>
+                <Authorized>
+                    <BookmarkIcon Bookmark="Team" ButtonClicked="OnBookmarkClicked" DefaultColor="defaultLight" />
+                </Authorized>
+            </AuthorizeView>
+        }
     </div>
-    <div class="teamName">@Team?.Name</div>
-</a>
+</div>
+
 
 @code {
     [Parameter]
     public Team? Team { get; set; }
+
+    [Parameter]
+    public bool ShowBookmark { get; set; }
+
+    [Parameter]
+    public EventCallback BookmarkClicked { get; set; }
+
+    private async Task OnBookmarkClicked()
+    {
+        await BookmarkClicked.InvokeAsync();
+    }
 }

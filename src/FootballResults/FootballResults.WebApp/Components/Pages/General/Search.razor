@@ -16,10 +16,10 @@
 @if (Teams != null && Teams.Count() > 0)
 {
     <h1>Teams</h1>
-    <div class="teams">
+    <div class="teams highlight">
         @foreach (var team in Teams.OrderBy(t => t.Name))
         {
-            <TeamCard Team="team" />
+            <TeamCard Team="team" ShowBookmark />
         }
     </div>
 }

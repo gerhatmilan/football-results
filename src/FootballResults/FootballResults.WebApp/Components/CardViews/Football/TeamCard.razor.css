@@ -1,10 +1,13 @@
 ﻿.teamDiv {
     display: flex;
     flex-direction: column;
+    height: 100%;
+}
+
+a {
     text-decoration: none;
     color: var(--light);
-    width: 150px;
-    aspect-ratio: 1 / 1.2
+    height: 90%;
 }
 
 .homeTeamDiv {
@@ -16,7 +19,6 @@
 }
 
 .teamLogoDiv {
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,9 +30,10 @@
 }
 
 .teamName {
-    text-align: center;
     display: flex;
     justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 @media (min-width: 0px) {
@@ -38,17 +41,34 @@
         width: 25%;
     }
 
+    .teamLogoDiv {
+        height: 60%;
+    }
+    
     .teamName {
         font-size: 3vw;
+        height: 40%;
     }
 }
 
 @media (min-width: 500px) {
     .teamName {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
+    }
+
+    .teamLogoDiv {
+        height: 70%;
     }
 
     .teamName {
         word-wrap: break-word;
+        height: 30%;
+    }
+}
+
+@media (min-width: 1000px)
+{
+    .teamName {
+        font-size: 1.5rem;
     }
 }

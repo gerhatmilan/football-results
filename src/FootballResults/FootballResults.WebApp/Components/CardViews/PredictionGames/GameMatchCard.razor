@@ -1,9 +1,10 @@
-﻿@if (Match != null)
-{
-    <div class="matchCard">
+﻿@inherits GameMatchCardBase
 
+@if (Match != null)
+{
+    <div class="matchCard @(Match.IsFinished() ? "finished" : "")">
         <TeamCard Team="Match.HomeTeam" />
-        <a class="matchDetails" href="/matches/@Match.MatchID">
+        <div class="matchDetails">
             @if (Match.Date != null)
             {
                 @if (Match.Date < DateTime.UtcNow)
@@ -30,11 +31,11 @@
                         <div class="status">Status unknown</div>
                     }
 
-                    @if ((Match.Status == "NS" || Match.IsInProgress() && Match.LastUpdate != null))
+                    @if ((Match.Status == "NS" || Match.IsInProgress()) && Match.LastUpdate != null)
                     {
                         <div class="lastUpdate">
                             Last update:<br />
-                            <ToLocal DateTime="@DateTime.SpecifyKind(Match.LastUpdate.GetValueOrDefault(), DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+                            <ToLocal DateTime="@DateTime.SpecifyKind(Match.LastUpdate.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
                         </div>
                     }
                 }
@@ -45,13 +46,16 @@
                         <br />
                         <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="HH:MM" @rendermode="@RenderMode.InteractiveServer" />
                     </div>
-                }            
+                    <div>
+                        <PredictionInputForm Match="Match" />
+                    </div>
+                }
             }
             else
             {
                 <div class="date">Unknown date</div>
             }
-        </a>
+        </div>
         <TeamCard Team="Match.AwayTeam" />
     </div>
 }

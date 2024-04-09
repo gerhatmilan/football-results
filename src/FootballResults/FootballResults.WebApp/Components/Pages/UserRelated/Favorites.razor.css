@@ -1,14 +1,29 @@
-﻿.teams {
-    max-width: 1000px;
-    margin: auto;
-}
-
-p {
+﻿p {
     text-align: center;
 }
 
-.teamContainer {
-    display: flex;
-    justify-content: center;
-    margin: 3rem 0;
+.teams {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+::deep .teamDiv {
+    display: inline-block;
+    width: 25%;
+    margin: 20px;
+    aspect-ratio: 1 / 1.5;
+}
+
+@media (min-width: 0px) {
+    ::deep .teamDiv {
+        width: 30%;
+    }
+}
+
+@media (min-width: 500px) {
+    ::deep .teamDiv {
+        width: 20%;
+        max-width: 150px;
+    }
 }

@@ -2,8 +2,9 @@
 
 :root {
     --light: #ffffff;
-    --dark: #080808;
+    --dark: #000000;
     --link: var(--bs-link-color);
+    --highlight: #121212;
     --link-hover: rgba(255, 255, 255, 0.1);
     --error: rgb(255, 0, 0);
     --placeholder-light: rgba(255, 255, 255, 0.6);
@@ -51,10 +52,10 @@ p {
     color: white;
 }
 
-.contentGroup {
-    border: 1px solid var(--light);
-    background-color: var(--dark);
+.highlight {
+    background-color: var(--highlight);
     border-radius: 10px;
+    overflow: hidden;
     margin: 0 auto;
     width: 100%;
     max-width: 1000px;
@@ -62,16 +63,4 @@ p {
 
 .alert {
     font-size: 1rem !important;
-}
-
-@media (min-width: 0px) {
-    .contentGroup {
-        padding: 5px;
-    }
-}
-
-@media (min-width: 500px) {
-    .contentGroup {
-        padding: 20px;
-    }
 }

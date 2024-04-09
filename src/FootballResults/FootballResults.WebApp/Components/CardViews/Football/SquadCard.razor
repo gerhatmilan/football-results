@@ -1,44 +1,42 @@
 ﻿@if (Squad != null)
 {
-    <div class="contentGroup">
-        @foreach (var positionGroup in GetPositionGroups())
-        {
-            <div class="positionBlock">
-                <div class="position">@String.Concat(positionGroup.position, "s")</div>
-                <div class="table-responsive">
-                    <table class="table table-striped table-borderless playersTable">
-                        <thead>
-                            <tr>
-                                <th scope="col">Photo</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Number</th>
-                                <th scope="col">Age</th>
+    @foreach (var positionGroup in GetPositionGroups())
+    {
+        <div class="positionBlock">
+            <div class="position">@String.Concat(positionGroup.position, "s")</div>
+            <div class="table-responsive">
+                <table class="table table-striped table-borderless playersTable">
+                    <thead>
+                        <tr>
+                            <th scope="col">Photo</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Number</th>
+                            <th scope="col">Age</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var player in positionGroup.players)
+                        {
+                            <tr class="player">
+                                <td class="playerPhotoCell">
+                                    <img class="playerPhoto" src="@player.PhotoLink" alt="@player.Name" />
+                                </td>
+                                <td class="playerName">
+                                    @player.Name
+                                </td>
+                                <td class="playerNumber">
+                                    @(player.Number != null ? player.Number : "?")
+                                </td>
+                                <td class="playerAge">
+                                    @(player.Age != null ? player.Age : "?")
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var player in positionGroup.players)
-                            {
-                                <tr class="player">
-                                    <td class="playerPhotoCell">
-                                        <img class="playerPhoto" src="@player.PhotoLink" alt="@player.Name" />
-                                    </td>
-                                    <td class="playerName">
-                                        @player.Name
-                                    </td>
-                                    <td class="playerNumber">
-                                        @(player.Number != null ? player.Number : "?")
-                                    </td>
-                                    <td class="playerAge">
-                                        @(player.Age != null ? player.Age : "?")
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>       
-            </div>
-        }
-    </div>
+                        }
+                    </tbody>
+                </table>
+            </div>       
+        </div>
+    }
 }
 else
 {

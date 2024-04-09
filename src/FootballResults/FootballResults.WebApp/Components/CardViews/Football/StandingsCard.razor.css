@@ -1,6 +1,12 @@
-﻿table, th, td, tr {
-    background-color: var(--dark);
+﻿table {
+    background-color: inherit;
     color: var(--light);
+    margin: auto;
+}
+
+th, td, tr {
+    background-color: inherit;
+    color: inherit;
 }
 
 .standing:hover td {
@@ -9,6 +15,7 @@
 
 .standingsTable {
     width: 100%;
+    max-width: 1000px;
     vertical-align: middle;
 }
 

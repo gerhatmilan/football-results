@@ -5,16 +5,26 @@
     margin: auto 10px;
 }
 
-.favoriteButton {
-    height: 80%;
-    width: 80%;
-    max-width: 50px;
-}
-
 .defaultLight {
     color: white;
 }
 
 .favorite {
     color: yellow;
+}
+
+@media (min-width: 0px)
+{
+    .favoriteButton {
+        width: 80%;
+        max-width: 20px;
+    }
+}
+
+@media (min-width: 500px)
+{
+    .favoriteButton {
+        width: 3vw;
+        max-width: 40px;
+    }
 }

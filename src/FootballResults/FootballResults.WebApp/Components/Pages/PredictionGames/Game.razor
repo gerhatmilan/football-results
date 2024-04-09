@@ -6,9 +6,9 @@
 
 @if (Game != null && UserAuthorized)
 {
-    <PageTitle>@Game.Name</PageTitle>
+    <PageTitle>@($"{@Game.Owner.Username}'s {@Game.Name}")</PageTitle>
 
-    <h1>@Game.Name</h1>
+    <h1>@($"{@Game.Owner.Username}'s {@Game.Name}")</h1>
     <p>
         @if (@Game.Description != null)
         {
@@ -16,7 +16,6 @@
             <br />
         }
         <br />
-        Created by <span class="highlight">@User?.Username</span>
     </p>
 
     <div id="gameContent">
@@ -25,13 +24,30 @@
             <GameStandingsCard Standings="@Game.Standings" />
         </div>
         <div class="matchesCol">
-            <h1>456</h1>
+            @foreach (var matchesByLeague in MatchesByLeagues)
+            {
+                <h2>@matchesByLeague.Item1.Name</h2>
+
+                @foreach (Match match in matchesByLeague.Item2.OrderBy(m => m.IsFinished()).ThenBy(m => m.Date).Take(5))
+                {
+                    @if (match.IsFinished())
+                    {
+                        <GameMatchCard Match="match" />
+                    }
+                    else
+                    {
+                        <GameMatchCard Match="match" />
+                    }
+                }
+            }
         </div>
         <div class="leagueStandingsCol">
             @foreach (League league in Game.Leagues)
             {
                 <h2>@league.Name</h2>
-                <StandingsCard Standings="@LeagueStandings.Where(s => s.LeagueID == league.LeagueID)" />
+                <div class="leagueStanding highlight">
+                    <StandingsCard Standings="@LeagueStandings.Where(s => s.LeagueID == league.LeagueID)" />
+                </div>
             }
         </div>
     </div>

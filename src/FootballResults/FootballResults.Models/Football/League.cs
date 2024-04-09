@@ -14,7 +14,7 @@ namespace FootballResults.Models.Football
 
         public string Type { get; set; }
 
-        public int? CurrentSeason { get; set; }
+        public int CurrentSeason { get; set; }
 
         public string LogoLink { get; set; }
 

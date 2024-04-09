@@ -38,7 +38,7 @@ article {
     color: var(--light);
 }
 
-::deep .highlight {
+::deep .highlightText {
     color: var(--link);
 }
 

@@ -16,6 +16,7 @@ namespace FootballResults.Models.Users
         public ICollection<Team> FavoriteTeams { get; set; }
         public ICollection<Message> Messages { get; set; }
         public IEnumerable<PredictionGame> Games { get; set; }
+        public IEnumerable<PredictionGame> CreatedGames { get; set; }
         public ICollection<Prediction> Predictions { get; set; }
         public IEnumerable<GameStanding> Standings { get; set; }
 

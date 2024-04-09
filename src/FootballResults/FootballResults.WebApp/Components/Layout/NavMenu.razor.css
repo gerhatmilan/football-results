@@ -37,10 +37,8 @@ u {
 
 .navbar-toggler {
     position: fixed;
-    top: 30px;
+    top: 18px;
     left: 30px;
-    width: calc(1.5rem + 0.5vw);
-    width: calc(1.5rem + 0.5vw);
     z-index: 1;
     padding: 0;
     border: 0;
@@ -49,13 +47,7 @@ u {
 .navbar-toggler:focus {
     box-shadow: none;
 }
-
-.navbar-toggler-icon {
-    width: 40px;
-    height: 40px;
-}
-
-@media (max-width: 350px)
+@media (min-width: 0px)
 {
     .navbar-nav {
         flex-direction: column;
@@ -63,10 +55,10 @@ u {
     }
 }
 
-@media (max-width: 500px)
+@media (min-width: 500px)
 {
     .navbar-nav {
-        font-size: 1.5rem;
-        font-size: 4vw;
+        flex-direction: row;
+        font-size: 1.3rem;
     }
 }

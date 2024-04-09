@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-
+    margin: auto;
 }
 
 .positionBlock * {
@@ -14,9 +14,15 @@
     margin: 30px 0px;
 }
 
-table, th, td, tr {
-    background-color: var(--dark);
+table {
+    background-color: inherit;
     color: white;
+}
+
+th, td, tr {
+    background-color: inherit;
+    color: inherit;
+
 }
 
 .player:hover td {
@@ -27,6 +33,7 @@ table, th, td, tr {
     margin: auto;
     vertical-align: middle;
     max-width: 1000px;
+    width: 100%;
 }
 
 .playerPhotoCell {
