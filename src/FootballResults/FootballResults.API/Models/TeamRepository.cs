@@ -1,7 +1,6 @@
-﻿using FootballResults.Models;
-using Microsoft.AspNetCore.Routing.Template;
+﻿using FootballResults.Models.Football;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Metadata.Ecma335;
+
 
 namespace FootballResults.API.Models
 {

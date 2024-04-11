@@ -1,0 +1,53 @@
+﻿@inherits LoginFormBase
+
+<AuthorizeView>
+    <Authorized>
+        <div class="alert alert-success" role="alert">
+            You are already logged in
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        @if (LoginModel != null)
+        {
+            <div id="loginForm" class="form">
+                <EditForm Context="editFormContext" FormName="LoginForm" Model="@LoginModel" OnValidSubmit="AuthenticateUserAsync">
+                    <DataAnnotationsValidator />
+
+                    <div class="mb-3">
+                        <label>Username</label>
+                        <InputText @bind-Value="@LoginModel.Username" class="input form-control" placeholder="Username" />
+                        <ValidationMessage For="@(() => LoginModel.Username)" class="error" />
+                        @if (LoginResult is LoginResult.UserNotFound)
+                        {
+                            <div class="error">User not found</div>
+                        }
+                    </div>
+                    <div class="mb-3">
+                        <label>Password</label>
+                        <InputText @bind-Value="@LoginModel.Password" class="input form-control" type="password" placeholder="Password" />
+                        <ValidationMessage For="@(() => LoginModel.Password)" class="error" />
+                        @if (LoginResult is LoginResult.InvalidPassword)
+                        {
+                            <div class="error">Invalid password</div>
+                        }
+                    </div>
+                    <div id="submitDiv">
+                        <button type="submit" class="btn button">Log in</button>
+                    </div>
+                </EditForm>
+            </div>
+
+            @if (LoginResult is LoginResult.Success)
+            {
+                <div class="alert alert-success" role="alert">
+                    Logged in successfully
+                </div>
+            }
+        }
+        else
+        {
+            <LoadingSpinner />
+        }
+
+    </NotAuthorized>
+</AuthorizeView>

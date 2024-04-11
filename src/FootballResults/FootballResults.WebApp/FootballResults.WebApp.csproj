@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="wwwroot\lib\**" />
+    <Compile Remove="wwwroot\prediction-games\**" />
     <Content Remove="wwwroot\lib\**" />
+    <Content Remove="wwwroot\prediction-games\**" />
     <EmbeddedResource Remove="wwwroot\lib\**" />
+    <EmbeddedResource Remove="wwwroot\prediction-games\**" />
     <None Remove="wwwroot\lib\**" />
+    <None Remove="wwwroot\prediction-games\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,13 +26,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Components\Pages\Error.razor" />
-    <None Include="Components\Pages\Home.razor" />
-    <None Include="Components\Pages\Leagues.razor" />
-    <None Include="Components\Pages\LeagueDetails.razor" />
-    <None Include="Components\Pages\Matches.razor" />
-    <None Include="Components\Pages\MatchDetails.razor" />
-    <None Include="Components\Pages\TeamDetails.razor" />
+    <None Include="Components\Pages\General\Error.razor" />
+    <None Include="Components\Pages\MainMenu\Home.razor" />
+    <None Include="Components\Pages\MainMenu\Leagues.razor" />
+    <None Include="Components\Pages\Details\LeagueDetails.razor" />
+    <None Include="Components\Pages\MainMenu\Matches.razor" />
+    <None Include="Components\Pages\Details\MatchDetails.razor" />
+    <None Include="Components\Pages\Details\TeamDetails.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BlazorTime" Version="1.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2" />
   </ItemGroup>
 
   <ItemGroup>

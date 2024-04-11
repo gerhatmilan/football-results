@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using FootballResults.Models;
+using FootballResults.Models.Football;
 
 namespace FootballResults.API.Models
 {
@@ -15,7 +15,7 @@ namespace FootballResults.API.Models
         public DbSet<Venue> Venues { get; set; }
         public DbSet<AvailableSeason> AvailableSeasons { get; set; }
         public DbSet<Match> Matches { get; set; }
-        public DbSet<Standing> Standings { get; set; }
+        public DbSet<LeagueStanding> Standings { get; set; }
         public DbSet<TopScorer> TopScorers { get; set; }
         public DbSet<Player> Players { get; set; }
 
@@ -39,7 +39,7 @@ namespace FootballResults.API.Models
             modelBuilder.Entity<AvailableSeason>()
                 .ToTable("available_seasons");
 
-            modelBuilder.Entity<Standing>()
+            modelBuilder.Entity<LeagueStanding>()
                 .ToTable("standings");
 
             modelBuilder.Entity<TopScorer>()
@@ -82,7 +82,7 @@ namespace FootballResults.API.Models
             modelBuilder.Entity<League>()
                 .Property(l => l.CurrentSeason)
                 .HasColumnName("current_season")
-                .IsRequired(false);
+                .IsRequired(true);
             modelBuilder.Entity<League>()
                 .Property(l => l.LogoLink)
                 .HasColumnName("logo_link")
@@ -206,55 +206,55 @@ namespace FootballResults.API.Models
             #endregion
 
             #region Standings
-            modelBuilder.Entity<Standing>()
+            modelBuilder.Entity<LeagueStanding>()
                 .Property(s => s.LeagueID)
                 .HasColumnName("league_id")
                 .IsRequired(true);
-            modelBuilder.Entity<Standing>()
+            modelBuilder.Entity<LeagueStanding>()
                 .Property(s => s.Season)
                 .HasColumnName("season")
                 .IsRequired(true);
-            modelBuilder.Entity<Standing>()
+            modelBuilder.Entity<LeagueStanding>()
                 .Property(s => s.TeamID)
                 .HasColumnName("team_id")
                 .IsRequired(true);
-            modelBuilder.Entity<Standing>()
+            modelBuilder.Entity<LeagueStanding>()
                 .Property(s => s.Rank)
                 .HasColumnName("rank")
                 .IsRequired(true);
-            modelBuilder.Entity<Standing>()
+            modelBuilder.Entity<LeagueStanding>()
                 .Property(s => s.Group)
                 .HasColumnName("group")
                 .IsRequired(false);
-            modelBuilder.Entity<Standing>()
+            modelBuilder.Entity<LeagueStanding>()
                 .Property(s => s.Points)
                 .HasColumnName("points")
                 .IsRequired(true);
-            modelBuilder.Entity<Standing>()
+            modelBuilder.Entity<LeagueStanding>()
                 .Property(s => s.Played)
                 .HasColumnName("played")
                 .IsRequired(true);
-            modelBuilder.Entity<Standing>()
+            modelBuilder.Entity<LeagueStanding>()
                 .Property(s => s.Wins)
                 .HasColumnName("wins")
                 .IsRequired(true);
-            modelBuilder.Entity<Standing>()
+            modelBuilder.Entity<LeagueStanding>()
                 .Property(s => s.Draws)
                 .HasColumnName("draws")
                 .IsRequired(true);
-            modelBuilder.Entity<Standing>()
+            modelBuilder.Entity<LeagueStanding>()
                 .Property(s => s.Losses)
                 .HasColumnName("losses")
                 .IsRequired(true);
-            modelBuilder.Entity<Standing>()
+            modelBuilder.Entity<LeagueStanding>()
                 .Property(s => s.Scored)
                 .HasColumnName("scored")
                 .IsRequired(true);
-            modelBuilder.Entity<Standing>()
+            modelBuilder.Entity<LeagueStanding>()
                 .Property(s => s.Conceded)
                 .HasColumnName("conceded")
                 .IsRequired(true);
-            modelBuilder.Entity<Standing>()
+            modelBuilder.Entity<LeagueStanding>()
                 .Property(s => s.LastUpdate)
                 .HasColumnName("last_update")
                 .IsRequired(false);
@@ -355,7 +355,7 @@ namespace FootballResults.API.Models
             modelBuilder.Entity<AvailableSeason>()
                 .HasKey(s => new { s.LeagueID, s.Season });
 
-            modelBuilder.Entity<Standing>()
+            modelBuilder.Entity<LeagueStanding>()
                 .HasKey(s => new { s.LeagueID, s.Season, s.TeamID });
 
             modelBuilder.Entity<TopScorer>()
@@ -363,6 +363,24 @@ namespace FootballResults.API.Models
 
             modelBuilder.Entity<Player>()
                 .HasKey(p => new { p.PlayerID, p.TeamID });
+        }
+
+        private void SetIgnoredProperties(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<League>()
+               .Ignore(l => l.BookmarkID)
+               .Ignore(l => l.UsersWhoBookmarked)
+               .Ignore(l => l.UserLeagues)
+               .Ignore(l => l.GameLeagues)
+               .Ignore(l => l.GamesWhereIncluded);
+
+            modelBuilder.Entity<Team>()
+                .Ignore(t => t.BookmarkID)
+                .Ignore(t => t.UsersWhoBookmarked)
+                .Ignore(t => t.UserTeams);
+
+            modelBuilder.Entity<Match>()
+                .Ignore(m => m.Predictions);
         }
 
         private void SetRelationShips(ModelBuilder modelBuilder)
@@ -457,6 +475,7 @@ namespace FootballResults.API.Models
 
             SetTableNames(modelBuilder);
             SetColumns(modelBuilder);
+            SetIgnoredProperties(modelBuilder);
             SetPrimaryKeys(modelBuilder);
             SetRelationShips(modelBuilder);
         }

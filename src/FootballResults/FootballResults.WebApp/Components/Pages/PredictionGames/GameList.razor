@@ -1,0 +1,53 @@
+﻿@if (User.Games != null)
+{
+        @if (CreatedGames.Count() > 0)
+        {
+            <h2>Created Games</h2>
+            <div class="gameList">
+                @foreach (var game in CreatedGames.OrderBy(g => g.IsFinished).ThenByDescending(g => g.CreatedAt))
+                {
+                    <GameCard Game="game" />
+                }
+            </div>
+        }
+        
+        @if (JoinedGames.Count() > 0)
+        {
+            <h2>Joined Games</h2>
+            <div class="gameList">
+                @foreach (var game in JoinedGames.OrderBy(g => g.IsFinished).ThenByDescending(g => g.CreatedAt))
+                {
+                    <GameCard Game="game" />
+                }
+            </div>
+        }
+        @if (CreatedGames.Count() == 0 && JoinedGames.Count() == 0)
+        {
+            <p>
+                You are not participating in any prediction game yet. You can create your own game or join an existing one via
+                the Create game and Join game menupoints.
+            </p>
+        }
+    }
+else
+{
+    <LoadingSpinner />
+}
+
+@code {
+    [CascadingParameter(Name = "User")]
+    public User User { get; set; } = default!;
+
+    private IEnumerable<PredictionGame> CreatedGames { get; set; } = default!;
+
+    private IEnumerable<PredictionGame> JoinedGames { get; set; } = default!;
+
+    protected override void OnParametersSet()
+    {
+        if (User != null)
+        {
+            CreatedGames = User.Games.Where(g => g.OwnerID == User.UserID);
+            JoinedGames = User.Games.Where(g => g.OwnerID != User.UserID);
+        }
+    }
+}

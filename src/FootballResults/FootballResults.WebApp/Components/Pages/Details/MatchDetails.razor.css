@@ -1,0 +1,22 @@
+﻿.matchContainer {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.matchDetails {
+    text-align: center;
+    margin: 5vh 0;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    width: fit-content;
+    margin: auto;
+}
+
+li {
+    list-style: none;
+    margin: 10px 0;
+    color: var(--light);
+}

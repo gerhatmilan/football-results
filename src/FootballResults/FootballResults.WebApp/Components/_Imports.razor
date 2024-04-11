@@ -5,9 +5,19 @@
 @using Microsoft.AspNetCore.Components.Web
 @using static Microsoft.AspNetCore.Components.Web.RenderMode
 @using Microsoft.AspNetCore.Components.Web.Virtualization
+@using FootballResults.Models.Football
+@using FootballResults.Models.Predictions
+@using FootballResults.Models.Users
 @using FootballResults.WebApp
+@using FootballResults.WebApp.Services.Football
+@using FootballResults.WebApp.Services.Predictions
+@using FootballResults.WebApp.Services.Users
 @using FootballResults.WebApp.Components
 @using FootballResults.WebApp.Components.MiniComponents
-@using FootballResults.Components.Pages
-@using FootballResults.Models
-@using FootballResults.WebApp.Components.Other
+@using FootballResults.WebApp.Components.CardViews.Football
+@using FootballResults.WebApp.Components.CardViews.PredictionGames
+@using FootballResults.WebApp.Components.Utilities
+@using FootballResults.WebApp.Components.Forms
+@using BlazorTime
+@using Microsoft.JSInterop
+@using Microsoft.AspNetCore.Components.Authorization

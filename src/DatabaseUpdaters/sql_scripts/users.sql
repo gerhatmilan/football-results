@@ -4,14 +4,15 @@ CREATE TABLE "users"."users" (
   "user_id" serial PRIMARY KEY,
   "email" varchar UNIQUE NOT NULL,
   "username" varchar UNIQUE NOT NULL,
-  "password" bytea NOT NULL,
+  "password" varchar NOT NULL,
+  "profile_pic_path" varchar
   "registration_date" date NOT NULL DEFAULT CURRENT_DATE
 );
 
 CREATE TABLE "users"."messages" (
   "message_id" serial PRIMARY KEY,
   "user_id" integer NOT NULL,
-  "sent_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "sent_at" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "message" text,
   "match_id" integer,
   "prediction_game_id" integer,

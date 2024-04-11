@@ -1,0 +1,24 @@
+﻿@page "/teams"
+@inherits TeamsBase
+
+<PageTitle>Teams</PageTitle>
+
+@if (CountriesWithTeams != null)
+{
+    @foreach (Country country in CountriesWithTeams.OrderBy(c => c.CountryID))
+    {
+        <div class="group">
+            <CountryCard Country="country" />     
+            <div class="teams highlight">
+                @foreach (Team team in country.Teams.OrderBy(t => t.Name))
+                {
+                    <TeamCard Team="team" ShowBookmark />
+                }
+            </div>
+        </div>
+    }
+}
+else
+{
+    <LoadingSpinner />
+}

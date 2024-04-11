@@ -1,0 +1,8 @@
+﻿.form {
+    max-width: 800px;
+    margin: auto;
+}
+
+::deep input {
+    text-align: center;
+}

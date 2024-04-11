@@ -1,0 +1,49 @@
+﻿@page "/favorites"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "User")]
+
+@inject IUserService UserService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Favorites</PageTitle>
+
+<h1>Favorites</h1>
+
+@if (User != null)
+{
+    @if (User.FavoriteLeagues.Count() > 0)
+    {
+        <h2>Leagues</h2>
+        <div class="leagues">
+            @foreach (var league in User.FavoriteLeagues.OrderBy(l => l.CountryID).ThenBy(l => l.Name))
+            {
+                <LeagueCard League="league" BookmarkClicked="OnBookmarkClicked" />
+            }
+        </div>
+    }
+    @if (User.FavoriteTeams.Count() > 0)
+    {
+        <h2>Teams</h2>
+        <div class="teams highlight">
+            @foreach (var team in User.FavoriteTeams.OrderBy(t => t.Name))
+            {
+                <TeamCard Team="team" BookmarkClicked="OnBookmarkClicked" ShowBookmark />
+            }
+        </div>
+    }
+    @if ((User.FavoriteLeagues.Count() == 0) && (User.FavoriteTeams.Count() == 0))
+    {
+        <p>You can bookmark your favorite leagues and teams for quick access</p>
+    }
+}
+
+
+@code {
+    [CascadingParameter(Name = "User")]
+    public User? User { get; set; }
+
+    private void OnBookmarkClicked()
+    {
+        StateHasChanged();
+    }
+}

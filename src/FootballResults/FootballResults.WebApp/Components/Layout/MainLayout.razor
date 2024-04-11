@@ -1,17 +1,55 @@
 ﻿@inherits LayoutComponentBase
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IUserService UserService
+@inject NavigationManager NavigationManager
 
-<div class="page">
-    <NavMenu />
-    <main>
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-    <Footer />
-</div>
+<CascadingValue Name="User" Value="User">
+    <div class="page">
+        <NavMenu />
+        <main>
+            <article class="content px-4">
+                @Body
+            </article>
+        </main>
+        <Footer />
+    </div>
 
-<div id="blazor-error-ui">
-    An unhandled error has occurred.
-    <a href="" class="reload">Reload</a>
-    <a class="dismiss">🗙</a>
-</div>
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+</CascadingValue>
+
+@code {
+    public User? User { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        try
+        {
+            // get user from database based on user id claim
+            var authenticationState = await AuthenticationStateProvider!.GetAuthenticationStateAsync();
+            var user = authenticationState.User;
+            if (user.Identity?.IsAuthenticated ?? false)
+            {
+                var userID = user.FindFirst("UserID")!.Value;
+
+                int userIDConverted;
+                if (int.TryParse(userID, out userIDConverted))
+                {
+                    User = await UserService!.GetUserAsync(userIDConverted);
+                    if (User == null)
+                    {
+                        NavigationManager.NavigateTo("/logout", true);
+                    }
+                }
+            }
+        }
+        catch (Exception)
+        {
+            NavigationManager.NavigateTo("/Error", true);
+        }
+    
+    }
+}

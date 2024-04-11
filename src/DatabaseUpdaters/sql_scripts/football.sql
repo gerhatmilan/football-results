@@ -70,7 +70,7 @@ CREATE TABLE "football"."standings" (
   "losses" integer NOT NULL,
   "scored" integer NOT NULL,
   "conceded" integer NOT NULL,
-  "last_update" timestamptz DEFAULT CURRENT_TIMESTAMP,
+  "last_update" timestamp default (now() at time zone 'utc'),
   
   PRIMARY KEY ("league_id", "season", "team_id"),
   
@@ -108,7 +108,7 @@ CREATE TABLE "football"."top_scorers" (
   "played" integer,
   "goals" integer NOT NULL,
   "assists" integer,
-  "last_update" timestamptz DEFAULT CURRENT_TIMESTAMP,
+  "last_update" timestamp default (now() at time zone 'utc'),
   
   PRIMARY KEY ("league_id", "season", "rank"),
   
@@ -134,7 +134,7 @@ CREATE TABLE "football"."matches" (
   "minute" integer,
   "home_team_goals" integer,
   "away_team_goals" integer,
-  "last_update" timestamptz DEFAULT CURRENT_TIMESTAMP,
+  "last_update" timestamp DEFAULT (now() at time zone 'utc'),
   
   FOREIGN KEY ("venue_id")
     REFERENCES "football"."venues" ("venue_id")
@@ -235,3 +235,28 @@ FOR EACH ROW EXECUTE FUNCTION "football".refresh_last_update_field();
 CREATE OR REPLACE TRIGGER after_update_on_top_scorers
 AFTER UPDATE ON "football"."top_scorers"
 FOR EACH ROW EXECUTE FUNCTION "football".refresh_last_update_field();
+
+
+-- replace team logo with country flag link for national teams
+
+CREATE OR REPLACE FUNCTION football.resolve_national_team_logos() RETURNS TRIGGER
+AS $$
+DECLARE
+	country_flag_buffer varchar;
+	same_country_flag_count integer;
+BEGIN
+	IF NEW.national THEN
+		country_flag_buffer := (SELECT flag_link FROM football.countries WHERE country_id LIKE NEW.country_id);
+		same_country_flag_count := (SELECT count(*) FROM football.countries WHERE flag_link = country_flag_buffer);
+
+		IF same_country_flag_count = 1 THEN
+			NEW.logo_link := country_flag_buffer;
+		END IF;
+	END IF;
+	RETURN NEW;
+END;
+$$ LANGUAGE PLPGSQL;
+
+CREATE OR REPLACE TRIGGER resolve_national_logos_on_insert_or_update
+BEFORE INSERT OR UPDATE ON football.teams
+FOR EACH ROW EXECUTE FUNCTION football.resolve_national_team_logos();

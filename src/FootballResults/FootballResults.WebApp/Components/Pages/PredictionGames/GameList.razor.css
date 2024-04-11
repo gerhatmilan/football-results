@@ -1,0 +1,15 @@
+﻿.gameList {
+    display: flex;
+    column-gap: 5rem;
+    row-gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+    max-width: 1920px;
+}
+
+@media (max-width: 400px) {
+    .gameList {
+        width: 100%;
+    }
+}

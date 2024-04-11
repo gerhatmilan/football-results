@@ -1,0 +1,32 @@
+﻿.group {
+    margin: 80px auto;
+}
+
+.teams {
+    width: 100%;
+    text-align: center;
+}
+
+::deep .countryDiv {
+    justify-content: center;
+}
+
+::deep .teamDiv {
+    display: inline-block;
+    width: 25%;
+    margin: 20px;
+    aspect-ratio: 1 / 1.5;
+}
+
+@media (min-width: 0px) {
+    ::deep .teamDiv {
+        width: 30%;
+    }
+}
+
+@media (min-width: 500px) {
+    ::deep .teamDiv {
+        width: 20%;
+        max-width: 150px;
+    }
+}

@@ -1,0 +1,76 @@
+﻿.teamDiv {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: var(--light);
+    height: 90%;
+}
+
+.homeTeamDiv {
+    float: left;
+}
+
+.awayTeamDiv {
+    float: right;
+}
+
+.teamLogoDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.teamLogo {
+    width: 80%;
+    max-width: 100%;
+    max-height: 70%;
+    aspect-ratio: 1;
+}
+
+.teamName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+@media (min-width: 0px) {
+    .teamDiv {
+        width: 25%;
+    }
+
+    .teamLogoDiv {
+        height: 60%;
+    }
+    
+    .teamName {
+        font-size: 3vw;
+        height: 40%;
+    }
+}
+
+@media (min-width: 500px) {
+    .teamName {
+        font-size: 1.2rem;
+    }
+
+    .teamLogoDiv {
+        height: 70%;
+    }
+
+    .teamName {
+        word-wrap: break-word;
+        height: 30%;
+    }
+}
+
+@media (min-width: 1000px)
+{
+    .teamName {
+        font-size: 1.5rem;
+    }
+}

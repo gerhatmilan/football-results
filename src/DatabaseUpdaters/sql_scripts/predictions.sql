@@ -4,14 +4,14 @@ CREATE TABLE "predictions"."prediction_games" (
   "prediction_game_id" serial PRIMARY KEY,
   "name" varchar NOT NULL,
   "owner_id" integer NOT NULL,
-  "join_key" bytea UNIQUE NOT NULL,
+  "join_key" varchar UNIQUE NOT NULL,
   "description" text,
-  "image" bytea,
+  "image_path" varchar,
   "exact_scoreline_reward" integer NOT NULL DEFAULT 10 CHECK("exact_scoreline_reward" > 0),
   "outcome_reward" integer NOT NULL DEFAULT 8 CHECK("outcome_reward" > 0),
   "goal_count_reward" integer NOT NULL DEFAULT 5 CHECK("goal_count_reward" > 0),
   "goal_difference_reward" integer NOT NULL DEFAULT 3 CHECK("goal_difference_reward" > 0),
-  "created_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "created_at" timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "finished" boolean NOT NULL DEFAULT false,
   
   FOREIGN KEY ("owner_id")
@@ -22,14 +22,15 @@ CREATE TABLE "predictions"."prediction_games" (
 CREATE TABLE "predictions"."included_leagues" (
   "prediction_game_id" integer NOT NULL,
   "league_id" integer NOT NULL,
+  "season" integer NOT NULL,
   
-  PRIMARY KEY (prediction_game_id, league_id),
+  PRIMARY KEY (prediction_game_id, league_id, season),
   
   FOREIGN KEY ("prediction_game_id")
     REFERENCES "predictions"."prediction_games" ("prediction_game_id")
 	ON DELETE CASCADE,
-  FOREIGN KEY ("league_id")
-    REFERENCES "football"."leagues" ("league_id")
+  FOREIGN KEY ("league_id", "season")
+    REFERENCES "football"."available_seasons" ("league_id", "season")
 	ON DELETE CASCADE
 );
 
@@ -39,7 +40,8 @@ CREATE TABLE "predictions"."predictions" (
   "match_id" integer,
   "home_team_goals" integer NOT NULL,
   "away_team_goals" integer NOT NULL,
-  "prediction_date" timestamp DEFAULT CURRENT_TIMESTAMP,
+  "points_given" boolean NOT NULL DEFAULT false,
+  "prediction_date" timestamptz DEFAULT CURRENT_TIMESTAMP,
   
   PRIMARY KEY ("user_id", "prediction_game_id", "match_id"),
 	
@@ -58,7 +60,7 @@ CREATE TABLE "predictions"."standings" (
   "prediction_game_id" integer NOT NULL,
   "user_id" integer NOT NULL,
   "points" integer NOT NULL,
-  "last_update" timestamp DEFAULT CURRENT_TIMESTAMP,
+  "last_update" timestamptz DEFAULT CURRENT_TIMESTAMP,
   
   PRIMARY KEY (prediction_game_id, user_id),
   
@@ -73,7 +75,7 @@ CREATE TABLE "predictions"."standings" (
 CREATE TABLE "predictions"."participations" (
   "prediction_game_id" integer NOT NULL,
   "user_id" integer NOT NULL,
-  "join_date" timestamp DEFAULT CURRENT_TIMESTAMP,
+  "join_date" timestamptz DEFAULT CURRENT_TIMESTAMP,
 	
   PRIMARY KEY (prediction_game_id, user_id),
 	

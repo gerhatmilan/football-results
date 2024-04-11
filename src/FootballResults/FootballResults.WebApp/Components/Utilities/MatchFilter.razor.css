@@ -1,0 +1,32 @@
+﻿.filterSection {
+    margin: auto;
+    margin-bottom: 50px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.input-group {
+    justify-content: center;
+}
+
+input, select {
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+input:focus, select:focus {
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+::placeholder {
+    color: var(--light);
+}
+
+@media (min-width: 1920px) {
+    .filterSection {
+        position: fixed;
+        top: 250px;
+        margin-left: 50px;
+    }
+}

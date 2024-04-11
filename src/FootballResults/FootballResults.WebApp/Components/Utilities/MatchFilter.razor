@@ -1,0 +1,117 @@
+﻿@inherits MatchFilterBase
+
+@inject IJSRuntime JSRuntime
+@using FootballResults.WebApp.Components.Pages.Details
+
+@if (FilterTarget != null)
+{
+    <div class="filterSection">
+        <div class="input-group mb-3">
+            <input type="number" class="form-control" placeholder="Year" @bind="FilterParameters!.YearFilter" @bind:after="FilterMatchesAsync" />
+            <input type="number" class="form-control" placeholder="Month" min="1" max="12" @bind="FilterParameters!.MonthFilter" @bind:after="FilterMatchesAsync" />
+            <input type="number" class="form-control" placeholder="Day" min="1" max="31" @bind="FilterParameters!.DayFilter" @bind:after="FilterMatchesAsync"  />
+        </div>
+
+        @if (FilterTarget.GetType() == typeof(TeamDetails))
+        {
+            <div class="input-group mb-3">
+                <select title="Home or away only selector" class="form-select" @bind="FilterParameters!.HomeAwayFilter" @bind:after="FilterMatchesAsync">
+                    <option selected value="All">Home and Away</option>
+                    <option value="Home">Home</option>
+                    <option value="Away">Away</option>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Opponent" @bind="FilterParameters!.OpponentNameFilter" @bind:after="FilterMatchesAsync" />
+            </div>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Competition" @bind="FilterParameters!.LeagueFilter" @bind:after="FilterMatchesAsync" />
+            </div>
+        }
+        else if (FilterTarget.GetType() == typeof(MatchDetails))
+        {
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Competition" @bind="FilterParameters!.LeagueFilter" @bind:after="FilterMatchesAsync" />
+            </div>
+        }
+
+        <div class="input-group mb-3">
+            <input type="number" class="form-control" min="2010" placeholder="Season" @bind="FilterParameters!.SeasonFilter" @bind:after="@(async () => { await OnSeasonChanged(); await FilterMatchesAsync(); })" />
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Round" @bind="FilterParameters!.RoundFilter" @bind:after="FilterMatchesAsync" />
+        </div>
+
+        @if (FilterTarget.GetType() == typeof(LeagueDetails))
+        {
+            <div class="input-group mb-3">
+                <button type="button" class="btn button"
+                        @onclick="@(async() => await OnMatchOrderChanged(MatchOrderOption.RoundThenDateAsc))">
+                    Earliest first
+                </button>
+            </div>
+            <div class="input-group mb-3">
+                <button type="button" class="btn button"
+                        @onclick="@(async () => await OnMatchOrderChanged(MatchOrderOption.RoundThenDateDesc))">
+                    Latest first
+                </button>
+            </div>
+        }
+        else if (FilterTarget.GetType() == typeof(TeamDetails))
+        {
+            <div class="input-group mb-3">
+                <button type="button" class="btn button"
+                        @onclick="@(async() => await OnMatchOrderChanged(MatchOrderOption.DateAsc))">
+                    Earliest first
+                </button>
+            </div>
+            <div class="input-group mb-3">
+                <button type="button" class="btn button"
+                        @onclick="@(async () => await OnMatchOrderChanged(MatchOrderOption.DateDesc))">
+                    Latest first
+                </button>
+            </div>
+        }
+        else if (FilterTarget.GetType() == typeof(MatchDetails))
+        {
+            <div class="input-group mb-3">
+                <button type="button" class="btn button"
+                        @onclick="@(async() => await OnMatchOrderChanged(MatchOrderOption.DateAsc))">
+                    Earliest first
+                </button>
+            </div>
+            <div class="input-group mb-3">
+                <button type="button" class="btn button"
+                        @onclick="@(async () => await OnMatchOrderChanged(MatchOrderOption.DateDesc))">
+                    Latest first
+                </button>
+            </div>
+        }
+               
+    </div>
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await GetClientDate();
+        await FilterMatchesAsync();
+    }
+
+    protected async Task GetClientDate()
+    {
+        // refersh client utc time difference
+        await JSRuntime.InvokeVoidAsync("getClientDate", DotNetObjectReference.Create(this), "UpdateClientUtcDiff");
+    }
+
+    [JSInvokable]
+    public void UpdateClientUtcDiff(string clientDateString)
+    {
+        DateTime utcTime = DateTime.UtcNow;
+        var clientDate = DateTime.Parse(clientDateString);
+        ClientUtcDiff = clientDate - utcTime;
+
+        // round up diff based on hour
+        ClientUtcDiff = TimeSpan.FromHours((int)(Math.Round((ClientUtcDiff.Hours * 60 + ClientUtcDiff.Minutes) / 60.0)));
+    }
+}

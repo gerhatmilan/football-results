@@ -1,0 +1,135 @@
+﻿@if (Standings != null)
+{
+    @if (IsGroupStage())
+    {
+        @foreach(var standingGroup in GetStandingGroups())
+        {
+            <h2>@standingGroup.group</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-borderless standingsTable">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Team</th>
+                            <th scope="col">P</th>
+                            <th scope="col">W</th>
+                            <th scope="col">D</th>
+                            <th scope="col">L</th>
+                            <th scope="col">GD</th>
+                            <th scope="col">Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (LeagueStanding standing in standingGroup.standings)
+                        {
+                            <tr class="standing">
+                                <td class="rank">@standing.Rank</td>
+                                <td>
+                                    <a class="teamDiv" href="teams/@standing.Team.Name">
+                                        <div class="teamLogoDiv">
+                                            <img class="teamLogo" src="@standing.Team.LogoLink" alt="@standing.Team.Name logo" />
+                                        </div>
+                                        <div>@standing.Team.Name</div>
+                                    </a>
+                                </td>
+                                <td class="played">@standing.Played</td>
+                                <td class="wins">@standing.Wins</td>
+                                <td class="draws">@standing.Draws</td>
+                                <td class="losses">@standing.Losses</td>
+                                <td class="conceded">@standing.Scored:@standing.Conceded</td>
+                                <td class="points">@standing.Points</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-borderless standingsTable">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Team</th>
+                        <th scope="col">P</th>
+                        <th scope="col">W</th>
+                        <th scope="col">D</th>
+                        <th scope="col">L</th>
+                        <th scope="col">GD</th>
+                        <th scope="col">Pts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (LeagueStanding standing in Standings.OrderBy(s => s.Rank))
+                    {
+                        <tr class="standing">
+                            <td>@standing.Rank</td>
+                            <td>
+                                <a class="teamDiv" href="teams/@standing.Team.Name">
+                                    <div class="teamLogoDiv">
+                                        <img class="teamLogo" src="@standing.Team.LogoLink" alt="@standing.Team.Name logo" />
+                                    </div>
+                                    <div>@standing.Team.Name</div>
+                                </a>
+                            </td>
+                            <td>@standing.Played</td>
+                            <td>@standing.Wins</td>
+                            <td>@standing.Draws</td>
+                            <td>@standing.Losses</td>
+                            <td>@standing.Scored:@standing.Conceded</td>
+                            <td>@standing.Points</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <p>
+        Last update
+        <br />
+        @if (LastUpdate != null)
+        {
+            <ToLocal DateTime="@DateTime.SpecifyKind(LastUpdate.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+        }
+        else
+        {
+            <span>Unknown</span>
+        }
+    </p>
+}
+else
+{
+    <LoadingSpinner />
+}
+
+@code {
+    [Parameter]
+    public IEnumerable<LeagueStanding>? Standings { get; set; }
+
+    private DateTime? LastUpdate { get; set; }
+
+    private bool IsGroupStage()
+    {
+        return Standings!.Select(s => s.Group).Distinct().Count() > 1;
+    }
+
+    private List<(string group, List<LeagueStanding> standings)> GetStandingGroups()
+    {
+        return Standings!
+        .GroupBy(
+            s => s.Group,
+            (group, standings) => (group, standings.OrderBy(s => s.Group).ThenBy(s => s.Rank).ToList())
+        )
+        .ToList();
+    }
+
+    protected override void OnInitialized()
+    {
+        LastUpdate =  Standings!
+            .Select(s => s.LastUpdate)
+            .Max();
+    }
+}

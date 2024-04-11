@@ -1,0 +1,74 @@
+﻿@page "/teams/{TeamName}"
+@inherits TeamDetailsBase
+
+<PageTitle>@TeamName</PageTitle>
+
+@if (Team != null)
+{
+    <div class="header">
+        <div class="teamHeader">
+            <div class="nameHeader">
+                @Team.Name
+                <AuthorizeView>
+                    <Authorized>
+                        <BookmarkIcon Bookmark="Team" DefaultColor="defaultLight" />
+                    </Authorized>
+                </AuthorizeView>
+            </div>
+            <img class="teamLogo" src="@Team.LogoLink" alt="@Team.Name logo" />  
+        </div>    
+    </div>
+    <div class="subMenu">
+        <button class="@(ActiveSubMenu!.Equals("matches") ? "active" : "")" type="button" @onclick="@(() => {ActiveSubMenu = "matches";})">Matches</button>
+        <button class="@(ActiveSubMenu!.Equals("squad") ? "active" : "")" type="button" @onclick="LoadSquadAsync">Squad</button>
+    </div>
+    <div class="submenuContent">
+        @if (ActiveSubMenu == "matches")
+        {
+            <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" MatchOrderChanged="@OnMatchOrderChanged" />
+            @if (Matches != null)
+            {
+                @if (Matches.Count() > 0)
+                {
+                    <div class="matches">
+                        @foreach (var matchesByLeagueGroup in GetMatchesByLeague())
+                        {
+                            <LeagueCard League="matchesByLeagueGroup.matches.First().League" Matches="matchesByLeagueGroup.matches" MatchOrderOption="@MatchOrderOption" />
+                        }
+                    </div>
+                }
+                else
+                {
+                    <h1>No matches found</h1>
+                }
+         }
+            else
+            {
+                <LoadingSpinner />
+            }
+        }
+        
+        @if (ActiveSubMenu == "squad")
+        {
+            @if (Squad != null)
+            {
+                @if (Squad.Count() > 0)
+                {
+                    <SquadCard Squad="Squad" />
+                }
+                else
+                {
+                    <h1>No squad data</h1>
+                }
+            }
+            else
+            {
+                <LoadingSpinner />
+            }
+        }     
+    </div>
+}
+else
+{
+    <LoadingSpinner />
+}

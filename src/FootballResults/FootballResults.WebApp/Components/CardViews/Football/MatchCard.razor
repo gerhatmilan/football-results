@@ -1,0 +1,63 @@
+﻿@if (Match != null)
+{
+    <div class="matchCard">
+
+        <TeamCard Team="Match.HomeTeam" />
+        <a class="matchDetails" href="/matches/@Match.MatchID">
+            @if (Match.Date != null)
+            {
+                @if (Match.HasStarted())
+                {
+                    <div class="smallDate">
+                        <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+                    </div>
+                    <div class="score">
+                        @Match.HomeTeamGoals - @Match.AwayTeamGoals
+                    </div>
+
+                    @if (Match.Status != null)
+                    {
+                        <div class="status">
+                            @if (Match.IsInProgress())
+                            {
+                                <span class="liveIndicator"></span>
+                            }
+                            @Match.Status
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="status">Status unknown</div>
+                    }
+
+                    @if ((Match.Status == "NS" || Match.IsInProgress() && Match.LastUpdate != null))
+                    {
+                        <div class="lastUpdate">
+                            Last update:<br />
+                            <ToLocal DateTime="@DateTime.SpecifyKind(Match.LastUpdate.GetValueOrDefault(), DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="bigDate">
+                        <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd" @rendermode="@RenderMode.InteractiveServer" />
+                        <br />
+                        <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+                    </div>
+                }            
+            }
+            else
+            {
+                <div class="date">Unknown date</div>
+            }
+        </a>
+        <TeamCard Team="Match.AwayTeam" />
+    </div>
+}
+
+
+@code {
+    [Parameter]
+    public Match? Match { get; set; }
+}

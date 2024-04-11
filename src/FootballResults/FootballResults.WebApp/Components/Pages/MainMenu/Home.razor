@@ -1,0 +1,68 @@
+﻿@page "/"
+
+@inherits HomeBase
+@inject IJSRuntime JSRuntime
+
+<PageTitle>Home</PageTitle>
+
+@if (Matches != null)
+{
+    @if (Matches.Any())
+    {
+        <h1>Matches today</h1>
+        @foreach (var leagueWithMatchesGroup in GetMatchesByLeague(Matches))
+        {
+                <LeagueCard League="leagueWithMatchesGroup.matches.ElementAt(0).League" Matches="leagueWithMatchesGroup.matches" MatchOrderOption="@MatchOrderOption.RoundThenDateAsc" />
+        }
+    }
+    else
+    {
+        <h1>No matches today 😒</h1>
+
+        <h1>Check out upcoming matches instead</h1>
+
+        @if (UpcomingMatches != null)
+        {
+            @foreach (var leagueWithMatchesGroup in GetMatchesByLeague(UpcomingMatches))
+            {
+                <LeagueCard League="leagueWithMatchesGroup.matches.ElementAt(0).League" Matches="leagueWithMatchesGroup.matches" MatchOrderOption="@MatchOrderOption.RoundThenDateAsc" />
+            }
+        }    
+    }
+}
+else
+{
+    <LoadingSpinner />
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await GetClientDate();
+        SelectedDate = DateTime.UtcNow.Add(ClientUtcDiff);
+
+        await LoadMatchesAsync();
+        FilterMatchesBasedOnClientDate();
+        if (Matches != null && !Matches.Any())
+        {
+            await LoadUpcomingMatchesAsync();
+        }
+    }
+
+    protected async Task GetClientDate()
+    {
+        // refersh client utc time difference
+        await JSRuntime.InvokeVoidAsync("getClientDate", DotNetObjectReference.Create(this), "UpdateClientUtcDiff");
+    }
+
+    [JSInvokable]
+    public void UpdateClientUtcDiff(string clientDateString)
+    {
+        DateTime utcTime = DateTime.UtcNow;
+        var clientDate = DateTime.Parse(clientDateString);
+        ClientUtcDiff = clientDate - utcTime;
+
+        // round up diff based on hour
+        ClientUtcDiff = TimeSpan.FromHours((int)(Math.Round((ClientUtcDiff.Hours * 60 + ClientUtcDiff.Minutes) / 60.0)));
+    }
+}

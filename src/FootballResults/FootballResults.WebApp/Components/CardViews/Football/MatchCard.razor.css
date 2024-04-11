@@ -1,0 +1,123 @@
+﻿.matchCard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem auto;
+    width: 100%;
+    aspect-ratio: 2 / 1
+}
+
+.matchCard a {
+    color: var(--light);
+    text-decoration: none;
+    height: inherit;
+}
+
+.matchCard a:hover {
+    cursor: pointer;
+}
+
+.matchDetails {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.score {
+    color: var(--link);
+}
+
+.liveIndicator {
+    position: relative;
+    display: block;
+    top: 5px;
+    left: 120%;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background: var(--dark);
+    animation: pulse 2s infinite;
+    animation-direction: alternate-reverse;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        background: red;
+        transform: scale(1);
+    }
+}
+
+.score, .bigDate, .smallDate, .status, .lastUpdate {
+    margin: auto;
+}
+
+@media (min-width: 0px) {
+    .score, .bigDate, .smallDate, .status, .lastUpdate {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .matchCard {
+        width: 100%;
+    }
+
+    .matchDetails {
+        width: 50%;
+    }
+
+    .smallDate, .status {
+        font-size: 3vw;
+    }
+
+    .score {
+        font-size: 8vw;
+    }
+
+    .bigDate {
+        font-size: 3vw;
+    }
+
+    .lastUpdate {
+        font-size: 0.6em;
+    }
+
+    .liveIndicator {
+        width: 5px;
+        height: 5px;
+    }
+}
+
+@media (min-width: 500px) {
+    .score, .bigDate, .smallDate, .status, .lastUpdate {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .smallDate, .status {
+        font-size: 1rem;
+    }
+
+    .score {
+        font-size: 2.2rem;
+    }
+
+    .bigDate {
+        font-size: 1.5rem;
+    }
+
+    .lastUpdate {
+        font-size: 1em;
+    }
+
+    .liveIndicator {
+        width: 10px;
+        height: 10px;
+    }
+}

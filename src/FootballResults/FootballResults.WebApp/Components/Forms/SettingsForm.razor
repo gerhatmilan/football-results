@@ -1,0 +1,29 @@
+﻿@inherits SettingsFormBase
+
+<div class="form">
+    <EditForm FormName="SettingsForm" Model="@SettingsModel" OnValidSubmit="SubmitAsync">
+        <DataAnnotationsValidator />
+
+        <div class="mb-3">
+            <label>Username</label>
+            <InputText @bind-Value="@SettingsModel.Username" class="input form-control" />
+            <ValidationMessage For="@(() => SettingsModel.Username)" class="error" />
+        </div>
+        <div class="mb-3">
+            <label for="profilePic">Profile picture</label>
+            <img class="profilePicture @(SettingsModel.ProfilePicturePath != null ? "show" : "")" src="@SettingsModel.ProfilePicturePath" alt="Avatar">
+            <InputFile id="profilePic" class="input form-control" OnChange="OnImageSelectedAsync" />
+            @if (ImageErrorMessage != null)
+            {
+                <div class="error">@ImageErrorMessage</div>
+            }
+            @if (ErrorMessage != null)
+            {
+                <div class="error">@ErrorMessage</div>
+            }
+        </div>
+        <div id="submitDiv">
+            <button type="submit" class="btn button" disabled="@ButtonDisabled">Save changes</button>
+        </div>
+    </EditForm>
+</div>

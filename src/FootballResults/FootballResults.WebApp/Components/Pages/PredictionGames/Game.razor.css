@@ -1,0 +1,72 @@
+﻿#gameContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1920px;
+    margin: auto;
+}
+
+.gameStandingCol, .leagueStandingsCol, .matchesCol {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+p {
+    width: 100%;
+    margin: 0 auto;
+}
+
+p.description {
+    text-align: center;
+    margin: 50px auto;
+}
+
+.leagueStanding {
+    font-size: 0.5rem !important;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.keyword {
+    color: var(--link);
+}
+
+.button {
+    max-width: 150px;
+    font-size: 0.8rem;
+    margin: 1rem auto;
+}
+
+.joinKey {
+    font-size: 1rem;
+    margin: 1rem auto;
+}
+
+::deep .highlight::-webkit-scrollbar {
+    display: none;
+}
+
+::deep th, ::deep td {
+    font-size: 1rem
+}
+
+
+@media (min-width: 1024px) {
+    #gameContent {
+        flex-direction: row;
+    }
+
+    .gameStandingCol, .leagueStandingsCol {
+        width: 30%;
+    }
+
+    .matchesCol {
+        padding: 0 50px;
+        width: 40%;
+    }
+
+    .leagueStanding {
+        max-height: 500px;
+    }
+}

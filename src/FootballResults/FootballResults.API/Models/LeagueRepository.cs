@@ -1,8 +1,5 @@
-﻿using FootballResults.Models;
+﻿using FootballResults.Models.Football;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-using System.Collections.Immutable;
-using System.Xml.Linq;
 
 namespace FootballResults.API.Models
 {
@@ -116,7 +113,7 @@ namespace FootballResults.API.Models
                .ToListAsync();
         }
 
-        public async Task<IEnumerable<Standing>> GetStandingsForLeagueAndSeason(string leagueName, int season)
+        public async Task<IEnumerable<LeagueStanding>> GetStandingsForLeagueAndSeason(string leagueName, int season)
         {
             return await dbContext.Standings
                .Where(s => s.League.Name.ToLower().Equals(leagueName.ToLower()) && s.Season == season)
