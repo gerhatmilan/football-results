@@ -26,5 +26,35 @@ namespace FootballResults.Models.Predictions
         // skip navigations
         public IEnumerable<Participation> Participations { get; set; }
         public IEnumerable<GameLeague> GameLeagues { get; set; }
+
+        public void RefreshData()
+        {
+            RefreshStandings();
+            RefreshFinished();
+        }
+
+        private void RefreshStandings()
+        {
+            foreach (var prediction in Predictions)
+            {
+                if (prediction.Match.IsFinished() && !prediction.PointsGiven)
+                {
+                    var points = prediction.CalculatePoints();
+                    var standing = prediction.Game.Standings.FirstOrDefault(s => s.GameID == GameID && s.UserID == prediction.UserID);
+
+                    if (standing != null)
+                    {
+                        standing.Points += points;
+                        prediction.PointsGiven = true;
+                    }
+                }
+            }
+        }
+
+        private void RefreshFinished()
+        {
+            if (Leagues.SelectMany(l => l.Matches).All(m => m.IsFinished()))
+                IsFinished = true;
+        }
     }
 }

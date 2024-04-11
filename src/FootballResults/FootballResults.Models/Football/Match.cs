@@ -1,4 +1,6 @@
-﻿namespace FootballResults.Models.Football
+﻿using FootballResults.Models.Predictions;
+
+namespace FootballResults.Models.Football
 {
     public class Match
     {
@@ -36,6 +38,7 @@
 
         public Team AwayTeam { get; set; }
 
+        public IEnumerable<Prediction> Predictions { get; set; }
 
         public bool IsInProgress()
         {
@@ -46,6 +49,11 @@
         public bool IsFinished()
         {
             return (Date < DateTime.UtcNow) && (Status == "FT" || Status == "AET" || Status == "PEN");
+        }
+
+        public bool HasStarted()
+        {
+            return Date < DateTime.UtcNow;
         }
     }
 }

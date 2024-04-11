@@ -7,47 +7,69 @@
         <div class="matchDetails">
             @if (Match.Date != null)
             {
-                @if (Match.Date < DateTime.UtcNow)
+                @if (Match.HasStarted())
                 {
-                    <div class="smallDate">
-                        <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
-                    </div>
-                    <div class="score">
-                        @Match.HomeTeamGoals - @Match.AwayTeamGoals
+                    <div class="details detailsTop">
+                        @if (ExistingPrediction != null)
+                        {
+                            <div class="prediction">
+                                Prediction: @($"{ExistingPrediction.HomeTeamGoals} - {ExistingPrediction.AwayTeamGoals}")
+                                <span class="predictionPoints">
+                                    @($"+{ExistingPrediction.CalculatePoints()}")
+                                </span>
+                            </div>
+                        }
                     </div>
 
-                    @if (Match.Status != null)
-                    {
-                        <div class="status">
-                            @if (Match.IsInProgress())
-                            {
-                                <span class="liveIndicator"></span>
-                            }
-                            @Match.Status
+                    <div class="details detailsMiddle">
+                        <div class="score">
+                            @Match.HomeTeamGoals - @Match.AwayTeamGoals
                         </div>
-                    }
-                    else
-                    {
-                        <div class="status">Status unknown</div>
-                    }
+                    </div>
 
-                    @if ((Match.Status == "NS" || Match.IsInProgress()) && Match.LastUpdate != null)
-                    {
-                        <div class="lastUpdate">
-                            Last update:<br />
-                            <ToLocal DateTime="@DateTime.SpecifyKind(Match.LastUpdate.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+                    <div class="details detailsBottom">
+                        <div class="smallDate">
+                            <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
                         </div>
-                    }
+
+                        @if (Match.Status != null)
+                        {
+                            <div class="status">
+                                @if (Match.IsInProgress())
+                                {
+                                    <span class="liveIndicator"></span>
+                                }
+                                @Match.Status
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="status">Status unknown</div>
+                        }
+
+                        @if ((Match.Status == "NS" || Match.IsInProgress()) && Match.LastUpdate != null)
+                        {
+                            <div class="lastUpdate">
+                                Last update:<br />
+                                <ToLocal DateTime="@DateTime.SpecifyKind(Match.LastUpdate.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+                            </div>
+                        }
+                    </div>
                 }
                 else
                 {
-                    <div class="bigDate">
-                        <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd" @rendermode="@RenderMode.InteractiveServer" />
-                        <br />
-                        <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+                    <div class="details detailsTop">
+                        <div class="bigDate">
+                            <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd" @rendermode="@RenderMode.InteractiveServer" />
+                            <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+                        </div>
                     </div>
-                    <div>
-                        <PredictionInputForm Match="Match" />
+                    <div class="details detailsMiddle">
+                        <div>
+                            <CascadingValue Name="Prediction" Value="ExistingPrediction">
+                                <PredictionInputForm />
+                            </CascadingValue>
+                        </div>
                     </div>
                 }
             }
@@ -58,10 +80,4 @@
         </div>
         <TeamCard Team="Match.AwayTeam" />
     </div>
-}
-
-
-@code {
-    [Parameter]
-    public Match? Match { get; set; }
 }

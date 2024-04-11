@@ -62,7 +62,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (LeagueStanding standing in Standings)
+                    @foreach (LeagueStanding standing in Standings.OrderBy(s => s.Rank))
                     {
                         <tr class="standing">
                             <td>@standing.Rank</td>
@@ -121,7 +121,7 @@ else
         return Standings!
         .GroupBy(
             s => s.Group,
-            (group, standings) => (group, standings.OrderBy(s => s.Rank).ToList())
+            (group, standings) => (group, standings.OrderBy(s => s.Group).ThenBy(s => s.Rank).ToList())
         )
         .ToList();
     }

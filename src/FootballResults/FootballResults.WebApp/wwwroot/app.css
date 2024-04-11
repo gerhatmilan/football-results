@@ -2,7 +2,7 @@
 
 :root {
     --light: #ffffff;
-    --dark: #000000;
+    --dark: #080808;
     --link: var(--bs-link-color);
     --highlight: #121212;
     --link-hover: rgba(255, 255, 255, 0.1);
@@ -25,7 +25,7 @@ h1 {
     margin: 3rem 0;
 }
 
-h1:focus {
+h1:focus, h2:focus, h3:focus {
     outline: none;
     border: none;
 }
@@ -34,7 +34,14 @@ h2 {
     color: var(--light);
     font-size: calc(1rem + 0.5vw);
     text-align: center;
-    margin: 3rem 0;
+    margin: 2rem 0;
+}
+
+h3 {
+    color: var(--light);
+    font-size: calc(0.8rem + 0.4vw);
+    text-align: center;
+    margin: 1rem 0;
 }
 
 p {
@@ -45,15 +52,15 @@ p {
     text-align: justify;
 }
 
-.button {
+.button, .button:hover, .button:active, .button:focus {
     width: 100%;
     background-color: var(--link) !important;
     border: 1px solid var(--link) !important;
-    color: white;
+    color: white !important;
 }
 
 .highlight {
-    background-color: var(--highlight);
+    background-color: #222222;
     border-radius: 10px;
     overflow: hidden;
     margin: 0 auto;
@@ -63,4 +70,14 @@ p {
 
 .alert {
     font-size: 1rem !important;
+}
+
+@media (max-width: 500px) {
+    p {
+        font-size: 3vw !important;
+    }
+
+    .button {
+        font-size: 4vw !important;
+    }
 }

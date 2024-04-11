@@ -6,48 +6,93 @@
 
 @if (Game != null && UserAuthorized)
 {
-    <PageTitle>@($"{@Game.Owner.Username}'s {@Game.Name}")</PageTitle>
+    <PageTitle>@Game.Name</PageTitle>
 
-    <h1>@($"{@Game.Owner.Username}'s {@Game.Name}")</h1>
-    <p>
+    <h1>@Game.Name</h1>
+    <p class="description">
         @if (@Game.Description != null)
         {
             @Game.Description
-            <br />
         }
-        <br />
     </p>
 
     <div id="gameContent">
         <div class="gameStandingCol">
+            <!-- Game details -->
+            <h2>Details</h2>
+            <p>
+                <span class="keyword">Owner</span>: @Game.Owner.Username<br />
+                <span class="keyword">Exact scoreline reward</span>: @Game.ExactScorelineReward<br />
+                <span class="keyword">Outcome reward</span>: @Game.OutcomeReward<br />
+                <span class="keyword">Goal count / team reward</span>: @Game.GoalCountReward<br />
+                <span class="keyword">Goal difference reward</span>:  @Game.GoalDifferenceReward<br />
+                <span class="keyword">Created at</span>: @(Game.CreatedAt.ToString() ?? "Unknown")<br />
+                <span class="keyword">Status</span>: @(Game.IsFinished ? "finished" : "in progress")<br />
+            </p>
+
+            <!-- Invite button -->
+            @if (ShowJoinKey)
+            {
+                <button type="button" class="btn button" @onclick="() => { ShowJoinKey = false; }">Hide</button>
+                <div class="joinKey"><span class="keyword">Join key</span>: @Game.JoinKey</div>
+            }
+            else
+            {
+                <button type="button" class="btn button" @onclick="() => { ShowJoinKey = true; }">Invite people...</button>
+            }
+
+            <!-- Game standings -->
             <h2>Standings</h2>
             <GameStandingsCard Standings="@Game.Standings" />
         </div>
         <div class="matchesCol">
-            @foreach (var matchesByLeague in MatchesByLeagues)
+            <!-- Matches -->
+            <h2>Matches</h2>
+            @foreach (var league in Game.Leagues)
             {
-                <h2>@matchesByLeague.Item1.Name</h2>
+                <h3>@league.Name</h3>
 
-                @foreach (Match match in matchesByLeague.Item2.OrderBy(m => m.IsFinished()).ThenBy(m => m.Date).Take(5))
+                @if (Matches != null)
                 {
-                    @if (match.IsFinished())
-                    {
-                        <GameMatchCard Match="match" />
-                    }
-                    else
-                    {
-                        <GameMatchCard Match="match" />
-                    }
+                    <CascadingValue Name="Game" Value="Game">
+                        <CascadingValue Name="User" Value="User">
+                            @foreach (Match match in Matches.Where(m => m.LeagueID == league.LeagueID && !m.IsFinished()).OrderBy(m => m.Date))
+                            {
+                                <CascadingValue Name="Match" Value="match">
+                                    <GameMatchCard />
+                                </CascadingValue>
+                            }
+                            @foreach(Match match in Matches.Where(m => m.LeagueID == league.LeagueID && m.IsFinished()).OrderByDescending(m => m.Date))
+                            {
+                                <CascadingValue Name="Match" Value="match">
+                                    <GameMatchCard />
+                                </CascadingValue>
+                            }
+                        </CascadingValue>
+                    </CascadingValue>
+                }
+                else
+                {
+                    <LoadingSpinner />
                 }
             }
         </div>
         <div class="leagueStandingsCol">
-            @foreach (League league in Game.Leagues)
+            <!-- League standings -->
+            <h2>League standings</h2>
+            @foreach (var league in Game.Leagues)
             {
-                <h2>@league.Name</h2>
-                <div class="leagueStanding highlight">
-                    <StandingsCard Standings="@LeagueStandings.Where(s => s.LeagueID == league.LeagueID)" />
-                </div>
+                <h3>@league.Name</h3>
+
+                @if (LeagueStandings != null)
+                {
+                    <div class="leagueStanding highlight">
+                        <StandingsCard Standings="@LeagueStandings.Where(s => s.LeagueID == league.LeagueID).OrderBy(s => s.Group).ThenBy(s => s.Rank)" />
+                    </div>
+                }
+                else {
+                    <LoadingSpinner />
+                }
             }
         </div>
     </div>

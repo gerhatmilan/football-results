@@ -101,5 +101,14 @@ namespace FootballResults.WebApp.Services.Users
                 await _dbContext.SaveChangesAsync();
             }
         }
+
+        public async Task GetGameDataForUserAsync(User user)
+        {
+            user = await _dbContext.Users
+                .Include(u => u.Games)
+                .Include(u => u.Messages)
+                .Include(u => u.Predictions)
+                .FirstAsync(u => u.UserID == user.UserID);
+        }
     }
 }

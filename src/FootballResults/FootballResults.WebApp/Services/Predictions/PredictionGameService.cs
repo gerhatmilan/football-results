@@ -4,6 +4,8 @@ using FootballResults.Models.Users;
 using FootballResults.Models.General;
 using Microsoft.EntityFrameworkCore;
 using FootballResults.Models.Football;
+using FootballResults.WebApp.Services.Football;
+using System.Collections;
 
 namespace FootballResults.WebApp.Services.Predictions
 {
@@ -11,6 +13,7 @@ namespace FootballResults.WebApp.Services.Predictions
     {
         private AppDbContext _dbContext;
         private IConfiguration _config;
+
         public PredictionGameService(AppDbContext dbContext, IConfiguration config)
         {
             _dbContext = dbContext;
@@ -34,7 +37,7 @@ namespace FootballResults.WebApp.Services.Predictions
                 Leagues = new List<League>()
             };
         }
-        
+
         private async Task AddIncludedLeaguesAsync(PredictionGame game, CreateGameModel model)
         {
             foreach (var pair in model.IncludedLeagues)
@@ -51,7 +54,7 @@ namespace FootballResults.WebApp.Services.Predictions
         public async Task<PredictionGame?> CreatePredictionGameAsync(User user, CreateGameModel model)
         {
 
-            using(var transaction = _dbContext.Database.BeginTransaction())
+            using (var transaction = _dbContext.Database.BeginTransaction())
             {
                 try
                 {
@@ -95,13 +98,55 @@ namespace FootballResults.WebApp.Services.Predictions
 
         public async Task<PredictionGame?> GetPredictionGameAsync(int gameID)
         {
-            return await _dbContext.PredictionGames
-                .Where(g => g.GameID == gameID)
-                .Include(g => g.Players)
-                .Include(g => g.Leagues)
-                .Include(g => g.Predictions)
-                .Include(g => g.Standings)
-                .FirstOrDefaultAsync();
+            var result = await _dbContext.PredictionGames
+            .Where(g => g.GameID == gameID)
+            .Include(g => g.Players)
+            .Include(g => g.Leagues)
+            .Include(g => g.Leagues)
+            .Include(g => g.Predictions).ThenInclude(p => p.Match)
+            .Include(g => g.Standings)
+            .FirstOrDefaultAsync();
+
+            /*
+            if (result != null)
+            {
+                PredictionGame? game = await _dbContext.PredictionGames
+                    .FindAsync(gameID);
+
+                foreach (League league in result!.Leagues)
+                {
+                    _dbContext.Entry(league).State = EntityState.Detached;
+
+                    int relevantSeason = game!.GameLeagues
+                        .Where(gl => gl.LeagueID == league.LeagueID)
+                        .FirstOrDefault()!
+                        .Season;
+
+                    var leagueWithData = await _dbContext.Leagues
+                        .Include(l => l.Standings).ThenInclude(s => s.Team)
+                        .Include(l => l.Matches)
+                        .FirstOrDefaultAsync(l => l.LeagueID == league.LeagueID);
+
+                    league.Matches = leagueWithData!
+                        .Matches
+                        .Where(m => m.Season == relevantSeason)
+                        .ToList();
+
+                    league.Standings = leagueWithData!
+                        .Standings
+                        .Where(s => s.Season == relevantSeason)
+                        .ToList();
+                }
+
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+            */
+
+            return result;
         }
 
         public async Task<PredictionGame?> GetPredictionGameByKeyAsync(string joinKey)
@@ -127,6 +172,91 @@ namespace FootballResults.WebApp.Services.Predictions
 
             await _dbContext.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<IEnumerable<LeagueStanding>> GetStandingsAsync(PredictionGame game)
+        {
+            IEnumerable<LeagueStanding> allStandings = new List<LeagueStanding>();
+
+            foreach (var league in game.Leagues)
+            {
+                int relevantSeason = game.GameLeagues
+                    .Where(gl => gl.LeagueID == league.LeagueID)
+                    .FirstOrDefault()!
+                    .Season;
+
+                var standings = await _dbContext.LeagueStandings
+                    .Where(l => l.LeagueID == league.LeagueID && l.Season == relevantSeason)
+                    .Include(l => l.Team)
+                    .ToListAsync();
+
+                allStandings = allStandings.Concat(standings);
+            }
+
+            return allStandings;
+        }
+
+        public async Task<IEnumerable<Match>> GetMatchesAsync(PredictionGame game)
+        {
+            IEnumerable<Match> allMatches = new List<Match>();
+
+            foreach (var league in game.Leagues)
+            {
+                int relevantSeason = game.GameLeagues
+                    .Where(gl => gl.LeagueID == league.LeagueID)
+                    .FirstOrDefault()!
+                    .Season;
+
+                var matches = await _dbContext.Matches
+                    .Where(m => m.LeagueID == league.LeagueID && m.Season == relevantSeason)
+                    .Include(m => m.HomeTeam)
+                    .Include(m => m.AwayTeam)
+                    .ToListAsync();
+
+                allMatches = allMatches.Concat(matches);
+            }
+
+            return allMatches;
+        }
+
+        public async Task<bool> MakePredictionAsync(User user, PredictionGame game, Match match, PredictionModel prediction)
+        {
+            if (user == null || game == null || match == null || !prediction.HomeTeamGoals.HasValue
+                || !prediction.AwayTeamGoals.HasValue)
+            {
+                return false;
+            }
+
+            await _dbContext.Predictions.AddAsync(new Prediction
+            {
+                UserID = user.UserID,
+                GameID = game.GameID,
+                MatchID = match.MatchID,
+                HomeTeamGoals = prediction.HomeTeamGoals.Value,
+                AwayTeamGoals = prediction.AwayTeamGoals.Value
+            });
+
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> UpdatePredictionAsync(Prediction prediction, PredictionModel model)
+        {
+            if (prediction == null || model == null || !model.HomeTeamGoals.HasValue
+                || !model.AwayTeamGoals.HasValue)
+                return false;
+
+            prediction.HomeTeamGoals = model.HomeTeamGoals.Value;
+            prediction.AwayTeamGoals = model.AwayTeamGoals.Value;
+
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
+        
+        public async Task RefreshData(PredictionGame game)
+        {
+            game.RefreshData();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

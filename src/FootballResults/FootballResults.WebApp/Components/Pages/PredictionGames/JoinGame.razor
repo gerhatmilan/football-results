@@ -3,10 +3,9 @@
 @if (User != null)
 {
     <JoinGameForm User="@User" />
-
 }
 
 @code {
-    [Parameter]
+    [CascadingParameter(Name = "User")]
     public User? User { get; set; }
 }

@@ -18,17 +18,17 @@
     <div class="subMenuContent">
         @if (ActiveSubMenu == "games")
         {
-            <GameList User="@User" />
+            <GameList />
         }
 
         @if (ActiveSubMenu == "create")
         {
-            <CreateGame User="@User" />
+            <CreateGame />
         }
 
         @if (ActiveSubMenu == "join")
         {
-            <JoinGame User="@User" />
+            <JoinGame />
         }
     </div>
 }

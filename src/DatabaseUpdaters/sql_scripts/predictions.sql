@@ -40,6 +40,7 @@ CREATE TABLE "predictions"."predictions" (
   "match_id" integer,
   "home_team_goals" integer NOT NULL,
   "away_team_goals" integer NOT NULL,
+  "points_given" boolean NOT NULL DEFAULT false,
   "prediction_date" timestamptz DEFAULT CURRENT_TIMESTAMP,
   
   PRIMARY KEY ("user_id", "prediction_game_id", "match_id"),

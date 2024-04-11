@@ -13,7 +13,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (TopScorer topscorer in TopScorers)
+                @foreach (TopScorer topscorer in TopScorers.OrderBy(ts => ts.Rank))
                 {
                     <tr class="topscorer">
                         <td>@topscorer.Rank</td>

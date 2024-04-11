@@ -13,13 +13,34 @@
 }
 
 p {
+    width: 100%;
+    margin: 0 auto;
+}
+
+p.description {
     text-align: center;
+    margin: 50px auto;
 }
 
 .leagueStanding {
     font-size: 0.5rem !important;
     padding: 10px;
     overflow-y: auto;
+}
+
+.keyword {
+    color: var(--link);
+}
+
+.button {
+    max-width: 150px;
+    font-size: 0.8rem;
+    margin: 1rem auto;
+}
+
+.joinKey {
+    font-size: 1rem;
+    margin: 1rem auto;
 }
 
 ::deep .highlight::-webkit-scrollbar {

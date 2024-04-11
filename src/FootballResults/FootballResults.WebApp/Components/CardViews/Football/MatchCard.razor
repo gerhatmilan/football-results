@@ -6,7 +6,7 @@
         <a class="matchDetails" href="/matches/@Match.MatchID">
             @if (Match.Date != null)
             {
-                @if (Match.Date < DateTime.UtcNow)
+                @if (Match.HasStarted())
                 {
                     <div class="smallDate">
                         <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />

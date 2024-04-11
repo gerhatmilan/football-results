@@ -119,7 +119,7 @@
 
 .today {
     background-color: var(--link);
-    color: var(--light)
+    color: white !important;
 }
 
 .selected.today {

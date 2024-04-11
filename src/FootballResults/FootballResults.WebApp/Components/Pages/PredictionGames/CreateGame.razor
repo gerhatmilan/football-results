@@ -26,6 +26,6 @@
 </div>
 
 @code {
-    [Parameter]
+    [CascadingParameter(Name = "User")]
     public User? User { get; set; }
 }

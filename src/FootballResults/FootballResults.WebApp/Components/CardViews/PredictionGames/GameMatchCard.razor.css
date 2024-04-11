@@ -7,22 +7,31 @@
     aspect-ratio: 2 / 1
 }
 
-    .matchCard a {
-        color: var(--light);
-        text-decoration: none;
-        height: inherit;
-    }
+.matchCard a {
+    color: var(--light);
+    text-decoration: none;
+    height: inherit;
+}
 
-        .matchCard a:hover {
-            cursor: pointer;
-        }
+.matchCard a:hover {
+    cursor: pointer;
+}
 
 .matchDetails {
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .score {
@@ -53,18 +62,30 @@
     }
 }
 
-.score, .bigDate, .smallDate, .status, .lastUpdate {
+.score, .bigDate, .smallDate, .status, .lastUpdate, .prediction {
     margin: auto;
+    width: 100%;
 }
 
 .finished {
     opacity: 0.5;
 }
 
+.predictionPoints {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--link);
+    color: white;
+    border-radius: 15%;
+    padding: 1%;
+    margin-left: 2%;
+}
+
 @media (min-width: 0px) {
-    .score, .bigDate, .smallDate, .status, .lastUpdate {
-        margin-top: 0;
-        margin-bottom: 0;
+    .detailsTop, .detailsMiddle, .detailsBottom {
+        margin-top: 5%;
+        margin-bottom: 5%;
     }
 
     .matchCard {
@@ -75,7 +96,7 @@
         width: 50%;
     }
 
-    .smallDate, .status {
+    .smallDate, .status, .prediction {
         font-size: 3vw;
     }
 
@@ -98,12 +119,12 @@
 }
 
 @media (min-width: 500px) {
-    .score, .bigDate, .smallDate, .status, .lastUpdate {
+    .detailsBottom, .detailsMiddle, .detailsTop {
         margin-top: 1rem;
         margin-bottom: 1rem;
     }
 
-    .smallDate, .status {
+    .smallDate, .status, .prediction {
         font-size: 1rem;
     }
 

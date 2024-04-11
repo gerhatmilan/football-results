@@ -577,6 +577,10 @@ namespace FootballResults.WebApp.Database
                 .HasColumnName("away_team_goals")
                 .IsRequired(true);
             modelBuilder.Entity<Prediction>()
+                .Property(p => p.PointsGiven)
+                .HasColumnName("points_given")
+                .IsRequired(true);
+            modelBuilder.Entity<Prediction>()
                 .Property(p => p.PredictionDate)
                 .HasColumnName("prediction_date")
                 .IsRequired(false);
@@ -800,11 +804,17 @@ namespace FootballResults.WebApp.Database
                         .WithMany(u => u.UserTeams)
                         .HasForeignKey(r => r.UserID));
 
-            // User 1 : N Message
+            // User 1 : N Message (user messages)
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Messages)
                 .WithOne(m => m.User)
                 .HasForeignKey(m => m.UserID);
+
+            // User 1 : N PredictionGame (created games by user)
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.CreatedGames)
+                .WithOne(g => g.Owner)
+                .HasForeignKey(g => g.OwnerID);
 
             // User N : N PredictionGame (participants in a prediction game)
             modelBuilder.Entity<User>()
@@ -818,13 +828,7 @@ namespace FootballResults.WebApp.Database
                         .WithMany(u => u.Participations)
                         .HasForeignKey(r => r.UserID));
 
-            // User 1 : N PredictionGame (created games by user)
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.CreatedGames)
-                .WithOne(g => g.Owner)
-                .HasForeignKey(g => g.OwnerID);
-
-            // PredictionGame N : N League (included leagues in competition)
+            // PredictionGame N : N League (included leagues in a prediction game)
             modelBuilder.Entity<PredictionGame>()
                 .HasMany(g => g.Leagues)
                 .WithMany(l => l.GamesWhereIncluded)
@@ -836,29 +840,35 @@ namespace FootballResults.WebApp.Database
                         .WithMany(l => l.GameLeagues)
                         .HasForeignKey(r => r.GameID));
 
-            // User 1 : N Prediction
+            // User 1 : N Prediction (user predictions)
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Predictions)
                 .WithOne(p => p.User)
                 .HasForeignKey(p => p.UserID);
 
-            // User 1 : N GameStanding
+            // User 1 : N GameStanding (prediction game standings of a user)
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Standings)
                 .WithOne(s => s.User)
                 .HasForeignKey(s => s.UserID);
 
-            // PredictionGame 1 : N Prediction
+            // PredictionGame 1 : N Prediction (predictions in a prediction game)
             modelBuilder.Entity<PredictionGame>()
                 .HasMany(g => g.Predictions)
                 .WithOne(p => p.Game)
                 .HasForeignKey(p => p.GameID);
 
-            // PredictionGame 1 : N GameStanding
+            // PredictionGame 1 : N GameStanding (standings in a prediction game)
             modelBuilder.Entity<PredictionGame>()
                 .HasMany(g => g.Standings)
                 .WithOne(s => s.Game)
                 .HasForeignKey(s => s.GameID);
+
+            // Prediction N : 1 Match (predictions for a match)
+            modelBuilder.Entity<Prediction>()
+                .HasOne(p => p.Match)
+                .WithMany(m => m.Predictions)
+                .HasForeignKey(p => p.MatchID);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -378,6 +378,9 @@ namespace FootballResults.API.Models
                 .Ignore(t => t.BookmarkID)
                 .Ignore(t => t.UsersWhoBookmarked)
                 .Ignore(t => t.UserTeams);
+
+            modelBuilder.Entity<Match>()
+                .Ignore(m => m.Predictions);
         }
 
         private void SetRelationShips(ModelBuilder modelBuilder)

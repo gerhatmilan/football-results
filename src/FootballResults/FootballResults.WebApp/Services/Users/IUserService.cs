@@ -12,5 +12,6 @@ namespace FootballResults.WebApp.Services.Users
         Task AddToFavoriteTeamsAsync(User user, Team team);
         Task RemoveFromFavoriteLeaguesAsync(User user, League League);
         Task RemoveFromFavoriteTeamsAsync(User user, Team team);
+        Task GetGameDataForUserAsync(User user);
     }
 }
