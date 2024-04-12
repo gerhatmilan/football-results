@@ -20,13 +20,18 @@
         <div class="gameStandingCol">
             <!-- Game details -->
             <h2>Details</h2>
-            <p>
+            <p class="details highlight">
                 <span class="keyword">Owner</span>: @Game.Owner.Username<br />
                 <span class="keyword">Exact scoreline reward</span>: @Game.ExactScorelineReward<br />
                 <span class="keyword">Outcome reward</span>: @Game.OutcomeReward<br />
                 <span class="keyword">Goal count / team reward</span>: @Game.GoalCountReward<br />
                 <span class="keyword">Goal difference reward</span>:  @Game.GoalDifferenceReward<br />
-                <span class="keyword">Created at</span>: @(Game.CreatedAt.ToString() ?? "Unknown")<br />
+                <span class="keyword">Created at</span>:
+                @if (Game.CreatedAt != null)
+                {
+                    <ToLocal DateTime="@DateTime.SpecifyKind(Game.CreatedAt.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+                }
+                <br />
                 <span class="keyword">Status</span>: @(Game.IsFinished ? "finished" : "in progress")<br />
             </p>
 
@@ -43,7 +48,15 @@
 
             <!-- Game standings -->
             <h2>Standings</h2>
-            <GameStandingsCard Standings="@Game.Standings" />
+            <GameStandingsCard Standings="@Game.GetLiveStandings()" />
+
+            <!-- Chat -->
+            <h2>Chat</h2>
+            <CascadingValue Name="Game" Value="Game">
+                <CascadingValue Name="User" Value="User">
+                    <ChatWindow />
+                </CascadingValue>
+            </CascadingValue>
         </div>
         <div class="matchesCol">
             <!-- Matches -->

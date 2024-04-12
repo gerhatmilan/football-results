@@ -34,13 +34,17 @@ p.description {
 
 .button {
     max-width: 150px;
-    font-size: 0.8rem;
+    font-size: 1rem;
     margin: 1rem auto;
 }
 
 .joinKey {
     font-size: 1rem;
     margin: 1rem auto;
+}
+
+.details {
+    padding: 5%;
 }
 
 ::deep .highlight::-webkit-scrollbar {

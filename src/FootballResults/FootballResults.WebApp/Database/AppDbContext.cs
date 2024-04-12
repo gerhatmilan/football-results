@@ -475,7 +475,7 @@ namespace FootballResults.WebApp.Database
                 .HasColumnName("match_id")
                 .IsRequired(false);
             modelBuilder.Entity<Message>()
-                .Property(m => m.PredictionGameID)
+                .Property(m => m.GameID)
                 .HasColumnName("prediction_game_id")
                 .IsRequired(false);
 
@@ -863,6 +863,12 @@ namespace FootballResults.WebApp.Database
                 .HasMany(g => g.Standings)
                 .WithOne(s => s.Game)
                 .HasForeignKey(s => s.GameID);
+
+            // PredictionGame 1 : N Message (messages in a prediction game)
+            modelBuilder.Entity<PredictionGame>()
+                .HasMany(g => g.Messages)
+                .WithOne(m => m.Game)
+                .HasForeignKey(m => m.GameID);
 
             // Prediction N : 1 Match (predictions for a match)
             modelBuilder.Entity<Prediction>()

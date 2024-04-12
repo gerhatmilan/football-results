@@ -98,55 +98,15 @@ namespace FootballResults.WebApp.Services.Predictions
 
         public async Task<PredictionGame?> GetPredictionGameAsync(int gameID)
         {
-            var result = await _dbContext.PredictionGames
+            return await _dbContext.PredictionGames
             .Where(g => g.GameID == gameID)
             .Include(g => g.Players)
             .Include(g => g.Leagues)
-            .Include(g => g.Leagues)
             .Include(g => g.Predictions).ThenInclude(p => p.Match)
             .Include(g => g.Standings)
+            .Include(g => g.Messages)
+            .AsSplitQuery()
             .FirstOrDefaultAsync();
-
-            /*
-            if (result != null)
-            {
-                PredictionGame? game = await _dbContext.PredictionGames
-                    .FindAsync(gameID);
-
-                foreach (League league in result!.Leagues)
-                {
-                    _dbContext.Entry(league).State = EntityState.Detached;
-
-                    int relevantSeason = game!.GameLeagues
-                        .Where(gl => gl.LeagueID == league.LeagueID)
-                        .FirstOrDefault()!
-                        .Season;
-
-                    var leagueWithData = await _dbContext.Leagues
-                        .Include(l => l.Standings).ThenInclude(s => s.Team)
-                        .Include(l => l.Matches)
-                        .FirstOrDefaultAsync(l => l.LeagueID == league.LeagueID);
-
-                    league.Matches = leagueWithData!
-                        .Matches
-                        .Where(m => m.Season == relevantSeason)
-                        .ToList();
-
-                    league.Standings = leagueWithData!
-                        .Standings
-                        .Where(s => s.Season == relevantSeason)
-                        .ToList();
-                }
-
-                return result;
-            }
-            else
-            {
-                return null;
-            }
-            */
-
-            return result;
         }
 
         public async Task<PredictionGame?> GetPredictionGameByKeyAsync(string joinKey)
