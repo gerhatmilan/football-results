@@ -182,11 +182,11 @@
     }
 }
 
-@media (min-width: 2000px) {
+@media (min-width: 1800px) {
     .calendar {
         margin-top: 0;
         margin-bottom: 0;
-        margin-left: 58px;
+        margin-left: 1rem;
         position: fixed;
     }
 }

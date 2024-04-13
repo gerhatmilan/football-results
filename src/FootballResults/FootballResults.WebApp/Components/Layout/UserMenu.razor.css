@@ -5,7 +5,9 @@
     padding: 0;
     background-color: inherit;
 }
-#profileButton:focus {
+
+#profileButton:focus, #profileButton:active {
+    outline: none;
     box-shadow: none;
 }
 

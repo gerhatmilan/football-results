@@ -59,15 +59,19 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
             ClientDate = (await ClientTimeService.GetClientDateAsync()).Date;
         }
 
+        protected bool IsLoading { get; set; } = false;
+
         protected override async Task OnParametersSetAsync()
         {
             // both parameters are set
             if (GameID != null && User != null)
             {
                 // Game not loaded yet
-                if (Game == null)
+                if (Game == null && !IsLoading)
                 {
+                    IsLoading = true;
                     await LoadGameAsync();
+                    IsLoading = false;
 
                     // Game loaded but not found
                     if (Game == null)

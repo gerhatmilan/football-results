@@ -3,10 +3,10 @@
 <div id="header" class="sticky-top">
      <div class="menuPoints">
         <div class="themeDiv">
-            <button type="button" @onclick="ChangeStyle">
+            <button type="button" @onclick="ChangeStyleAsync">
                 @if (theme == "dark")
                 {
-                     <img src="icons/moon-light.png" alt="Light" />
+                    <img src="icons/moon-light.png" alt="Light" />
                 }
                 else
                 {
@@ -52,7 +52,7 @@
 @code {
     private string theme = "dark";
 
-    private async void ChangeStyle()
+    private async Task ChangeStyleAsync()
     {
         if (theme == "dark")
         {
