@@ -47,8 +47,8 @@ namespace FootballResults.WebApp
             builder.Services.AddScoped<ISignupService, SignupService>();
             builder.Services.AddScoped<ILoginService, LoginService>();
             builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IPredictionGameService, PredictionGameService>();
-            builder.Services.AddScoped<IChatService<Message>, GameChatService>();
+            builder.Services.AddTransient<IPredictionGameService, PredictionGameService>();
+            builder.Services.AddTransient<IChatService<Message>, GameChatService>();
             builder.Services.AddScoped<IClientTimeService, ClientTimeService>();
 
             // HttpClient services
