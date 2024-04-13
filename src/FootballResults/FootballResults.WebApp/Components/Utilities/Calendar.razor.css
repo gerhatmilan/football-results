@@ -1,44 +1,57 @@
 ﻿.calendar {
-    background-color: var(--dark);
+    display: flex;
+    flex-direction: column;
+    background-color: var(--highlight);
     color: var(--light);
-    border: 1px solid var(--light);
+    border: 1px solid var(--dark);
     border-radius: 10px;
     margin: 0 auto 50px auto;
-    width: 90%;
+    width: 75%;
     aspect-ratio: 1 / 1;
+    max-width: 400px;
+    padding: 1%;
+}
+
+.calendar * {
+    background-color: inherit;
+    color: var(--light);
 }
 
 .calendar-header {
     width: 100%;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 30%;
+    justify-content: center;
 }
 
 .title-header {
     width: 100%;
-    display: inline-flex;
-    margin-bottom: 5%;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .prev-month-btn {
-    float: left;
+    width: 10%;
+    padding: 0;
 }
 
 .next-month-btn {
-    float: right;
+    width: 10%;
+    padding: 0;
 }
 
 .arrow {
     border: solid var(--light);
     border-width: 0 3px 3px 0;
     display: inline-block;
-    padding: 3px;
+    padding: 15%;
 }
 
-.arrow:hover {
+.prev-month-btn:hover .arrow, .next-month-btn:hover .arrow {
     cursor: pointer;
-    border-color: var(--light);
+    border-color: var(--link);
 }
 
 .left {
@@ -52,6 +65,7 @@
 }
 
 .calendar-title {
+    height: 100%;
     width: 80%;
     display: flex;
     justify-content: center;
@@ -62,12 +76,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0 3%;
 }
 
 .calendar-title button {
-    background-color: var(--dark);
     border: none;
-    color: var(--light);
 }
 
 .dropdown-menu {
@@ -75,92 +88,96 @@
     border: 1px solid var(--light);
     margin-top: 15px !important;
     text-align: center;
+    max-height: 200px;
+    overflow: auto;
 }
 
-.dropdown-menu > button:hover {
+.dropdown-menu button {
+    color: var(--light);
+
+}
+
+.dropdown-menu button:hover {
     color: var(--link);
 }
 
 .days-header {
     width: 100%;
     font-weight: bold;
-    display: inline-flex;
+    display: flex;
+    flex-direction: row;
     justify-content: center;
 }
 
 .days {
     width: 100%;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 70%;
 }
 
 .week {
     width: 100%;
+    height: 20%;
     justify-content: center;
-    display: inline-flex;
+    display: flex;
+    flex-direction: row;
 }
 
 .day {
-    display: inline-flex;
-    width: 10%;
+    display: flex;
+    width: 14%;
     aspect-ratio: 1 / 1;
     justify-content: center;
     align-items: center;
-    margin: 5px;
-    background-color: var(--dark);
-    color: var(--light);
     border: none;
+    padding: 0;
+}
+
+.today, .selected {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 80%;
     border-radius: 100%;
 }
 
 .selected {
-    background-color: var(--light);
-    color: var(--dark);
+    background-color: white;
+    color: black;
 }
 
 .today {
     background-color: var(--link);
-    color: white !important;
-}
-
-.selected.today {
-    color: var(--light);
+    color: white;
 }
 
 @media (min-width: 0px) {
-    .days-header .day, .days .day {
-        margin-left: 3px;
-        margin-right: 3px;
-        font-size: 0.5rem;
+    .days-header .day {
+        font-size: 2.5vw;
     }
 
-    .calendar-title {
-        font-size: 0.8rem;
-    }
-}
-
-@media (min-width: 350px) {
-    .calendar {
-        padding: 10px;
+    .days .day {
+        font-size: 3vw;
     }
 
-    .days-header .day, .days .day
-    {
-        margin-left: 5px;
-        margin-right: 5px;
-        font-size: 1rem;
-    }
-
-    .calendar-title {
-        font-size: 1.2rem;
+    .calendar-title, .dropdown-menu button {
+        font-size: 4vw;
     }
 }
 
 @media (min-width: 400px) {
-    .calendar {
-        max-width: 400px;
+    .days-header .day {
+        font-size: 1rem;
     }
 
-    .calendar-title {
+    .days .day {
+        font-size: 1.3rem;
+    }
+    .calendar-title, .dropdown-menu button {
         font-size: 1.5rem;
     }
 }

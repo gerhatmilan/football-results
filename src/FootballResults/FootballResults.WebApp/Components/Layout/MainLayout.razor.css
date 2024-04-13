@@ -1,4 +1,4 @@
-.page {
+body {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -6,13 +6,8 @@
 }
 
 main {
+    margin: 5rem 0;
     flex: 1;
-}
-
-article {
-    flex: 1;
-    margin-top: 50px;
-    padding: 0px 5%;
 }
 
 ::deep input, ::deep input:focus, ::deep input:active, ::deep textarea, ::deep textarea:active, ::deep textarea:focus {

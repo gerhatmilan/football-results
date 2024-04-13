@@ -1,0 +1,83 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+:root {
+    --light: #000000;
+    --dark: #ffffff;
+    --link: var(--bs-link-color);
+    --highlight: #eeeeee;
+    --link-hover: rgba(255, 255, 255, 0.1);
+    --error: rgb(255, 0, 0);
+    --placeholder-light: rgba(0, 0, 0, 0.6);
+    --placeholder-dark: rgba(255, 255, 255, 0.6);
+}
+
+html, body {
+    font-family: 'Manrope', sans-serif;
+    background-color: var(--dark);
+    color: var(--light);
+    font-size: 1em;
+}
+
+h1 {
+    color: var(--light);
+    font-size: calc(1.5rem + 1vw);
+    text-align: center;
+    margin: 3rem 0;
+}
+
+h1:focus, h2:focus, h3:focus {
+    outline: none;
+    border: none;
+}
+
+h2 {
+    color: var(--light);
+    font-size: calc(1rem + 0.5vw);
+    text-align: center;
+    margin: 2rem 0;
+}
+
+h3 {
+    color: var(--light);
+    font-size: calc(0.8rem + 0.4vw);
+    text-align: center;
+    margin: 1rem 0;
+}
+
+p {
+    width: 100%;
+    max-width: 800px;
+    margin: 50px auto;
+    font-size: 1rem;
+    text-align: justify;
+}
+
+.button, .button:hover, .button:active, .button:focus {
+    width: 100%;
+    background-color: var(--link) !important;
+    border: 1px solid var(--link) !important;
+    color: white !important;
+}
+
+.highlight {
+    background-color: var(--highlight);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.alert {
+    font-size: 1rem !important;
+}
+
+@media (max-width: 500px) {
+    p {
+        font-size: 3vw !important;
+    }
+
+    .button {
+        font-size: 4vw !important;
+    }
+}

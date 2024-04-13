@@ -1,6 +1,54 @@
 #header {
     border-bottom: 1px solid var(--light);
     background-color: var(--dark);
+    padding: 1rem 1rem 0 1rem;
+}
+
+.menuPoints {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+    max-height: 40px;
+}
+
+.menuPoints > * {
+    height: 100%;
+}
+
+.themeDiv {
+    display: flex;
+    align-items: center;
+    width: 20%;
+    height: 100%;
+    text-align: left;
+}
+
+.themeDiv button {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    border: none;
+    padding: 0;
+    background-color: inherit;
+}
+
+.themeDiv img {
+    height: 70%;
+    aspect-ratio: 1 / 1;
+}
+
+.searchBarDiv {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userMenuDiv {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 20%;
 }
 
 #navbarSupportedContent {
@@ -28,40 +76,25 @@ u {
 
 .navbar {
     padding: 0 !important;
-}
-
-.navbar-nav {
-    flex-direction: row;
     justify-content: center;
 }
 
-.navbar-toggler {
-    position: fixed;
-    top: 18px;
-    left: 30px;
-    z-index: 1;
-    padding: 0;
-    border: 0;
-}
 
-.navbar-toggler:focus {
-    box-shadow: none;
-}
 @media (min-width: 0px)
 {
     .navbar-nav {
+        justify-content: center;
         flex-direction: row;
-        font-size: 3vw;
+        font-size: 5vw;
     }
 }
 
-@media (min-width: 500px)
-{
+@media (min-width: 500px) {
     ::deep .nav-link {
         margin: 0.5rem 1.5rem;
     }
 
     .navbar-nav {
-        font-size: 1.3rem;
+        font-size: 1rem;
     }
 }

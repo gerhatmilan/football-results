@@ -4,15 +4,13 @@
 @inject NavigationManager NavigationManager
 
 <CascadingValue Name="User" Value="User">
-    <div class="page">
-        <NavMenu />
-        <main>
-            <article class="content px-4">
-                @Body
-            </article>
-        </main>
-        <Footer />
-    </div>
+    <NavMenu />
+    <main>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+    <Footer />
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.

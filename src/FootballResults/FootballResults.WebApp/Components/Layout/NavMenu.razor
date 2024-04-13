@@ -1,37 +1,70 @@
-﻿<div id="header" class="sticky-top">
-    <UserMenu />
-    <SearchBar />
+﻿@inject IJSRuntime JSRuntime
 
-    <nav class="navbar navbar-expand-md">
-        <div class="container">
-            <button class="navbar-toggler navbar-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+<div id="header" class="sticky-top">
+     <div class="menuPoints">
+        <div class="themeDiv">
+            <button type="button" @onclick="ChangeStyle">
+                @if (theme == "dark")
+                {
+                     <img src="icons/moon-light.png" alt="Light" />
+                }
+                else
+                {
+                    <img src="icons/moon-dark.png" alt="Dark" />
+                }
             </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <NavLink class="nav-link" href="./" ActiveClass="active" Match="NavLinkMatch.All">
-                            Home
-                        </NavLink>
-                    </li>
-                    <li class="nav-item">
-                        <NavLink class="nav-link" href="./matches">
-                            Matches
-                        </NavLink>
-                    </li>
-                    <li class="nav-item">
-                        <NavLink class="nav-link" href="./leagues">
-                            Leagues
-                        </NavLink>
-                    </li>
-                    <li class="nav-item">
-                        <NavLink class="nav-link" href="./teams">
-                            Teams
-                        </NavLink>
-                    </li>
-                </ul>
-            </div>
+        </div>
+        <div class="searchBarDiv">
+            <SearchBar />
+        </div>
+        <div class="userMenuDiv">
+            <UserMenu />
+        </div>
+     </div>
+    <nav class="navbar">
+        <div id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="./" ActiveClass="active" Match="NavLinkMatch.All">
+                        Home
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="./matches">
+                        Matches
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="./leagues">
+                        Leagues
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="./teams">
+                        Teams
+                    </NavLink>
+                </li>
+            </ul>
         </div>
     </nav>
 </div>
+
+@code {
+    private string theme = "dark";
+
+    private async void ChangeStyle()
+    {
+        if (theme == "dark")
+        {
+            await JSRuntime.InvokeVoidAsync("changeStyleSheet", "app_light.css");
+            theme = "light";
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("changeStyleSheet", "app_dark.css");
+            theme = "dark";
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+}

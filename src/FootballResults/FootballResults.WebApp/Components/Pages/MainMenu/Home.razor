@@ -8,7 +8,7 @@
 {
     @if (Matches.Any())
     {
-        <h2>Matches today</h2>
+        <h1>Matches today</h1>
         @foreach (var leagueWithMatchesGroup in GetMatchesByLeague(Matches))
         {
                 <LeagueCard League="leagueWithMatchesGroup.matches.ElementAt(0).League" Matches="leagueWithMatchesGroup.matches" MatchOrderOption="@MatchOrderOption.RoundThenDateAsc" />
@@ -16,7 +16,7 @@
     }
     else
     {
-        <h2>No matches today 😒</h2>
+        <h1>No matches today 😒</h1>
 
         <h2>Check out upcoming matches instead</h2>
 
