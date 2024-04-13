@@ -1,6 +1,7 @@
 ﻿using FootballResults.Models.Predictions;
 using FootballResults.Models.Users;
 using FootballResults.WebApp.Services.Chat;
+using FootballResults.WebApp.Services.Time;
 using FootballResults.WebApp.Services.Users;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -11,6 +12,9 @@ namespace FootballResults.WebApp.Components.Utilities
 {
     public class ChatWindowBase : ComponentBase, IAsyncDisposable
     {
+        [Inject]
+        protected IClientTimeService ClientTimeService { get; set; } = default!;
+
         [Inject]
         protected IChatService<Message> GameChatService { get; set; } = default!;
 
@@ -29,9 +33,11 @@ namespace FootballResults.WebApp.Components.Utilities
         protected string? Message { get; set; }
 
         protected ElementReference ChatWindowReference;
-
         protected int LastScrollPosition = -1;
         protected bool ShouldScrollToBottom = true;
+
+        protected TimeSpan ClientUtcDiff { get; set; }
+        protected DateTime ClientDate { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -41,6 +47,9 @@ namespace FootballResults.WebApp.Components.Utilities
                 GameChatService.NewMessageArrived += ChatService_NewMessageArrived;
                 await ((GameChatService)GameChatService).Initialize(Game);
             }
+
+            ClientDate = await ClientTimeService.GetClientDateAsync();
+            ClientUtcDiff = await ClientTimeService.GetClientUtcDiffAsync();
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -58,6 +67,11 @@ namespace FootballResults.WebApp.Components.Utilities
         protected void ResetMessage()
         {
             Message = null;
+        }
+
+        protected bool MessageSentToday(Message message)
+        {
+            return message.SentAt.Add(ClientUtcDiff).Date == ClientDate.Date;
         }
 
         protected async Task SendMessageAsync(KeyboardEventArgs e)
