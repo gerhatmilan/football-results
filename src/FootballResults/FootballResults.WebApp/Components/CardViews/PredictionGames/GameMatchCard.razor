@@ -22,14 +22,12 @@
                     </div>
 
                     <div class="details detailsMiddle">
-                        <div class="score">
-                            @Match.HomeTeamGoals - @Match.AwayTeamGoals
-                        </div>
-                    </div>
-
-                    <div class="details detailsBottom">
                         <div class="smallDate">
                             <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+                        </div>
+
+                        <div class="score">
+                            @Match.HomeTeamGoals - @Match.AwayTeamGoals
                         </div>
 
                         @if (Match.Status != null)
@@ -46,7 +44,9 @@
                         {
                             <div class="status">Status unknown</div>
                         }
+                    </div>
 
+                    <div class="details detailsBottom">
                         @if ((Match.Status == "NS" || Match.IsInProgress()) && Match.LastUpdate != null)
                         {
                             <div class="lastUpdate">

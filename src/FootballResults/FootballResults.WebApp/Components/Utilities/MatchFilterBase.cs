@@ -2,11 +2,15 @@
 using FootballResults.Models.Football;
 using System.Linq;
 using FootballResults.WebApp.Services.Football;
+using FootballResults.WebApp.Services.Time;
 
 namespace FootballResults.WebApp.Components.Utilities
 {
     public class MatchFilterBase : ComponentBase
     {
+        [Inject]
+        protected IClientTimeService? ClientTimeService { get; set; }
+
         [Inject]
         protected IMatchService? MatchService { get; set; }
 
@@ -31,6 +35,13 @@ namespace FootballResults.WebApp.Components.Utilities
         protected IEnumerable<Match>? Matches { get; set; }
 
         protected TimeSpan ClientUtcDiff { get; set; }
+
+
+        protected override async Task OnInitializedAsync()
+        {
+            ClientUtcDiff = await ClientTimeService!.GetClientUtcDiffAsync();
+            await FilterMatchesAsync();
+        }
 
         protected void FilterMatchesBasedOnClientDate()
         {

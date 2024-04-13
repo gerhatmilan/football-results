@@ -62,9 +62,13 @@
     }
 }
 
-.score, .bigDate, .smallDate, .status, .lastUpdate, .prediction {
+.score, .bigDate, .smallDate, .lastUpdate, .prediction {
     margin: auto;
     width: 100%;
+}
+
+.status {
+    margin: auto;
 }
 
 .finished {
@@ -86,6 +90,11 @@
     .detailsTop, .detailsMiddle, .detailsBottom {
         margin-top: 5%;
         margin-bottom: 5%;
+    }
+
+
+    .detailsMiddle * {
+        margin: 2% 0;
     }
 
     .matchCard {
@@ -137,7 +146,7 @@
     }
 
     .lastUpdate {
-        font-size: 1em;
+        font-size: 0.7rem;
     }
 
     .liveIndicator {

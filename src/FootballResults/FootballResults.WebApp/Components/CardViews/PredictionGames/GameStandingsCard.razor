@@ -13,14 +13,7 @@
                             <td class="player">
                                 <div class="playerDiv">
                                     <div class="playerAvatarDiv">
-                                        @if (standing.User.ProfilePicturePath != null)
-                                        {
-                                            <img class="playerAvatar" src="@standing.User.ProfilePicturePath" alt />
-                                        }
-                                        else
-                                        {
-                                            <div class="playerAvatar noPictureAvatar">@standing.User.Username.Substring(0, 1).ToUpper()</div>
-                                        }
+                                        <ProfileIcon User="@standing.User" />
                                     </div>
                                     <div>@standing.User.Username</div>
                                 </div>

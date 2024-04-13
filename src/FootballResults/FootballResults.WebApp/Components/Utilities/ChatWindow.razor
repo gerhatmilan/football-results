@@ -1,0 +1,29 @@
+﻿@inherits ChatWindowBase
+
+@if (Game != null && GameChatService.Messages.Count() > 0)
+{
+    <div class="chatWindow highlight" @ref=ChatWindowReference>
+        @foreach (var message in GameChatService.Messages.Where(m => m.GameID == Game.GameID).OrderBy(m => m.SentAt))
+        {
+            User user = Game.Players.First(p => p.UserID == message.UserID);
+            <div class="chatRow">
+                <div class="detailsDiv">
+                    <div class="userDiv">
+                        <div class="avatarDiv">
+                            <ProfileIcon User="@user" />
+                        </div>
+                        <div class="usernameDiv">@user.Username</div>
+                    </div>
+                    <div class="sentAtDiv">
+                        <ToLocal DateTime="@DateTime.SpecifyKind(message.SentAt, DateTimeKind.Utc)" Format="@(MessageSentToday(message) ? "HH:MM" : "yyyy. mm. dd HH:MM")" @rendermode="@RenderMode.InteractiveServer" />
+                    </div>
+                </div>
+                <div class="messageDiv">
+                    @message.Text
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<input type="text" class="input form-control" placeholder="Send a message" @bind="Message" @onkeyup="SendMessageAsync" />

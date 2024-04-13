@@ -40,7 +40,7 @@
                 }
                 else
                 {
-                    <h1>No matches found</h1>
+                    <h2>No matches found</h2>
                 }
             }
             else
@@ -55,9 +55,9 @@
             {
                 @if (SeasonFilter != null)
                 {
-                    <h1>Season @String.Concat(SeasonFilter.ToString()!.Substring(2),
+                    <h2>Season @String.Concat(SeasonFilter.ToString()!.Substring(2),
                         "/", (SeasonFilter + 1).ToString()!.Substring(2))
-                    </h1>
+                    </h2>
 
                     @if (Standings.Count() > 0)
                     {
@@ -65,12 +65,12 @@
                     }
                     else
                     {
-                        <h1>No data</h1>
+                        <h2>No data</h2>
                     }
                 }
                 else
                 {
-                    <h1>Season has to be set</h1>
+                    <h2>Season has to be set</h2>
                 }
             }
             else
@@ -85,22 +85,22 @@
             {
                 @if (SeasonFilter != null)
                 {
-                    <h1>
+                    <h2>
                         Season @String.Concat(SeasonFilter.ToString()!.Substring(2),
                           "/", (SeasonFilter + 1).ToString()!.Substring(2))
-                    </h1>
+                    </h2>
                     @if (TopScorers.Count() > 0)
                     {
                         <TopScorersCard TopScorers="TopScorers" />
                     }
                     else
                     {
-                        <h1>No data</h1>
+                        <h2>No data</h2>
                     }
                 }
                 else
                 {
-                    <h1>Season has to be set</h1>
+                    <h2>Season has to be set</h2>
                 }
             }
             else

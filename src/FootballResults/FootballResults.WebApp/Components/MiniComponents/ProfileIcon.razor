@@ -1,44 +1,20 @@
-﻿@inject AuthenticationStateProvider AuthenticationStateProvider
-
-<button id="profileButton" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    <AuthorizeView>
-        <Authorized>
-            @if (User?.ProfilePicturePath != null)
-            {
-                <img id="profileIcon" src="@User?.ProfilePicturePath" alt="Profile picture" />
-            }
-            else
-            {
-                <div id="profileIconNoPicture">@User?.Username!.Substring(0,1).ToUpper()</div>
-            }
-        </Authorized>
-        <NotAuthorized>
-            <img id="profileIcon" src="icons/user-icon.png" alt="Avatar" />    
-        </NotAuthorized>
-    </AuthorizeView>
-</button>
-<ul class="navbar-nav">
-    <li class="nav-item dropdown">
-        <ul class="dropdown-menu">
-            <AuthorizeView>
-                <Authorized>
-                    <li class="username dropdown-item">@User?.Username</li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="/prediction-games">Prediction games</a></li>
-                    <li><a class="dropdown-item" href="/favorites">Favorites</a></li>
-                    <li><a class="dropdown-item" href="/settings">Settings</a></li>
-                    <li><a class="dropdown-item" href="/logout">Log out</a></li>
-                </Authorized>
-                <NotAuthorized>
-                    <li><a class="dropdown-item" href="/login">Log in</a></li>
-                    <li><a class="dropdown-item" href="/signup">Sign up</a></li>
-                </NotAuthorized>
-            </AuthorizeView>
-        </ul>
-    </li>
-</ul>
+﻿<AuthorizeView>
+    <Authorized>
+        @if (User?.ProfilePicturePath != null)
+        {
+            <img class="profileIcon" src="@User?.ProfilePicturePath" alt />
+        }
+        else
+        {
+            <div class="profileIconNoPicture">@User?.Username!.Substring(0,1).ToUpper()</div>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <img class="profileIcon" src="icons/user-icon.png" alt />    
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
-    [CascadingParameter(Name = "User")]
+    [Parameter]
     public User? User { get; set; }
 }

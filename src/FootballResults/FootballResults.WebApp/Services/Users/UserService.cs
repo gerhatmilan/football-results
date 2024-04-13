@@ -27,6 +27,7 @@ namespace FootballResults.WebApp.Services.Users
                .Include(u => u.FavoriteLeagues)
                .Include(u => u.FavoriteTeams)
                .Include(u => u.Games)
+               .AsSplitQuery()
                .FirstOrDefaultAsync(u => u.UserID == userID);
         }
 

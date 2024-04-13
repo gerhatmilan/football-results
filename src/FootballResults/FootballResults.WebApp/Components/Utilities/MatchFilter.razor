@@ -1,8 +1,5 @@
 ﻿@inherits MatchFilterBase
 
-@inject IJSRuntime JSRuntime
-@using FootballResults.WebApp.Components.Pages.Details
-
 @if (FilterTarget != null)
 {
     <div class="filterSection">
@@ -89,29 +86,4 @@
         }
                
     </div>
-}
-
-@code {
-    protected override async Task OnInitializedAsync()
-    {
-        await GetClientDate();
-        await FilterMatchesAsync();
-    }
-
-    protected async Task GetClientDate()
-    {
-        // refersh client utc time difference
-        await JSRuntime.InvokeVoidAsync("getClientDate", DotNetObjectReference.Create(this), "UpdateClientUtcDiff");
-    }
-
-    [JSInvokable]
-    public void UpdateClientUtcDiff(string clientDateString)
-    {
-        DateTime utcTime = DateTime.UtcNow;
-        var clientDate = DateTime.Parse(clientDateString);
-        ClientUtcDiff = clientDate - utcTime;
-
-        // round up diff based on hour
-        ClientUtcDiff = TimeSpan.FromHours((int)(Math.Round((ClientUtcDiff.Hours * 60 + ClientUtcDiff.Minutes) / 60.0)));
-    }
 }

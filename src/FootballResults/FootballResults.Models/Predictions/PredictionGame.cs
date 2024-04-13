@@ -22,6 +22,7 @@ namespace FootballResults.Models.Predictions
         public ICollection<User> Players { get; set; }
         public IEnumerable<GameStanding> Standings { get; set; } 
         public User Owner { get; set; }
+        public IEnumerable<Message> Messages { get; set; }
 
         // skip navigations
         public IEnumerable<Participation> Participations { get; set; }
@@ -29,13 +30,47 @@ namespace FootballResults.Models.Predictions
 
         public void RefreshData()
         {
-            RefreshStandings();
-            RefreshFinished();
+            if (!IsFinished)
+            {
+                RefreshStandings();
+                RefreshFinished();
+            }
+        }
+
+        public IEnumerable<GameStanding> GetLiveStandings()
+        {
+            ICollection<GameStanding> existingStandingsCopy = new List<GameStanding>();
+
+            Standings.ToList().ForEach(s =>
+            {
+                var standingCopy = new GameStanding
+                {
+                    GameID = s.GameID,
+                    UserID = s.UserID,
+                    Points = s.Points,
+                    LastUpdate = s.LastUpdate,
+                    Game = s.Game,
+                    User = s.User
+                };
+
+                existingStandingsCopy.Add(standingCopy);
+            });
+
+            Predictions.ToList().ForEach(p =>
+            {
+                if (!p.PointsGiven)
+                {
+                    var points = p.CalculatePoints();
+                    existingStandingsCopy.FirstOrDefault(s => s.GameID == GameID && s.UserID == p.UserID).Points += points;
+                }
+            });
+
+            return existingStandingsCopy.OrderByDescending(s => s.Points);
         }
 
         private void RefreshStandings()
         {
-            foreach (var prediction in Predictions)
+            Predictions.ToList().ForEach(prediction =>
             {
                 if (prediction.Match.IsFinished() && !prediction.PointsGiven)
                 {
@@ -48,7 +83,7 @@ namespace FootballResults.Models.Predictions
                         prediction.PointsGiven = true;
                     }
                 }
-            }
+            });
         }
 
         private void RefreshFinished()

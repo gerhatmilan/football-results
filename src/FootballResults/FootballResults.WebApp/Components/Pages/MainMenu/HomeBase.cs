@@ -1,24 +1,41 @@
 ﻿using Microsoft.AspNetCore.Components;
 using FootballResults.Models.Football;
 using FootballResults.WebApp.Services.Football;
+using FootballResults.WebApp.Services.Time;
 
 namespace FootballResults.WebApp.Components.Pages.MainMenu
 {
     public partial class HomeBase : ComponentBase
     {
         [Inject]
-        protected NavigationManager? NavigationManager { get; set; }
+        protected IClientTimeService ClientTimeService { get; set; } = default!;
 
         [Inject]
-        protected IMatchService? MatchService { get; set; }
+        protected NavigationManager NavigationManager { get; set; } = default!;
+
+        [Inject]
+        protected IMatchService MatchService { get; set; } = default!;
+
+        protected TimeSpan ClientUtcDiff { get; set; } = default!;
 
         protected DateTime SelectedDate { get; set; }
-
-        protected TimeSpan ClientUtcDiff { get; set; }
 
         protected IEnumerable<Match>? Matches { get; set; }
 
         protected IEnumerable<Match>? UpcomingMatches { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            ClientUtcDiff = await ClientTimeService.GetClientUtcDiffAsync();
+            SelectedDate = DateTime.UtcNow.Add(ClientUtcDiff);
+
+            await LoadMatchesAsync();
+            FilterMatchesBasedOnClientDate();
+            if (Matches != null && !Matches.Any())
+            {
+                await LoadUpcomingMatchesAsync();
+            }
+        }
 
         protected void FilterMatchesBasedOnClientDate()
         {

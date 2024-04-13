@@ -1,0 +1,61 @@
+﻿.chatWindow {
+    height: 500px;
+    width: 100%;
+    overflow-y: auto;
+    padding: 5%;
+}
+
+.chatRow {
+    width: 100%;
+}
+
+.detailsDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.userDiv {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.sentAtDiv {
+    width: 20%;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.avatarDiv {
+    display: flex;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    max-height: 50px;
+    margin-right: 5%;
+}
+
+.messageDiv {
+    text-align: justify;
+    width: 100%;
+    padding: 5% 0;
+}
+
+.input {
+    margin: 1rem 0;
+    height: 3rem;
+}
+
+@media (min-width: 0px) {
+    .avatarDiv {
+        height: 30px
+    }
+}
+
+@media (min-width: 500px) {
+    .avatarDiv {
+        height: 50px;
+    }
+}

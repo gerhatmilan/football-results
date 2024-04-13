@@ -26,21 +26,6 @@ table {
     aspect-ratio: 1/1;
 }
 
-.playerAvatar {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    border-radius: 100%;
-    object-fit: cover;
-}
-
-.noPictureAvatar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--light);
-    background-color: var(--link);
-}
-
 .rank, .points {
     width: auto;
     text-align: center;

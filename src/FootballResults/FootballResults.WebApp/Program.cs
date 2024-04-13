@@ -3,9 +3,12 @@ using FootballResults.WebApp.Database;
 using FootballResults.WebApp.Services.Football;
 using FootballResults.WebApp.Services.Predictions;
 using FootballResults.WebApp.Services.Users;
-using FootballResults.WebApp.Services.Files;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using FootballResults.WebApp.Hubs;
+using FootballResults.WebApp.Services.Chat;
+using FootballResults.Models.Users;
+using FootballResults.WebApp.Services.Time;
 
 namespace FootballResults.WebApp
 {
@@ -38,12 +41,15 @@ namespace FootballResults.WebApp
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+            builder.Services.AddSignalR();
 
             // Custom services
             builder.Services.AddScoped<ISignupService, SignupService>();
             builder.Services.AddScoped<ILoginService, LoginService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IPredictionGameService, PredictionGameService>();
+            builder.Services.AddScoped<IChatService<Message>, GameChatService>();
+            builder.Services.AddScoped<IClientTimeService, ClientTimeService>();
 
             // HttpClient services
             builder.Services.AddHttpClient<IMatchService, MatchService>(client =>
@@ -86,7 +92,6 @@ namespace FootballResults.WebApp
                 options.UseNpgsql(GetConnectionString());
             });
 
-
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -105,6 +110,8 @@ namespace FootballResults.WebApp
 
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();
+
+            app.MapHub<ChatHub<Message>>("/chathub");
 
             app.Run();
         }
