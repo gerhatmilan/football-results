@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FootballResults.WebApp.Hubs;
 using FootballResults.WebApp.Services.Chat;
 using FootballResults.Models.Users;
+using FootballResults.WebApp.Services.Time;
 
 namespace FootballResults.WebApp
 {
@@ -48,6 +49,7 @@ namespace FootballResults.WebApp
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IPredictionGameService, PredictionGameService>();
             builder.Services.AddScoped<IChatService<Message>, GameChatService>();
+            builder.Services.AddScoped<IClientTimeService, ClientTimeService>();
 
             // HttpClient services
             builder.Services.AddHttpClient<IMatchService, MatchService>(client =>

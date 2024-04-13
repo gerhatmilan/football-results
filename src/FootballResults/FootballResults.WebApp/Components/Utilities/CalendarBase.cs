@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using FootballResults.WebApp.Services.Time;
+using Microsoft.AspNetCore.Components;
 
 namespace FootballResults.WebApp.Components.Utilities
 {
@@ -6,6 +7,9 @@ namespace FootballResults.WebApp.Components.Utilities
     {
         private const int FIRST_YEAR = 2010;
         private DateTime _selectedDate;
+
+        [Inject]
+        protected IClientTimeService ClientTimeService { get; set; } = default!;
 
         [Parameter]
         public EventCallback<DateTime> SelectedDateValueChanged { get; set; }
@@ -27,6 +31,13 @@ namespace FootballResults.WebApp.Components.Utilities
         protected TimeSpan ClientUtcDiff { get; set; }
 
         protected List<DateTime[]> Weeks { get; set; } = new List<DateTime[]>();
+
+        protected override async Task OnInitializedAsync()
+        {
+            ClientUtcDiff = await ClientTimeService.GetClientUtcDiffAsync();
+            // set selected date according to client's date
+            SelectedDate = DateTime.UtcNow.Add(ClientUtcDiff);
+        }
 
         private void OnSelectedDateChanged(DateTime newdate)
         {

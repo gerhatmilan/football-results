@@ -1,23 +1,31 @@
 ﻿using Microsoft.AspNetCore.Components;
 using FootballResults.Models.Football;
 using FootballResults.WebApp.Services.Football;
+using FootballResults.WebApp.Services.Time;
 
 namespace FootballResults.WebApp.Components.Pages.MainMenu
 {
     public partial class MatchesBase : ComponentBase
     {
         [Inject]
-        protected NavigationManager? NavigationManager { get; set; }
+        protected IClientTimeService ClientTimeService { get; set; } = default!;
 
         [Inject]
-        protected IMatchService? MatchService { get; set; }
+        protected NavigationManager NavigationManager { get; set; } = default!;
+
+        [Inject]
+        protected IMatchService MatchService { get; set; } = default!;
+
+        protected TimeSpan ClientUtcDiff { get; set; } = default!;
 
         protected DateTime SelectedDate { get; set; }
 
-        protected TimeSpan ClientUtcDiff { get; set; }
-
         protected IEnumerable<Match>? Matches { get; set; }
 
+        protected override async Task OnInitializedAsync()
+        {
+            ClientUtcDiff = await ClientTimeService.GetClientUtcDiffAsync();
+        }
 
         protected async Task OnSelectedDateChangedInCalendarAsync(DateTime newDate)
         {
@@ -49,7 +57,7 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
             try
             {
                 Matches = null;
-                var matches = await MatchService!.GetMatchesForDateAsync(selectedDateInUtc);
+                var matches = await MatchService.GetMatchesForDateAsync(selectedDateInUtc);
 
                 // in case the matches based on client's date extends to the next or previous day according to UTC time
                 // e.g if the client time is UTC+5, and the match is at 3:00 at client's time, then the match starts at 22:00 UTC, but
@@ -62,7 +70,7 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
             }
             catch (HttpRequestException)
             {
-                NavigationManager?.NavigateTo("/Error", true);
+                NavigationManager.NavigateTo("/Error", true);
             }
         }
         protected List<(int leagueID, List<Match> matches)> GetMatchesByLeague(IEnumerable<Match> matches)

@@ -1,7 +1,6 @@
 ﻿@page "/matches"
 
 @inherits MatchesBase
-@inject IJSRuntime JSRuntime
 
 <PageTitle>Matches</PageTitle>
 
@@ -17,34 +16,10 @@
 
     else
     {
-        <h1>No matches on this day 😒</h1>
+        <h2>No matches on this day 😒</h2>
     }
 }
 else
 {
     <LoadingSpinner />
-}
-
-@code {
-    protected override async Task OnInitializedAsync()
-    {
-        await GetClientDate();
-    }
-
-    protected async Task GetClientDate()
-    {
-        // refersh client utc time difference
-        await JSRuntime.InvokeVoidAsync("getClientDate", DotNetObjectReference.Create(this), "UpdateClientUtcDiff");
-    }
-  
-    [JSInvokable]
-    public void UpdateClientUtcDiff(string clientDateString)
-    {
-        DateTime utcTime = DateTime.UtcNow;
-        var clientDate = DateTime.Parse(clientDateString);
-        ClientUtcDiff = clientDate - utcTime;
-
-        // round up diff based on hour
-        ClientUtcDiff = TimeSpan.FromHours((int)(Math.Round((ClientUtcDiff.Hours * 60 + ClientUtcDiff.Minutes) / 60.0)));
-    }
 }

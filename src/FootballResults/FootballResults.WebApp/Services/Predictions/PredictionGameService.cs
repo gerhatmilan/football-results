@@ -179,6 +179,45 @@ namespace FootballResults.WebApp.Services.Predictions
             return allMatches;
         }
 
+        public async Task<IEnumerable<LeagueStanding>> GetStandingsAsync(PredictionGame game, League league)
+        {
+            IEnumerable<LeagueStanding> allStandings = new List<LeagueStanding>();
+
+            int relevantSeason = game.GameLeagues
+                .Where(gl => gl.LeagueID == league.LeagueID)
+                .FirstOrDefault()!
+                .Season;
+
+            var standings = await _dbContext.LeagueStandings
+                .Where(l => l.LeagueID == league.LeagueID && l.Season == relevantSeason)
+                .Include(l => l.Team)
+                .ToListAsync();
+
+            allStandings = allStandings.Concat(standings);
+
+            return allStandings;
+        }
+
+        public async Task<IEnumerable<Match>> GetMatchesAsync(PredictionGame game, League league)
+        {
+            IEnumerable<Match> allMatches = new List<Match>();
+
+            int relevantSeason = game.GameLeagues
+                .Where(gl => gl.LeagueID == league.LeagueID)
+                .FirstOrDefault()!
+                .Season;
+
+            var matches = await _dbContext.Matches
+                .Where(m => m.LeagueID == league.LeagueID && m.Season == relevantSeason)
+                .Include(m => m.HomeTeam)
+                .Include(m => m.AwayTeam)
+                .ToListAsync();
+
+            allMatches = allMatches.Concat(matches);
+
+            return allMatches;
+        }
+
         public async Task<bool> MakePredictionAsync(User user, PredictionGame game, Match match, PredictionModel prediction)
         {
             if (user == null || game == null || match == null || !prediction.HomeTeamGoals.HasValue

@@ -13,7 +13,7 @@ u {
 }
 
 ::deep .nav-link {
-    margin: 0.5rem 1rem 0.5rem 1rem;
+    margin: 0.5rem 3vw;
     color: var(--light);
     text-align: center;
 }
@@ -50,15 +50,18 @@ u {
 @media (min-width: 0px)
 {
     .navbar-nav {
-        flex-direction: column;
-        font-size: 1rem;
+        flex-direction: row;
+        font-size: 3vw;
     }
 }
 
 @media (min-width: 500px)
 {
+    ::deep .nav-link {
+        margin: 0.5rem 1.5rem;
+    }
+
     .navbar-nav {
-        flex-direction: row;
         font-size: 1.3rem;
     }
 }

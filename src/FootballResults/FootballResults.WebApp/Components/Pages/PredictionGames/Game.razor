@@ -22,6 +22,13 @@
             <h2>Details</h2>
             <p class="details highlight">
                 <span class="keyword">Owner</span>: @Game.Owner.Username<br />
+                <span class="keyword">Competitions</span>:
+                    @Game.Leagues.ElementAt(0).Name
+                    @foreach (League league in Game.Leagues.Skip(1))
+                    {
+                        @($", {league.Name}")
+                    }
+                <br />
                 <span class="keyword">Exact scoreline reward</span>: @Game.ExactScorelineReward<br />
                 <span class="keyword">Outcome reward</span>: @Game.OutcomeReward<br />
                 <span class="keyword">Goal count / team reward</span>: @Game.GoalCountReward<br />
@@ -33,13 +40,17 @@
                 }
                 <br />
                 <span class="keyword">Status</span>: @(Game.IsFinished ? "finished" : "in progress")<br />
+
+                @if (ShowJoinKey)
+                {
+                    <span class="keyword">Join key</span> @($": {Game.JoinKey}")
+                }
             </p>
 
             <!-- Invite button -->
             @if (ShowJoinKey)
             {
                 <button type="button" class="btn button" @onclick="() => { ShowJoinKey = false; }">Hide</button>
-                <div class="joinKey"><span class="keyword">Join key</span>: @Game.JoinKey</div>
             }
             else
             {
@@ -61,33 +72,77 @@
         <div class="matchesCol">
             <!-- Matches -->
             <h2>Matches</h2>
-            @foreach (var league in Game.Leagues)
-            {
-                <h3>@league.Name</h3>
 
-                @if (Matches != null)
-                {
-                    <CascadingValue Name="Game" Value="Game">
-                        <CascadingValue Name="User" Value="User">
-                            @foreach (Match match in Matches.Where(m => m.LeagueID == league.LeagueID && !m.IsFinished()).OrderBy(m => m.Date))
+            <!-- Choose league if there are multiple leagues included in the game -->
+            @if (Game.Leagues.Count() > 1)
+            {
+                <div class="dropdown">
+                    <button class="dropdown-toggle btn button" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @SelectedLeague?.Name
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        @foreach (League league in Game.Leagues)
+                        {
+                            <button type="button" class="dropdown-item" @onclick="async() => await ChangeLeague(league)">
+                                @league.Name
+                            </button>
+                        }
+                    </div>
+                </div>
+            }
+
+            @if (Matches != null)
+            {
+                <CascadingValue Name="Game" Value="Game">
+                    <CascadingValue Name="User" Value="User">
+                        <!-- first display all matches on the current day, first the non finished ones, then the finished ones -->
+
+                        @if (FinishedMatchesToday.Count() > 0 || UpcomingMatchesToday.Count() > 0)
+                        {
+                            <h3>Today</h3>
+                            @foreach (Match match in UpcomingMatchesToday)
                             {
                                 <CascadingValue Name="Match" Value="match">
                                     <GameMatchCard />
                                 </CascadingValue>
                             }
-                            @foreach(Match match in Matches.Where(m => m.LeagueID == league.LeagueID && m.IsFinished()).OrderByDescending(m => m.Date))
+                            @foreach (Match match in FinishedMatchesToday)
                             {
                                 <CascadingValue Name="Match" Value="match">
                                     <GameMatchCard />
                                 </CascadingValue>
                             }
-                        </CascadingValue>
+                        }
+
+                        <!-- then display the remaining matches, first the non finished ones, then the finished ones -->
+                        @if (UpcomingMatchesDecludingToday.Count() > 0)
+                        {
+                            <h3>Upcoming</h3>
+                            @foreach (Match match in UpcomingMatchesDecludingToday)
+                            {
+                                <CascadingValue Name="Match" Value="match">
+                                    <GameMatchCard />
+                                </CascadingValue>
+                            }
+                        }
+                        
+                        @if (FinishedMatchesDecludingToday.Count() > 0)
+                        {
+
+                            <h3>Finished</h3>
+                            @foreach (Match match in FinishedMatchesDecludingToday)
+                            {
+                                <CascadingValue Name="Match" Value="match">
+                                    <GameMatchCard />
+                                </CascadingValue>
+                            }
+                        }
                     </CascadingValue>
-                }
-                else
-                {
-                    <LoadingSpinner />
-                }
+                </CascadingValue>
+            }
+            else
+            {
+                <LoadingSpinner />
             }
         </div>
         <div class="leagueStandingsCol">
