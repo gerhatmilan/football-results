@@ -1,3 +1,10 @@
+.page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 body {
     position: relative;
     display: flex;
@@ -6,8 +13,12 @@ body {
 }
 
 main {
-    margin: 5rem 0;
     flex: 1;
+}
+
+article {
+    flex: 1;
+    margin-top: 50px;
 }
 
 ::deep input, ::deep input:focus, ::deep input:active, ::deep textarea, ::deep textarea:active, ::deep textarea:focus {
