@@ -16,6 +16,7 @@ LEAGUES_CONFIG_FILE = 'config/leagues.json'
 SEASONS_CONFIG_FILE = 'config/seasons.json'
 VENUES_CONFIG_FILE = 'config/venues.json'
 MATCHES_CONFIG_FILE = 'config/matches.json'
+MATCHES_TODAY_CONFIG_FILE = 'config/matches_today.json'
 STANDINGS_CONFIG_FILE = 'config/standings.json'
 TEAMS_CONFIG_FILE = 'config/teams.json'
 TOPSCORERS_CONFIG_FILE = 'config/topscorers.json'
@@ -1059,7 +1060,7 @@ class MatchesUpdater(DatabaseUpdater):
         """ Initializes a new MatchesUpdater object, using the given configurations """
         super().__init__(db_config_file, cmd_config_file)
 
-    def __get_records_to_insert(self, data):
+    def _get_records_to_insert(self, data):
         """ Returns the list of records to be inserted in the table """
 
         records_list = []
@@ -1106,13 +1107,13 @@ class MatchesUpdater(DatabaseUpdater):
         """ Inserts a record to the database """
 
         try:
-            self.__cursor.execute(self._commands["insert_command"], tuple(record.values()))
-            self.__connection.commit()
+            self._cursor.execute(self._commands["insert_command"], tuple(record.values()))
+            self._connection.commit()
             logging.log(SUCCESS_LOG_PATH, f'New match record inserted: {record}\n')
 
             self.total_changes += 1
         except Exception as e:
-            self.__connection.rollback()
+            self._connection.rollback()
             logging.log(ERROR_LOG_PATH, f'Could not insert match record with data {record}, cause: {str(e)}\n')
 
     def update_record(self, new_record):
@@ -1143,8 +1144,8 @@ class MatchesUpdater(DatabaseUpdater):
             new_values.append(id)
 
             try:
-                self.__cursor.execute(command, new_values)
-                self.__connection.commit()
+                self._cursor.execute(command, new_values)
+                self._connection.commit()
 
                 logging.log(SUCCESS_LOG_PATH, f'Match record updated with id {id}\n')
                 for column in columns:
@@ -1152,7 +1153,7 @@ class MatchesUpdater(DatabaseUpdater):
 
                 self.total_changes += 1
             except Exception as e:
-                self.__connection.rollback()
+                self._connection.rollback()
                 logging.log(ERROR_LOG_PATH, f'Could not update match record with id {id}, cause: {str(e)}\n')
     
     def update(self, data):
@@ -1169,8 +1170,8 @@ class MatchesUpdater(DatabaseUpdater):
         # Then update matches table too
         with self._connect() as conn:
             with conn.cursor() as cur:
-                self.__connection = conn
-                self.__cursor = cur
+                self._connection = conn
+                self._cursor = cur
 
                 records_to_insert = self.__get_records_to_insert(data)
 
@@ -1191,3 +1192,41 @@ class MatchesUpdater(DatabaseUpdater):
         
 
         self.total_changes += venues_updater.total_changes
+
+class MatchesUpdaterForToday(MatchesUpdater):
+    """ Class for updating the matches table in the database for the current day only """
+
+    def __init__(self, db_config_file: str, cmd_config_file: str):
+        """ Initializes a new MatchesUpdaterForToday object, using the given configurations """
+        super().__init__(db_config_file, cmd_config_file)
+
+    def __get_records_to_insert(self, data):
+        """ Returns the list of records to be inserted in the table """
+
+        league_ids = get_included_leagues()
+        records_to_insert = super()._get_records_to_insert(data)
+        records_to_insert = [record for record in records_to_insert if record["league_id"] in league_ids]     
+        return records_to_insert
+    
+    def update(self, data):
+        """ Function for updating the matches table in the database for the current day only, with the given data """
+
+        if data["response"] == []:
+            logging.log(SUCCESS_LOG_PATH, "No matches data to update\n")
+            return
+
+        with self._connect() as conn:
+            with conn.cursor() as cur:
+                self._connection = conn
+                self._cursor = cur
+
+                records_to_insert = self.__get_records_to_insert(data)
+                super().get_records_from_db()
+                existing_ids = super().get_all_ids()
+
+                for record in records_to_insert:
+                    id = record['match_id']
+                    if id not in existing_ids:
+                        super().insert_record(record)
+                    else:
+                        super().update_record(record)

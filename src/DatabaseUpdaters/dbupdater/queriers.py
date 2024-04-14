@@ -94,7 +94,7 @@ class DatabaseQuerier():
 
         return [record[0] for record in self._records]
 
-    def query(self, query: str, parameters: tuple, result_size, cursor_factory=None):
+    def query(self, query: str, parameters: tuple = None, result_size = 'all', cursor_factory=None):
         """ Performs a query then returns the result """
         with self._connect() as conn:
             with conn.cursor(cursor_factory=cursor_factory) as cur:
