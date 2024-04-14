@@ -1,17 +1,14 @@
 ﻿@inject IJSRuntime JSRuntime
+@inject ILocalStorageService LocalStorage
 
 <div id="header" class="sticky-top">
      <div class="menuPoints">
         <div class="themeDiv">
             <button type="button" @onclick="ChangeStyleAsync">
-                @if (theme == "dark")
-                {
-                    <img src="icons/moon-light.png" alt="Light" />
-                }
-                else
-                {
-                    <img src="icons/moon-dark.png" alt="Dark" />
-                }
+                <svg fill="@SvgFillColor" width="100%" height="100%" viewBox="0 0 36 36" version="1.1" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <path d="M29.2,26.72A12.07,12.07,0,0,1,22.9,4.44,13.68,13.68,0,0,0,19.49,4a14,14,0,0,0,0,28,13.82,13.82,0,0,0,10.9-5.34A11.71,11.71,0,0,1,29.2,26.72Z" class="clr-i-solid clr-i-solid-path-1"></path>
+                    <rect x="0" y="0" width="36" height="36" fill-opacity="0" />
+                </svg>
             </button>
         </div>
         <div class="searchBarDiv">
@@ -50,21 +47,30 @@
 </div>
 
 @code {
-    private string theme = "dark";
+    private string SvgFillColor { get => savedTheme == "light" ? "#000000" : "#ffffff"; }
+    private string? savedTheme;
 
     private async Task ChangeStyleAsync()
     {
-        if (theme == "dark")
+        if (savedTheme == "dark")
         {
             await JSRuntime.InvokeVoidAsync("changeStyleSheet", "app_light.css");
-            theme = "light";
+            await LocalStorage.SetItemAsStringAsync("theme", "light");
+            savedTheme = "light";
         }
         else
         {
             await JSRuntime.InvokeVoidAsync("changeStyleSheet", "app_dark.css");
-            theme = "dark";
+            await LocalStorage.SetItemAsStringAsync("theme", "dark");
+            savedTheme = "dark";
         }
 
         await InvokeAsync(StateHasChanged);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        savedTheme = await LocalStorage.GetItemAsync<string>("theme");
+        await JSRuntime.InvokeVoidAsync("changeStyleSheet", $"{(savedTheme == "light" ? "app_light.css" : "app_dark.css")}");
     }
 }

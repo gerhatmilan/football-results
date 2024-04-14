@@ -10,5 +10,9 @@
 
         <label for="@($"{Match.MatchID}A")">@Match.AwayTeam.Name goals</label>
         <input type="number" id="@($"{Match.MatchID}A")" class="input form-control @AwayGoalsState" disabled="@ButtonDisabled" @bind="@PredictionModel.AwayTeamGoals" @bind:after="OnInputChange" />
+        @if (MatchStartedError)
+        {
+            <div class="error">Match has started!</div>
+        }
     </EditForm>
 }

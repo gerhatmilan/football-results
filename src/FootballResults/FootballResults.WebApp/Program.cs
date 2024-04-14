@@ -9,6 +9,7 @@ using FootballResults.WebApp.Hubs;
 using FootballResults.WebApp.Services.Chat;
 using FootballResults.Models.Users;
 using FootballResults.WebApp.Services.Time;
+using Blazored.LocalStorage;
 
 namespace FootballResults.WebApp
 {
@@ -42,6 +43,7 @@ namespace FootballResults.WebApp
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
             builder.Services.AddSignalR();
+            builder.Services.AddBlazoredLocalStorage();
 
             // Custom services
             builder.Services.AddScoped<ISignupService, SignupService>();
