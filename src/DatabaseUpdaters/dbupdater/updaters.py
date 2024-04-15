@@ -1173,7 +1173,7 @@ class MatchesUpdater(DatabaseUpdater):
                 self._connection = conn
                 self._cursor = cur
 
-                records_to_insert = self.__get_records_to_insert(data)
+                records_to_insert = self._get_records_to_insert(data)
 
                 # to fetch only the relevant matches from the database
                 league_id = records_to_insert[0]['league_id']
