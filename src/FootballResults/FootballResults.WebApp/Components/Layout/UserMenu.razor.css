@@ -22,21 +22,25 @@
     padding: 0;
 }
 
-.dropdown-item {
-    padding: 10px;
+.dropdown-menu > * {
     color: var(--light);
     background-color: var(--dark);
     border-radius: var(--bs-dropdown-border-radius);
     text-align: center;
 }
 
-.dropdown-item:hover {
+::deep .nav-link {
+    margin: 0;
+}
+
+.nav-item:hover {
     color: var(--link);
 }
 
 .username {
     color: var(--link);
     text-align: center;
+    margin: 0.3rem 0;
 }
 
 hr {
