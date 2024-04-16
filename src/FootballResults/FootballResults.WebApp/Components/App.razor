@@ -28,6 +28,6 @@
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = default!;
 
-    private IComponentRenderMode? RenderModeForPage => HttpContext.Request.Path.StartsWithSegments("/login") || HttpContext.Request.Path.StartsWithSegments("/logout")
+    private IComponentRenderMode? RenderModeForPage => HttpContext.Request.Path.StartsWithSegments("/user")
         ? null : new InteractiveServerRenderMode(prerender: false);
 }
