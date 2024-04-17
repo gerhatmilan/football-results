@@ -9,7 +9,7 @@
 @if (Matches != null)
 {
     @if (Matches.Any())
-    @foreach (var leagueWithMatchesGroup in GetMatchesByLeague(Matches))
+        @foreach (var leagueWithMatchesGroup in (User != null ? MatchService.GetMatchesGroupedByLeagueFavoritesFirst(User, Matches) : MatchService.GetMatchesGroupedByLeague(Matches)))
     {
             <LeagueCard League="leagueWithMatchesGroup.matches.ElementAt(0).League" Matches="leagueWithMatchesGroup.matches" MatchOrderOption="@MatchOrderOption.RoundThenDateAsc" />
     }

@@ -9,7 +9,7 @@
     @if (Matches.Any())
     {
         <h1>Matches today</h1>
-        @foreach (var leagueWithMatchesGroup in GetMatchesByLeague(Matches))
+        @foreach (var leagueWithMatchesGroup in (User != null ? MatchService.GetMatchesGroupedByLeagueFavoritesFirst(User, Matches) : MatchService.GetMatchesGroupedByLeague(Matches)))
         {
                 <LeagueCard League="leagueWithMatchesGroup.matches.ElementAt(0).League" Matches="leagueWithMatchesGroup.matches" MatchOrderOption="@MatchOrderOption.RoundThenDateAsc" />
         }
@@ -22,7 +22,7 @@
 
         @if (UpcomingMatches != null)
         {
-            @foreach (var leagueWithMatchesGroup in GetMatchesByLeague(UpcomingMatches))
+            @foreach (var leagueWithMatchesGroup in (User != null ? MatchService.GetMatchesGroupedByLeagueFavoritesFirst(User, UpcomingMatches) : MatchService.GetMatchesGroupedByLeague(UpcomingMatches)))
             {
                 <LeagueCard League="leagueWithMatchesGroup.matches.ElementAt(0).League" Matches="leagueWithMatchesGroup.matches" MatchOrderOption="@MatchOrderOption.RoundThenDateAsc" />
             }

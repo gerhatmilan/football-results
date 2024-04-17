@@ -1,4 +1,5 @@
 ﻿using FootballResults.Models.Football;
+using FootballResults.Models.Users;
 
 namespace FootballResults.WebApp.Services.Football
 {
@@ -48,6 +49,10 @@ namespace FootballResults.WebApp.Services.Football
         {
             var result = await _httpClient.GetFromJsonAsync<IEnumerable<League>>($"api/leagues/search?name={leagueName}");
             return result ?? Enumerable.Empty<League>();
+        }
+        public IEnumerable<League> GetLeaguesFavoritesFirst(User user, IEnumerable<League> leagues)
+        {
+            return leagues.OrderByDescending(l => user.FavoriteLeagues.Select(fl => fl.LeagueID).Contains(l.LeagueID)).ThenBy(l => l.Name);
         }
     }
 }

@@ -1,16 +1,20 @@
 ﻿using Microsoft.AspNetCore.Components;
 using FootballResults.Models.Football;
 using FootballResults.WebApp.Services.Football;
+using FootballResults.Models.Users;
 
 namespace FootballResults.WebApp.Components.Pages.MainMenu
 {
     public partial class LeaguesBase : ComponentBase
     {
         [Inject]
-        protected NavigationManager? NavigationManager { get; set; }
+        protected NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
-        protected ILeagueService? LeagueService { get; set; }
+        protected ILeagueService LeagueService { get; set; } = default!;
+
+        [CascadingParameter(Name = "User")]
+        protected User User { get; set; } = default!;
 
         protected IEnumerable<Country>? CountriesWithLeagues { get; set; }
 
