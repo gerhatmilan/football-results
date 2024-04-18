@@ -1,4 +1,5 @@
 ﻿using FootballResults.Models.Football;
+using FootballResults.Models.Users;
 
 namespace FootballResults.WebApp.Services.Football
 {
@@ -8,5 +9,7 @@ namespace FootballResults.WebApp.Services.Football
         Task<IEnumerable<Country>> GetCountriesWithTeamsAsync();
         Task<IEnumerable<Player>> GetSquadForTeamAsync(string teamName);
         Task<IEnumerable<Team>> SearchAsync(string teamName);
+
+        IEnumerable<Team> GetTeamsFavoritesFirst(User user, IEnumerable<Team> teams);
     }
 }
