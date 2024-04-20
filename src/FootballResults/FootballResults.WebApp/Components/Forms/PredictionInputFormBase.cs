@@ -96,7 +96,7 @@ namespace FootballResults.WebApp.Components.Forms
                     // valid inputs, save the prediction
                     EnableSuccessIndicator();
                     if (ExistingPrediction == null)
-                        await PredictionGameService.MakePredictionAsync(User, Game, Match, PredictionModel);
+                        ExistingPrediction = await PredictionGameService.MakePredictionAsync(User, Game, Match, PredictionModel);
                     else
                         await PredictionGameService.UpdatePredictionAsync(ExistingPrediction, PredictionModel);
 
