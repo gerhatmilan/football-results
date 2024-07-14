@@ -4,12 +4,12 @@
 
         <TeamCard Team="Match.HomeTeam" />
         <a class="matchDetails" href="/matches/@Match.MatchID">
-            @if (Match.Date != null)
+            @if (Match.DateKnown())
             {
                 @if (Match.HasStarted())
                 {
                     <div class="smallDate">
-                        <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+                        <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date!.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
                     </div>
                     <div class="score">
                         @Match.HomeTeamGoals - @Match.AwayTeamGoals
@@ -30,7 +30,7 @@
                         <div class="status">Status unknown</div>
                     }
 
-                    @if ((Match.Status == "NS" || Match.IsInProgress() && Match.LastUpdate != null))
+                    @if (Match.IsInProgress() && Match.LastUpdate != null)
                     {
                         <div class="lastUpdate">
                             Last update:<br />
@@ -41,9 +41,9 @@
                 else
                 {
                     <div class="bigDate">
-                        <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd" @rendermode="@RenderMode.InteractiveServer" />
+                        <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date!.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd" @rendermode="@RenderMode.InteractiveServer" />
                         <br />
-                        <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+                        <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date!.Value, DateTimeKind.Utc)" Format="HH:MM" @rendermode="@RenderMode.InteractiveServer" />
                     </div>
                 }            
             }

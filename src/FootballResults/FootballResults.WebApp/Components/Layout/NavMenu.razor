@@ -1,37 +1,76 @@
-﻿<div id="header" class="sticky-top">
-    <UserMenu />
-    <SearchBar />
+﻿@inject IJSRuntime JSRuntime
+@inject ILocalStorageService LocalStorage
 
-    <nav class="navbar navbar-expand-md">
-        <div class="container">
-            <button class="navbar-toggler navbar-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+<div id="header" class="sticky-top">
+     <div class="menuPoints">
+        <div class="themeDiv">
+            <button type="button" @onclick="ChangeStyleAsync">
+                <svg fill="@SvgFillColor" width="100%" height="100%" viewBox="0 0 36 36" version="1.1" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <path d="M29.2,26.72A12.07,12.07,0,0,1,22.9,4.44,13.68,13.68,0,0,0,19.49,4a14,14,0,0,0,0,28,13.82,13.82,0,0,0,10.9-5.34A11.71,11.71,0,0,1,29.2,26.72Z" class="clr-i-solid clr-i-solid-path-1"></path>
+                    <rect x="0" y="0" width="36" height="36" fill-opacity="0" />
+                </svg>
             </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <NavLink class="nav-link" href="./" ActiveClass="active" Match="NavLinkMatch.All">
-                            Home
-                        </NavLink>
-                    </li>
-                    <li class="nav-item">
-                        <NavLink class="nav-link" href="./matches">
-                            Matches
-                        </NavLink>
-                    </li>
-                    <li class="nav-item">
-                        <NavLink class="nav-link" href="./leagues">
-                            Leagues
-                        </NavLink>
-                    </li>
-                    <li class="nav-item">
-                        <NavLink class="nav-link" href="./teams">
-                            Teams
-                        </NavLink>
-                    </li>
-                </ul>
-            </div>
+        </div>
+        <div class="searchBarDiv">
+            <SearchBar />
+        </div>
+        <div class="userMenuDiv">
+            <UserMenu />
+        </div>
+     </div>
+    <nav class="navbar">
+        <div id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="./" Match="NavLinkMatch.All">
+                        Home
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="./matches">
+                        Matches
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="./leagues">
+                        Leagues
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="./teams">
+                        Teams
+                    </NavLink>
+                </li>
+            </ul>
         </div>
     </nav>
 </div>
+
+@code {
+    private string SvgFillColor { get => savedTheme == "light" ? "#000000" : "#ffffff"; }
+    private string? savedTheme;
+
+    private async Task ChangeStyleAsync()
+    {
+        if (savedTheme == "dark")
+        {
+            await JSRuntime.InvokeVoidAsync("changeStyleSheet", "app_light.css");
+            await LocalStorage.SetItemAsStringAsync("theme", "light");
+            savedTheme = "light";
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("changeStyleSheet", "app_dark.css");
+            await LocalStorage.SetItemAsStringAsync("theme", "dark");
+            savedTheme = "dark";
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        savedTheme = await LocalStorage.GetItemAsync<string>("theme");
+        await JSRuntime.InvokeVoidAsync("changeStyleSheet", $"{(savedTheme == "light" ? "app_light.css" : "app_dark.css")}");
+    }
+}

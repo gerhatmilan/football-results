@@ -1,20 +1,15 @@
-﻿.searchDiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-}
-
-#searchBar {
+﻿#searchBar {
     background-color: var(--dark);
     color: var(--light);
     border-color: var(--light);
-    border-radius: 15px;
+    border-radius: 10px;
     text-align: center;
-    width: 50%;
-    max-width: 1000px;
-    height: calc(2rem + 0.5vh);
+    width: 100%;
+    max-width: 600px;
     box-shadow: none;
+    height: 100%;
+    max-height: 30px;
+    margin: 0 5%;
 }
 
 ::placeholder {

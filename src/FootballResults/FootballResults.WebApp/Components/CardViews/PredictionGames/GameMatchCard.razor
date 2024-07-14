@@ -5,7 +5,7 @@
     <div class="matchCard @(Match.IsFinished() ? "finished" : "")">
         <TeamCard Team="Match.HomeTeam" />
         <div class="matchDetails">
-            @if (Match.Date != null)
+            @if (Match.DateKnown())
             {
                 @if (Match.HasStarted())
                 {
@@ -23,7 +23,7 @@
 
                     <div class="details detailsMiddle">
                         <div class="smallDate">
-                            <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+                            <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date!.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
                         </div>
 
                         <div class="score">
@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="details detailsBottom">
-                        @if ((Match.Status == "NS" || Match.IsInProgress()) && Match.LastUpdate != null)
+                        @if (Match.IsInProgress() && Match.LastUpdate != null)
                         {
                             <div class="lastUpdate">
                                 Last update:<br />
@@ -60,8 +60,8 @@
                 {
                     <div class="details detailsTop">
                         <div class="bigDate">
-                            <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd" @rendermode="@RenderMode.InteractiveServer" />
-                            <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date.Value, DateTimeKind.Utc)" Format="HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+                            <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date!.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd" @rendermode="@RenderMode.InteractiveServer" />
+                            <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date!.Value, DateTimeKind.Utc)" Format="HH:MM" @rendermode="@RenderMode.InteractiveServer" />
                         </div>
                     </div>
                     <div class="details detailsMiddle">

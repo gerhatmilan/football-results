@@ -30,6 +30,7 @@ namespace FootballResults.WebApp.Components.Forms
         protected PredictionModel PredictionModel { get; set; } = new PredictionModel();
         protected string HomeGoalsState { get; set; } = "default";
         protected string AwayGoalsState { get; set; } = "default";
+        protected bool MatchStartedError { get; set; } = false;
 
         protected override void OnParametersSet()
         {
@@ -46,7 +47,7 @@ namespace FootballResults.WebApp.Components.Forms
             AwayGoalsState = "success";
         }
 
-        protected void ResetSucccessIndicator()
+        protected void ResetIndicators()
         {
             HomeGoalsState = "default";
             AwayGoalsState = "default";
@@ -54,38 +55,59 @@ namespace FootballResults.WebApp.Components.Forms
 
         protected bool IsValidPrediction()
         {
-            if (!PredictionModel.HomeTeamGoals.HasValue || PredictionModel.HomeTeamGoals < 0)
-                HomeGoalsState = "invalid";
-            if (!PredictionModel.AwayTeamGoals.HasValue || PredictionModel.AwayTeamGoals < 0)
-                AwayGoalsState = "invalid";
+            if (!PredictionModel.HomeTeamGoals.HasValue || !PredictionModel.AwayTeamGoals.HasValue)
+                return false;
 
-            return PredictionModel.HomeTeamGoals >= 0 && PredictionModel.AwayTeamGoals >= 0;
+            if (PredictionModel.HomeTeamGoals < 0)
+                HomeGoalsState = "invalid";
+            if (PredictionModel.AwayTeamGoals < 0)
+                AwayGoalsState = "invalid";
+            if (Match.HasStarted())
+            {
+                HomeGoalsState = AwayGoalsState = "invalid";
+                MatchStartedError = true;
+            }
+
+            return PredictionModel.HomeTeamGoals >= 0 && PredictionModel.AwayTeamGoals >= 0 && !Match.HasStarted();
         }
 
         protected override void DisableForm()
         {
-            EnableSuccessIndicator();
             base.DisableForm();
         }
 
         protected override async Task EnableForm()
         {
             await base.EnableForm();
-            ResetSucccessIndicator();
+            ResetIndicators();
         }
 
         protected async Task OnInputChange()
         {
-            if (PredictionModel.HomeTeamGoals.HasValue && PredictionModel.AwayTeamGoals.HasValue && IsValidPrediction())
+            // if one of the inputs dont have a value, dont do anything
+            if (!PredictionModel.HomeTeamGoals.HasValue || !PredictionModel.AwayTeamGoals.HasValue)
+                return;
+            else
             {
+                // disable the form and check for valid input
                 DisableForm();
+                if (IsValidPrediction())
+                {
+                    // valid inputs, save the prediction
+                    EnableSuccessIndicator();
+                    if (ExistingPrediction == null)
+                        ExistingPrediction = await PredictionGameService.MakePredictionAsync(User, Game, Match, PredictionModel);
+                    else
+                        await PredictionGameService.UpdatePredictionAsync(ExistingPrediction, PredictionModel);
 
-                if (ExistingPrediction == null)
-                    await PredictionGameService.MakePredictionAsync(User, Game, Match, PredictionModel);
-                else
-                    await PredictionGameService.UpdatePredictionAsync(ExistingPrediction, PredictionModel);
+                    await EnableForm();
+                }
 
-                await EnableForm();
+                // invalid input(s), reset the form only if the match has not started yet
+                else if (!Match.HasStarted())
+                {
+                    await EnableForm();
+                }
             }
         }
     }

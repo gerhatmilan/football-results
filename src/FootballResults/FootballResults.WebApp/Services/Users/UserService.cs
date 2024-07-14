@@ -21,6 +21,11 @@ namespace FootballResults.WebApp.Services.Users
             _config = config;
         }
 
+        private async Task<bool> IsDuplicateUsername(string userName)
+        {
+            return await _dbContext!.Users.AnyAsync(u => u.Username == userName);
+        }
+
         public async Task<User?> GetUserAsync(int userID)
         {
             return await _dbContext.Users
@@ -31,7 +36,7 @@ namespace FootballResults.WebApp.Services.Users
                .FirstOrDefaultAsync(u => u.UserID == userID);
         }
 
-        public async Task<bool> ModifyUserAsync(User user, SettingsModel settingsModel)
+        public async Task<ModifyUserResult> ModifyUserAsync(User user, SettingsModel settingsModel)
         {
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
@@ -39,8 +44,10 @@ namespace FootballResults.WebApp.Services.Users
                 {
                     if (user.Username != settingsModel.Username)
                     {
-                        user.Username = settingsModel.Username;
-
+                        if (!await IsDuplicateUsername(settingsModel.Username))
+                            user.Username = settingsModel.Username;
+                        else
+                            return ModifyUserResult.UsernameAlreadyInUse;
                     }
 
                     if (user.ProfilePicturePath != settingsModel.ProfilePicturePath)
@@ -59,12 +66,12 @@ namespace FootballResults.WebApp.Services.Users
 
                     await _dbContext.SaveChangesAsync();
                     transaction.Commit();
-                    return true;
+                    return ModifyUserResult.Success;
                 }
                 catch (Exception)
                 {
                     transaction.Rollback();
-                    return false;
+                    return ModifyUserResult.Error;
                 }
             }
         }

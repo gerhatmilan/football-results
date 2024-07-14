@@ -8,6 +8,10 @@
             <label>Username</label>
             <InputText @bind-Value="@SettingsModel.Username" class="input form-control" />
             <ValidationMessage For="@(() => SettingsModel.Username)" class="error" />
+            @if (Result == ModifyUserResult.UsernameAlreadyInUse)
+            {
+                <div class="error">Username already in use. Try another name.</div>
+            }
         </div>
         <div class="mb-3">
             <label for="profilePic">Profile picture</label>
@@ -17,9 +21,9 @@
             {
                 <div class="error">@ImageErrorMessage</div>
             }
-            @if (ErrorMessage != null)
+            @if (Result == ModifyUserResult.Error)
             {
-                <div class="error">@ErrorMessage</div>
+                <div class="error">An error has occured. Please try again later.</div>
             }
         </div>
         <div id="submitDiv">

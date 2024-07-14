@@ -3,11 +3,19 @@ using FootballResults.Models.Users;
 
 namespace FootballResults.WebApp.Services.Users
 {
+    public enum ModifyUserResult
+    {
+        None,
+        Success,
+        UsernameAlreadyInUse,
+        Error
+    }
+
     public interface IUserService
     {
         Task<User?> GetUserAsync(int userID);
 
-        Task<bool> ModifyUserAsync(User user, SettingsModel settingsModel);
+        Task<ModifyUserResult> ModifyUserAsync(User user, SettingsModel settingsModel);
         Task AddToFavoriteLeaguesAsync(User user, League league);
         Task AddToFavoriteTeamsAsync(User user, Team team);
         Task RemoveFromFavoriteLeaguesAsync(User user, League League);

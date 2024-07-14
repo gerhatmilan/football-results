@@ -8,21 +8,21 @@
 {
     @if (Matches.Any())
     {
-        <h2>Matches today</h2>
-        @foreach (var leagueWithMatchesGroup in GetMatchesByLeague(Matches))
+        <h1>Matches today</h1>
+        @foreach (var leagueWithMatchesGroup in (User != null ? MatchService.GetMatchesGroupedByLeagueFavoritesFirst(User, Matches) : MatchService.GetMatchesGroupedByLeague(Matches)))
         {
                 <LeagueCard League="leagueWithMatchesGroup.matches.ElementAt(0).League" Matches="leagueWithMatchesGroup.matches" MatchOrderOption="@MatchOrderOption.RoundThenDateAsc" />
         }
     }
     else
     {
-        <h2>No matches today 😒</h2>
+        <h1>No matches today 😒</h1>
 
         <h2>Check out upcoming matches instead</h2>
 
         @if (UpcomingMatches != null)
         {
-            @foreach (var leagueWithMatchesGroup in GetMatchesByLeague(UpcomingMatches))
+            @foreach (var leagueWithMatchesGroup in (User != null ? MatchService.GetMatchesGroupedByLeagueFavoritesFirst(User, UpcomingMatches) : MatchService.GetMatchesGroupedByLeague(UpcomingMatches)))
             {
                 <LeagueCard League="leagueWithMatchesGroup.matches.ElementAt(0).League" Matches="leagueWithMatchesGroup.matches" MatchOrderOption="@MatchOrderOption.RoundThenDateAsc" />
             }

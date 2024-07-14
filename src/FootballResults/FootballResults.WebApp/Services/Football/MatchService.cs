@@ -1,4 +1,5 @@
 ﻿using FootballResults.Models.Football;
+using FootballResults.Models.Users;
 
 namespace FootballResults.WebApp.Services.Football
 {
@@ -56,6 +57,30 @@ namespace FootballResults.WebApp.Services.Football
         {
             var result = await _httpClient.GetFromJsonAsync<IEnumerable<Match>>($"api/matches/search?year={year}&month={month}&day={day}&team={teamName}&league={leagueName}&season={season}&round={round}");
             return result ?? Enumerable.Empty<Match>();
+        }
+
+        public IEnumerable<(int leagueID, List<Match> matches)> GetMatchesGroupedByLeague(IEnumerable<Match> matches)
+        {
+            return matches
+            .GroupBy(
+                m => m.LeagueID,
+                (leagueID, matches) => (leagueID, matches!.Where(m => m.LeagueID.Equals(leagueID))
+                    .OrderBy(m => m.Date).ToList())
+            )
+            .OrderBy(pair => pair.Item2.ElementAt(0).League.CountryID) // order by country name of the league
+            .ThenBy(pair => pair.Item2.ElementAt(0).League.Name) // then by league name
+            .ToList();
+        }
+
+        public IEnumerable<(int leagueID, List<Match> matches)> GetMatchesGroupedByLeagueFavoritesFirst(User user, IEnumerable<Match> matches)
+        {
+            var groupedMatches = GetMatchesGroupedByLeague(matches);
+
+            var asd = user.FavoriteLeagues.Select(fl => fl.LeagueID).Contains(140);
+            var b = groupedMatches.FirstOrDefault(pair => pair.leagueID == 140);
+
+            return groupedMatches
+                .OrderByDescending(pair => user.FavoriteLeagues.Select(fl => fl.LeagueID).Contains(pair.leagueID)); // favorite leagues first
         }
     }
 }

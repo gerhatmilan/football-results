@@ -40,15 +40,20 @@ namespace FootballResults.Models.Football
 
         public IEnumerable<Prediction> Predictions { get; set; }
 
+        public bool DateKnown()
+        {
+            return Date != null;
+        }
+
         public bool IsInProgress()
         {
             return (Date < DateTime.UtcNow) && (Status == "1H" || Status == "HT" || Status == "2H"
-                || Status == "ET" || Status == "BT" || Status == "P");
+                || Status == "ET" || Status == "BT" || Status == "P" || Status == "SUSP" || Status == "INT" || Status == "LIVE");
         }
 
         public bool IsFinished()
         {
-            return (Date < DateTime.UtcNow) && (Status == "FT" || Status == "AET" || Status == "PEN");
+            return (Date < DateTime.UtcNow) && (Status == "FT" || Status == "AET" || Status == "PEN" || Status == "WO");
         }
 
         public bool HasStarted()

@@ -1,8 +1,12 @@
-﻿window.scrollToBottom = function (elementReference, lastScrollPos) {
-    const currentScrollPos = elementReference.scrollTop ?? 0;
+﻿window.scrollToBottomIfLastScrollDown = function (elementReference, lastScrollPos) {
+    const currentScrollPos = elementReference.scrollTop;
 
-    if (currentScrollPos > lastScrollPos)
+    if (parseInt(currentScrollPos) > lastScrollPos)
         elementReference.scrollTop = elementReference.scrollHeight;
 
     return parseInt(currentScrollPos);
+}
+
+window.scrollToBottom = function (elementReference) {
+    elementReference.scrollTop = elementReference.scrollHeight;
 }

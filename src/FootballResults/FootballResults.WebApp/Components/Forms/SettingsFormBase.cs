@@ -25,12 +25,12 @@ namespace FootballResults.WebApp.Components.Forms
 
         protected string? ImageErrorMessage { get; set; }
 
-        protected string? ErrorMessage { get; set; }
+        protected ModifyUserResult Result { get; set; }
 
         protected override void ResetErrorMessages()
         {
             ImageErrorMessage = null;
-            ErrorMessage = null;
+            Result = ModifyUserResult.None;
             FileUploadService = new FileUploadService(uploadDirectory: Configuration.GetValue<String>("Directories:ProfilePictures")!,
                                maxAllowedBytes: 1000000, allowedFiles: new string[] { "image/png", "image/jpeg" });
         }
@@ -51,7 +51,7 @@ namespace FootballResults.WebApp.Components.Forms
         {
             if (User == null)
             {
-                ErrorMessage = "An error has occurred. Please try again.";
+                Result = ModifyUserResult.Error;
                 return;
             }
             else if (SettingsModel.Username == User.Username && SettingsModel.ProfilePicturePath == User.ProfilePicturePath)
@@ -61,13 +61,9 @@ namespace FootballResults.WebApp.Components.Forms
                 ResetErrorMessages();
                 DisableForm();
 
-                if (await UserService.ModifyUserAsync(User, SettingsModel))
+                if ((Result = await UserService.ModifyUserAsync(User, SettingsModel)) == ModifyUserResult.Success)
                 {
-                    NavigationManager.NavigateTo("/", true);
-                }
-                else
-                {
-                    ErrorMessage = "An error has occurred. Please try again.";
+                    NavigationManager.Refresh(forceReload: true);
                 }
 
                 await EnableForm();

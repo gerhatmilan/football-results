@@ -218,25 +218,26 @@ namespace FootballResults.WebApp.Services.Predictions
             return allMatches;
         }
 
-        public async Task<bool> MakePredictionAsync(User user, PredictionGame game, Match match, PredictionModel prediction)
+        public async Task<Prediction?> MakePredictionAsync(User user, PredictionGame game, Match match, PredictionModel predictionModel)
         {
-            if (user == null || game == null || match == null || !prediction.HomeTeamGoals.HasValue
-                || !prediction.AwayTeamGoals.HasValue)
+            if (user == null || game == null || match == null || !predictionModel.HomeTeamGoals.HasValue
+                || !predictionModel.AwayTeamGoals.HasValue)
             {
-                return false;
+                return null;
             }
 
-            await _dbContext.Predictions.AddAsync(new Prediction
+            Prediction prediction = new Prediction
             {
                 UserID = user.UserID,
                 GameID = game.GameID,
                 MatchID = match.MatchID,
-                HomeTeamGoals = prediction.HomeTeamGoals.Value,
-                AwayTeamGoals = prediction.AwayTeamGoals.Value
-            });
+                HomeTeamGoals = predictionModel.HomeTeamGoals.Value,
+                AwayTeamGoals = predictionModel.AwayTeamGoals.Value
+            };
 
+            await _dbContext.Predictions.AddAsync(prediction);
             await _dbContext.SaveChangesAsync();
-            return true;
+            return prediction;
         }
 
         public async Task<bool> UpdatePredictionAsync(Prediction prediction, PredictionModel model)

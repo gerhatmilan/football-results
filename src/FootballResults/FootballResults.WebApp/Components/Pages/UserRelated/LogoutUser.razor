@@ -1,5 +1,7 @@
-﻿@page "/logout"
+﻿@page "/user/logout"
 @attribute [Authorize(Roles = "User")]
+
+@layout UserLayout
 
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthenticationStateProvider
@@ -15,7 +17,7 @@
     {
         if (HttpContext == null)
         {
-            NavigationManager.NavigateTo("/logout", true);
+            NavigationManager.Refresh(forceReload: true);
         }
         else if (HttpContext.User?.Identity?.IsAuthenticated ?? false)
         {

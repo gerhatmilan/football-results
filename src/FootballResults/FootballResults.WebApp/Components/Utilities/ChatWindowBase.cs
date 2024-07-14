@@ -54,14 +54,14 @@ namespace FootballResults.WebApp.Components.Utilities
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (firstRender)
-                await JSRuntime.InvokeAsync<int>("scrollToBottom", ChatWindowReference, LastScrollPosition);
+            if (!firstRender && LastScrollPosition == -1)
+                await JSRuntime.InvokeVoidAsync("scrollToBottom", ChatWindowReference);
         }
 
         protected async void ChatService_NewMessageArrived(object? sender, EventArgs e)
         {
             await InvokeAsync(StateHasChanged);
-            LastScrollPosition = await JSRuntime.InvokeAsync<int>("scrollToBottom", ChatWindowReference, LastScrollPosition);
+            LastScrollPosition = await JSRuntime.InvokeAsync<int>("scrollToBottomIfLastScrollDown", ChatWindowReference, LastScrollPosition);
         }
 
         protected void ResetMessage()

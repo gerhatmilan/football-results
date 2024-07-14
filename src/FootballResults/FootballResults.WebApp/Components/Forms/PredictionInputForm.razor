@@ -5,10 +5,16 @@
     <EditForm FormName="PredictionForm" Model="@PredictionModel">
         <DataAnnotationsValidator />
 
-        <label for="@($"{Match.MatchID}H")">@Match.HomeTeam.Name goals</label>
-        <input type="number" id="@($"{Match.MatchID}H")" class="input form-control @HomeGoalsState" disabled="@ButtonDisabled" @bind="@PredictionModel.HomeTeamGoals" @bind:after="OnInputChange" />
+        <div class="inputsDiv">
+            <label for="@($"{Match.MatchID}H")">@Match.HomeTeam.Name goals</label>
+            <input type="number" id="@($"{Match.MatchID}H")" class="input form-control @HomeGoalsState" disabled="@ButtonDisabled" @bind="@PredictionModel.HomeTeamGoals" @bind:after="OnInputChange" />
 
-        <label for="@($"{Match.MatchID}A")">@Match.AwayTeam.Name goals</label>
-        <input type="number" id="@($"{Match.MatchID}A")" class="input form-control @AwayGoalsState" disabled="@ButtonDisabled" @bind="@PredictionModel.AwayTeamGoals" @bind:after="OnInputChange" />
+            <label for="@($"{Match.MatchID}A")">@Match.AwayTeam.Name goals</label>
+            <input type="number" id="@($"{Match.MatchID}A")" class="input form-control @AwayGoalsState" disabled="@ButtonDisabled" @bind="@PredictionModel.AwayTeamGoals" @bind:after="OnInputChange" />
+        </div>
+        @if (MatchStartedError)
+        {
+            <div class="error">Match has started!</div>
+        }
     </EditForm>
 }

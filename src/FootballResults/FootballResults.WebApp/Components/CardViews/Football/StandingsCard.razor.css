@@ -44,10 +44,6 @@ p {
 }
 
 @media (min-width: 0px) {
-    .standingsCard {
-        padding: 5px;
-    }
-
     .teamLogoDiv {
         width: 20px;
         margin-right: 10px;

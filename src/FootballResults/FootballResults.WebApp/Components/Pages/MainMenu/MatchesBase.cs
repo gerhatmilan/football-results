@@ -2,6 +2,7 @@
 using FootballResults.Models.Football;
 using FootballResults.WebApp.Services.Football;
 using FootballResults.WebApp.Services.Time;
+using FootballResults.Models.Users;
 
 namespace FootballResults.WebApp.Components.Pages.MainMenu
 {
@@ -15,6 +16,9 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
 
         [Inject]
         protected IMatchService MatchService { get; set; } = default!;
+
+        [CascadingParameter(Name = "User")]
+        protected User User { get; set; } = default!;
 
         protected TimeSpan ClientUtcDiff { get; set; } = default!;
 
@@ -72,15 +76,6 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
             {
                 NavigationManager.NavigateTo("/Error", true);
             }
-        }
-        protected List<(int leagueID, List<Match> matches)> GetMatchesByLeague(IEnumerable<Match> matches)
-        {
-            return matches!
-            .GroupBy(
-                m => m.LeagueID,
-                (leagueID, matches) => (leagueID, matches!.Where(m => m.LeagueID.Equals(leagueID)).OrderBy(m => m.Date).ToList())
-            )
-            .ToList();
         }
     }
 }

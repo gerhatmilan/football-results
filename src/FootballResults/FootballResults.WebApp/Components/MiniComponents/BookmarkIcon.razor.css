@@ -5,6 +5,15 @@
     margin: auto 10px;
 }
 
+svg {
+    overflow: visible;
+}
+
+path {
+    stroke-width: 0.3px;
+    stroke: black;
+}
+
 .defaultLight {
     color: white;
 }

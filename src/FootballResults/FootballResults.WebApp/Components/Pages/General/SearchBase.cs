@@ -1,4 +1,5 @@
 ﻿using FootballResults.Models.Football;
+using FootballResults.Models.Users;
 using FootballResults.WebApp.Services.Football;
 using Microsoft.AspNetCore.Components;
 
@@ -7,16 +8,19 @@ namespace FootballResults.WebApp.Components.Pages.General
     public class SearchBase : ComponentBase
     {
         [Inject]
-        protected NavigationManager? NavigationManager { get; set; }
+        protected NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
-        protected ILeagueService? LeagueService { get; set; }
+        protected ILeagueService LeagueService { get; set; } = default!;
 
         [Inject]
-        protected ITeamService? TeamService { get; set; }
+        protected ITeamService TeamService { get; set; } = default!;
 
         [SupplyParameterFromQuery(Name = "value")]
         protected string? SearchValue { get; set; }
+
+        [CascadingParameter(Name = "User")]
+        protected User User { get; set; } = default!;
 
         protected IEnumerable<League>? Leagues { get; set; }
         protected IEnumerable<Team>? Teams { get; set; }
@@ -27,17 +31,17 @@ namespace FootballResults.WebApp.Components.Pages.General
             {
                 if (String.IsNullOrEmpty(SearchValue))
                 {
-                    NavigationManager!.NavigateTo("/", true);
+                    NavigationManager.NavigateTo("/", true);
                 }
                 else
                 {
-                    Leagues = await LeagueService!.SearchAsync(SearchValue!);
-                    Teams = await TeamService!.SearchAsync(SearchValue!);
+                    Leagues = await LeagueService.SearchAsync(SearchValue!);
+                    Teams = await TeamService.SearchAsync(SearchValue!);
                 }
             }
             catch (HttpRequestException)
             {
-                NavigationManager!.NavigateTo("/Error");
+                NavigationManager.NavigateTo("/Error");
             }
         }
     }

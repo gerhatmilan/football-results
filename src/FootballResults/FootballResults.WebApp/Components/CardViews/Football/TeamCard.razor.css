@@ -25,10 +25,8 @@ a {
 }
 
 .teamLogo {
-    width: 80%;
     max-width: 100%;
-    max-height: 70%;
-    aspect-ratio: 1;
+    max-height: 60%;
 }
 
 .teamName {

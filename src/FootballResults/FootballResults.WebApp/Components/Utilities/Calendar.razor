@@ -58,8 +58,18 @@
             <div class="week">
                 @foreach (var day in week)
                 {
-                    <button type="button" @onclick="() => SelectedDate = day" class="day @(IsToday(day) ? "today" : "") @(IsSelected(day) ? "selected" : "")">
-                        @day.Day
+                    <button type="button" class="day" @onclick="() => SelectedDate = day">
+                        @if (IsToday(day)) {
+                            <span class="today">@day.Day</span>
+                        }
+                        else if (IsSelected(day))
+                        {
+                            <span class="selected">@day.Day</span>
+                        }
+                        else
+                        {
+                            @day.Day
+                        }
                     </button>              
                 }
             </div>
