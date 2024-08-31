@@ -1,5 +1,0 @@
-{
-    "commands": {
-        "select_command": "SELECT current_season FROM football.leagues WHERE league_id=%s;"
-    }
-}

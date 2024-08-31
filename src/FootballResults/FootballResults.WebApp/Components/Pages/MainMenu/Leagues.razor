@@ -5,7 +5,7 @@
 
 @if (CountriesWithLeagues != null)
 {
-    @foreach (Country country in CountriesWithLeagues.OrderBy(c => c.CountryID))
+    @foreach (Country country in CountriesWithLeagues.OrderBy(c => c.Name))
     {
         <CountryCard Country="country" />
         @foreach (League league in (User != null ? LeagueService.GetLeaguesFavoritesFirst(User, country.Leagues) : country.Leagues.OrderBy(l => l.Name)))

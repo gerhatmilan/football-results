@@ -5,7 +5,7 @@
 
 @if (CountriesWithTeams != null)
 {
-    @foreach (Country country in CountriesWithTeams.OrderBy(c => c.CountryID))
+    @foreach (Country country in CountriesWithTeams.OrderBy(c => c.Name))
     {
         <div class="group">
             <CountryCard Country="country" />     

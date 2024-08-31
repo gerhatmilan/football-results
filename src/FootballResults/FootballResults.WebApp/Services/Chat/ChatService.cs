@@ -1,10 +1,5 @@
-﻿using FootballResults.Models.Users;
-using FootballResults.WebApp.Database;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 
 namespace FootballResults.WebApp.Services.Chat
 {

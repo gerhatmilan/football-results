@@ -1,5 +1,5 @@
-﻿using FootballResults.Models.Predictions;
-using FootballResults.Models.Users;
+﻿using FootballResults.DataAccess.Entities.Predictions;
+using FootballResults.DataAccess.Entities.Users;
 using FootballResults.WebApp.Services.Chat;
 using FootballResults.WebApp.Services.Time;
 using FootballResults.WebApp.Services.Users;
@@ -80,10 +80,10 @@ namespace FootballResults.WebApp.Components.Utilities
             {
                 var message = new Message
                 {
-                    UserID = User.UserID,
+                    UserID = User.ID,
                     Text = Message,
                     MatchID = null,
-                    GameID = Game.GameID
+                    PredictionGameID = Game.ID
                 };
 
                 await ((GameChatService)GameChatService).SendMessageAsync(message);

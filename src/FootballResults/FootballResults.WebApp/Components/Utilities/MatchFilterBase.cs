@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using FootballResults.Models.Football;
+using FootballResults.DataAccess.Entities.Football;
 using System.Linq;
 using FootballResults.WebApp.Services.Football;
 using FootballResults.WebApp.Services.Time;

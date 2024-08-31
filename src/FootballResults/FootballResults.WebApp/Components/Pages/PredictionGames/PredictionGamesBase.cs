@@ -1,4 +1,4 @@
-﻿using FootballResults.Models.Users;
+﻿using FootballResults.DataAccess.Entities.Users;
 using FootballResults.WebApp.Services.Users;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;

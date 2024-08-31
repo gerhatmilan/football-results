@@ -1,4 +1,4 @@
-﻿using FootballResults.Models.Users;
+﻿using FootballResults.DataAccess.Entities.Users;
 using Microsoft.AspNetCore.Components;
 using System.Collections.ObjectModel;
 

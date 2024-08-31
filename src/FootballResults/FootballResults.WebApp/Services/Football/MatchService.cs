@@ -1,5 +1,5 @@
-﻿using FootballResults.Models.Football;
-using FootballResults.Models.Users;
+﻿using FootballResults.DataAccess.Entities.Football;
+using FootballResults.DataAccess.Entities.Users;
 
 namespace FootballResults.WebApp.Services.Football
 {
@@ -63,8 +63,8 @@ namespace FootballResults.WebApp.Services.Football
         {
             return matches
             .GroupBy(
-                m => m.LeagueID,
-                (leagueID, matches) => (leagueID, matches!.Where(m => m.LeagueID.Equals(leagueID))
+                m => m.LeagueSeason.LeagueID,
+                (leagueID, matches) => (leagueID, matches!.Where(m => m.LeagueSeason.LeagueID.Equals(leagueID))
                     .OrderBy(m => m.Date).ToList())
             )
             .OrderBy(pair => pair.Item2.ElementAt(0).League.CountryID) // order by country name of the league
@@ -76,11 +76,8 @@ namespace FootballResults.WebApp.Services.Football
         {
             var groupedMatches = GetMatchesGroupedByLeague(matches);
 
-            var asd = user.FavoriteLeagues.Select(fl => fl.LeagueID).Contains(140);
-            var b = groupedMatches.FirstOrDefault(pair => pair.leagueID == 140);
-
             return groupedMatches
-                .OrderByDescending(pair => user.FavoriteLeagues.Select(fl => fl.LeagueID).Contains(pair.leagueID)); // favorite leagues first
+                .OrderByDescending(pair => user.FavoriteLeagues.Select(fl => fl.ID).Contains(pair.leagueID)); // favorite leagues first
         }
     }
 }

@@ -1,9 +1,7 @@
-﻿using FootballResults.Models.Predictions;
-using FootballResults.Models.Users;
-using FootballResults.WebApp.Database;
+﻿using FootballResults.DataAccess.Entities.Predictions;
+using FootballResults.DataAccess.Entities.Users;
+using FootballResults.DataAccess;
 using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using System.Collections.ObjectModel;
 
 namespace FootballResults.WebApp.Services.Chat
 {
@@ -28,13 +26,13 @@ namespace FootballResults.WebApp.Services.Chat
             _game = game;
             game.Messages.ToList().ForEach(m => Messages.Add(m));
 
-            await base.JoinGroupAsync(game.GameID.ToString());
+            await base.JoinGroupAsync(game.ID.ToString());
         }
 
         public override async Task SendMessageAsync(Message message)
         {
             await SaveMessage(message);
-            await base.SendMessageToGroupAsync(_game!.GameID.ToString(), message);
+            await base.SendMessageToGroupAsync(_game!.ID.ToString(), message);
         }
     }
 }

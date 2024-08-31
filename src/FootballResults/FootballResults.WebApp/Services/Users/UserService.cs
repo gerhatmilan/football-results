@@ -1,10 +1,9 @@
-﻿using FootballResults.Models.Football;
+﻿using FootballResults.DataAccess;
+using FootballResults.DataAccess.Entities.Football;
+using FootballResults.DataAccess.Entities.Users;
 using FootballResults.Models.General;
 using FootballResults.Models.Users;
-using FootballResults.WebApp.Components.Pages.MainMenu;
-using FootballResults.WebApp.Database;
 using Microsoft.EntityFrameworkCore;
-using System.Net.NetworkInformation;
 
 namespace FootballResults.WebApp.Services.Users
 {
@@ -31,9 +30,9 @@ namespace FootballResults.WebApp.Services.Users
             return await _dbContext.Users
                .Include(u => u.FavoriteLeagues)
                .Include(u => u.FavoriteTeams)
-               .Include(u => u.Games)
+               .Include(u => u.PredictionGames)
                .AsSplitQuery()
-               .FirstOrDefaultAsync(u => u.UserID == userID);
+               .FirstOrDefaultAsync(u => u.ID == userID);
         }
 
         public async Task<ModifyUserResult> ModifyUserAsync(User user, SettingsModel settingsModel)
@@ -53,10 +52,10 @@ namespace FootballResults.WebApp.Services.Users
                     if (user.ProfilePicturePath != settingsModel.ProfilePicturePath)
                     {
                         string saveFilePath = _config.GetValue<string>("Directories:ProfilePictures")!;
-                        string saveFileName = $"{user.UserID}{Path.GetExtension(settingsModel.ProfilePicturePath)}";
+                        string saveFileName = $"{user.ID}{Path.GetExtension(settingsModel.ProfilePicturePath)}";
 
                         // delete all old profile pictures for this user, regardless of extension
-                        await FileManager.DeleteFilesWithNameAsync(saveFilePath, user.UserID.ToString());
+                        await FileManager.DeleteFilesWithNameAsync(saveFilePath, user.ID.ToString());
 
                         // rename the uploaded profile picture file to the user's ID
                         await FileManager.MoveFileAsync(settingsModel.ProfilePicturePath, Path.Combine(saveFilePath, saveFileName));
@@ -78,19 +77,19 @@ namespace FootballResults.WebApp.Services.Users
 
         public async Task AddToFavoriteLeaguesAsync(User user, League league)
         {
-            await _dbContext.FavoriteLeagues.AddAsync(new FavoriteLeague { UserID = user.UserID, LeagueID = league.LeagueID });
+            await _dbContext.FavoriteLeagues.AddAsync(new FavoriteLeague { UserID = user.ID, LeagueID = league.ID });
             await _dbContext.SaveChangesAsync();
         }
 
         public async Task AddToFavoriteTeamsAsync(User user, Team team)
         {
-            await _dbContext.FavoriteTeams.AddAsync(new FavoriteTeam { UserID = user.UserID, TeamID = team.TeamID });
+            await _dbContext.FavoriteTeams.AddAsync(new FavoriteTeam { UserID = user.ID, TeamID = team.ID });
             await _dbContext.SaveChangesAsync();
         }
 
         public async Task RemoveFromFavoriteLeaguesAsync(User user, League league)
         {
-            var entity = await _dbContext.FavoriteLeagues.FindAsync(user.UserID, league.LeagueID);
+            var entity = await _dbContext.FavoriteLeagues.FindAsync(user.ID, league.ID);
 
             if (entity != null)
             {
@@ -101,7 +100,7 @@ namespace FootballResults.WebApp.Services.Users
 
         public async Task RemoveFromFavoriteTeamsAsync(User user, Team team)
         {
-            var entity = await _dbContext.FavoriteTeams.FindAsync(user.UserID, team.TeamID);
+            var entity = await _dbContext.FavoriteTeams.FindAsync(user.ID, team.ID);
 
             if (entity != null)
             {
@@ -113,10 +112,10 @@ namespace FootballResults.WebApp.Services.Users
         public async Task GetGameDataForUserAsync(User user)
         {
             user = await _dbContext.Users
-                .Include(u => u.Games)
+                .Include(u => u.PredictionGames)
                 .Include(u => u.Messages)
                 .Include(u => u.Predictions)
-                .FirstAsync(u => u.UserID == user.UserID);
+                .FirstAsync(u => u.ID == user.ID);
         }
     }
 }

@@ -1,5 +1,6 @@
-﻿using FootballResults.Models.Football;
-using FootballResults.Models.Users;
+﻿using FootballResults.DataAccess.Entities.Football;
+using FootballResults.DataAccess.Entities.Users;
+using FootballResults.DataAccess.Entities.Predictions;
 using FootballResults.Models.Predictions;
 using FootballResults.WebApp.Services.Football;
 using FootballResults.WebApp.Services.Predictions;

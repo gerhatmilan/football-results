@@ -1,5 +1,4 @@
 using FootballResults.WebApp.Components;
-using FootballResults.WebApp.Database;
 using FootballResults.WebApp.Services.Football;
 using FootballResults.WebApp.Services.Predictions;
 using FootballResults.WebApp.Services.Users;
@@ -7,37 +6,21 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using FootballResults.WebApp.Hubs;
 using FootballResults.WebApp.Services.Chat;
-using FootballResults.Models.Users;
+using FootballResults.DataAccess.Entities.Users;
 using FootballResults.WebApp.Services.Time;
 using Blazored.LocalStorage;
+using FootballResults.DataAccess;
 
 namespace FootballResults.WebApp
 {
     public class Program
     {
-        private static string GetConnectionString()
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json");
-            var configuration = builder.Build();
-
-            string host = configuration.GetConnectionString("Host")!;
-            string port = configuration.GetConnectionString("Port")!;
-            string database = configuration.GetConnectionString("Database")!;
-
-            string usernameEnvVar = configuration.GetConnectionString("UsernameEnvVar")!;
-            string passwordEnvVar = configuration.GetConnectionString("PasswordEnvVar")!;
-
-            string username = Environment.GetEnvironmentVariable(usernameEnvVar, EnvironmentVariableTarget.Machine)!;
-            string password = Environment.GetEnvironmentVariable(passwordEnvVar, EnvironmentVariableTarget.Machine)!;
-
-            return $"Host={host};Port={port};Database={database};Username={username};Password={password}";
-        }
-
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var configuration = builder.Configuration;
+
+            string databaseApiUrl = builder.Configuration.GetSection("DatabaseApi")["Url"]!;
 
             // Add services to the container.
             builder.Services.AddRazorComponents()
@@ -56,22 +39,22 @@ namespace FootballResults.WebApp
             // HttpClient services
             builder.Services.AddHttpClient<IMatchService, MatchService>(client =>
             {
-                client.BaseAddress = new Uri("http://localhost:10001");
+                client.BaseAddress = new Uri(databaseApiUrl);
             });
 
             builder.Services.AddHttpClient<ILeagueService, LeagueService>(client =>
             {
-                client.BaseAddress = new Uri("http://localhost:10001");
+                client.BaseAddress = new Uri(databaseApiUrl);
             });
 
             builder.Services.AddHttpClient<ITeamService, TeamService>(client =>
             {
-                client.BaseAddress = new Uri("http://localhost:10001");
+                client.BaseAddress = new Uri(databaseApiUrl);
             });
 
             builder.Services.AddHttpClient<IUserService, UserService>(client =>
             {
-                client.BaseAddress = new Uri("http://localhost:10001");
+                client.BaseAddress = new Uri(databaseApiUrl);
             });
 
             // Authentication
@@ -87,11 +70,12 @@ namespace FootballResults.WebApp
 
             builder.Services.AddCascadingAuthenticationState();
             builder.Services.AddAuthorization();
-
             // Database
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseNpgsql(GetConnectionString());
+                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
+                    .UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll)
+                    .LogTo(Console.Write);
             });
 
             var app = builder.Build();

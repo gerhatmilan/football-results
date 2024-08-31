@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
-using FootballResults.Models.Football;
+using FootballResults.DataAccess.Entities.Football;
+using FootballResults.DataAccess.Entities.Users;
 using FootballResults.WebApp.Services.Football;
 using FootballResults.WebApp.Services.Time;
-using FootballResults.Models.Users;
 
 namespace FootballResults.WebApp.Components.Pages.MainMenu
 {

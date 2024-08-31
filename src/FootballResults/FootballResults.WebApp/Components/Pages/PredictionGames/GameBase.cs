@@ -1,9 +1,6 @@
-﻿using FootballResults.Models.Football;
-using FootballResults.Models.Predictions;
-using FootballResults.Models.Users;
-using FootballResults.WebApp.Components.Pages.MainMenu;
-using FootballResults.WebApp.Services.Chat;
-using FootballResults.WebApp.Services.Football;
+﻿using FootballResults.DataAccess.Entities.Football;
+using FootballResults.DataAccess.Entities.Predictions;
+using FootballResults.DataAccess.Entities.Users;
 using FootballResults.WebApp.Services.Predictions;
 using FootballResults.WebApp.Services.Time;
 using FootballResults.WebApp.Services.Users;
@@ -99,8 +96,8 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
 
                 if (Game != null)
                 {
-                    SelectedLeague = Game.Leagues.ElementAt(0);
-                    LeagueStandings = await GameService.GetStandingsAsync(Game);
+                    SelectedLeague = Game.LeagueSeasons.Select(ls => ls.League).ElementAt(0);
+                    LeagueStandings = await GameService.GetLeagueStandingsAsync(Game, SelectedLeague);
                     Matches = await GameService.GetMatchesAsync(Game, SelectedLeague);
                 }
                 else
@@ -116,7 +113,7 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
 
         protected bool AuthorizeUser()
         {
-            return (UserAuthorized = Game!.Players.Select(p => p.UserID).Contains(User!.UserID));
+            return (UserAuthorized = Game!.Players.Select(p => p.ID).Contains(User!.ID));
         }
 
         protected async Task ChangeLeague(League league)

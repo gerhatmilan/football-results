@@ -1,5 +1,6 @@
-﻿using FootballResults.Models.Predictions;
-using FootballResults.Models.Users;
+﻿using FootballResults.DataAccess.Entities.Predictions;
+using FootballResults.DataAccess.Entities.Users;
+using FootballResults.Models.Predictions;
 using FootballResults.WebApp.Services.Predictions;
 using Microsoft.AspNetCore.Components;
 
@@ -40,7 +41,7 @@ namespace FootballResults.WebApp.Components.Forms
             else
             {
                 if (await PredictionGameService.JoinGameAsync(User!, gameByKey))
-                    NavigationManager!.NavigateTo($"/prediction-games/{gameByKey.GameID}", true);
+                    NavigationManager!.NavigateTo($"/prediction-games/{gameByKey.ID}", true);
                 else
                     ErrorMessage = "Failed to join the game at this time. Try again later";
             }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using FootballResults.Models.Football;
+using FootballResults.DataAccess.Entities.Football;
 using FootballResults.WebApp.Services.Football;
 
 namespace FootballResults.WebApp.Components.Pages.MainMenu

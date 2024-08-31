@@ -5,10 +5,10 @@
             @if (Country.FlagLink != null)
             {
                 <div class="countryLogoDiv">
-                    <img class="countryLogo" src="@Country.FlagLink" alt="@Country.CountryID flag" />
+                    <img class="countryLogo" src="@Country.FlagLink" alt="@Country.Name flag" />
                 </div>
             }   
-            <div class="countryName">@Country.CountryID</div>
+            <div class="countryName">@Country.Name</div>
         </div>
     </div>
 }

@@ -1,5 +1,5 @@
-﻿using FootballResults.Models.Football;
-using FootballResults.Models.Users;
+﻿using FootballResults.DataAccess.Entities.Football;
+using FootballResults.DataAccess.Entities.Users;
 
 namespace FootballResults.WebApp.Services.Football
 {
@@ -52,7 +52,7 @@ namespace FootballResults.WebApp.Services.Football
         }
         public IEnumerable<League> GetLeaguesFavoritesFirst(User user, IEnumerable<League> leagues)
         {
-            return leagues.OrderByDescending(l => user.FavoriteLeagues.Select(fl => fl.LeagueID).Contains(l.LeagueID)).ThenBy(l => l.Name);
+            return leagues.OrderByDescending(l => user.FavoriteLeagues.Select(fl => fl.ID).Contains(l.ID)).ThenBy(l => l.Name);
         }
     }
 }

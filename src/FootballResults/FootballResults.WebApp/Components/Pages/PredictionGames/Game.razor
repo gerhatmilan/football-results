@@ -23,11 +23,7 @@
             <p class="details highlight">
                 <span class="keyword">Owner</span>: @Game.Owner.Username<br />
                 <span class="keyword">Competitions</span>:
-                    @Game.Leagues.ElementAt(0).Name
-                    @foreach (League league in Game.Leagues.Skip(1))
-                    {
-                        @($", {league.Name}")
-                    }
+                    @String.Join(", ", Game.LeagueSeasons.Select(ls => ls.League.Name))
                 <br />
                 <span class="keyword">Exact scoreline reward</span>: @Game.ExactScorelineReward<br />
                 <span class="keyword">Outcome reward</span>: @Game.OutcomeReward<br />
@@ -39,7 +35,7 @@
                     <ToLocal DateTime="@DateTime.SpecifyKind(Game.CreatedAt.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd HH:MM" @rendermode="@RenderMode.InteractiveServer" />
                 }
                 <br />
-                <span class="keyword">Status</span>: @(Game.IsFinished ? "finished" : "in progress")<br />
+                <span class="keyword">Status</span>: @(Game.Finished ? "finished" : "in progress")<br />
 
                 @if (ShowJoinKey)
                 {
@@ -74,14 +70,14 @@
             <h2>Matches</h2>
 
             <!-- Choose league if there are multiple leagues included in the game -->
-            @if (Game.Leagues.Count() > 1)
+            @if (Game.LeagueSeasons.Count() > 1)
             {
                 <div class="dropdown">
                     <button class="dropdown-toggle btn button" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         @SelectedLeague?.Name
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        @foreach (League league in Game.Leagues)
+                        @foreach (League league in Game.LeagueSeasons.Select(ls => ls.League))
                         {
                             <button type="button" class="dropdown-item" @onclick="async() => await ChangeLeague(league)">
                                 @league.Name
@@ -148,14 +144,14 @@
         <div class="leagueStandingsCol">
             <!-- League standings -->
             <h2>League standings</h2>
-            @foreach (var league in Game.Leagues)
+            @foreach (var league in Game.LeagueSeasons.Select(ls => ls.League))
             {
                 <h3>@league.Name</h3>
 
                 @if (LeagueStandings != null)
                 {
                     <div class="leagueStanding highlight">
-                        <StandingsCard Standings="@LeagueStandings.Where(s => s.LeagueID == league.LeagueID).OrderBy(s => s.Group).ThenBy(s => s.Rank)" />
+                        <StandingsCard Standings="@LeagueStandings.Where(s => s.League.ID == league.ID).OrderBy(s => s.Group).ThenBy(s => s.Rank)" />
                     </div>
                 }
                 else {

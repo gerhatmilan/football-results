@@ -8,6 +8,15 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballResults.Models", "FootballResults.Models\FootballResults.Models.csproj", "{667E4C02-39F3-4A29-B789-5EEC437C313A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballResults.API", "FootballResults.API\FootballResults.API.csproj", "{94066D25-F968-4AF0-AAC5-702D0845E571}"
+	ProjectSection(ProjectDependencies) = postProject
+		{345D3B2A-CAA6-476E-ADD0-CDB394EFC93E} = {345D3B2A-CAA6-476E-ADD0-CDB394EFC93E}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballResults.DataAccess", "FootballResults.DataAccess\FootballResults.DataAccess.csproj", "{345D3B2A-CAA6-476E-ADD0-CDB394EFC93E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballResults.DatabaseUpdaters", "FootballResults.DatabaseUpdaters\FootballResults.DatabaseUpdaters.csproj", "{A757B978-3161-4606-89C2-58CBEE67D07B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions", "Extensions\Extensions.csproj", "{5DA65AA3-5854-4CAC-A054-B06E37B1A588}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +36,18 @@ Global
 		{94066D25-F968-4AF0-AAC5-702D0845E571}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94066D25-F968-4AF0-AAC5-702D0845E571}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94066D25-F968-4AF0-AAC5-702D0845E571}.Release|Any CPU.Build.0 = Release|Any CPU
+		{345D3B2A-CAA6-476E-ADD0-CDB394EFC93E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{345D3B2A-CAA6-476E-ADD0-CDB394EFC93E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{345D3B2A-CAA6-476E-ADD0-CDB394EFC93E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{345D3B2A-CAA6-476E-ADD0-CDB394EFC93E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A757B978-3161-4606-89C2-58CBEE67D07B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A757B978-3161-4606-89C2-58CBEE67D07B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A757B978-3161-4606-89C2-58CBEE67D07B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A757B978-3161-4606-89C2-58CBEE67D07B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DA65AA3-5854-4CAC-A054-B06E37B1A588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DA65AA3-5854-4CAC-A054-B06E37B1A588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DA65AA3-5854-4CAC-A054-B06E37B1A588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DA65AA3-5854-4CAC-A054-B06E37B1A588}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

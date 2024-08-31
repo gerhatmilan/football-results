@@ -1,10 +1,10 @@
-﻿@if (User.Games != null)
+﻿@if (User.PredictionGames != null)
 {
         @if (CreatedGames.Count() > 0)
         {
             <h2>Created Games</h2>
             <div class="gameList">
-                @foreach (var game in CreatedGames.OrderBy(g => g.IsFinished).ThenByDescending(g => g.CreatedAt))
+                @foreach (var game in CreatedGames.OrderBy(g => g.Finished).ThenByDescending(g => g.CreatedAt))
                 {
                     <GameCard Game="game" />
                 }
@@ -15,7 +15,7 @@
         {
             <h2>Joined Games</h2>
             <div class="gameList">
-                @foreach (var game in JoinedGames.OrderBy(g => g.IsFinished).ThenByDescending(g => g.CreatedAt))
+                @foreach (var game in JoinedGames.OrderBy(g => g.Finished).ThenByDescending(g => g.CreatedAt))
                 {
                     <GameCard Game="game" />
                 }
@@ -46,8 +46,8 @@ else
     {
         if (User != null)
         {
-            CreatedGames = User.Games.Where(g => g.OwnerID == User.UserID);
-            JoinedGames = User.Games.Where(g => g.OwnerID != User.UserID);
+            CreatedGames = User.PredictionGames.Where(g => g.OwnerID == User.ID);
+            JoinedGames = User.PredictionGames.Where(g => g.OwnerID != User.ID);
         }
     }
 }

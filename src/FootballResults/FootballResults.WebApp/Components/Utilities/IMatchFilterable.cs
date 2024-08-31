@@ -1,4 +1,4 @@
-﻿using FootballResults.Models.Football;
+﻿using FootballResults.DataAccess.Entities.Football;
 
 namespace FootballResults.WebApp.Components.Utilities
 {

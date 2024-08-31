@@ -1,4 +1,4 @@
-﻿using FootballResults.Models.Users;namespace FootballResults.Models.General
+﻿namespace FootballResults.Models.General
 {
     public class FileManager
     {

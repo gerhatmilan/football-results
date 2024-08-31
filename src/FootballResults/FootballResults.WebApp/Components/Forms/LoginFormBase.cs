@@ -1,4 +1,5 @@
-﻿using FootballResults.Models.Users;
+﻿using FootballResults.DataAccess.Entities.Users;
+using FootballResults.Models.Users;
 using FootballResults.WebApp.Services.Users;
 using Microsoft.AspNetCore.Components;
 
@@ -22,7 +23,6 @@ namespace FootballResults.WebApp.Components.Forms
             base.OnAfterRender(firstRender);
         }
 
-
         protected async Task AuthenticateUserAsync()
         {
             try
@@ -37,7 +37,7 @@ namespace FootballResults.WebApp.Components.Forms
 
                 if (LoginResult == LoginResult.Success)
                 {
-                    NavigationManager!.NavigateTo($"/user/login/{userInDatabase!.UserID}", true);
+                    NavigationManager!.NavigateTo($"/user/login/{userInDatabase!.ID}", true);
                 }
             }
             catch (Exception)

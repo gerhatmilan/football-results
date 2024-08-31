@@ -1,7 +1,0 @@
-{
-    "commands": {
-        "select_command": "SELECT * FROM football.venues;",
-        "insert_command": "INSERT INTO football.venues (venue_id, country_id, city, name) VALUES (%s, %s, %s, %s);",
-        "update_command": "UPDATE football.venues SET {} WHERE venue_id = %s;"
-    }
-}

@@ -39,8 +39,8 @@
                             @foreach (var leagueWithBindValue in CreateGameModel.IncludedLeagues)
                             {
                                 <li>
-                                    <InputCheckbox id="@leagueWithBindValue.First.LeagueID" @bind-Value="@leagueWithBindValue.Second" />
-                                    <label for="@leagueWithBindValue.First.LeagueID">@leagueWithBindValue.First.Name</label>
+                                    <InputCheckbox id="@leagueWithBindValue.First.ID" @bind-Value="@leagueWithBindValue.Second" />
+                                    <label for="@leagueWithBindValue.First.ID">@leagueWithBindValue.First.Name</label>
                                 </li>
                             }
                         </ul>

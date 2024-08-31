@@ -1,5 +1,6 @@
-﻿using FootballResults.Models.Football;
-using FootballResults.Models.Users;
+﻿using FootballResults.DataAccess.Entities;
+using FootballResults.DataAccess.Entities.Users;
+using FootballResults.DataAccess.Entities.Football;
 using FootballResults.WebApp.Services.Users;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -58,7 +59,7 @@ namespace FootballResults.WebApp.Components.MiniComponents
 
         protected async Task ReloadUser()
         {
-            User = await UserService!.GetUserAsync(User!.UserID);
+            User = await UserService!.GetUserAsync(User!.ID);
         }
     }
 }

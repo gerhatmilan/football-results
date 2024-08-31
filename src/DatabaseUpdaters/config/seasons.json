@@ -1,7 +1,0 @@
-{
-    "commands": {
-        "select_command": "SELECT * FROM football.available_seasons;",
-        "insert_command": "INSERT INTO football.available_seasons (league_id, season) VALUES (%s, %s);",
-        "update_command": "UPDATE football.available_seasons SET {} WHERE league_id = %s AND season = %s"
-    }
-}

@@ -1,5 +1,5 @@
-﻿using FootballResults.API.Models;
-using FootballResults.Models.Football;
+﻿using FootballResults.DataAccess.Repositories.Football;
+using FootballResults.DataAccess.Entities.Football;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FootballResults.API.Controllers
@@ -20,7 +20,7 @@ namespace FootballResults.API.Controllers
         {
             try
             {
-                var result = await matchRepository.GetMatchByID(id);
+                var result = await matchRepository.GetByIDAsync(id, tracking: false);
                 return result != null ? Ok(result) : NotFound();
             }
             catch (Exception)

@@ -1,36 +1,18 @@
 using FootballResults.API.Models;
+using FootballResults.DataAccess;
+using FootballResults.DataAccess.Repositories.Football;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace FootballResults.API
 {
     public class Program
-    {
-        private static string GetConnectionString()
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json");
-            var configuration = builder.Build();
-
-            string host = configuration.GetConnectionString("Host")!;
-            string port = configuration.GetConnectionString("Port")!;
-            string database = configuration.GetConnectionString("Database")!;
-
-            string usernameEnvVar = configuration.GetConnectionString("UsernameEnvVar")!;
-            string passwordEnvVar = configuration.GetConnectionString("PasswordEnvVar")!;
-
-            string username = Environment.GetEnvironmentVariable(usernameEnvVar, EnvironmentVariableTarget.Machine)!;
-            string password = Environment.GetEnvironmentVariable(passwordEnvVar, EnvironmentVariableTarget.Machine)!;
-
-            return $"Host={host};Port={port};Database={database};Username={username};Password={password}";
-        }
-   
+    {   
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var configuration = builder.Configuration;
 
             builder.Services.AddControllers()
                 .AddJsonOptions(options =>
@@ -44,10 +26,11 @@ namespace FootballResults.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            string connectionString = GetConnectionString(); 
-            builder.Services.AddDbContext<FootballDataDbContext>(options =>
+            builder.Services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseNpgsql(connectionString);
+                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
+                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+                    .LogTo(Console.WriteLine);
             });
 
             builder.Services.AddScoped<ILeagueRepository, LeagueRepository>();

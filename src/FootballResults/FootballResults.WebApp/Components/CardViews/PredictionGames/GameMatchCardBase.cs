@@ -1,6 +1,6 @@
-﻿using FootballResults.Models.Football;
-using FootballResults.Models.Predictions;
-using FootballResults.Models.Users;
+﻿using FootballResults.DataAccess.Entities.Football;
+using FootballResults.DataAccess.Entities.Predictions;
+using FootballResults.DataAccess.Entities.Users;
 using FootballResults.WebApp.Components.Pages.PredictionGames;
 using Microsoft.AspNetCore.Components;
 
@@ -23,7 +23,7 @@ namespace FootballResults.WebApp.Components.CardViews.PredictionGames
         {
             if (User != null && Game != null && Match != null)
             {
-                ExistingPrediction = User.Predictions.FirstOrDefault(p => (p.UserID == User.UserID && p.GameID == Game.GameID && p.MatchID == Match.MatchID));
+                ExistingPrediction = User.Predictions.FirstOrDefault(p => (p.User.ID == User.ID && p.PredictionGame.ID == Game.ID && p.MatchID == Match.ID));
             }
         }
     }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using FootballResults.Models.Football;
+using FootballResults.DataAccess.Entities.Football;
 using FootballResults.WebApp.Components.Utilities;
 using FootballResults.WebApp.Services.Football;
 
@@ -51,7 +51,7 @@ namespace FootballResults.WebApp.Components.Pages.Details
         {
             MatchFilterParameters = new MatchFilterParameters();
             MatchFilterParameters.LeagueFilter = LeagueName;
-            SeasonFilter = League!.CurrentSeason;
+            SeasonFilter = League!.CurrentSeason.Year;
             MatchFilterParameters.SeasonFilter = SeasonFilter;
         }
 
@@ -83,8 +83,8 @@ namespace FootballResults.WebApp.Components.Pages.Details
         {
             return Matches!
             .GroupBy(
-                m => m.LeagueID,
-                (leagueID, matches) => (leagueID, Matches!.Where(m => m.LeagueID.Equals(leagueID)).ToList())
+                m => m.League.ID,
+                (leagueID, matches) => (leagueID, Matches!.Where(m => m.League.ID.Equals(leagueID)).ToList())
             )
             .ToList();
         }
