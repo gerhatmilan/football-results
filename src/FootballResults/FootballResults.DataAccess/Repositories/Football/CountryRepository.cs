@@ -10,8 +10,8 @@ namespace FootballResults.DataAccess.Repositories.Football
         public async Task<IEnumerable<Country>> GetLeaguesByCountry()
         {
             return await _dbContext.Countries
-                .Include(c => c.Leagues)
                 .Where(c => c.Leagues.Count() > 0)
+                .Include(c => c.Leagues)
                 .OrderBy(c => c.Name)
                 .ToListAsync();
         }
@@ -19,8 +19,8 @@ namespace FootballResults.DataAccess.Repositories.Football
         public async Task<IEnumerable<Country>> GetTeamsByCountry()
         {
             return await _dbContext.Countries
-                .Include(c => c.Teams)
                 .Where(c => c.Teams.Count() > 0)
+                .Include(c => c.Teams)
                 .OrderBy(c => c.Name)
                 .ToListAsync();
         }
@@ -28,8 +28,8 @@ namespace FootballResults.DataAccess.Repositories.Football
         public async Task<IEnumerable<Country>> GetVenuesByCountry()
         {
             return await _dbContext.Countries
-                .Include(c => c.Venues)
                 .Where(c => c.Venues.Count() > 0)
+                .Include(c => c.Venues)
                 .OrderBy(c => c.Name)
                 .ToListAsync();
         }
@@ -37,13 +37,15 @@ namespace FootballResults.DataAccess.Repositories.Football
         public async Task<Country> GetCountryByName(string countryName)
         {
             return await _dbContext.Countries
-                .FirstOrDefaultAsync(c => c.Name.ToLower().Equals(countryName.ToLower()));
+                .FirstAsync(c => c.Name.ToLower().Equals(countryName.ToLower()));
         }
 
         public async Task<IEnumerable<League>> GetLeaguesForCountry(string countryName)
         {
+            Country country = await _dbContext.Countries.FirstAsync(c => c.Name.ToLower().Equals(countryName.ToLower()));
+
             return await _dbContext.Leagues
-                .Where(l => l.Country.Name.ToLower().Equals(countryName.ToLower()))
+                .Where(l => l.Country.Name.ToLower().Equals(country.Name.ToLower()))
                 .OrderBy(l => l.Type)
                 .ThenBy(l => l.Name)
                 .ToListAsync();
@@ -51,16 +53,20 @@ namespace FootballResults.DataAccess.Repositories.Football
 
         public async Task<IEnumerable<Team>> GetTeamsForCountry(string countryName)
         {
+            Country country = await _dbContext.Countries.FirstAsync(c => c.Name.ToLower().Equals(countryName.ToLower()));
+
             return await _dbContext.Teams
-                .Where(t => t.Country.Name.ToLower().Equals(countryName.ToLower()))
+                .Where(t => t.Country.Name.ToLower().Equals(country.Name.ToLower()))
                 .OrderBy(t => t.Name)
                 .ToListAsync();
         }
 
         public async Task<IEnumerable<Venue>> GetVenuesForCountry(string countryName)
         {
+            Country country = await _dbContext.Countries.FirstAsync(c => c.Name.ToLower().Equals(countryName.ToLower()));
+
             return await _dbContext.Venues
-                .Where(v => v.Country.Name.ToLower().Equals(countryName.ToLower()))
+                .Where(v => v.Country.Name.ToLower().Equals(country.Name.ToLower()))
                 .OrderBy(v => v.Name)
                 .ToListAsync();
         }

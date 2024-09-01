@@ -35,7 +35,11 @@ namespace FootballResults.API.Controllers
             try
             {        
                 var result = await leagueRepository.GetLeagueByName(leagueName);
-                return result != null ? Ok(result) : NotFound();
+                return Ok(result);
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
             }
             catch (Exception)
             {
@@ -51,6 +55,10 @@ namespace FootballResults.API.Controllers
                 var result = await leagueRepository.GetSeasonsForLeague(leagueName);
                 return Ok(result);
             }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
+            }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Could not query seasons data");
@@ -64,6 +72,10 @@ namespace FootballResults.API.Controllers
             {
                 var result = await leagueRepository.GetTeamsForLeague(leagueName, season);
                 return Ok(result);
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
             }
             catch (Exception)
             {
@@ -82,6 +94,10 @@ namespace FootballResults.API.Controllers
                 var result = await leagueRepository.GetRoundsForLeagueAndSeason(leagueName, (int)season);
                 return Ok(result);
             }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
+            }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Could not query rounds data");
@@ -95,6 +111,10 @@ namespace FootballResults.API.Controllers
             {
                 var result = await leagueRepository.GetMatchesForLeague(leagueName, season, round);
                 return Ok(result);
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
             }
             catch (Exception)
             {
@@ -113,6 +133,10 @@ namespace FootballResults.API.Controllers
                 var result = await leagueRepository.GetStandingsForLeagueAndSeason(leagueName, (int)season);
                 return Ok(result);
             }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
+            }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Could not query seasons data");
@@ -128,6 +152,10 @@ namespace FootballResults.API.Controllers
             {
                 var result = await leagueRepository.GetTopScorersForLeagueAndSeason(leagueName, (int)season);
                 return Ok(result);
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
             }
             catch (Exception)
             {

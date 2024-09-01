@@ -14,35 +14,33 @@ namespace FootballResults.API.Models
         public async Task<Team> GetTeamByName(string teamName)
         {
             return await _dbContext.Teams
-                .FirstOrDefaultAsync(l => l.Name.ToLower().Equals(teamName.ToLower()));
+                .FirstAsync(l => l.Name.ToLower().Equals(teamName.ToLower()));
         }
 
         public async Task<IEnumerable<Player>> GetSquadForTeam(string teamName)
         {
-            var squad = await _dbContext.Teams
-                .Where(t => t.Name.ToLower().Equals(teamName.ToLower()))
+            Team team = await _dbContext.Teams
                 .Include(t => t.Squad)
-                .Select(t => t.Squad)
-                .FirstOrDefaultAsync();
+                .FirstAsync(t => t.Name.ToLower().Equals(teamName.ToLower()));
 
-            if (squad == null)
-                return new List<Player>();
-            else {
-                return squad
-                    .OrderByDescending(p => p.Number.HasValue)
-                    .ThenBy(p => p.Number);
-            }
+            return (team.Squad ?? new List<Player>())
+                .OrderByDescending(p => p.Number.HasValue)
+                .ThenBy(p => p.Number);
         }
 
         public async Task<IEnumerable<Match>> GetMatchesForTeamAndLeagueAndSeason(string teamName, string leagueName, int season)
         {
-            var query = _dbContext.Matches
-                .Where(m => m.LeagueSeason.Year == season)
-                .Where(m => m.League.Name.ToLower().Contains(leagueName.ToLower()))
-                .Where(m => m.HomeTeam.Name.ToLower().Equals(teamName.ToLower())
-                || m.AwayTeam.Name.ToLower().Equals(teamName.ToLower()));
+            Team team = await _dbContext.Teams
+                .Include(t => t.HomeMatches).ThenInclude(m => m.LeagueSeason).ThenInclude(ls => ls.League)
+                .Include(t => t.HomeMatches).ThenInclude(m => m.Venue)
+                .Include(t => t.HomeMatches).ThenInclude(m => m.AwayTeam)
+                .Include(t => t.AwayMatches).ThenInclude(m => m.LeagueSeason).ThenInclude(ls => ls.League)
+                .Include(t => t.AwayMatches).ThenInclude(m => m.Venue)
+                .Include(t => t.AwayMatches).ThenInclude(m => m.HomeTeam)
+                .FirstAsync(t => t.Name.ToLower().Equals(teamName.ToLower()));
 
-            return await query
+            return team.Matches
+                .Where(m => m.LeagueSeason.League.Name.ToLower().Equals(leagueName.ToLower()) && m.LeagueSeason.Year == season)
                 .Select(m => new Match
                 {
                     ID = m.ID,
@@ -57,6 +55,8 @@ namespace FootballResults.API.Models
                     HomeTeamGoals = m.HomeTeamGoals,
                     AwayTeamGoals = m.AwayTeamGoals,
                     LastUpdate = m.LastUpdate,
+                    LeagueSeason = m.LeagueSeason,
+                    Venue = m.Venue,
                     HomeTeam = new Team
                     {
                         ID = m.HomeTeam.ID,
@@ -73,26 +73,16 @@ namespace FootballResults.API.Models
                     },
                 })
                 .OrderBy(m => m.Date)
-                .ToListAsync();
+                .ToList();
         }
 
         public async Task<IEnumerable<Team>> Search(string teamName, string country, bool? national)
         {
-            IQueryable<Team> query = _dbContext.Teams;
-            if (!String.IsNullOrEmpty(teamName))
-            {
-                query = query.Where(t => t.Name.ToLower().Contains(teamName.ToLower()));
-            }
-            if (!String.IsNullOrEmpty(country))
-            {
-                query = query.Where(t => t.Country.Name.ToLower().Contains(country.ToLower()));
-            }
-            if (national != null)
-            {
-                query = query.Where(t => t.National == national);
-            }
-
-            return await query.ToListAsync();
+            return await _dbContext.Teams
+                .Where(t => (!String.IsNullOrEmpty(teamName) ? t.Name.ToLower().Contains(teamName.ToLower()) : true)
+                    && (!String.IsNullOrEmpty(country) ? t.Country.Name.ToLower().Contains(country.ToLower()) : true)
+                    && (national.HasValue ? t.National == national : true))
+                .ToListAsync();
         }
     }
 }

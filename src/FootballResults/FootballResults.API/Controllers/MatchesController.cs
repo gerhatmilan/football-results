@@ -21,7 +21,11 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await matchRepository.GetByIDAsync(id, tracking: false);
-                return result != null ? Ok(result) : NotFound();
+                return Ok(result);
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
             }
             catch (Exception)
             {

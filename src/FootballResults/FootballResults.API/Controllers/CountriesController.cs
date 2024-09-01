@@ -77,7 +77,11 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await countryRepository.GetCountryByName(countryName);
-                return result != null ? Ok(result) : NotFound();
+                return Ok(result);
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
             }
             catch (Exception)
             {
@@ -93,6 +97,10 @@ namespace FootballResults.API.Controllers
                 var result = await countryRepository.GetLeaguesForCountry(countryName);
                 return Ok(result);
             }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
+            }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Could not query leagues data");
@@ -107,6 +115,10 @@ namespace FootballResults.API.Controllers
                 var result = await countryRepository.GetTeamsForCountry(countryName);
                 return Ok(result);
             }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
+            }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Could not query teams data");
@@ -120,6 +132,10 @@ namespace FootballResults.API.Controllers
             {
                 var result = await countryRepository.GetVenuesForCountry(countryName);
                 return Ok(result);
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
             }
             catch (Exception)
             {

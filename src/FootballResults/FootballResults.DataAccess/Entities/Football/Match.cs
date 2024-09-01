@@ -65,13 +65,13 @@ namespace FootballResults.DataAccess.Entities.Football
         /// <summary>
         /// League season of the match
         /// </summary>
-        [JsonIgnore]
         public LeagueSeason LeagueSeason { get; set; }
 
         /// <summary>
         /// League of the match
         /// </summary>
         [NotMapped]
+        [JsonIgnore]
         public League League { get => LeagueSeason?.League; set { } }
         
         /// <summary>

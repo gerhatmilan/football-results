@@ -35,7 +35,11 @@ namespace FootballResults.API.Controllers
             try
             {
                 var result = await teamRepository.GetTeamByName(teamName);
-                return result != null ? Ok(result) : NotFound(); 
+                return Ok(result); 
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
             }
             catch (Exception)
             {
@@ -50,6 +54,10 @@ namespace FootballResults.API.Controllers
             {
                 var result = await teamRepository.GetSquadForTeam(teamName);
                 return Ok(result);
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
             }
             catch (Exception)
             {
@@ -67,6 +75,10 @@ namespace FootballResults.API.Controllers
             {
                 var result = await teamRepository.GetMatchesForTeamAndLeagueAndSeason(teamName, league, (int)season);
                 return Ok(result);
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound();
             }
             catch (Exception)
             {

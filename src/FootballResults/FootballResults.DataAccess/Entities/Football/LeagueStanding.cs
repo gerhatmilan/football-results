@@ -75,6 +75,7 @@ namespace FootballResults.DataAccess.Entities.Football
         /// League of the standing
         /// </summary>
         [NotMapped]
+        [JsonIgnore]
         public League League => LeagueSeason?.League;
 
         /// <summary>

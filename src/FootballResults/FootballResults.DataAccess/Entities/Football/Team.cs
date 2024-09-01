@@ -64,6 +64,13 @@ namespace FootballResults.DataAccess.Entities.Football
         public IEnumerable<Match> AwayMatches { get; set; }
 
         /// <summary>
+        /// All matches played by the team
+        /// </summary>
+        [NotMapped]
+        [JsonIgnore]
+        public IEnumerable<Match> Matches => HomeMatches.Concat(AwayMatches);
+
+        /// <summary>
         /// Standing of the team in any league
         /// </summary>
         [JsonIgnore]

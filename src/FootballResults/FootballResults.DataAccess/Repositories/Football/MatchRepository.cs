@@ -9,7 +9,38 @@ namespace FootballResults.API.Models
     public class MatchRepository : GenericRepository<Match>, IMatchRepository
     {
         public MatchRepository(AppDbContext dbContext) : base(dbContext) { }
-        
+
+        public override async Task<Match> GetByIDAsync(int id, bool tracking)
+        {
+            Match match = await _dbContext.Matches
+                .Include(m => m.LeagueSeason)
+                .ThenInclude(ls => ls.League)
+                .Include(m => m.Venue)
+                .Include(m => m.HomeTeam)
+                .Include(m => m.AwayTeam)
+                .FirstAsync(m => m.ID == id);
+
+            return new Match
+            {
+                ID = match.ID,
+                Date = match.Date,
+                VenueID = match.VenueID,
+                LeagueSeasonID = match.LeagueSeasonID,
+                Round = match.Round,
+                HomeTeamID = match.HomeTeamID,
+                AwayTeamID = match.AwayTeamID,
+                Status = match.Status,
+                Minute = match.Minute,
+                HomeTeamGoals = match.HomeTeamGoals,
+                AwayTeamGoals = match.AwayTeamGoals,
+                LeagueSeason = match.LeagueSeason,
+                Venue = match.Venue,
+                HomeTeam = match.HomeTeam,
+                AwayTeam = match.AwayTeam,
+                LastUpdate = match.LastUpdate,
+            };
+        }
+
         public async Task<IEnumerable<Match>> GetHeadToHead(string teamName1, string teamName2)
         {
             return await _dbContext.Matches
@@ -20,6 +51,11 @@ namespace FootballResults.API.Models
                     (m.HomeTeam.Name.ToLower().Equals(teamName2.ToLower())
                     && m.AwayTeam.Name.ToLower().Equals(teamName1.ToLower()))
                 )
+                .Include(m => m.LeagueSeason)
+                .ThenInclude(ls => ls.League)
+                .Include(m => m.Venue)
+                .Include(m => m.HomeTeam)
+                .Include(m => m.AwayTeam)
                 .Select(m => new Match
                 {
                     ID = m.ID,
@@ -34,7 +70,8 @@ namespace FootballResults.API.Models
                     HomeTeamGoals = m.HomeTeamGoals,
                     AwayTeamGoals = m.AwayTeamGoals,
                     LastUpdate = m.LastUpdate,
-                    League = m.League,
+                    LeagueSeason = m.LeagueSeason,
+                    Venue = m.Venue,
                     HomeTeam = new Team
                     {
                         ID = m.HomeTeam.ID,
@@ -55,26 +92,18 @@ namespace FootballResults.API.Models
         }
 
         public async Task<IEnumerable<Match>> Search(DateTime? date, int? year, int? month, int? day, string teamName, string leagueName, int? season, string round)
-        {          
-            IQueryable<Match> query = _dbContext.Matches;
-
-            if (!String.IsNullOrEmpty(teamName))
-            {
-                query = query.Where(m => m.HomeTeam.Name.ToLower().Equals(teamName.ToLower())
-                    || m.AwayTeam.Name.ToLower().Equals(teamName.ToLower()));
-            }
-            if (!String.IsNullOrEmpty(leagueName))
-            {
-                query = query.Where(m => m.League.Name.ToLower().Equals(leagueName.ToLower()));
-            }
-            if (season != null)
-            {
-                query = query.Where(m => m.LeagueSeason.Year == season);
-            }
-            if (round != null)
-            {
-                query = query.Where(m => m.Round.ToLower().Equals(round.ToLower()));
-            }
+        {
+            IQueryable<Match> query = _dbContext.Matches
+                .Include(m => m.LeagueSeason)
+                .ThenInclude(ls => ls.League)
+                .Include(m => m.Venue)
+                .Include(m => m.HomeTeam)
+                .Include(m => m.AwayTeam)
+                .Where(m => (!String.IsNullOrEmpty(teamName) ? m.HomeTeam.Name.ToLower().Equals(teamName.ToLower())
+                    || m.AwayTeam.Name.ToLower().Equals(teamName.ToLower()) : true)
+                    && (!String.IsNullOrEmpty(leagueName) ? m.LeagueSeason.League.Name.ToLower().Equals(leagueName.ToLower()) : true)
+                    && (season.HasValue ? m.LeagueSeason.Year == season : true)
+                    && (!String.IsNullOrEmpty(round) ? m.Round.ToLower().Equals(round.ToLower()) : true));
 
             query = query
                 .OrderBy(m => m.Date)
@@ -92,7 +121,8 @@ namespace FootballResults.API.Models
                     HomeTeamGoals = m.HomeTeamGoals,
                     AwayTeamGoals = m.AwayTeamGoals,
                     LastUpdate = m.LastUpdate,
-                    League = m.League,
+                    LeagueSeason = m.LeagueSeason,
+                    Venue = m.Venue,
                     HomeTeam = new Team
                     {
                         ID = m.HomeTeam.ID,
@@ -109,28 +139,11 @@ namespace FootballResults.API.Models
                     },
                 });
 
-            if (date.HasValue)
-            {
-                var dateToSearch = date.GetValueOrDefault().Date;
-                query = query
-                    .Where(m => m.Date != null && m.Date.Value.Date == dateToSearch);
-            }
-
-            if (year.HasValue)
-            {
-                query = query
-                    .Where(m => m.Date != null && m.Date.Value.Year == year);
-            }
-            if (month.HasValue)
-            {
-                query = query
-                    .Where(m => m.Date != null && m.Date.Value.Month == month);
-            }
-            if (day.HasValue)
-            {
-                query = query
-                    .Where(m => m.Date != null && m.Date.Value.Day == day);
-            }
+            query = query
+                .Where(m => m.Date.HasValue && (date.HasValue ? m.Date.Value.Date == date.Value.Date : true)
+                    && (year.HasValue ? m.Date.Value.Year == year : true)
+                    && (month.HasValue ? m.Date.Value.Month == month : true)
+                    && (day.HasValue ? m.Date.Value.Day == day : true));
 
             return await query.ToListAsync();
         }
