@@ -17,6 +17,7 @@ namespace FootballResults.WebApp.Services.Chat
 
         private async Task SaveMessage(Message message)
         {
+            message.SentAt = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
             await _dbContext.Messages.AddAsync(message);
             await _dbContext.SaveChangesAsync();
         }
@@ -24,7 +25,11 @@ namespace FootballResults.WebApp.Services.Chat
         public async Task Initialize(PredictionGame game)
         {
             _game = game;
-            game.Messages.ToList().ForEach(m => Messages.Add(m));
+
+            foreach (var message in game.Messages)
+            {
+                Messages.Add(message);
+            }
 
             await base.JoinGroupAsync(game.ID.ToString());
         }

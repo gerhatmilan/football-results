@@ -57,6 +57,11 @@ namespace FootballResults.DataAccess.Entities.Predictions
         public DateTime? CreatedAt { get; set; }
 
         /// <summary>
+        /// Last time the standings of this game were updated
+        /// </summary>
+        public DateTime? StandingsLastUpdate { get; set; }
+
+        /// <summary>
         /// Whether the prediction game has finished
         /// </summary>
         public bool Finished { get; set; }
@@ -102,7 +107,7 @@ namespace FootballResults.DataAccess.Entities.Predictions
         // skip navigations
         public IEnumerable<Participation> Participations { get; set; }
         
-        public IEnumerable<PredictionGameLeagueSeason> PredictionGameLeagueSeasons { get; set; }
+        public IEnumerable<PredictionGameSeason> PredictionGameSeasons { get; set; }
 
         public void RefreshData()
         {
@@ -124,7 +129,6 @@ namespace FootballResults.DataAccess.Entities.Predictions
                     ID = s.ID,
                     ParticipationID = s.ParticipationID,
                     Points = s.Points,
-                    LastUpdate = s.LastUpdate,
                     Participation = s.Participation,
                     PredictionGame = s.PredictionGame,
                     User = s.User

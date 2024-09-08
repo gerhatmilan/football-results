@@ -61,6 +61,8 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 else if (!existingRecord.Equals(mappedTopScorer))
                     Update(existingRecord, mappedTopScorer);
             }
+
+            relatedLeagueSeason.TopScorersLastUpdate = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
         }
 
         protected void Add(TopScorer topScorer)

@@ -16,11 +16,6 @@ namespace FootballResults.DataAccess.Entities.Predictions
         public int Points { get; set; }
 
         /// <summary>
-        /// Last time the standing was updated
-        /// </summary>
-        public DateTime? LastUpdate { get; set; }
-
-        /// <summary>
         /// Participation the standing is for
         /// </summary>
         public Participation Participation { get; set; }

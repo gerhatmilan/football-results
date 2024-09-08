@@ -143,7 +143,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
 
         private void UpdateSquadLastUpdateFieldForTeam(DataAccess.Entities.Football.Team team)
         {
-            team.SquadLastUpdate = DateTime.UtcNow;
+            team.SquadLastUpdate = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
         }
     }
 }

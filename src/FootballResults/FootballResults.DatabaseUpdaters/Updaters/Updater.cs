@@ -19,6 +19,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
         protected readonly FootballApiConfig _apiConfig;
         protected AppDbContext _dbContext = default!;
         protected WebApiClient _webApiClient;
+        protected UpdaterMode _currentMode;
 
         protected virtual UpdaterSpecificSettings? UpdaterSpecificSettings { get; } = null;
         protected virtual UpdaterSpecificSettings? UpdaterSpecificSettingsForDate { get; } = null;
@@ -60,6 +61,8 @@ namespace FootballResults.DatabaseUpdaters.Updaters
         {
             if (!ModeSupported(mode))
                 throw new InvalidOperationException("Mode not supported");
+
+            _currentMode = mode;
 
             switch (mode)
             {
@@ -282,7 +285,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
 
             if (UpdaterSpecificSettingsForLeagueAndSeason.LoadDataFromBackup)
             {
-                IEnumerable<TResponseItem>? data = LoadDataFromBackup(GetBackupPathFilledWithParameters(UpdaterSpecificSettingsForLeagueAndSeason.BackupPath, leagueID, year));
+                IEnumerable<TResponseItem>? data = LoadDataFromBackup(GetBackupPathFilledWithParameters(UpdaterSpecificSettingsForLeagueAndSeason.BackupPath, year, leagueID));
 
                 if (data != null)
                 {

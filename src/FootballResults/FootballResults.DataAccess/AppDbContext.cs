@@ -29,7 +29,7 @@ namespace FootballResults.DataAccess
         public DbSet<Participation> Participations { get; set; }
         public DbSet<Prediction> Predictions { get; set; }
         public DbSet<PredictionGame> PredictionGames { get; set; }
-        public DbSet<PredictionGameLeagueSeason> PredictionGameLeagueSeasons { get; set; }
+        public DbSet<PredictionGameSeason> PredictionGameSeasons { get; set; }
         public DbSet<PredictionGameStanding> PredictionGameStandings { get; set; }
 
         #endregion
@@ -87,8 +87,8 @@ namespace FootballResults.DataAccess
             modelBuilder.Entity<PredictionGame>()
                 .ToTable(name: "prediction_game", schema: "predictions");
 
-            modelBuilder.Entity<PredictionGameLeagueSeason>()
-                .ToTable(name: "predictiongame_leagueseason", schema: "predictions");
+            modelBuilder.Entity<PredictionGameSeason>()
+                .ToTable(name: "prediction_game_season", schema: "predictions");
 
             modelBuilder.Entity<PredictionGameStanding>()
                 .ToTable(name: "standing", schema: "predictions");
@@ -145,7 +145,7 @@ namespace FootballResults.DataAccess
                 .HasKey(e => e.ID);
             modelBuilder.Entity<PredictionGame>()
                 .HasKey(e => e.ID);
-            modelBuilder.Entity<PredictionGameLeagueSeason>()
+            modelBuilder.Entity<PredictionGameSeason>()
                 .HasKey(e => e.ID);
             modelBuilder.Entity<PredictionGameStanding>()
                 .HasKey(e => e.ID);
@@ -244,6 +244,21 @@ namespace FootballResults.DataAccess
                 .HasColumnType("boolean")
                 .HasDefaultValue(false)
                 .IsRequired();
+            modelBuilder.Entity<LeagueSeason>()
+                .Property(e => e.StandingsLastUpdate)
+                .HasColumnName("standings_last_update")
+                .HasColumnType("timestamp")
+                .IsRequired(false);
+            modelBuilder.Entity<LeagueSeason>()
+                .Property(e => e.TopScorersLastUpdate)
+                .HasColumnName("topscorers_last_update")
+                .HasColumnType("timestamp")
+                .IsRequired(false);
+            modelBuilder.Entity<LeagueSeason>()
+                .Property(e => e.MatchesLastUpdate)
+                .HasColumnName("matches_last_update")
+                .HasColumnType("timestamp")
+                .IsRequired(false);
             #endregion
 
             #region LeagueStanding
@@ -308,12 +323,6 @@ namespace FootballResults.DataAccess
                 .HasColumnName("conceded")
                 .HasColumnType("int")
                 .IsRequired();
-            modelBuilder.Entity<LeagueStanding>()
-                .Property(e => e.LastUpdate)
-                .HasColumnName("last_update")
-                .HasColumnType("timestamptz")
-                .HasDefaultValueSql("now() at time zone 'utc'")
-                .IsRequired(false);
             modelBuilder.Entity<LeagueStanding>()
                 .HasIndex(e => new { e.LeagueSeasonID, e.Group, e.TeamID })
                 .IsUnique();
@@ -380,8 +389,7 @@ namespace FootballResults.DataAccess
             modelBuilder.Entity<Match>()
                 .Property(e => e.LastUpdate)
                 .HasColumnName("last_update")
-                .HasColumnType("timestamptz")
-                .HasDefaultValueSql("now() at time zone 'utc'")
+                .HasColumnType("timestamp")
                 .IsRequired(false);
             #endregion
 
@@ -473,7 +481,7 @@ namespace FootballResults.DataAccess
             modelBuilder.Entity<Team>()
                 .Property(e => e.SquadLastUpdate)
                 .HasColumnName("squad_last_update")
-                .HasColumnType("timestamptz")
+                .HasColumnType("timestamp")
                 .IsRequired(false);
             #endregion
 
@@ -523,12 +531,6 @@ namespace FootballResults.DataAccess
                 .Property(e => e.Assists)
                 .HasColumnName("assists")
                 .HasColumnType("int")
-                .IsRequired(false);
-            modelBuilder.Entity<TopScorer>()
-                .Property(e => e.LastUpdate)
-                .HasColumnName("last_update")
-                .HasColumnType("timestamptz")
-                .HasDefaultValueSql("now() at time zone 'utc'")
                 .IsRequired(false);
             modelBuilder.Entity<TopScorer>()
                 .HasIndex(e => new { e.LeagueSeasonID, e.Rank })
@@ -588,9 +590,8 @@ namespace FootballResults.DataAccess
             modelBuilder.Entity<Participation>()
                 .Property(e => e.JoinDate)
                 .HasColumnName("join_date")
-                .HasColumnType("timestamptz")
-                .HasDefaultValueSql("now() at time zone 'utc'")
-                .IsRequired();
+                .HasColumnType("timestamp")
+                .IsRequired(false);
             modelBuilder.Entity<Participation>()
                 .HasIndex(e => new { e.PredictionGameID, e.UserID })
                 .IsUnique();
@@ -632,8 +633,7 @@ namespace FootballResults.DataAccess
             modelBuilder.Entity<Prediction>()
                 .Property(e => e.Date)
                 .HasColumnName("prediction_date")
-                .HasColumnType("timestamptz")
-                .HasDefaultValueSql("now() at time zone 'utc'")
+                .HasColumnType("timestamp")
                 .IsRequired(false);
             modelBuilder.Entity<Prediction>()
                 .HasIndex(e => new { e.ParticipationID, e.MatchID })
@@ -700,7 +700,11 @@ namespace FootballResults.DataAccess
                 .Property(e => e.CreatedAt)
                 .HasColumnName("created_at")
                 .HasColumnType("timestamp")
-                .HasDefaultValueSql("now() at time zone 'utc'")
+                .IsRequired(false);
+            modelBuilder.Entity<PredictionGame>()
+                .Property(e => e.StandingsLastUpdate)
+                .HasColumnName("standings_last_update")
+                .HasColumnType("timestamp")
                 .IsRequired(false);
             modelBuilder.Entity<PredictionGame>()
                 .Property(e => e.Finished)
@@ -713,24 +717,24 @@ namespace FootballResults.DataAccess
                 .IsUnique();
             #endregion
             
-            #region PredictionGameLeagueSeason
-            modelBuilder.Entity<PredictionGameLeagueSeason>()
+            #region PredictionGameSeason
+            modelBuilder.Entity<PredictionGameSeason>()
                 .Property(e => e.ID)
                 .UseIdentityByDefaultColumn()
-                .HasColumnName("predictiongame_leagueseason_id")
+                .HasColumnName("predicton_game_season_id")
                 .HasColumnType("int")
                 .IsRequired();
-            modelBuilder.Entity<PredictionGameLeagueSeason>()
+            modelBuilder.Entity<PredictionGameSeason>()
                 .Property(e => e.PredictionGameID)
                 .HasColumnName("prediction_game_id")
                 .HasColumnType("int")
                 .IsRequired();
-            modelBuilder.Entity<PredictionGameLeagueSeason>()
+            modelBuilder.Entity<PredictionGameSeason>()
                 .Property(e => e.LeagueSeasonID)
                 .HasColumnName("league_season_id")
                 .HasColumnType("int")
                 .IsRequired();
-            modelBuilder.Entity<PredictionGameLeagueSeason>()
+            modelBuilder.Entity<PredictionGameSeason>()
                 .HasIndex(e => new { e.PredictionGameID, e.LeagueSeasonID })
                 .IsUnique();
             #endregion
@@ -752,12 +756,6 @@ namespace FootballResults.DataAccess
                 .HasColumnName("points")
                 .HasColumnType("int")
                 .IsRequired();
-            modelBuilder.Entity<PredictionGameStanding>()
-                .Property(e => e.LastUpdate)
-                .HasColumnName("last_update")
-                .HasColumnType("timestamptz")
-                .HasDefaultValueSql("now() at time zone 'utc'")
-                .IsRequired(false);
             modelBuilder.Entity<PredictionGameStanding>()
                 .HasIndex(e => e.ParticipationID)
                 .IsUnique();
@@ -842,8 +840,7 @@ namespace FootballResults.DataAccess
             modelBuilder.Entity<User>()
                 .Property(e => e.RegistrataionDate)
                 .HasColumnName("registration_date")
-                .HasColumnType("date")
-                .HasDefaultValueSql("timezone('utc', now())::date")
+                .HasColumnType("timestamp")
                 .ValueGeneratedNever()
                 .IsRequired(false);
             modelBuilder.Entity<User>()
@@ -880,8 +877,7 @@ namespace FootballResults.DataAccess
                 .Property(e => e.SentAt)
                 .HasColumnName("sent_at")
                 .HasColumnType("timestamp")
-                .HasDefaultValueSql("now() at time zone 'utc'")
-                .IsRequired();
+                .IsRequired(false);
             modelBuilder.Entity<Message>()
                 .Property(e => e.Text)
                 .HasColumnName("text")
@@ -1034,18 +1030,18 @@ namespace FootballResults.DataAccess
                 .HasForeignKey(g => g.OwnerID)
                 .IsRequired();
 
-            // PredictionGame N : N LeagueSeason (PredictionGameLeagueSeason entity for connecting prediction games with league seasons)
+            // PredictionGame N : N LeagueSeason (PredictionGameSeason entity for connecting prediction games with league seasons)
             modelBuilder.Entity<PredictionGame>()
                 .HasMany(pg => pg.LeagueSeasons)
                 .WithMany(ls => ls.PredictionGames)
-                .UsingEntity<PredictionGameLeagueSeason>
+                .UsingEntity<PredictionGameSeason>
                 (
                     pgls => pgls.HasOne(pgls => pgls.LeagueSeason)
-                        .WithMany(ls => ls.PredictionGameLeagueSeasons)
+                        .WithMany(ls => ls.PredictionGameSeasons)
                         .HasForeignKey(pgls => pgls.LeagueSeasonID)
                         .IsRequired(),
                     pgls => pgls.HasOne(pgls => pgls.PredictionGame)
-                        .WithMany(pg => pg.PredictionGameLeagueSeasons)
+                        .WithMany(pg => pg.PredictionGameSeasons)
                         .HasForeignKey(pgls => pgls.PredictionGameID)
                         .IsRequired()
                 );
@@ -1119,75 +1115,6 @@ namespace FootballResults.DataAccess
             SetColumns(modelBuilder);
             SetPrimaryKeys(modelBuilder);
             SetRelationships(modelBuilder);
-        }
-
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            UpdateTimestamps();
-            return await base.SaveChangesAsync();
-        }
-
-        private void UpdateTimestamps()
-        {
-            var leagueStandingEntries = ChangeTracker
-                .Entries()
-                .Where(e => e.Entity is LeagueStanding &&
-                    (e.State == EntityState.Added || e.State == EntityState.Modified));
-
-            var topScorerEntries = ChangeTracker
-                .Entries()
-                .Where(e => e.Entity is TopScorer &&
-                    (e.State == EntityState.Added || e.State == EntityState.Modified));
-
-            var matchEntries = ChangeTracker
-                .Entries()
-                .Where(e => e.Entity is Match &&
-                    (e.State == EntityState.Added || e.State == EntityState.Modified));
-
-            var predictionGameStandingEntries = ChangeTracker
-                .Entries()
-                .Where(e => e.Entity is PredictionGameStanding &&
-                    (e.State == EntityState.Added || e.State == EntityState.Modified));
-
-            var predictionEntries = ChangeTracker
-               .Entries()
-               .Where(e => e.Entity is Prediction &&
-                   (e.State == EntityState.Added || e.State == EntityState.Modified));
-
-            var userEntries = ChangeTracker
-               .Entries()
-               .Where(e => e.Entity is User &&
-                   (e.State == EntityState.Added || e.State == EntityState.Modified));
-
-            foreach (var e in leagueStandingEntries)
-            {
-                ((LeagueStanding)e.Entity).LastUpdate = DateTime.UtcNow;
-            }
-
-            foreach (var e in topScorerEntries)
-            {
-                ((TopScorer)e.Entity).LastUpdate = DateTime.UtcNow;
-            }
-
-            foreach (var e in matchEntries)
-            {
-                ((Match)e.Entity).LastUpdate = DateTime.UtcNow;
-            }
-
-            foreach (var e in predictionGameStandingEntries)
-            {
-                ((PredictionGameStanding)e.Entity).LastUpdate = DateTime.UtcNow;
-            }
-
-            foreach (var e in predictionEntries)
-            {
-                ((Prediction)e.Entity).Date = DateTime.UtcNow;
-            }
-
-            foreach (var e in userEntries)
-            {
-                ((User)e.Entity).RegistrataionDate = DateTime.UtcNow;
-            }
         }
     }
 }

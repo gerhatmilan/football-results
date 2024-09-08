@@ -47,7 +47,7 @@ namespace FootballResults.DataAccess.Migrations
                     username = table.Column<string>(type: "varchar", nullable: false),
                     password = table.Column<string>(type: "varchar", nullable: false),
                     profile_pic_path = table.Column<string>(type: "varchar", nullable: true),
-                    registration_date = table.Column<DateTime>(type: "date", nullable: true, defaultValueSql: "timezone('utc', now())::date")
+                    registration_date = table.Column<DateTime>(type: "timestamp", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -115,7 +115,8 @@ namespace FootballResults.DataAccess.Migrations
                     outcome_reward = table.Column<int>(type: "int", nullable: false, defaultValue: 8),
                     goal_count_reward = table.Column<int>(type: "integer", nullable: false, defaultValue: 5),
                     goal_difference_reward = table.Column<int>(type: "int", nullable: false, defaultValue: 3),
-                    created_at = table.Column<DateTime>(type: "timestamp", nullable: true, defaultValueSql: "now() at time zone 'utc'"),
+                    created_at = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    standings_last_update = table.Column<DateTime>(type: "timestamp", nullable: true),
                     finished = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
@@ -168,7 +169,10 @@ namespace FootballResults.DataAccess.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     league_id = table.Column<int>(type: "int", nullable: false),
                     year = table.Column<int>(type: "int", nullable: false),
-                    in_progress = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false)
+                    in_progress = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    standings_last_update = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    topscorers_last_update = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    matches_last_update = table.Column<DateTime>(type: "timestamp", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -193,7 +197,8 @@ namespace FootballResults.DataAccess.Migrations
                     name = table.Column<string>(type: "varchar", nullable: false),
                     short_name = table.Column<string>(type: "varchar", nullable: true),
                     logo_link = table.Column<string>(type: "varchar", nullable: true),
-                    national = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false)
+                    national = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    squad_last_update = table.Column<DateTime>(type: "timestamp", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -224,7 +229,7 @@ namespace FootballResults.DataAccess.Migrations
                     prediction_game_id = table.Column<int>(type: "int", nullable: false),
                     user_id = table.Column<int>(type: "int", nullable: false),
                     standing_id = table.Column<int>(type: "int", nullable: false),
-                    join_date = table.Column<DateTime>(type: "timestamptz", nullable: false, defaultValueSql: "now() at time zone 'utc'")
+                    join_date = table.Column<DateTime>(type: "timestamp", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -246,27 +251,27 @@ namespace FootballResults.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "predictiongame_leagueseason",
+                name: "prediction_game_season",
                 schema: "predictions",
                 columns: table => new
                 {
-                    predictiongame_leagueseason_id = table.Column<int>(type: "int", nullable: false)
+                    predicton_game_season_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     prediction_game_id = table.Column<int>(type: "int", nullable: false),
                     league_season_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_predictiongame_leagueseason", x => x.predictiongame_leagueseason_id);
+                    table.PrimaryKey("PK_prediction_game_season", x => x.predicton_game_season_id);
                     table.ForeignKey(
-                        name: "FK_predictiongame_leagueseason_league_season_league_season_id",
+                        name: "FK_prediction_game_season_league_season_league_season_id",
                         column: x => x.league_season_id,
                         principalSchema: "football",
                         principalTable: "league_season",
                         principalColumn: "league_season_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_predictiongame_leagueseason_prediction_game_prediction_game~",
+                        name: "FK_prediction_game_season_prediction_game_prediction_game_id",
                         column: x => x.prediction_game_id,
                         principalSchema: "predictions",
                         principalTable: "prediction_game",
@@ -319,7 +324,7 @@ namespace FootballResults.DataAccess.Migrations
                     minute = table.Column<int>(type: "int", nullable: true),
                     home_team_goals = table.Column<int>(type: "int", nullable: true),
                     away_team_goals = table.Column<int>(type: "int", nullable: true),
-                    last_update = table.Column<DateTime>(type: "timestamptz", nullable: true, defaultValueSql: "now() at time zone 'utc'")
+                    last_update = table.Column<DateTime>(type: "timestamp", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -359,8 +364,10 @@ namespace FootballResults.DataAccess.Migrations
                 schema: "football",
                 columns: table => new
                 {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     player_id = table.Column<int>(type: "int", nullable: false),
-                    team_id = table.Column<int>(type: "int", nullable: false),
+                    team_id = table.Column<int>(type: "int", nullable: true),
                     name = table.Column<string>(type: "varchar", nullable: false),
                     age = table.Column<int>(type: "int", nullable: true),
                     number = table.Column<int>(type: "int", nullable: true),
@@ -369,7 +376,7 @@ namespace FootballResults.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_player", x => x.player_id);
+                    table.PrimaryKey("PK_player", x => x.id);
                     table.ForeignKey(
                         name: "FK_player_team_team_id",
                         column: x => x.team_id,
@@ -384,7 +391,8 @@ namespace FootballResults.DataAccess.Migrations
                 schema: "football",
                 columns: table => new
                 {
-                    standing_id = table.Column<int>(type: "int", nullable: false),
+                    standing_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     league_season_id = table.Column<int>(type: "int", nullable: false),
                     team_id = table.Column<int>(type: "int", nullable: false),
                     rank = table.Column<int>(type: "int", nullable: false),
@@ -395,8 +403,7 @@ namespace FootballResults.DataAccess.Migrations
                     draws = table.Column<int>(type: "int", nullable: false),
                     losses = table.Column<int>(type: "int", nullable: false),
                     scored = table.Column<int>(type: "int", nullable: false),
-                    conceded = table.Column<int>(type: "int", nullable: false),
-                    last_update = table.Column<DateTime>(type: "timestamptz", nullable: true, defaultValueSql: "now() at time zone 'utc'")
+                    conceded = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -422,7 +429,8 @@ namespace FootballResults.DataAccess.Migrations
                 schema: "football",
                 columns: table => new
                 {
-                    topscorer_id = table.Column<int>(type: "int", nullable: false),
+                    topscorer_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     league_season_id = table.Column<int>(type: "int", nullable: false),
                     team_id = table.Column<int>(type: "int", nullable: false),
                     rank = table.Column<int>(type: "int", nullable: false),
@@ -430,8 +438,7 @@ namespace FootballResults.DataAccess.Migrations
                     photo_link = table.Column<string>(type: "varchar", nullable: true),
                     played = table.Column<int>(type: "int", nullable: true),
                     goals = table.Column<int>(type: "int", nullable: false),
-                    assists = table.Column<int>(type: "int", nullable: true),
-                    last_update = table.Column<DateTime>(type: "timestamptz", nullable: true, defaultValueSql: "now() at time zone 'utc'")
+                    assists = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -460,8 +467,7 @@ namespace FootballResults.DataAccess.Migrations
                     standing_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     participation_id = table.Column<int>(type: "int", nullable: false),
-                    points = table.Column<int>(type: "int", nullable: false),
-                    last_update = table.Column<DateTime>(type: "timestamptz", nullable: true, defaultValueSql: "now() at time zone 'utc'")
+                    points = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -485,7 +491,7 @@ namespace FootballResults.DataAccess.Migrations
                     match_id = table.Column<int>(type: "int", nullable: true),
                     prediction_game_id = table.Column<int>(type: "int", nullable: true),
                     user_id = table.Column<int>(type: "int", nullable: false),
-                    sent_at = table.Column<DateTime>(type: "timestamp", nullable: false, defaultValueSql: "now() at time zone 'utc'"),
+                    sent_at = table.Column<DateTime>(type: "timestamp", nullable: true),
                     text = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -524,7 +530,7 @@ namespace FootballResults.DataAccess.Migrations
                     home_team_goals = table.Column<int>(type: "int", nullable: false),
                     away_team_goals = table.Column<int>(type: "int", nullable: false),
                     points_given = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
-                    prediction_date = table.Column<DateTime>(type: "timestamptz", nullable: true, defaultValueSql: "now() at time zone 'utc'")
+                    prediction_date = table.Column<DateTime>(type: "timestamp", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -646,6 +652,13 @@ namespace FootballResults.DataAccess.Migrations
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_player_player_id_team_id",
+                schema: "football",
+                table: "player",
+                columns: new[] { "player_id", "team_id" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_player_team_id",
                 schema: "football",
                 table: "player",
@@ -678,23 +691,23 @@ namespace FootballResults.DataAccess.Migrations
                 column: "owner_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_predictiongame_leagueseason_league_season_id",
+                name: "IX_prediction_game_season_league_season_id",
                 schema: "predictions",
-                table: "predictiongame_leagueseason",
+                table: "prediction_game_season",
                 column: "league_season_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_predictiongame_leagueseason_prediction_game_id_league_seaso~",
+                name: "IX_prediction_game_season_prediction_game_id_league_season_id",
                 schema: "predictions",
-                table: "predictiongame_leagueseason",
+                table: "prediction_game_season",
                 columns: new[] { "prediction_game_id", "league_season_id" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_standing_league_season_id_team_id",
+                name: "IX_standing_league_season_id_group_team_id",
                 schema: "football",
                 table: "standing",
-                columns: new[] { "league_season_id", "team_id" },
+                columns: new[] { "league_season_id", "group", "team_id" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -723,17 +736,17 @@ namespace FootballResults.DataAccess.Migrations
                 column: "venue_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_topscorer_league_season_id",
+                name: "IX_topscorer_league_season_id_rank",
                 schema: "football",
                 table: "topscorer",
-                column: "league_season_id");
+                columns: new[] { "league_season_id", "rank" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_topscorer_team_id_rank",
+                name: "IX_topscorer_team_id",
                 schema: "football",
                 table: "topscorer",
-                columns: new[] { "team_id", "rank" },
-                unique: true);
+                column: "team_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_user_email",
@@ -780,7 +793,7 @@ namespace FootballResults.DataAccess.Migrations
                 schema: "predictions");
 
             migrationBuilder.DropTable(
-                name: "predictiongame_leagueseason",
+                name: "prediction_game_season",
                 schema: "predictions");
 
             migrationBuilder.DropTable(

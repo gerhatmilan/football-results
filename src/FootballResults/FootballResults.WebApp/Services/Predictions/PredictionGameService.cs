@@ -33,7 +33,8 @@ namespace FootballResults.WebApp.Services.Predictions
                 GoalCountReward = model.GoalCountReward,
                 GoalDifferenceReward = model.GoalDifferenceReward,
                 Finished = false,
-                LeagueSeasons = new List<LeagueSeason>()
+                LeagueSeasons = new List<LeagueSeason>(),
+                CreatedAt = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified)
             };
         }
 
@@ -45,7 +46,7 @@ namespace FootballResults.WebApp.Services.Predictions
                 {
                     LeagueSeason? leagueSeason = await _dbContext.LeagueSeasons.FindAsync(pair.First.ID);
 
-                    _dbContext.PredictionGameLeagueSeasons.Add(new PredictionGameLeagueSeason { PredictionGameID = game.ID, LeagueSeasonID = leagueSeason!.ID });
+                    _dbContext.PredictionGameSeasons.Add(new PredictionGameSeason { PredictionGameID = game.ID, LeagueSeasonID = leagueSeason!.ID });
                 }
             }
 
@@ -128,7 +129,8 @@ namespace FootballResults.WebApp.Services.Predictions
             await _dbContext.Participations.AddAsync(new Participation
             {
                 PredictionGameID = game.ID,
-                UserID = user.ID
+                UserID = user.ID,
+                JoinDate = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified)
             });
 
             await _dbContext.SaveChangesAsync();
@@ -178,7 +180,8 @@ namespace FootballResults.WebApp.Services.Predictions
                 ParticipationID = relevantParticipation!.ID,
                 MatchID = match.ID,
                 HomeTeamGoals = predictionModel.HomeTeamGoals.Value,
-                AwayTeamGoals = predictionModel.AwayTeamGoals.Value
+                AwayTeamGoals = predictionModel.AwayTeamGoals.Value,
+                Date = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified)
             };
 
             await _dbContext.Predictions.AddAsync(prediction);

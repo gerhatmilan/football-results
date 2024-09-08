@@ -7,6 +7,8 @@ namespace FootballResults.DataAccess.Entities.Football
 {
     public class League : Entity, IBookmarkable
     {
+        private LeagueSeason _currentSeason;
+
         /// <summary>
         /// ID of the country the league is in
         /// </summary>
@@ -28,7 +30,7 @@ namespace FootballResults.DataAccess.Entities.Football
         public string LogoLink { get; set; }
 
         /// <summary>
-        /// Bookmark ID for this league (equals to LeagueID)
+        /// Bookmark ID for this league (equals to ID)
         /// </summary>
         [JsonIgnore]
         [NotMapped]
@@ -44,7 +46,7 @@ namespace FootballResults.DataAccess.Entities.Football
         /// Season that is currently in progress
         /// </summary>
         [NotMapped]
-        public LeagueSeason CurrentSeason => LeagueSeasons?.FirstOrDefault(ls => ls.InProgress);
+        public LeagueSeason CurrentSeason { get => _currentSeason ?? LeagueSeasons?.FirstOrDefault(ls => ls.InProgress); set => _currentSeason = value; }
 
         /// <summary>
         /// Users who marked this league as their favorite

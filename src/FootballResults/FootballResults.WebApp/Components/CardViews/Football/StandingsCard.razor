@@ -128,8 +128,6 @@ else
 
     protected override void OnInitialized()
     {
-        LastUpdate =  Standings!
-            .Select(s => s.LastUpdate)
-            .Max();
+        LastUpdate = Standings?.FirstOrDefault()?.LeagueSeason?.StandingsLastUpdate;
     }
 }

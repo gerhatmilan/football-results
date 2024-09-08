@@ -5,7 +5,7 @@ namespace FootballResults.WebApp.Components.Utilities
 {
     public class CalendarBase : ComponentBase
     {
-        private const int FIRST_YEAR = 2010;
+        private const int FIRST_YEAR = 2008;
         private DateTime _selectedDate;
 
         [Inject]
@@ -68,7 +68,7 @@ namespace FootballResults.WebApp.Components.Utilities
 
             for (int i = 0; i < 7; i++)
             {
-                week[i] = startDate.AddDays(i - (int)(startDate.DayOfWeek - 1));
+                week[i] = startDate.AddDays(i);
             }
 
             // while first or last day of week is in the current month

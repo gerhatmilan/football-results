@@ -46,7 +46,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 }
                 else if (relatedCountry == null)
                 {
-                    _logger.LogWarning("Country does not exist in the database for this team, skipping...");
+                    _logger.LogWarning($"Country does not exist in the database for team {responseRecord.Name}, skipping...");
                     continue;
                 }
 
@@ -113,7 +113,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
             }
         }
 
-        protected static void ManipulateResponseRecord(DataAccess.Entities.Football.Team responseRecord, Country relatedCountry)
+        protected void ManipulateResponseRecord(DataAccess.Entities.Football.Team responseRecord, Country relatedCountry)
         {
             if (responseRecord.National)
                 ReplaceNationalLogo(responseRecord, relatedCountry);
@@ -122,9 +122,19 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 CreateShortName(responseRecord);
         }
 
-        protected static void ReplaceNationalLogo(DataAccess.Entities.Football.Team team, Country relatedCountry)
+        /// <summary>
+        /// Replace the logo of the national team with the flag of its country, but only if the country flag is unique
+        /// </summary>
+        /// <param name="team"></param>
+        /// <param name="relatedCountry"></param>
+        protected void ReplaceNationalLogo(DataAccess.Entities.Football.Team team, Country relatedCountry)
         {
-            team.LogoLink = relatedCountry.FlagLink;
+            int numberOfCountriesWithSameFlag = _dbContext.Countries.Where(country => country.FlagLink == relatedCountry.FlagLink).Count();
+
+            if (numberOfCountriesWithSameFlag == 1)
+            {
+                team.LogoLink = relatedCountry.FlagLink;
+            }
         }
 
         protected static void CreateShortName(DataAccess.Entities.Football.Team team)

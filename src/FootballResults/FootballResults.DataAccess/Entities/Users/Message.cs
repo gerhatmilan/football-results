@@ -24,7 +24,7 @@ namespace FootballResults.DataAccess.Entities.Users
         /// <summary>
         /// Date and time when the message was sent
         /// </summary>
-        public DateTime SentAt { get; set; }
+        public DateTime? SentAt { get; set; }
 
         /// <summary>
         /// Text of the message

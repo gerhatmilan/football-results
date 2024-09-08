@@ -21,6 +21,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
             int? season = responseItems.FirstOrDefault()?.League?.Season;
 
             var relatedLeagueSeason = _dbContext.LeagueSeasons
+                .Include(ls => ls.League)
                 .FirstOrDefault(leagueSeason => leagueSeason.LeagueID == leagueID && leagueSeason.Year == season);
 
             if (relatedLeagueSeason == null)
@@ -70,6 +71,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 }
             }
 
+            relatedLeagueSeason.StandingsLastUpdate = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
         }
 
         protected void Add(LeagueStanding leagueStanding)

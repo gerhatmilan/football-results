@@ -1,15 +1,19 @@
 ﻿DO $$
 DECLARE 
 	france_id INT;
+	league_season_ligue1_2010 INT;
+	league_season_champions_2017 INT;
 BEGIN
-	SELECT country_id INTO france_id FROM football.country where name = 'France';
+	SELECT country_id INTO france_id FROM football.country WHERE name = 'France';
+	SELECT league_season_id INTO league_season_ligue1_2010 FROM football.league_season WHERE league_id = 61 AND year = 2010;
+	SELECT league_season_id INTO league_season_champions_2017 FROM football.league_season WHERE league_id = 2 AND year = 2017;
 	
 	INSERT INTO football.venue (venue_id, country_id, city, name) VALUES (10001, france_id, 'Annecy', 'Parc des Sports');
 	INSERT INTO football.team (team_id, country_id, venue_id, name, short_name, logo_link, national)
 	VALUES
 	(10001, france_id, 10001, 'Arles', 'ARL', 'https://upload.wikimedia.org/wikipedia/commons/6/67/AC_Arles-Avignon_logo.png', false);
-	INSERT INTO football.standing (league_season_id, team_id, rank, "group", points, played, wins, draws, losses, scored, conceded, last_update)
+	INSERT INTO football.standing (league_season_id, team_id, rank, "group", points, played, wins, draws, losses, scored, conceded)
 	VALUES
-		(4, 10001, 20, 'Ligue 1', 20, 38, 3, 11, 24, 21, 70, now() at time zone 'utc'),
-		(80, 556, 4, 'Uefa Champions League: Group C', 2, 6, 0, 2, 4, 2, 14, now() at time zone 'utc');
+		(league_season_ligue1_2010, 10001, 20, 'Ligue 1', 20, 38, 3, 11, 24, 21, 70),
+		(league_season_champions_2017, 556, 4, 'Uefa Champions League: Group C', 2, 6, 0, 2, 4, 2, 14);
 END $$;

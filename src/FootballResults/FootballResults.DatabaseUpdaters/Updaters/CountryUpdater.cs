@@ -36,8 +36,29 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 else if (!existingRecord.Equals(responseRecord))
                     Update(existingRecord, responseRecord);
 
+                if (responseRecord.Name.Equals("Turkey"))
+                {
+                    HandleTurkeyAnomaly(existingCountries, responseRecord);
+                }
+
                 _dbContext.SaveChanges();
             }
+        }
+
+        private void HandleTurkeyAnomaly(List<Country> existingCountries, Country responseRecord)
+        {
+            // anomaly, need to add as Türkiye too
+            Country newTurkey = new Country();
+            newTurkey.CopyFrom(responseRecord);
+            newTurkey.Name = "Türkiye";
+            Country? existingRecord = existingCountries.FirstOrDefault(existingCountry => existingCountry.Name.Equals(newTurkey.Name));
+            if (existingRecord == null)
+            {
+                existingCountries.Add(newTurkey);
+                Add(newTurkey);
+            }
+            else if (!existingRecord.Equals(newTurkey))
+                Update(existingRecord, newTurkey);
         }
 
         private void Add(Country responseRecord)

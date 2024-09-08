@@ -71,7 +71,7 @@ namespace FootballResults.WebApp.Components.Utilities
 
         protected bool MessageSentToday(Message message)
         {
-            return message.SentAt.Add(ClientUtcDiff).Date == ClientDate.Date;
+            return message.SentAt != null && message.SentAt.Value.Add(ClientUtcDiff).Date == ClientDate.Date;
         }
 
         protected async Task SendMessageAsync(KeyboardEventArgs e)

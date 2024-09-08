@@ -150,6 +150,7 @@ namespace FootballResults.DataAccess.Entities.Football
             Minute = other.Minute;
             HomeTeamGoals = other.HomeTeamGoals;
             AwayTeamGoals = other.AwayTeamGoals;
+            LastUpdate = other.LastUpdate;
         }
     }
 }

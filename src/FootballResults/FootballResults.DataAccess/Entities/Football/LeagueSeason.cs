@@ -21,6 +21,21 @@ namespace FootballResults.DataAccess.Entities.Football
         public bool InProgress { get; set; }
 
         /// <summary>
+        /// Last time the standings were updated for this league season
+        /// </summary>
+        public DateTime? StandingsLastUpdate { get; set; }
+
+        /// <summary>
+        /// Last time the top scorers were updated for this league season
+        /// </summary>
+        public DateTime? TopScorersLastUpdate { get; set; }
+
+        /// <summary>
+        /// Last time the matches were updated for this league season
+        /// </summary>
+        public DateTime? MatchesLastUpdate { get; set; }
+
+        /// <summary>
         /// League for the league season
         /// </summary>
         public League League { get; set; }
@@ -52,7 +67,7 @@ namespace FootballResults.DataAccess.Entities.Football
         // skip navigations
 
         [JsonIgnore]
-        public IEnumerable<PredictionGameLeagueSeason> PredictionGameLeagueSeasons { get; set; }
+        public IEnumerable<PredictionGameSeason> PredictionGameSeasons { get; set; }
 
         public bool Equals(LeagueSeason leagueSeason)
         {

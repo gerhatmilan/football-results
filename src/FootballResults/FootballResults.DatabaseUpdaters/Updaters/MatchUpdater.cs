@@ -2,6 +2,7 @@ using FootballResults.DataAccess.Entities.Football;
 using FootballResults.Models.Api.FootballApi;
 using FootballResults.Models.Api.FootballApi.Responses;
 using Microsoft.Extensions.Options;
+using System;
 
 namespace FootballResults.DatabaseUpdaters.Updaters
 {
@@ -47,11 +48,12 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 }
                 else if (relatedLeagueSeason == null)
                 {
-                    _logger.LogWarning("League season does not exist in the database for this match, skipping...");
+                    _logger.LogWarning($"League season does not exist in the database for match {matchResponseItem.Fixture.ID}, skipping...");
                     continue;
                 }
 
                 responseRecord.LeagueSeasonID = relatedLeagueSeason.ID;
+                responseRecord.LastUpdate = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
                 var existingRecord = existingMatches.FirstOrDefault(existingRecord => existingRecord.ID.Equals(responseRecord.ID));
 
                 if (existingRecord == null)
@@ -61,6 +63,20 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 }
                 else if (!existingRecord.Equals(responseRecord))
                     Update(existingRecord, responseRecord);
+            }
+
+            if (_currentMode == UpdaterMode.AllLeaguesAllSeasons || _currentMode == UpdaterMode.AllLeaguesCurrentSeason || _currentMode == UpdaterMode.AllLeaguesSpecificSeason
+                || _currentMode == UpdaterMode.SpecificLeagueCurrentSeason)
+            {
+                int leagueID = responseItems.FirstOrDefault()?.League.ID ?? -1;
+                int year = responseItems.FirstOrDefault()?.League.Season ?? -1;
+
+                DataAccess.Entities.Football.LeagueSeason? relatedLeagueSeason = _dbContext.LeagueSeasons.FirstOrDefault(leagueSeason => leagueSeason.LeagueID == leagueID && leagueSeason.Year == year);
+
+                if (relatedLeagueSeason != null)
+                {
+                    relatedLeagueSeason.MatchesLastUpdate = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
+                }
             }
         }
 
@@ -108,7 +124,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                     HomeTeamID = responseItem.Teams.Home.ID!.Value,
                     AwayTeamID = responseItem.Teams.Away.ID!.Value,
                     Round = responseItem.League.Round,
-                    Date = responseItem.Fixture.Date,
+                    Date = DateTime.SpecifyKind(TimeZoneInfo.ConvertTimeToUtc(responseItem.Fixture.Date!.Value), DateTimeKind.Unspecified),
                     Status = responseItem.Fixture.Status.Short,
                     Minute = responseItem.Fixture.Status.Elapsed,
                     HomeTeamGoals = responseItem.Goals.Home,

@@ -61,11 +61,6 @@ namespace FootballResults.DataAccess.Entities.Football
         public int Conceded { get; set; }
 
         /// <summary>
-        /// Last time when the standing info was updated
-        /// </summary>
-        public DateTime? LastUpdate { get; set; }
-
-        /// <summary>
         /// League season of the standing
         /// </summary>
         [JsonIgnore]

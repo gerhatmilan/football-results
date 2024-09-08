@@ -98,6 +98,18 @@ namespace FootballResults.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("league_id");
 
+                    b.Property<DateTime?>("MatchesLastUpdate")
+                        .HasColumnType("timestamp")
+                        .HasColumnName("matches_last_update");
+
+                    b.Property<DateTime?>("StandingsLastUpdate")
+                        .HasColumnType("timestamp")
+                        .HasColumnName("standings_last_update");
+
+                    b.Property<DateTime?>("TopScorersLastUpdate")
+                        .HasColumnType("timestamp")
+                        .HasColumnName("topscorers_last_update");
+
                     b.Property<int>("Year")
                         .HasColumnType("int")
                         .HasColumnName("year");
@@ -129,12 +141,6 @@ namespace FootballResults.DataAccess.Migrations
                     b.Property<string>("Group")
                         .HasColumnType("varchar")
                         .HasColumnName("group");
-
-                    b.Property<DateTime?>("LastUpdate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamptz")
-                        .HasColumnName("last_update")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
 
                     b.Property<int>("LeagueSeasonID")
                         .HasColumnType("int")
@@ -205,10 +211,8 @@ namespace FootballResults.DataAccess.Migrations
                         .HasColumnName("home_team_id");
 
                     b.Property<DateTime?>("LastUpdate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamptz")
-                        .HasColumnName("last_update")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasColumnType("timestamp")
+                        .HasColumnName("last_update");
 
                     b.Property<int>("LeagueSeasonID")
                         .HasColumnType("int")
@@ -321,7 +325,7 @@ namespace FootballResults.DataAccess.Migrations
                         .HasColumnName("short_name");
 
                     b.Property<DateTime?>("SquadLastUpdate")
-                        .HasColumnType("timestamptz")
+                        .HasColumnType("timestamp")
                         .HasColumnName("squad_last_update");
 
                     b.Property<int?>("VenueID")
@@ -353,12 +357,6 @@ namespace FootballResults.DataAccess.Migrations
                     b.Property<int>("Goals")
                         .HasColumnType("int")
                         .HasColumnName("goals");
-
-                    b.Property<DateTime?>("LastUpdate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamptz")
-                        .HasColumnName("last_update")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
 
                     b.Property<int>("LeagueSeasonID")
                         .HasColumnType("int")
@@ -430,11 +428,8 @@ namespace FootballResults.DataAccess.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
 
                     b.Property<DateTime?>("JoinDate")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamptz")
-                        .HasColumnName("join_date")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasColumnType("timestamp")
+                        .HasColumnName("join_date");
 
                     b.Property<int>("PredictionGameID")
                         .HasColumnType("int")
@@ -472,10 +467,8 @@ namespace FootballResults.DataAccess.Migrations
                         .HasColumnName("away_team_goals");
 
                     b.Property<DateTime?>("Date")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamptz")
-                        .HasColumnName("prediction_date")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasColumnType("timestamp")
+                        .HasColumnName("prediction_date");
 
                     b.Property<int>("HomeTeamGoals")
                         .HasColumnType("int")
@@ -515,10 +508,8 @@ namespace FootballResults.DataAccess.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
 
                     b.Property<DateTime?>("CreatedAt")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp")
-                        .HasColumnName("created_at")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasColumnName("created_at");
 
                     b.Property<string>("Description")
                         .HasColumnType("text")
@@ -572,6 +563,10 @@ namespace FootballResults.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("owner_id");
 
+                    b.Property<DateTime?>("StandingsLastUpdate")
+                        .HasColumnType("timestamp")
+                        .HasColumnName("standings_last_update");
+
                     b.HasKey("ID");
 
                     b.HasIndex("JoinKey")
@@ -582,12 +577,12 @@ namespace FootballResults.DataAccess.Migrations
                     b.ToTable("prediction_game", "predictions");
                 });
 
-            modelBuilder.Entity("FootballResults.DataAccess.Entities.Predictions.PredictionGameLeagueSeason", b =>
+            modelBuilder.Entity("FootballResults.DataAccess.Entities.Predictions.PredictionGameSeason", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("predictiongame_leagueseason_id");
+                        .HasColumnName("predicton_game_season_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
 
@@ -606,7 +601,7 @@ namespace FootballResults.DataAccess.Migrations
                     b.HasIndex("PredictionGameID", "LeagueSeasonID")
                         .IsUnique();
 
-                    b.ToTable("predictiongame_leagueseason", "predictions");
+                    b.ToTable("prediction_game_season", "predictions");
                 });
 
             modelBuilder.Entity("FootballResults.DataAccess.Entities.Predictions.PredictionGameStanding", b =>
@@ -617,12 +612,6 @@ namespace FootballResults.DataAccess.Migrations
                         .HasColumnName("standing_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
-
-                    b.Property<DateTime?>("LastUpdate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamptz")
-                        .HasColumnName("last_update")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
 
                     b.Property<int>("ParticipationID")
                         .HasColumnType("int")
@@ -711,11 +700,9 @@ namespace FootballResults.DataAccess.Migrations
                         .HasColumnType("int")
                         .HasColumnName("prediction_game_id");
 
-                    b.Property<DateTime>("SentAt")
-                        .ValueGeneratedOnAdd()
+                    b.Property<DateTime?>("SentAt")
                         .HasColumnType("timestamp")
-                        .HasColumnName("sent_at")
-                        .HasDefaultValueSql("now() at time zone 'utc'");
+                        .HasColumnName("sent_at");
 
                     b.Property<string>("Text")
                         .IsRequired()
@@ -761,9 +748,8 @@ namespace FootballResults.DataAccess.Migrations
                         .HasColumnName("profile_pic_path");
 
                     b.Property<DateTime?>("RegistrataionDate")
-                        .HasColumnType("date")
-                        .HasColumnName("registration_date")
-                        .HasDefaultValueSql("timezone('utc', now())::date");
+                        .HasColumnType("timestamp")
+                        .HasColumnName("registration_date");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -963,16 +949,16 @@ namespace FootballResults.DataAccess.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("FootballResults.DataAccess.Entities.Predictions.PredictionGameLeagueSeason", b =>
+            modelBuilder.Entity("FootballResults.DataAccess.Entities.Predictions.PredictionGameSeason", b =>
                 {
                     b.HasOne("FootballResults.DataAccess.Entities.Football.LeagueSeason", "LeagueSeason")
-                        .WithMany("PredictionGameLeagueSeasons")
+                        .WithMany("PredictionGameSeasons")
                         .HasForeignKey("LeagueSeasonID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FootballResults.DataAccess.Entities.Predictions.PredictionGame", "PredictionGame")
-                        .WithMany("PredictionGameLeagueSeasons")
+                        .WithMany("PredictionGameSeasons")
                         .HasForeignKey("PredictionGameID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1074,7 +1060,7 @@ namespace FootballResults.DataAccess.Migrations
                 {
                     b.Navigation("Matches");
 
-                    b.Navigation("PredictionGameLeagueSeasons");
+                    b.Navigation("PredictionGameSeasons");
 
                     b.Navigation("Standings");
 
@@ -1123,7 +1109,7 @@ namespace FootballResults.DataAccess.Migrations
 
                     b.Navigation("Participations");
 
-                    b.Navigation("PredictionGameLeagueSeasons");
+                    b.Navigation("PredictionGameSeasons");
                 });
 
             modelBuilder.Entity("FootballResults.DataAccess.Entities.Users.User", b =>

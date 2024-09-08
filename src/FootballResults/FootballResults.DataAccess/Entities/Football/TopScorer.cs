@@ -46,11 +46,6 @@ namespace FootballResults.DataAccess.Entities.Football
         public int? Assists { get; set; }
 
         /// <summary>
-        /// Last time when the topscorer info was updated
-        /// </summary>
-        public DateTime? LastUpdate { get; set; }
-
-        /// <summary>
         /// League season of the topscorer record
         /// </summary>
         [JsonIgnore]
