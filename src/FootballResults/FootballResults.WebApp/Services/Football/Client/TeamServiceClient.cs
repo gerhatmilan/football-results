@@ -1,13 +1,13 @@
 ﻿using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Entities.Users;
 
-namespace FootballResults.WebApp.Services.Football
+namespace FootballResults.WebApp.Services.Football.Client
 {
-    public class TeamService : ITeamService
+    public class TeamServiceClient : ITeamService
     {
         private readonly HttpClient _httpClient;
 
-        public TeamService(HttpClient httpClient)
+        public TeamServiceClient(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }

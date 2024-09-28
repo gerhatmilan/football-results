@@ -50,25 +50,22 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
 
         protected async Task LoadMatchesAsync()
         {
-            var selectedDateInUtc = SelectedDate.Add(ClientUtcDiff.Negate());
+            var selectedDateInUtc = SelectedDate.Add(ClientUtcDiff.Negate()).Date;
 
             try
             {
                 Matches = null;
-                var matches = await MatchService!.GetMatchesForDateAsync(selectedDateInUtc);
 
                 // in case the matches based on client's date extends to the next or previous day according to UTC time
                 // e.g if the client time is UTC+5, and the match is at 3:00 at client's time, then the match starts at 22:00 UTC, but
                 // if a match starts at 5:00 at client's time, then the match starts at 0:00 UTC, which extends to the next day
-
-                matches = matches.Concat(await MatchService!.GetMatchesForDateAsync(selectedDateInUtc.AddDays(1).Date));
-                matches = matches.Concat(await MatchService!.GetMatchesForDateAsync(selectedDateInUtc.AddDays(-1).Date));
+                var matches = await MatchService!.GetMatchesForIntervalAsync(selectedDateInUtc.AddDays(-1), selectedDateInUtc.AddDays(1));
 
                 Matches = matches.ToList();
             }
             catch (HttpRequestException)
             {
-                NavigationManager?.NavigateTo("/Error", true);
+                NavigationManager?.NavigateTo("/error", true);
             }
         }
 
@@ -86,7 +83,7 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
             }
             catch (HttpRequestException)
             {
-                NavigationManager?.NavigateTo("/Error", true);
+                NavigationManager?.NavigateTo("/error", true);
             }
         }
     }

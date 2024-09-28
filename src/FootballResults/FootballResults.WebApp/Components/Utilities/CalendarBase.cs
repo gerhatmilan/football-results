@@ -1,5 +1,6 @@
 ﻿using FootballResults.WebApp.Services.Time;
 using Microsoft.AspNetCore.Components;
+using System.Net.Http.Headers;
 
 namespace FootballResults.WebApp.Components.Utilities
 {
@@ -58,29 +59,30 @@ namespace FootballResults.WebApp.Components.Utilities
 
         protected void RefreshWeeks()
         {
+            Weeks.Clear();
+
             int year = SelectedDate.Year;
             int month = SelectedDate.Month;
             DateTime startDate = new DateTime(year, month, 1);
             DateTime endDate = startDate.AddMonths(1).AddDays(-1);
 
-            List<DateTime[]> weeks = new List<DateTime[]>();
-            DateTime[] week = new DateTime[7];
-
-            for (int i = 0; i < 7; i++)
+            // go back until monday
+            while (startDate.DayOfWeek != DayOfWeek.Monday)
             {
-                week[i] = startDate.AddDays(i);
+                startDate = startDate.AddDays(-1);
             }
 
-            // while first or last day of week is in the current month
-            while (week[0].Month == month || week[week.Length - 1].Month == month)
+            for (int weekCounter = 0; weekCounter < 6; weekCounter++)
             {
-                weeks.Add(week);
+                DateTime[] week = new DateTime[7];
 
-                // add 7 days (1 week) to each day
-                week = week.Select(day => day.AddDays(7)).ToArray();
+                for (int dayCounter = 0; dayCounter < 7; dayCounter++)
+                {
+                    week[dayCounter] = startDate.AddDays(weekCounter * 7 + dayCounter);
+                }
+
+                Weeks.Add(week);
             }
-
-            Weeks = weeks;
         }
 
         protected bool IsToday(DateTime date)
@@ -91,6 +93,31 @@ namespace FootballResults.WebApp.Components.Utilities
         protected bool IsSelected(DateTime date)
         {
             return date.Date == SelectedDate.Date;
+        }
+
+        protected bool IsCurrentMonth(DateTime date)
+        {
+            return date.Month == SelectedDate.Month;
+        }
+
+        protected string GetClassForDay(DateTime date)
+        {
+            string returnValue = "";
+
+            if (IsToday(date))
+            {
+                returnValue = "today";
+            }
+            else if (IsSelected(date))
+            {
+                returnValue = "selected";
+            }
+            else if (!IsCurrentMonth(date))
+            {
+                returnValue = "other-month";
+            }
+
+            return returnValue;
         }
 
         protected List<int> GetAvailableYears()

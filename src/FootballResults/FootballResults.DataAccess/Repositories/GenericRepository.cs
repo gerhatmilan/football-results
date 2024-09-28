@@ -17,18 +17,16 @@ namespace FootballResults.DataAccess.Repositories
 
         public virtual async Task<T> GetByIDAsync(int id, bool tracking)
         {
-            if (tracking)
-                return await _dbSet.FirstAsync(e => e.ID == id);
-            else
-                return await _dbSet.AsNoTracking().FirstAsync(e => e.ID == id);
+            return await _dbSet
+                .AsTracking(tracking ? QueryTrackingBehavior.TrackAll : QueryTrackingBehavior.NoTracking)
+                .FirstAsync(e => e.ID == id);
         }
 
         public virtual async Task<IEnumerable<T>> GetAllAsync(bool tracking)
         {
-            if (tracking)
-                return await _dbSet.ToListAsync();
-            else
-                return await _dbSet.AsNoTracking().ToListAsync();
+            return await _dbSet
+                .AsTracking(tracking ? QueryTrackingBehavior.TrackAll : QueryTrackingBehavior.NoTracking)
+                .ToListAsync();
         }
 
         public virtual async Task<T> AddAsync(T entity)

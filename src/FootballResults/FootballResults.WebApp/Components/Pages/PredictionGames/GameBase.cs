@@ -17,9 +17,6 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
         protected IPredictionGameService GameService { get; set; } = default!;
 
         [Inject]
-        protected IUserService UserService { get; set; } = default!;
-
-        [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
 
         [CascadingParameter(Name = "User")]
@@ -31,16 +28,16 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
         protected PredictionGame? Game { get; set; }
 
         protected League? SelectedLeague { get; set; }
-        protected IEnumerable<LeagueStanding>? LeagueStandings { get; set; }
-        protected IEnumerable<Match>? Matches { get; set; }
+        protected IEnumerable<LeagueStanding>? LeagueStandings => (Game != null && SelectedLeague != null) ? SelectedLeague.LeagueSeasons.ElementAt(0).Standings : null;
+        protected IEnumerable<Match>? Matches => (Game != null && SelectedLeague != null) ? SelectedLeague.LeagueSeasons.ElementAt(0).Matches : null;
 
-        protected IEnumerable<Match> UpcomingMatchesToday { get => (Matches ?? new List<Match>()).Where(m => !m.IsFinished() && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date == ClientDate).OrderBy(m => m.Date); }
+        protected IEnumerable<Match> UpcomingMatchesToday => (Matches ?? new List<Match>()).Where(m => !m.IsFinished() && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date == ClientDate.Date).OrderBy(m => m.Date);
 
-        protected IEnumerable<Match> FinishedMatchesToday { get => (Matches ?? new List<Match>()).Where(m => m.IsFinished() && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date == ClientDate).OrderByDescending(m => m.Date); }
+        protected IEnumerable<Match> FinishedMatchesToday => (Matches ?? new List<Match>()).Where(m => m.IsFinished() && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date == ClientDate.Date).OrderByDescending(m => m.Date);
 
-        protected IEnumerable<Match> UpcomingMatchesDecludingToday { get => (Matches ?? new List<Match>()).Where(m => !m.IsFinished() && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date != ClientDate).OrderBy(m => m.Date); }
+        protected IEnumerable<Match> UpcomingMatchesDecludingToday => (Matches ?? new List<Match>()).Where(m => !m.IsFinished() && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date != ClientDate.Date).OrderBy(m => m.Date);
 
-        protected IEnumerable<Match> FinishedMatchesDecludingToday { get => (Matches ?? new List<Match>()).Where(m => m.IsFinished() && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date != ClientDate).OrderByDescending(m => m.Date); }
+        protected IEnumerable<Match> FinishedMatchesDecludingToday => (Matches ?? new List<Match>()).Where(m => m.IsFinished() && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date != ClientDate.Date).OrderByDescending(m => m.Date);
 
         protected bool UserAuthorized { get; set; }
 
@@ -73,16 +70,11 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
                     // Game loaded but not found
                     if (Game == null)
                     {
-                        NavigationManager!.NavigateTo("/Error", true);
+                        NavigationManager.NavigateTo("/error", true);
                     }
-                    else if (AuthorizeUser())
+                    else if (!AuthorizeUser())
                     {
-                        await GameService.RefreshData(Game);
-                        await UserService.GetGameDataForUserAsync(User);
-                    }
-                    else
-                    {
-                        NavigationManager!.NavigateTo("/access-denied", true);
+                        NavigationManager.NavigateTo("/access-denied", true);
                     }
                 }
             }
@@ -97,30 +89,26 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
                 if (Game != null)
                 {
                     SelectedLeague = Game.LeagueSeasons.Select(ls => ls.League).ElementAt(0);
-                    LeagueStandings = await GameService.GetLeagueStandingsAsync(Game, SelectedLeague);
-                    Matches = await GameService.GetMatchesAsync(Game, SelectedLeague);
                 }
                 else
                 {
-                    NavigationManager!.NavigateTo("/Error", true);
+                    NavigationManager!.NavigateTo("/error", true);
                 }
             }
             catch (Exception)
             {
-                NavigationManager!.NavigateTo("/Error", true);
+                NavigationManager!.NavigateTo("/error", true);
             }
         }
 
         protected bool AuthorizeUser()
         {
-            return (UserAuthorized = Game!.Players.Select(p => p.ID).Contains(User!.ID));
+            return UserAuthorized = Game!.Players.Select(p => p.ID).Contains(User!.ID);
         }
 
         protected async Task ChangeLeague(League league)
         {
             SelectedLeague = league;
-            Matches = null;
-            Matches = await GameService.GetMatchesAsync(Game!, SelectedLeague);
             await InvokeAsync(StateHasChanged);
         }
     }

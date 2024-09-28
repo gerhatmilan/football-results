@@ -7,6 +7,13 @@ namespace FootballResults.WebApp.Components.Pages.Details
 {
     public class LeagueDetailsBase : ComponentBase, IMatchFilterable
     {
+        protected enum LeagueDetailsSubMenu
+        {
+            Matches,
+            Standings,
+            TopScorers
+        }
+
         [Inject]
         protected ILeagueService? LeagueService { get; set; }
 
@@ -17,66 +24,78 @@ namespace FootballResults.WebApp.Components.Pages.Details
         public string? LeagueName { get; set; }
         protected League? League { get; set; }
         public IEnumerable<Match>? Matches { get; set; }
-
         protected IEnumerable<LeagueStanding>? Standings { get; set; }
         protected IEnumerable<TopScorer>? TopScorers { get; set; }
-        protected string? ActiveSubMenu { get; set; } = "matches";
-        protected int? SeasonFilter { get; set; }
+        protected LeagueDetailsSubMenu? ActiveSubMenu { get; set; } = LeagueDetailsSubMenu.Matches;
 
         protected MatchFilterParameters? MatchFilterParameters { get; set; }
+        protected int? SeasonFilter => MatchFilterParameters?.SeasonFilter;
 
         protected MatchOrderOption MatchOrderOption { get; set; } = MatchOrderOption.RoundThenDateAsc;
 
         protected override async Task OnInitializedAsync()
         {
-            await LoadLeagueAsync();
-            InitializeFilters();
-            await LoadStandingsAsync();
-            await LoadTopScorersAsync();
+            try
+            {
+                await LoadLeagueAsync();
+                InitializeFilters();
+            }
+            catch (HttpRequestException ex)
+            {
+                switch (ex.StatusCode)
+                {
+                    case System.Net.HttpStatusCode.NotFound:
+                        NavigationManager?.NavigateTo("/notfound", true);
+                        break;
+                    case System.Net.HttpStatusCode.InternalServerError:
+                        NavigationManager?.NavigateTo("/error", true);
+                        break;
+                }
+            }
         }
 
         protected async Task LoadLeagueAsync()
         {
-            try
-            {
-                League = await LeagueService!.GetLeagueByNameAsync(LeagueName!);
-            }
-            catch (HttpRequestException)
-            {
-                NavigationManager?.NavigateTo("/Error", true);
-            }
+            League = await LeagueService!.GetLeagueByNameAsync(LeagueName!);
         }
 
         protected void InitializeFilters()
         {
-            MatchFilterParameters = new MatchFilterParameters();
-            MatchFilterParameters.LeagueFilter = LeagueName;
-            SeasonFilter = League!.CurrentSeason.Year;
-            MatchFilterParameters.SeasonFilter = SeasonFilter;
+            MatchFilterParameters = new MatchFilterParameters()
+            {
+                LeagueFilter = LeagueName,
+                SeasonFilter = League!.CurrentSeason?.Year
+            };
         }
 
         protected async Task LoadStandingsAsync()
         {
-            try
+            if (Standings == null && SeasonFilter != null)
             {
-                Standings = await LeagueService!.GetStandingsForLeagueAndSeasonAsync(LeagueName!, (int)SeasonFilter!);
-            }
-            catch (HttpRequestException)
-            {
-                NavigationManager?.NavigateTo("/Error", true);
+                try
+                {
+                    Standings = await LeagueService!.GetStandingsForLeagueAndSeasonAsync(LeagueName!, (int)SeasonFilter);
+                }
+                catch (HttpRequestException)
+                {
+                    NavigationManager?.NavigateTo("/error", true);
+                }
             }
         }
 
         protected async Task LoadTopScorersAsync()
         {
-            try
+            if (TopScorers == null && SeasonFilter != null)
             {
-                TopScorers = await LeagueService!.GetTopScorersForLeagueAndSeasonAsync(LeagueName!, (int)SeasonFilter!);
-            }
-            catch (HttpRequestException)
-            {
-                NavigationManager?.NavigateTo("/Error", true);
-            }
+                try
+                {
+                    TopScorers = await LeagueService!.GetTopScorersForLeagueAndSeasonAsync(LeagueName!, (int)SeasonFilter);
+                }
+                catch (HttpRequestException)
+                {
+                    NavigationManager?.NavigateTo("/error", true);
+                }
+            }  
         }
 
         protected List<(int leagueID, List<Match> matches)> GetMatchesByLeague()
@@ -95,15 +114,27 @@ namespace FootballResults.WebApp.Components.Pages.Details
             StateHasChanged();
         }
 
-        protected async void OnSeasonChanged(int? season)
+        protected void OnMatchesSelected()
         {
-            if (season != null)
-            {
-                SeasonFilter = season;
-                await LoadStandingsAsync();
-                await LoadTopScorersAsync();
-                StateHasChanged();
-            }
+            ActiveSubMenu = LeagueDetailsSubMenu.Matches;
+        }
+
+        protected async Task OnStandingsSelected()
+        {
+            ActiveSubMenu = LeagueDetailsSubMenu.Standings;
+            await LoadStandingsAsync();
+        }
+
+        protected async Task OnTopScorersSelected()
+        {
+            ActiveSubMenu = LeagueDetailsSubMenu.TopScorers;
+            await LoadTopScorersAsync();
+        }
+
+        protected void OnSeasonChanged(int? season)
+        {
+            Standings = null;
+            TopScorers = null;
         }
 
         protected void OnMatchOrderChanged(MatchOrderOption newOrderOption)

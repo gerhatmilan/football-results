@@ -40,7 +40,7 @@ namespace FootballResults.WebApp.Components.Forms
                 ErrorMessage = "You have already joined this game";
             else
             {
-                if (await PredictionGameService.JoinGameAsync(User!, gameByKey))
+                if (await PredictionGameService.JoinGameAsync(User!.ID, gameByKey.ID) != null)
                     NavigationManager!.NavigateTo($"/prediction-games/{gameByKey.ID}", true);
                 else
                     ErrorMessage = "Failed to join the game at this time. Try again later";

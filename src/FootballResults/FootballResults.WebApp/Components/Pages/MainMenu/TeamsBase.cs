@@ -27,7 +27,7 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
             }
             catch (HttpRequestException)
             {
-                NavigationManager?.NavigateTo("/Error", true);
+                NavigationManager?.NavigateTo("/error", true);
             }
         }
     }

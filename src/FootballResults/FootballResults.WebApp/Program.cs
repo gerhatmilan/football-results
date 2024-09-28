@@ -10,6 +10,9 @@ using FootballResults.DataAccess.Entities.Users;
 using FootballResults.WebApp.Services.Time;
 using Blazored.LocalStorage;
 using FootballResults.DataAccess;
+using FootballResults.WebApp.Services.Football.Server;
+using FootballResults.DataAccess.Repositories.Football;
+using FootballResults.API.Models;
 
 namespace FootballResults.WebApp
 {
@@ -36,26 +39,14 @@ namespace FootballResults.WebApp
             builder.Services.AddTransient<IChatService<Message>, GameChatService>();
             builder.Services.AddScoped<IClientTimeService, ClientTimeService>();
 
-            // HttpClient services
-            builder.Services.AddHttpClient<IMatchService, MatchService>(client =>
-            {
-                client.BaseAddress = new Uri(databaseApiUrl);
-            });
+            builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+            builder.Services.AddScoped<ILeagueRepository, LeagueRepository>();
+            builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+            builder.Services.AddScoped<IMatchRepository, MatchRepository>();
 
-            builder.Services.AddHttpClient<ILeagueService, LeagueService>(client =>
-            {
-                client.BaseAddress = new Uri(databaseApiUrl);
-            });
-
-            builder.Services.AddHttpClient<ITeamService, TeamService>(client =>
-            {
-                client.BaseAddress = new Uri(databaseApiUrl);
-            });
-
-            builder.Services.AddHttpClient<IUserService, UserService>(client =>
-            {
-                client.BaseAddress = new Uri(databaseApiUrl);
-            });
+            builder.Services.AddScoped<IMatchService, MatchServiceServer>();
+            builder.Services.AddScoped<ILeagueService, LeagueServiceServer>();
+            builder.Services.AddScoped<ITeamService, TeamServiceServer>();
 
             // Authentication
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -76,14 +67,14 @@ namespace FootballResults.WebApp
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll)
                     .LogTo(Console.Write);
-            });
+            }, ServiceLifetime.Transient);
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -93,6 +84,7 @@ namespace FootballResults.WebApp
             app.UseAntiforgery();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseStatusCodePagesWithRedirects("{0}");
 
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();

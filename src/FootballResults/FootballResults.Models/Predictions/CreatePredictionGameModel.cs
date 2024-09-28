@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FootballResults.Models.Predictions
 {
-    public class CreateGameModel
+    public class CreatePredictionGameModel
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "Name is required")]
         [MinLength(5, ErrorMessage = "Name must be at least 5 characters long")]

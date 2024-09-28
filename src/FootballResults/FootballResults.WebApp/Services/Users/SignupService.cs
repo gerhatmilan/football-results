@@ -44,9 +44,10 @@ namespace FootballResults.WebApp.Services.Users
                 Email = user.Email,
                 Username = user.Username,
                 Password = hashedPassword,
+                RegistrataionDate = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified)
             };
 
-            await _dbContext.AddAsync(hashedUser);
+            _dbContext.Add(hashedUser);
             await _dbContext.SaveChangesAsync();
 
             return SignUpResult.Success;

@@ -33,7 +33,7 @@ namespace FootballResults.WebApp.Components.Forms
             }
             catch (Exception)
             {
-                NavigationManager!.NavigateTo("/Error", true);
+                NavigationManager!.NavigateTo("/error", true);
             }
         }
     }

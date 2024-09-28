@@ -13,6 +13,7 @@ namespace FootballResults.DataAccess.Repositories.Football
                 .Where(c => c.Leagues.Count() > 0)
                 .Include(c => c.Leagues)
                 .OrderBy(c => c.Name)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
@@ -22,6 +23,7 @@ namespace FootballResults.DataAccess.Repositories.Football
                 .Where(c => c.Teams.Count() > 0)
                 .Include(c => c.Teams)
                 .OrderBy(c => c.Name)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
@@ -31,12 +33,14 @@ namespace FootballResults.DataAccess.Repositories.Football
                 .Where(c => c.Venues.Count() > 0)
                 .Include(c => c.Venues)
                 .OrderBy(c => c.Name)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
         public async Task<Country> GetCountryByName(string countryName)
         {
             return await _dbContext.Countries
+                .AsNoTracking()
                 .FirstAsync(c => c.Name.ToLower().Equals(countryName.ToLower()));
         }
 
@@ -48,6 +52,7 @@ namespace FootballResults.DataAccess.Repositories.Football
                 .Where(l => l.Country.Name.ToLower().Equals(country.Name.ToLower()))
                 .OrderBy(l => l.Type)
                 .ThenBy(l => l.Name)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
@@ -58,6 +63,7 @@ namespace FootballResults.DataAccess.Repositories.Football
             return await _dbContext.Teams
                 .Where(t => t.Country.Name.ToLower().Equals(country.Name.ToLower()))
                 .OrderBy(t => t.Name)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
@@ -68,6 +74,7 @@ namespace FootballResults.DataAccess.Repositories.Football
             return await _dbContext.Venues
                 .Where(v => v.Country.Name.ToLower().Equals(country.Name.ToLower()))
                 .OrderBy(v => v.Name)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
@@ -79,7 +86,7 @@ namespace FootballResults.DataAccess.Repositories.Football
                 query = query.Where(c => c.Name.ToLower().Contains(countryName.ToLower()));
             }
 
-            return await query.ToListAsync();
+            return await query.AsNoTracking().ToListAsync();
         }
     }
 }

@@ -21,9 +21,9 @@ namespace FootballResults.WebApp.Components.CardViews.PredictionGames
 
         protected override void OnParametersSet()
         {
-            if (User != null && Game != null && Match != null)
+            if (Match?.Predictions != null)
             {
-                ExistingPrediction = User.Predictions.FirstOrDefault(p => (p.User.ID == User.ID && p.PredictionGame.ID == Game.ID && p.MatchID == Match.ID));
+                ExistingPrediction = Match.Predictions.FirstOrDefault(p => p.User.ID == User?.ID && p.PredictionGame.ID == Game?.ID);
             }
         }
     }

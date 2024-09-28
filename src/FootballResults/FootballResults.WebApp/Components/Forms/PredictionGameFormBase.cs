@@ -28,7 +28,7 @@ namespace FootballResults.WebApp.Components.Forms
         [Parameter]
         public User User { get; set; } = default!;
 
-        protected CreateGameModel CreateGameModel { get; set; } = new CreateGameModel();
+        protected CreatePredictionGameModel CreateGameModel { get; set; } = new CreatePredictionGameModel();
 
         protected string? NotCreatedErrorMessage { get; set; }
         protected string? IncludedLeaguesErrorMessage { get; set; }
@@ -59,7 +59,7 @@ namespace FootballResults.WebApp.Components.Forms
             }
             catch (HttpRequestException)
             {
-                NavigationManager.NavigateTo("/Error", true);
+                NavigationManager.NavigateTo("/error", true);
             }
         }
 
@@ -89,7 +89,7 @@ namespace FootballResults.WebApp.Components.Forms
                 return;
             }
 
-            PredictionGame? createdGame = await PredictionGameService.CreatePredictionGameAsync(User, CreateGameModel);
+            PredictionGame? createdGame = await PredictionGameService.CreatePredictionGameAsync(User.ID, CreateGameModel);
             if (createdGame != null)
             {
                 NavigationManager.NavigateTo("/prediction-games", true);

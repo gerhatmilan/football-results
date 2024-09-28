@@ -14,30 +14,28 @@ namespace FootballResults.WebApp.Services.Users
             _dbContext = dbContext;
         }
 
-        private bool IsCorrectPassword(User providedUser, User actualUser)
+        private bool IsCorrectPassword(string providedPassword, User actualUser)
         {
-            return new PasswordHasher<User>().VerifyHashedPassword(providedUser, actualUser.Password!, providedUser.Password!) == PasswordVerificationResult.Success;
+            return new PasswordHasher<User>().VerifyHashedPassword(actualUser, actualUser.Password!, providedPassword) == PasswordVerificationResult.Success;
         }
 
-        public async Task<Tuple<User?, LoginResult>> AuthenticateUserAsync(User user)
+        private async Task<User?> GetUserAsync(string username)
         {
-            User? userInDatabase = await GetUserAsync(user);
+            return await _dbContext.Users
+                .FirstOrDefaultAsync(u => u.Username == username);
+        }
+
+        public async Task<Tuple<User?, LoginResult>> AuthenticateUserAsync(string username, string password)
+        {
+            User? userInDatabase = await GetUserAsync(username);
 
             if (userInDatabase == null)
                 return Tuple.Create<User?, LoginResult>(null, LoginResult.UserNotFound);
 
-            if (!IsCorrectPassword(user, userInDatabase))
+            if (!IsCorrectPassword(password, userInDatabase))
                 return Tuple.Create<User?, LoginResult>(null, LoginResult.InvalidPassword);
 
             return Tuple.Create<User?, LoginResult>(userInDatabase, LoginResult.Success);
-        }
-
-        public async Task<User?> GetUserAsync(User user)
-        {
-            return await _dbContext.Users
-                .AsNoTracking()
-                .Where(u => u.Username == user.Username)
-                .FirstOrDefaultAsync();
         }
     }
 }

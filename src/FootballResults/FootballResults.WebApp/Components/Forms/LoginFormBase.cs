@@ -27,13 +27,7 @@ namespace FootballResults.WebApp.Components.Forms
         {
             try
             {
-                var user = new User()
-                {
-                    Username = LoginModel.Username,
-                    Password = LoginModel.Password
-                };
-
-                (User? userInDatabase, LoginResult) = await LoginService!.AuthenticateUserAsync(user);
+                (User? userInDatabase, LoginResult) = await LoginService!.AuthenticateUserAsync(LoginModel.Username, LoginModel.Password);
 
                 if (LoginResult == LoginResult.Success)
                 {
@@ -42,7 +36,7 @@ namespace FootballResults.WebApp.Components.Forms
             }
             catch (Exception)
             {
-                NavigationManager!.NavigateTo("/Error", true);
+                NavigationManager!.NavigateTo("/error", true);
             }
         }
     }

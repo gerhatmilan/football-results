@@ -5,19 +5,18 @@
     <div class="chatWindow highlight" @ref=ChatWindowReference>
         @foreach (var message in GameChatService.Messages.Where(m => m.PredictionGameID == Game.ID).OrderBy(m => m.SentAt))
         {
-            User user = Game.Players.First(p => p.ID == message.UserID);
             <div class="chatRow">
                 <div class="detailsDiv">
                     <div class="userDiv">
                         <div class="avatarDiv">
-                            <ProfileIcon User="@user" />
+                            <ProfileIcon User="@message?.User" />
                         </div>
-                        <div class="usernameDiv">@user.Username</div>
+                        <div class="usernameDiv">@message?.User?.Username</div>
                     </div>
                     <div class="sentAtDiv">
                         @if (message.SentAt != null)
                         {
-                            <ToLocal DateTime="@message.SentAt.Value" Format="@(MessageSentToday(message) ? "HH:MM" : "yyyy. mm. dd HH:MM")" @rendermode="@RenderMode.InteractiveServer" />
+                            <ToLocal DateTime="@DateTime.SpecifyKind(message.SentAt.Value, DateTimeKind.Utc)" Format="@(MessageSentToday(message) ? "HH:MM" : "yyyy. mm. dd HH:MM")" @rendermode="@RenderMode.InteractiveServer" />
                         }
                         else
                         {

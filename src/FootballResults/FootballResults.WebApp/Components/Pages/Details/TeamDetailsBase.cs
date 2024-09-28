@@ -38,7 +38,7 @@ namespace FootballResults.WebApp.Components.Pages.Details
             }
             catch (HttpRequestException)
             {
-                NavigationManager?.NavigateTo("/Error", true);
+                NavigationManager?.NavigateTo("/error", true);
             }
         }
 
@@ -62,7 +62,7 @@ namespace FootballResults.WebApp.Components.Pages.Details
             }
             catch (HttpRequestException)
             {
-                NavigationManager?.NavigateTo("/Error", true);
+                NavigationManager?.NavigateTo("/error", true);
             }
         }
 

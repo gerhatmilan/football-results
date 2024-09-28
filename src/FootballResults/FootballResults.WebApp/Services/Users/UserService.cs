@@ -9,13 +9,11 @@ namespace FootballResults.WebApp.Services.Users
 {
     public class UserService : IUserService
     {
-        private readonly HttpClient _httpClient;
         private readonly AppDbContext _dbContext;
         private readonly IConfiguration _config;
 
-        public UserService(HttpClient httpClient, AppDbContext dbContext, IConfiguration config)
+        public UserService(AppDbContext dbContext, IConfiguration config)
         {
-            _httpClient = httpClient;
             _dbContext = dbContext;
             _config = config;
         }
@@ -31,6 +29,8 @@ namespace FootballResults.WebApp.Services.Users
                .Include(u => u.FavoriteLeagues)
                .Include(u => u.FavoriteTeams)
                .Include(u => u.PredictionGames)
+               .Include(u => u.Participations)
+                    .ThenInclude(p => p.Predictions)
                .AsSplitQuery()
                .FirstOrDefaultAsync(u => u.ID == userID);
         }
@@ -75,21 +75,21 @@ namespace FootballResults.WebApp.Services.Users
             }
         }
 
-        public async Task AddToFavoriteLeaguesAsync(User user, League league)
+        public async Task AddToFavoriteLeaguesAsync(int userID, int leagueID)
         {
-            await _dbContext.FavoriteLeagues.AddAsync(new FavoriteLeague { UserID = user.ID, LeagueID = league.ID });
+            await _dbContext.FavoriteLeagues.AddAsync(new FavoriteLeague { UserID = userID, LeagueID = leagueID });
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task AddToFavoriteTeamsAsync(User user, Team team)
+        public async Task AddToFavoriteTeamsAsync(int userID, int teamID)
         {
-            await _dbContext.FavoriteTeams.AddAsync(new FavoriteTeam { UserID = user.ID, TeamID = team.ID });
+            await _dbContext.FavoriteTeams.AddAsync(new FavoriteTeam {UserID = userID, TeamID = teamID });
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task RemoveFromFavoriteLeaguesAsync(User user, League league)
+        public async Task RemoveFromFavoriteLeaguesAsync(int userID, int leagueID)
         {
-            var entity = await _dbContext.FavoriteLeagues.FindAsync(user.ID, league.ID);
+            var entity = await _dbContext.FavoriteLeagues.FirstOrDefaultAsync(i => i.UserID == userID && i.LeagueID == leagueID);
 
             if (entity != null)
             {
@@ -98,24 +98,15 @@ namespace FootballResults.WebApp.Services.Users
             }
         }
 
-        public async Task RemoveFromFavoriteTeamsAsync(User user, Team team)
+        public async Task RemoveFromFavoriteTeamsAsync(int userID, int teamID)
         {
-            var entity = await _dbContext.FavoriteTeams.FindAsync(user.ID, team.ID);
+            var entity = await _dbContext.FavoriteTeams.FirstOrDefaultAsync(i => i.UserID == userID && i.TeamID == teamID);
 
             if (entity != null)
             {
                 _dbContext.FavoriteTeams.Remove(entity);
                 await _dbContext.SaveChangesAsync();
             }
-        }
-
-        public async Task GetGameDataForUserAsync(User user)
-        {
-            user = await _dbContext.Users
-                .Include(u => u.PredictionGames)
-                .Include(u => u.Messages)
-                .Include(u => u.Predictions)
-                .FirstAsync(u => u.ID == user.ID);
         }
     }
 }

@@ -19,19 +19,19 @@
         </div>
     </div>
     <div class="subMenu">
-        <button class="@(ActiveSubMenu!.Equals("matches") ? "active" : "")" type="button" @onclick="@(() => ActiveSubMenu = "matches")">Matches</button>
-        <button class="@(ActiveSubMenu!.Equals("standings") ? "active" : "")" type="button" @onclick="@(() => ActiveSubMenu = "standings")">Standings</button>
-        <button class="@(ActiveSubMenu!.Equals("topscorers") ? "active" : "")" type="button" @onclick="@(() => ActiveSubMenu = "topscorers")">Top scorers</button>
+        <button class="@(ActiveSubMenu!.Equals(LeagueDetailsSubMenu.Matches) ? "active" : "")" type="button" @onclick="OnMatchesSelected">Matches</button>
+        <button class="@(ActiveSubMenu!.Equals(LeagueDetailsSubMenu.Standings) ? "active" : "")" type="button" @onclick="async () => await OnStandingsSelected()">Standings</button>
+        <button class="@(ActiveSubMenu!.Equals(LeagueDetailsSubMenu.TopScorers) ? "active" : "")" type="button" @onclick="async () => await OnTopScorersSelected()">Top scorers</button>
     </div>
     <div class="submenuContent">
-        @if (ActiveSubMenu == "matches")
+        @if (ActiveSubMenu == LeagueDetailsSubMenu.Matches)
         {
-            <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" SeasonChanged="OnSeasonChanged" MatchOrderChanged="OnMatchOrderChanged" />
+            <MatchFilter FilterTarget="this" FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" SeasonChanged="OnSeasonChanged" MatchOrderChanged="OnMatchOrderChanged" />
             @if (Matches != null)
             {
                 @if (Matches.Count() > 0)
                 {
-                    <div class="matches">
+                    <div class=LeagueDetailsSubMenu.Matches>
                         @foreach (var matchesByLeagueGroup in GetMatchesByLeague())
                         {
                             <LeagueCard League="matchesByLeagueGroup.matches.First().League" Matches="matchesByLeagueGroup.matches" MatchOrderOption="@MatchOrderOption" BookmarkClicked="OnBookmarkClicked" />
@@ -49,7 +49,7 @@
             }
         }
 
-        @if (ActiveSubMenu == "standings")
+        @if (ActiveSubMenu == LeagueDetailsSubMenu.Standings)
         {
             @if (Standings != null)
             {
@@ -79,7 +79,7 @@
             }
         }
 
-        @if (ActiveSubMenu == "topscorers")
+        @if (ActiveSubMenu == LeagueDetailsSubMenu.TopScorers)
         {
             @if (TopScorers != null)
             {

@@ -7,16 +7,15 @@ namespace FootballResults.WebApp.Services.Predictions
 {
     public interface IPredictionGameService
     {
-        Task<PredictionGame?> CreatePredictionGameAsync(User user, CreateGameModel game);
+        Task<PredictionGame?> CreatePredictionGameAsync(int userID, CreatePredictionGameModel game);
         Task<PredictionGame?> GetPredictionGameAsync(int gameID);
         Task<PredictionGame?> GetPredictionGameByKeyAsync(string joinKey);
-        Task<bool> JoinGameAsync(User user, PredictionGame game);
-        Task<IEnumerable<PredictionGameStanding>> GetPredictionGameStandingsAsync(PredictionGame game);
-        Task<IEnumerable<Match>> GetMatchesAsync(PredictionGame game);
-        Task<IEnumerable<LeagueStanding>> GetLeagueStandingsAsync(PredictionGame game, League league);
-        Task<IEnumerable<Match>> GetMatchesAsync(PredictionGame game, League league);
-        Task<Prediction?> MakePredictionAsync(User user, PredictionGame game, Match match, PredictionModel model);    
-        Task<bool> UpdatePredictionAsync(Prediction prediction, PredictionModel model);
-        Task RefreshData(PredictionGame game);
+        Task<Participation?> JoinGameAsync(int userID, int predictionGameID);
+        Task<IEnumerable<PredictionGameStanding>?> GetPredictionGameStandingsAsync(int predictionGameID);
+        Task<IEnumerable<Match>?> GetMatchesAsync(int predictionGameID);
+        Task<IEnumerable<LeagueStanding>?> GetLeagueStandingsAsync(int predictionGameID, int leagueSeasonID);
+        Task<IEnumerable<Match>?> GetMatchesAsync(int predictionGameID, int leagueSeasonID);
+        Task<Prediction?> MakePredictionAsync(int userID, int predictionGameID, int matchID, PredictionModel model);    
+        Task<bool> UpdatePredictionAsync(int predictonID, PredictionModel model);
     }
 }

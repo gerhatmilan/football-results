@@ -19,7 +19,7 @@ namespace FootballResults.WebApp.Services.Predictions
             _config = config;
         }
 
-        private PredictionGame CreateGameFromModel(CreateGameModel model, int userID)
+        private PredictionGame CreateGameFromModel(CreatePredictionGameModel model, int userID)
         {
             return new PredictionGame
             {
@@ -38,33 +38,35 @@ namespace FootballResults.WebApp.Services.Predictions
             };
         }
 
-        private async Task AddIncludedLeaguesAsync(PredictionGame game, CreateGameModel model)
+        private async Task AddIncludedLeaguesAsync(int predictionGameID, CreatePredictionGameModel model)
         {
             foreach (var pair in model.IncludedLeagues)
             {
                 if (pair.Second)
                 {
-                    LeagueSeason? leagueSeason = await _dbContext.LeagueSeasons.FindAsync(pair.First.ID);
+                    // get the the current season for the given league
+                    LeagueSeason? leagueSeason = await _dbContext.LeagueSeasons.FirstOrDefaultAsync(i => i.LeagueID == pair.First.ID && i.InProgress);
 
-                    _dbContext.PredictionGameSeasons.Add(new PredictionGameSeason { PredictionGameID = game.ID, LeagueSeasonID = leagueSeason!.ID });
+                    if (leagueSeason != null)
+                    {
+                        _dbContext.PredictionGameSeasons.Add(new PredictionGameSeason { PredictionGameID = predictionGameID, LeagueSeasonID = leagueSeason.ID });
+                    }
                 }
             }
 
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<PredictionGame?> CreatePredictionGameAsync(User user, CreateGameModel model)
+        public async Task<PredictionGame?> CreatePredictionGameAsync(int userID, CreatePredictionGameModel model)
         {
-
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
                 try
                 {
-                    PredictionGame gameToBeSaved = CreateGameFromModel(model, user.ID);
+                    PredictionGame gameToBeSaved = CreateGameFromModel(model, userID);
 
                     // save the new entry to the database, and obtain the entity entry with the generated ID
-                    var entityEntry = await _dbContext.PredictionGames.AddAsync(gameToBeSaved);
-                    PredictionGame savedGame = entityEntry.Entity;
+                    PredictionGame savedGame = _dbContext.PredictionGames.Add(gameToBeSaved).Entity;
                     await _dbContext.SaveChangesAsync();
 
                     var defaultPicturePath = _config.GetValue<string>("Images:PredictionGameDefault")!;
@@ -84,7 +86,10 @@ namespace FootballResults.WebApp.Services.Predictions
                     }
 
                     // add the selected leagues to the game
-                    await AddIncludedLeaguesAsync(savedGame, model);
+                    await AddIncludedLeaguesAsync(savedGame.ID, model);
+
+                    // register participation
+                    await JoinGameAsync(userID, savedGame.ID);
 
                     transaction.Commit();
 
@@ -100,112 +105,158 @@ namespace FootballResults.WebApp.Services.Predictions
 
         public async Task<PredictionGame?> GetPredictionGameAsync(int gameID)
         {
-            return await _dbContext.PredictionGames
-            .Where(g => g.ID == gameID)
-            .Include(g => g.Players)
-            .Include(g => g.LeagueSeasons)
-            .Include(g => g.Predictions).ThenInclude(p => p.Match)
-            .Include(g => g.Standings)
-            .Include(g => g.Messages)
-            .AsSplitQuery()
-            .FirstOrDefaultAsync();
+            PredictionGame? game = await _dbContext.PredictionGames
+                .Include(g => g.Players)
+                .Include(g => g.LeagueSeasons)
+                    .ThenInclude(ls => ls.League)
+                .Include(g => g.LeagueSeasons)
+                    .ThenInclude(ls => ls.Matches)
+                .Include(g => g.LeagueSeasons)
+                    .ThenInclude(ls => ls.Standings)
+                        .ThenInclude(s => s.Team)
+                .Include(g => g.Participations)
+                    .ThenInclude(p => p.Predictions)
+                        .ThenInclude(p => p.Match)
+                .Include(g => g.Participations)
+                    .ThenInclude(p => p.Standing)
+                .Include(g => g.Messages)
+                .AsSplitQuery()
+                .FirstOrDefaultAsync(g => g.ID == gameID);
+
+            if (game != null)
+            {
+                game.RefreshData();
+                await _dbContext.SaveChangesAsync();
+            }
+
+            return game;
         }
 
         public async Task<PredictionGame?> GetPredictionGameByKeyAsync(string joinKey)
         {
             return await _dbContext.PredictionGames
-                .Where(g => g.JoinKey.Equals(joinKey))
                 .Include(g => g.Players)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(g => g.JoinKey.Equals(joinKey));
         }
 
-        public async Task<bool> JoinGameAsync(User user, PredictionGame game)
+        public async Task<Participation?> JoinGameAsync(int userID, int predictionGameID)
         {
-            if (user == null || game == null)
+            Participation participation = _dbContext.Participations.Add(new Participation
             {
-                return false;
-            }
-
-            await _dbContext.Participations.AddAsync(new Participation
-            {
-                PredictionGameID = game.ID,
-                UserID = user.ID,
+                PredictionGameID = predictionGameID,
+                UserID = userID,
                 JoinDate = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified)
-            });
+            }).Entity;
 
             await _dbContext.SaveChangesAsync();
-            return true;
+            PredictionGameStanding? relatedStanding = await CreateStandingAsync(predictionGameID, participation.ID);
+            participation.StandingID = relatedStanding.ID;
+            await _dbContext.SaveChangesAsync();
+
+            return participation;
         }
 
-        public async Task<IEnumerable<PredictionGameStanding>> GetPredictionGameStandingsAsync(PredictionGame game)
+        private async Task<PredictionGameStanding> CreateStandingAsync(int predictionGameID, int participationID)
         {
+            PredictionGameStanding standing = _dbContext.PredictionGameStandings.Add(new PredictionGameStanding
+            {
+                ParticipationID = participationID,
+                Points = 0
+            }).Entity;
 
-            return await _dbContext.PredictionGameStandings
-                .Where(s => s.Participation.PredictionGameID == game.ID)
-                .Include(s => s.User)
-                .OrderByDescending(s => s.Points)
-                .ToListAsync();
+            await _dbContext.SaveChangesAsync();
+
+            return standing;
         }
 
-        public async Task<IEnumerable<Match>> GetMatchesAsync(PredictionGame game)
+        public async Task<IEnumerable<PredictionGameStanding>?> GetPredictionGameStandingsAsync(int predictionGameID)
         {
-            PredictionGame? gameInDatabase = await _dbContext.PredictionGames.FindAsync(game.ID);
-            return gameInDatabase!.Matches;
+            PredictionGame? gameInDatabase = await _dbContext.PredictionGames
+                .Include(g => g.Participations)
+                    .ThenInclude(p => p.Standing)
+                        .ThenInclude(s => s.User)
+                .FirstOrDefaultAsync(g => g.ID == predictionGameID);
+
+            return gameInDatabase != null ? gameInDatabase.Standings.OrderByDescending(standing => standing.Points) : null;
+        }
+        public async Task<IEnumerable<Match>?> GetMatchesAsync(int predictionGameID)
+        {
+            PredictionGame? gameInDatabase = await _dbContext.PredictionGames
+                .Include(g => g.LeagueSeasons)
+                    .ThenInclude(ls => ls.Matches)
+                .FirstOrDefaultAsync(i => i.ID == predictionGameID);
+
+            return gameInDatabase != null ? gameInDatabase.Matches : null;
+        }
+        public async Task<IEnumerable<LeagueStanding>?> GetLeagueStandingsAsync(int predictionGameID, int leagueSeasonID)
+        {
+            PredictionGame? gameInDatabase = await _dbContext.PredictionGames
+                .Include(g => g.LeagueSeasons).ThenInclude(ls => ls.League)
+                .Include(g => g.LeagueSeasons).ThenInclude(ls => ls.Standings)
+                .FirstOrDefaultAsync(i => i.ID == predictionGameID);
+
+            return gameInDatabase != null ? gameInDatabase.LeagueSeasons.FirstOrDefault(ls => ls.ID == leagueSeasonID)?.Standings : null;
         }
 
-        public async Task<IEnumerable<LeagueStanding>> GetLeagueStandingsAsync(PredictionGame game, League league)
+        public async Task<IEnumerable<Match>?> GetMatchesAsync(int predictionGameID, int leagueSeasonID)
         {
-            PredictionGame? gameInDatabase = await _dbContext.PredictionGames.FindAsync(game.ID);
-            return gameInDatabase!.LeagueSeasons.SelectMany(ls => ls.Standings);
+            PredictionGame? gameInDatabase = await _dbContext.PredictionGames
+                .Include(g => g.LeagueSeasons).ThenInclude(ls => ls.League)
+                .Include(g => g.LeagueSeasons).ThenInclude(ls => ls.Matches)
+                .FirstOrDefaultAsync(i => i.ID == predictionGameID);
+
+            return gameInDatabase != null ? gameInDatabase.Matches.Where(m => m.LeagueSeason.ID == leagueSeasonID) : null;
         }
 
-        public async Task<IEnumerable<Match>> GetMatchesAsync(PredictionGame game, League league)
+        public async Task<Prediction?> MakePredictionAsync(int userID, int predictionGameID, int matchID, PredictionModel predictionModel)
         {
-            PredictionGame? gameInDatabase = await _dbContext.PredictionGames.FindAsync(game.ID);
-            return gameInDatabase!.Matches.Where(m => m.LeagueSeason.League.ID == league.ID);
-        }
+            Participation? relevantParticipation = await _dbContext.Participations.FirstOrDefaultAsync(p => p.UserID == userID && p.PredictionGameID == predictionGameID);
 
-        public async Task<Prediction?> MakePredictionAsync(User user, PredictionGame game, Match match, PredictionModel predictionModel)
-        {
-            if (user == null || game == null || match == null || !predictionModel.HomeTeamGoals.HasValue
-                || !predictionModel.AwayTeamGoals.HasValue)
+            if (relevantParticipation != null && predictionModel.Valid)
+            {
+                Prediction prediction = new Prediction
+                {
+                    ParticipationID = relevantParticipation.ID,
+                    MatchID = matchID,
+                    HomeTeamGoals = predictionModel.HomeTeamGoals!.Value,
+                    AwayTeamGoals = predictionModel.AwayTeamGoals!.Value,
+                    Date = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified)
+                };
+
+                await _dbContext.Predictions.AddAsync(prediction);
+                await _dbContext.SaveChangesAsync();
+                return prediction;
+            }
+            else
             {
                 return null;
             }
+ 
+        }
 
-            Participation? relevantParticipation = await _dbContext.Participations.FirstOrDefaultAsync(p => p.UserID == user.ID && p.PredictionGameID == game.ID);
-
-            Prediction prediction = new Prediction
+        public async Task<bool> UpdatePredictionAsync(int predictionID, PredictionModel model)
+        {
+            if (model.Valid)
             {
-                ParticipationID = relevantParticipation!.ID,
-                MatchID = match.ID,
-                HomeTeamGoals = predictionModel.HomeTeamGoals.Value,
-                AwayTeamGoals = predictionModel.AwayTeamGoals.Value,
-                Date = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified)
-            };
+                Prediction? predictionInDatabase = await _dbContext.Predictions.FirstOrDefaultAsync(p => p.ID == predictionID);
 
-            await _dbContext.Predictions.AddAsync(prediction);
-            await _dbContext.SaveChangesAsync();
-            return prediction;
-        }
+                if (predictionInDatabase != null)
+                {
+                    predictionInDatabase.HomeTeamGoals = model.HomeTeamGoals!.Value;
+                    predictionInDatabase.AwayTeamGoals = model.AwayTeamGoals!.Value;
 
-        public async Task<bool> UpdatePredictionAsync(Prediction prediction, PredictionModel model)
-        {
-            if (prediction == null || model == null || !model.HomeTeamGoals.HasValue
-                || !model.AwayTeamGoals.HasValue)
+                    await _dbContext.SaveChangesAsync();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
                 return false;
-
-            prediction.HomeTeamGoals = model.HomeTeamGoals.Value;
-            prediction.AwayTeamGoals = model.AwayTeamGoals.Value;
-
-            await _dbContext.SaveChangesAsync();
-            return true;
-        }
-        
-        public async Task RefreshData(PredictionGame game)
-        {
-            game.RefreshData();
-            await _dbContext.SaveChangesAsync();
+            }
         }
     }
 }

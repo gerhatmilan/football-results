@@ -80,7 +80,13 @@ namespace FootballResults.DataAccess.Entities.Predictions
         /// Matches that can be predicted in the prediction game
         /// </summary>
         [NotMapped]
-        public IEnumerable<Match> Matches => LeagueSeasons.SelectMany(ls => ls.Matches);      
+        public IEnumerable<Match> Matches => LeagueSeasons.SelectMany(ls => ls.Matches);
+
+        /// <summary>
+        /// Standings of league seasons that are included in the prediction game
+        /// </summary>
+        [NotMapped]
+        public IEnumerable<LeagueStanding> LeagueStandings => LeagueSeasons.SelectMany(ls => ls.Standings);
 
         /// <summary>
         /// Messages sent by users in the prediction game
@@ -156,7 +162,7 @@ namespace FootballResults.DataAccess.Entities.Predictions
                 if (prediction.Match.IsFinished() && !prediction.PointsGiven)
                 {
                     var points = prediction.CalculatePoints();
-                    var standing = prediction.PredictionGame.Standings.FirstOrDefault(s => s.PredictionGame.ID == ID && s.User.ID == prediction.User.ID);
+                    var standing = prediction.Participation.Standing;
 
                     if (standing != null)
                     {
@@ -165,12 +171,16 @@ namespace FootballResults.DataAccess.Entities.Predictions
                     }
                 }
             });
+
+            StandingsLastUpdate = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
         }
 
         private void RefreshFinished()
         {
             if (LeagueSeasons.SelectMany(l => l.Matches).All(m => m.IsFinished()))
+            {
                 Finished = true;
+            }
         }
     }
 }

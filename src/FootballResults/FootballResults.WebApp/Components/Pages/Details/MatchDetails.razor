@@ -41,7 +41,7 @@ else
                 }
             </li>
             <li>
-                League: @Match.League.Name
+                League: @(Match.League?.Name ?? "Unknown")
             </li>
             <li>
                 Season: @Match.LeagueSeason.Year
@@ -50,10 +50,10 @@ else
                 Round: @(Match.Round ?? "Unknown")
             </li>
             <li>
-                Country: @(Match.Venue != null ? (Match.Venue.CountryID) : "Unknown")
+                Country: @(Match.Venue?.Country?.Name ?? "Unknown")
             </li>
             <li>
-                Stadium: @(Match.Venue != null ? (Match.Venue.Name != null ? Match.Venue.Name : "Unknown") : "Unknown")
+                Stadium: @(Match.Venue?.Name ?? "Unknown")
             </li>
         </ul>
     </div>

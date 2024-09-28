@@ -51,7 +51,7 @@ else
 
     protected override void OnParametersSet()
     {
-        Standings = Standings!.OrderByDescending(s => s.Points);
+        Standings = Standings!.OrderByDescending(s => s.Points).ThenBy(s => s.Participation.JoinDate);
         LastUpdate = Standings.First().PredictionGame.StandingsLastUpdate;
     }
 }

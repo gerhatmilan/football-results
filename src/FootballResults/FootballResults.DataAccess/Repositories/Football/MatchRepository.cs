@@ -12,12 +12,16 @@ namespace FootballResults.API.Models
 
         public override async Task<Match> GetByIDAsync(int id, bool tracking)
         {
-            Match match = await _dbContext.Matches
+            Match match = null;
+
+            match = await _dbContext.Matches
                 .Include(m => m.LeagueSeason)
-                .ThenInclude(ls => ls.League)
+                    .ThenInclude(ls => ls.League)
                 .Include(m => m.Venue)
+                    .ThenInclude(v => v.Country)
                 .Include(m => m.HomeTeam)
                 .Include(m => m.AwayTeam)
+                .AsTracking(tracking ? QueryTrackingBehavior.TrackAll : QueryTrackingBehavior.NoTracking)
                 .FirstAsync(m => m.ID == id);
 
             return new Match
@@ -88,10 +92,11 @@ namespace FootballResults.API.Models
                     },
                 })
                 .OrderBy(m => m.Date)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Match>> Search(DateTime? date, int? year, int? month, int? day, string teamName, string leagueName, int? season, string round)
+        public async Task<IEnumerable<Match>> Search(DateTime? date, DateTime? from, DateTime? to, int? year, int? month, int? day, string teamName, string leagueName, int? season, string round)
         {
             IQueryable<Match> query = _dbContext.Matches
                 .Include(m => m.LeagueSeason)
@@ -140,12 +145,17 @@ namespace FootballResults.API.Models
                 });
 
             query = query
-                .Where(m => m.Date.HasValue && (date.HasValue ? m.Date.Value.Date == date.Value.Date : true)
+                .Where(m => m.Date.HasValue
+                    && (date.HasValue ? m.Date.Value.Date == DateTime.SpecifyKind(date.Value, DateTimeKind.Unspecified) : true)
+                    && (from.HasValue ? m.Date.Value.Date >= DateTime.SpecifyKind(from.Value.Date, DateTimeKind.Unspecified) : true)
+                    && (to.HasValue ? m.Date.Value.Date <= DateTime.SpecifyKind(to.Value.Date, DateTimeKind.Unspecified) : true)
                     && (year.HasValue ? m.Date.Value.Year == year : true)
                     && (month.HasValue ? m.Date.Value.Month == month : true)
                     && (day.HasValue ? m.Date.Value.Day == day : true));
 
-            return await query.ToListAsync();
+            return await query
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }

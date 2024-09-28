@@ -14,6 +14,7 @@ namespace FootballResults.API.Models
         public async Task<Team> GetTeamByName(string teamName)
         {
             return await _dbContext.Teams
+                .AsNoTracking()
                 .FirstAsync(l => l.Name.ToLower().Equals(teamName.ToLower()));
         }
 
@@ -21,6 +22,7 @@ namespace FootballResults.API.Models
         {
             Team team = await _dbContext.Teams
                 .Include(t => t.Squad)
+                .AsNoTracking()
                 .FirstAsync(t => t.Name.ToLower().Equals(teamName.ToLower()));
 
             return (team.Squad ?? new List<Player>())
@@ -37,6 +39,7 @@ namespace FootballResults.API.Models
                 .Include(t => t.AwayMatches).ThenInclude(m => m.LeagueSeason).ThenInclude(ls => ls.League)
                 .Include(t => t.AwayMatches).ThenInclude(m => m.Venue)
                 .Include(t => t.AwayMatches).ThenInclude(m => m.HomeTeam)
+                .AsNoTracking()
                 .FirstAsync(t => t.Name.ToLower().Equals(teamName.ToLower()));
 
             return team.Matches
@@ -82,6 +85,7 @@ namespace FootballResults.API.Models
                 .Where(t => (!String.IsNullOrEmpty(teamName) ? t.Name.ToLower().Contains(teamName.ToLower()) : true)
                     && (!String.IsNullOrEmpty(country) ? t.Country.Name.ToLower().Contains(country.ToLower()) : true)
                     && (national.HasValue ? t.National == national : true))
+                .AsNoTracking()
                 .ToListAsync();
         }
     }
