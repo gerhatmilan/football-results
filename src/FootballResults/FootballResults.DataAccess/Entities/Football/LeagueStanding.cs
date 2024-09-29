@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace FootballResults.DataAccess.Entities.Football
 {
-    public class LeagueStanding : Entity
+    public class LeagueStanding : EntityWithID
     {
         /// <summary>
         /// ID of the league season of the standing

@@ -2,12 +2,12 @@
 
 @if (Match != null)
 {
-    <div class="matchCard @(Match.IsFinished() ? "finished" : "")">
+    <div class="matchCard @(Match.IsFinished ? "finished" : "")">
         <TeamCard Team="Match.HomeTeam" />
         <div class="matchDetails">
-            @if (Match.DateKnown())
+            @if (Match.DateKnown)
             {
-                @if (Match.HasStarted())
+                @if (Match.HasStarted)
                 {
                     <div class="details detailsTop">
                         @if (ExistingPrediction != null)
@@ -33,11 +33,11 @@
                         @if (Match.Status != null)
                         {
                             <div class="status">
-                                @if (Match.IsInProgress())
+                                @if (Match.IsInProgress)
                                 {
                                     <span class="liveIndicator"></span>
                                 }
-                                @Match.Status
+                                @Match.StatusText
                             </div>
                         }
                         else
@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="details detailsBottom">
-                        @if (Match.IsInProgress() && Match.LastUpdate != null)
+                        @if (Match.IsInProgress && Match.LastUpdate != null)
                         {
                             <div class="lastUpdate">
                                 Last update:<br />
@@ -59,10 +59,17 @@
                 else
                 {
                     <div class="details detailsTop">
-                        <div class="bigDate">
-                            <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date!.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd" @rendermode="@RenderMode.InteractiveServer" />
-                            <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date!.Value, DateTimeKind.Utc)" Format="HH:MM" @rendermode="@RenderMode.InteractiveServer" />
-                        </div>
+                        @if (!Match.IsToBeDecided)
+                        {
+                            <div class="bigDate">
+                                <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date!.Value, DateTimeKind.Utc)" Format="yyyy. mm. dd" @rendermode="@RenderMode.InteractiveServer" />
+                                <ToLocal DateTime="@DateTime.SpecifyKind(Match.Date!.Value, DateTimeKind.Utc)" Format="HH:MM" @rendermode="@RenderMode.InteractiveServer" />
+                            </div>
+                        }
+                        else
+                        {
+                            <span>To be decided</span>
+                        }
                     </div>
                     <div class="details detailsMiddle">
                         <div>

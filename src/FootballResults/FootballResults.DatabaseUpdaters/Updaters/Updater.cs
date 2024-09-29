@@ -2,8 +2,8 @@
 using FootballResults.DataAccess;
 using FootballResults.DataAccess.Entities.Football;
 using FootballResults.Models.Api;
-using FootballResults.Models.Api.FootballApi;
 using FootballResults.Models.Api.FootballApi.Responses;
+using FootballResults.Models.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -17,6 +17,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
         protected readonly IServiceScopeFactory _serviceScopeFactory;
         protected readonly ILogger _logger;
         protected readonly FootballApiConfig _apiConfig;
+        protected readonly ApplicationConfig _applicationConfig;
         protected AppDbContext _dbContext = default!;
         protected WebApiClient _webApiClient;
         protected UpdaterMode _currentMode;
@@ -39,11 +40,12 @@ namespace FootballResults.DatabaseUpdaters.Updaters
             }
         }
 
-        public Updater(IServiceScopeFactory serviceScopeFactory, ILogger logger, IOptions<FootballApiConfig> apiConfig)
+        public Updater(IServiceScopeFactory serviceScopeFactory, ILogger logger)
         {
             _serviceScopeFactory = serviceScopeFactory;
             _logger = logger;
-            _apiConfig = apiConfig.Value;
+            _apiConfig = _serviceScopeFactory.CreateScope().ServiceProvider.GetRequiredService<IOptions<FootballApiConfig>>().Value;
+            _applicationConfig = _serviceScopeFactory.CreateScope().ServiceProvider.GetRequiredService<IOptions<ApplicationConfig>>().Value;
             _webApiClient = new WebApiClient(_apiConfig.BaseAddress, logger);
         }
 
@@ -121,7 +123,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
 
         protected ICollection<int> GetIncludedLeagueIDs()
         {
-            return _apiConfig.IncludedLeagues.Select(includedLeague => includedLeague.ID).ToList();
+            return _applicationConfig.IncludedLeagues.Select(includedLeague => includedLeague.ID).ToList();
         }
 
         protected virtual async Task UpdateAsync()

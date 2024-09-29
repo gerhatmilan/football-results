@@ -1,6 +1,6 @@
 using FootballResults.DataAccess.Entities.Football;
-using FootballResults.Models.Api.FootballApi;
 using FootballResults.Models.Api.FootballApi.Responses;
+using FootballResults.Models.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -15,11 +15,11 @@ namespace FootballResults.DatabaseUpdaters.Updaters
 
         protected override UpdaterSpecificSettings UpdaterSpecificSettingsForLeagueAndSeason => _apiConfig.DataFetch.TeamsForLeagueAndSeason;
 
-        public TeamUpdater(IServiceScopeFactory serviceScopeFactory, ILoggerFactory loggerFactory, ILogger<TeamUpdater> logger, IOptions<FootballApiConfig> apiConfig)
-            : base(serviceScopeFactory, logger, apiConfig)
+        public TeamUpdater(IServiceScopeFactory serviceScopeFactory, ILoggerFactory loggerFactory, ILogger<TeamUpdater> logger)
+            : base(serviceScopeFactory, logger)
         {
             _loggerFactory = loggerFactory;
-            _venueUpdater = new VenueUpdaterForTeam(serviceScopeFactory, _loggerFactory.CreateLogger<VenueUpdaterForTeam>(), apiConfig);
+            _venueUpdater = new VenueUpdaterForTeam(serviceScopeFactory, _loggerFactory.CreateLogger<VenueUpdaterForTeam>());
         }
 
         protected override void ProcessData(IEnumerable<TeamsResponseItem> responseItems)

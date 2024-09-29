@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace FootballResults.DataAccess.Entities.Users
 {
-    public class Message : Entity
+    public class Message : EntityWithID
     {
         /// <summary>
         /// ID of the match the message is related to (if any)

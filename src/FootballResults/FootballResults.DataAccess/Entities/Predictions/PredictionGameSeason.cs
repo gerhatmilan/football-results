@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FootballResults.DataAccess.Entities.Predictions
 {
-    public class PredictionGameSeason : Entity
+    public class PredictionGameSeason : EntityWithID
     {
         /// <summary>
         /// Prediction game ID

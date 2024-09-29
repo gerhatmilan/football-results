@@ -31,13 +31,13 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
         protected IEnumerable<LeagueStanding>? LeagueStandings => (Game != null && SelectedLeague != null) ? SelectedLeague.LeagueSeasons.ElementAt(0).Standings : null;
         protected IEnumerable<Match>? Matches => (Game != null && SelectedLeague != null) ? SelectedLeague.LeagueSeasons.ElementAt(0).Matches : null;
 
-        protected IEnumerable<Match> UpcomingMatchesToday => (Matches ?? new List<Match>()).Where(m => !m.IsFinished() && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date == ClientDate.Date).OrderBy(m => m.Date);
+        protected IEnumerable<Match> UpcomingMatchesToday => (Matches ?? new List<Match>()).Where(m => !m.IsFinished && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date == ClientDate.Date).OrderBy(m => m.Date);
 
-        protected IEnumerable<Match> FinishedMatchesToday => (Matches ?? new List<Match>()).Where(m => m.IsFinished() && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date == ClientDate.Date).OrderByDescending(m => m.Date);
+        protected IEnumerable<Match> FinishedMatchesToday => (Matches ?? new List<Match>()).Where(m => m.IsFinished && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date == ClientDate.Date).OrderByDescending(m => m.Date);
 
-        protected IEnumerable<Match> UpcomingMatchesDecludingToday => (Matches ?? new List<Match>()).Where(m => !m.IsFinished() && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date != ClientDate.Date).OrderBy(m => m.Date);
+        protected IEnumerable<Match> UpcomingMatchesDecludingToday => (Matches ?? new List<Match>()).Where(m => !m.IsFinished && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date != ClientDate.Date).OrderBy(m => m.Date);
 
-        protected IEnumerable<Match> FinishedMatchesDecludingToday => (Matches ?? new List<Match>()).Where(m => m.IsFinished() && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date != ClientDate.Date).OrderByDescending(m => m.Date);
+        protected IEnumerable<Match> FinishedMatchesDecludingToday => (Matches ?? new List<Match>()).Where(m => m.IsFinished && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date != ClientDate.Date).OrderByDescending(m => m.Date);
 
         protected bool UserAuthorized { get; set; }
 

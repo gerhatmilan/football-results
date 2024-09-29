@@ -2,7 +2,7 @@
 
 namespace FootballResults.DataAccess.Entities.Predictions
 {
-    public class Participation : Entity
+    public class Participation : EntityWithID
     {
         /// <summary>
         /// ID of the prediction game the user is participating in

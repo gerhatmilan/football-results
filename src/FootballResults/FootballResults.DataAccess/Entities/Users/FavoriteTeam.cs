@@ -2,7 +2,7 @@
 
 namespace FootballResults.DataAccess.Entities.Users
 {
-    public class FavoriteTeam : Entity
+    public class FavoriteTeam : EntityWithID
     {
         /// <summary>
         /// ID of the user who marked the team as favorite

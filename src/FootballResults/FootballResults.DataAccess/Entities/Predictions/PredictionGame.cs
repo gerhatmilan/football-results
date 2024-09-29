@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FootballResults.DataAccess.Entities.Predictions
 {
-    public class PredictionGame : Entity
+    public class PredictionGame : EntityWithID
     {
         /// <summary>
         /// ID of the user who created the prediction game
@@ -159,7 +159,7 @@ namespace FootballResults.DataAccess.Entities.Predictions
         {
             Predictions.ToList().ForEach(prediction =>
             {
-                if (prediction.Match.IsFinished() && !prediction.PointsGiven)
+                if (prediction.Match.IsFinished && !prediction.PointsGiven)
                 {
                     var points = prediction.CalculatePoints();
                     var standing = prediction.Participation.Standing;
@@ -177,7 +177,7 @@ namespace FootballResults.DataAccess.Entities.Predictions
 
         private void RefreshFinished()
         {
-            if (LeagueSeasons.SelectMany(l => l.Matches).All(m => m.IsFinished()))
+            if (LeagueSeasons.SelectMany(l => l.Matches).All(m => m.IsFinished))
             {
                 Finished = true;
             }

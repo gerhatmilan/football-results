@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FootballResults.DataAccess.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : Entity
+    public class GenericRepository<T> : IGenericRepository<T> where T : EntityWithID
     {
         protected readonly AppDbContext _dbContext;
         protected readonly DbSet<T> _dbSet;

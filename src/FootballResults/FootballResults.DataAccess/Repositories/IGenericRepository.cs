@@ -2,7 +2,7 @@
 
 namespace FootballResults.DataAccess.Repositories
 {
-    public interface IGenericRepository<T> where T : Entity
+    public interface IGenericRepository<T> where T : EntityWithID
     {
         Task<T> GetByIDAsync(int id, bool tracking);
         Task<IEnumerable<T>> GetAllAsync(bool tracking);

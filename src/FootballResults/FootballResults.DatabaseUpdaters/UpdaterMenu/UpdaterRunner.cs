@@ -1,6 +1,6 @@
 ﻿using FootballResults.DataAccess;
 using FootballResults.DatabaseUpdaters.Updaters;
-using FootballResults.Models.Api.FootballApi;
+using FootballResults.Models.Config;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
@@ -9,6 +9,7 @@ namespace FootballResults.DatabaseUpdaters.UpdaterMenu
     public class UpdaterRunner : BackgroundService
     {
         private readonly FootballApiConfig _apiConfig;
+        private readonly ApplicationConfig _applicationConfig;
         private readonly IServiceProvider _serviceProvider;
         private readonly IHostApplicationLifetime _applicationLifetime;
         private readonly ILogger<UpdaterRunner> _logger;
@@ -18,11 +19,12 @@ namespace FootballResults.DatabaseUpdaters.UpdaterMenu
         private UpdaterMenuHandler _menuHandler;
         private IUpdater? _selectedUpdater;
         private UpdaterMode? _selectedMode;
-        private IEnumerable<IncludedLeagueRecord> IncludedLeagues => _apiConfig.IncludedLeagues;
+        private IEnumerable<IncludedLeagueRecord> IncludedLeagues => _applicationConfig.IncludedLeagues;
 
         public UpdaterRunner(IServiceProvider serviceProvider, IHostApplicationLifetime applicationLifetime, ILogger<UpdaterRunner> logger, IHostEnvironment hostingEnvironment)
         {
             _apiConfig = serviceProvider.GetRequiredService<IOptions<FootballApiConfig>>().Value;
+            _applicationConfig = serviceProvider.GetRequiredService<IOptions<ApplicationConfig>>().Value;
             _serviceProvider = serviceProvider;
             _applicationLifetime = applicationLifetime;
             _logger = logger;

@@ -1,6 +1,6 @@
 using FootballResults.DataAccess.Entities.Football;
-using FootballResults.Models.Api.FootballApi;
 using FootballResults.Models.Api.FootballApi.Responses;
+using FootballResults.Models.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -12,8 +12,8 @@ namespace FootballResults.DatabaseUpdaters.Updaters
     {
         protected override UpdaterSpecificSettings UpdaterSpecificSettingsForLeagueAndSeason => _apiConfig.DataFetch.StandingsForLeagueAndSeason;
 
-        public StandingUpdater(IServiceScopeFactory serviceScopeFactory, ILogger<StandingUpdater> logger, IOptions<FootballApiConfig> apiConfig)
-            : base(serviceScopeFactory, logger, apiConfig) { }
+        public StandingUpdater(IServiceScopeFactory serviceScopeFactory, ILogger<StandingUpdater> logger)
+            : base(serviceScopeFactory, logger) { }
 
         protected override void ProcessData(IEnumerable<StandingsResponseItem> responseItems)
         {

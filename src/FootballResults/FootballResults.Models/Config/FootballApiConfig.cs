@@ -1,4 +1,4 @@
-﻿namespace FootballResults.Models.Api.FootballApi
+﻿namespace FootballResults.Models.Config
 {
     public class FootballApiConfig
     {
@@ -8,8 +8,6 @@
         public string ApiKey { get; set; }
         public int RateLimit { get; set; }
         public DataFetch DataFetch { get; set; }
-
-        public IEnumerable<IncludedLeagueRecord> IncludedLeagues { get; set; }
 
         public Dictionary<string, string> RequestHeaders => new Dictionary<string, string>
         {
@@ -37,11 +35,5 @@
         public string Endpoint { get; set; }
         public string BackupPath { get; set; }
         public bool LoadDataFromBackup { get; set; }
-    }
-
-    public class IncludedLeagueRecord
-    {
-        public int ID { get; set; }
-        public string Name { get; set; }
     }
 }

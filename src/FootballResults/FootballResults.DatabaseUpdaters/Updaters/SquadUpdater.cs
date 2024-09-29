@@ -1,7 +1,7 @@
 using FootballResults.DataAccess;
 using FootballResults.DataAccess.Entities.Football;
-using FootballResults.Models.Api.FootballApi;
 using FootballResults.Models.Api.FootballApi.Responses;
+using FootballResults.Models.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -13,8 +13,8 @@ namespace FootballResults.DatabaseUpdaters.Updaters
     {
         protected override UpdaterSpecificSettings UpdaterSpecificSettingsForTeam => _apiConfig.DataFetch.SquadForTeam;
 
-        public SquadUpdater(IServiceScopeFactory serviceScopeFactory, ILogger<TopScorerUpdater> logger, IOptions<FootballApiConfig> apiConfig)
-            : base(serviceScopeFactory, logger, apiConfig) { }
+        public SquadUpdater(IServiceScopeFactory serviceScopeFactory, ILogger<TopScorerUpdater> logger)
+            : base(serviceScopeFactory, logger) { }
 
         protected override async Task UpdateBasedOnLastUpdateAsync(TimeSpan maximumElapsedTimeSinceLastUpdate)
         {

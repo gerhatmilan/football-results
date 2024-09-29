@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FootballResults.DataAccess.Entities.Users
 {
-    public class User : Entity
+    public class User : EntityWithID
     {
         /// <summary>
         /// Email of the user

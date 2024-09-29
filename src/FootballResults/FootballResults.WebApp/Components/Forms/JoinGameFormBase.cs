@@ -17,7 +17,7 @@ namespace FootballResults.WebApp.Components.Forms
         [Parameter]
         public User? User { get; set; }
 
-        protected JoinGameFormModel Model { get; set; } = new JoinGameFormModel();
+        protected JoinPredictionGameFormModel Model { get; set; } = new JoinPredictionGameFormModel();
 
         protected string? ErrorMessage { get; set; }
 

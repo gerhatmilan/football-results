@@ -2,7 +2,7 @@
 
 namespace FootballResults.DataAccess.Entities.Football
 {
-    public class Country : Entity
+    public class Country : EntityWithID
     {
         /// <summary>
         /// Name of the country

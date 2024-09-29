@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace FootballResults.DataAccess.Entities.Football
 {
-    public class Team : Entity, IBookmarkable
+    public class Team : EntityWithID, IBookmarkable
     {
         /// <summary>
         /// ID of the country the team is from
