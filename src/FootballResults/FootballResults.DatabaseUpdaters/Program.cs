@@ -1,7 +1,7 @@
 using Extensions;
 using FootballResults.DataAccess;
 using FootballResults.DatabaseUpdaters.UpdaterMenu;
-using FootballResults.Models.Api.FootballApi;
+using FootballResults.Models.Config;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -38,25 +38,29 @@ namespace FootballResults.DatabaseUpdaters
         private static IHost InitializeApplication(string[] args)
         {
             _builder = Host.CreateApplicationBuilder(args);
-            _configuration = _builder.Configuration;
             _environment = _builder.Environment;
 
+            BuildConfiguration();
             CheckConfiguration();
             ConfigureLogging();
-
-            _builder.Services.Configure<FootballApiConfig>(_configuration.GetSection("FootballApiConfig"));
-
-            _builder.Services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseNpgsql(_configuration.GetConnectionString("DefaultConnection"))
-                    .UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
-            });            
-
-            _builder.Services.AddHostedService<UpdaterRunner>();
+            ConfigureServices();
 
             return _builder.Build();
         }
         
+        private static void BuildConfiguration()
+        {
+            string _configurationFolder = Path.Combine(_environment.ContentRootPath, "..", "Configuration");
+
+            _configuration = _builder.Configuration
+                .AddJsonFile(Path.Combine(_configurationFolder, "SharedSettings.json"))
+                .AddJsonFile(Path.Combine(_configurationFolder, $"SharedSettings.{_environment.EnvironmentName}.json"))
+                .AddJsonFile(Path.Combine(_environment.ContentRootPath, "appsettings.json"))
+                .AddJsonFile(Path.Combine(_environment.ContentRootPath, $"appsettings.{_environment.EnvironmentName}.json"))
+                .AddEnvironmentVariables()
+                .Build();
+        }
+
         private static void ConfigureLogging()
         {
             Log.Logger = new LoggerConfiguration()
@@ -87,6 +91,20 @@ namespace FootballResults.DatabaseUpdaters
             {
                 throw new Exception($"{configNotFound} not found. Please provide it in appsettings.json or as an environment variable.");
             }
+        }
+
+        private static void ConfigureServices()
+        {
+            _builder.Services.Configure<FootballApiConfig>(_configuration.GetSection("FootballApiConfig"));
+            _builder.Services.Configure<ApplicationConfig>(_configuration.GetSection("ApplicationConfig"));
+
+            _builder.Services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseNpgsql(_configuration.GetConnectionString("DefaultConnection"))
+                    .UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);
+            });
+
+            _builder.Services.AddHostedService<UpdaterRunner>();
         }
     }
 }

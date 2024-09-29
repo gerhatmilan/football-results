@@ -47,6 +47,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FootballResults.DataAccess\FootballResults.DataAccess.csproj" />
+    <ProjectReference Include="..\FootballResults.DatabaseUpdaters\FootballResults.DatabaseUpdaters.csproj" />
     <ProjectReference Include="..\FootballResults.Models\FootballResults.Models.csproj" />
   </ItemGroup>
 

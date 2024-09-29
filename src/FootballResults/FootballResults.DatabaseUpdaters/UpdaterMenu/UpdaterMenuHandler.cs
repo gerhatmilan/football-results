@@ -1,7 +1,7 @@
 ﻿using FootballResults.DataAccess;
 using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DatabaseUpdaters.Updaters;
-using FootballResults.Models.Api.FootballApi;
+using FootballResults.Models.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 

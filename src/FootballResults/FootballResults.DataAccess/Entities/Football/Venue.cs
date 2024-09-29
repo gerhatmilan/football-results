@@ -2,7 +2,7 @@
 
 namespace FootballResults.DataAccess.Entities.Football
 {
-    public class Venue : Entity
+    public class Venue : EntityWithID
     {
         /// <summary>
         /// ID of the country where the venue is located

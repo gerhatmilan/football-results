@@ -1,11 +1,12 @@
 ﻿using FootballResults.DataAccess.Entities.Predictions;
 using FootballResults.DataAccess.Entities.Users;
+using FootballResults.DataAccess.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace FootballResults.DataAccess.Entities.Football
 {
-    public class Match : Entity
+    public class Match : EntityWithID
     {
         /// <summary>
         /// ID of the league season the match belongs to
@@ -101,25 +102,80 @@ namespace FootballResults.DataAccess.Entities.Football
         [JsonIgnore]
         public IEnumerable<Message> Messages { get; set; }
 
-        public bool DateKnown()
+        public bool DateKnown
         {
-            return Date != null;
+            get => Date != null;
         }
 
-        public bool IsInProgress()
+        public bool IsInProgress
         {
-            return (Date < DateTime.UtcNow) && (Status == "1H" || Status == "HT" || Status == "2H"
-                || Status == "ET" || Status == "BT" || Status == "P" || Status == "SUSP" || Status == "INT" || Status == "LIVE");
+            get => (Date < DateTime.UtcNow) && (Status == MatchStatus.FirstHalf || Status == MatchStatus.HalfTime || Status == MatchStatus.SecondHalf
+                || Status == MatchStatus.ExtraTime || Status == MatchStatus.BreakTime || Status == MatchStatus.PenaltiesInProgress || Status == MatchStatus.Suspended || Status == MatchStatus.Interrupted || Status == MatchStatus.Live);
         }
 
-        public bool IsFinished()
+        public bool IsFinished
         {
-            return (Date < DateTime.UtcNow) && (Status == "FT" || Status == "AET" || Status == "PEN" || Status == "WO");
+            get => (Date < DateTime.UtcNow) && (Status == MatchStatus.FullTime || Status == MatchStatus.AwardedExtraTime || Status == MatchStatus.Penalties || Status == MatchStatus.WalkOver);
         }
 
-        public bool HasStarted()
+        public bool IsToBeDecided
         {
-            return Date < DateTime.UtcNow;
+            get => Status == MatchStatus.ToBeDecided;
+        }
+
+        public bool HasStarted
+        {
+            get => Date < DateTime.UtcNow;
+        }
+
+        public string StatusText
+        {
+            get
+            {
+                switch (Status)
+                {
+                    case MatchStatus.ToBeDecided:
+                        return "To be decided";
+                    case MatchStatus.NotStarted:
+                        return "Not started";
+                    case MatchStatus.FirstHalf:
+                        return "First half";
+                    case MatchStatus.HalfTime:
+                        return "Half time";
+                    case MatchStatus.SecondHalf:
+                        return "Second half";
+                    case MatchStatus.ExtraTime:
+                        return "Extra time";
+                    case MatchStatus.BreakTime:
+                        return "Break time";
+                    case MatchStatus.PenaltiesInProgress:
+                        return "Penalties in progress";
+                    case MatchStatus.Suspended:
+                        return "Suspended";
+                    case MatchStatus.Interrupted:
+                        return "Interrupted";
+                    case MatchStatus.FullTime:
+                        return "Full time";
+                    case MatchStatus.AwardedExtraTime:
+                        return "Awarded extra time";
+                    case MatchStatus.Penalties:
+                        return "Penalties";
+                    case MatchStatus.Postponed:
+                        return "Postponed";
+                    case MatchStatus.Cancelled:
+                        return "Cancelled";
+                    case MatchStatus.Abandoned:
+                        return "Abandoned";
+                    case MatchStatus.TechnicalLoss:
+                        return "Technical loss";
+                    case MatchStatus.WalkOver:
+                        return "Walk over";
+                    case MatchStatus.Live:
+                        return "Live";
+                    default:
+                        return "Unknown";
+                }
+            }
         }
 
         public bool Equals(Match match)

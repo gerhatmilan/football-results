@@ -1,8 +1,7 @@
+using FootballResults.DataAccess.Entities;
 using FootballResults.DataAccess.Entities.Football;
-using FootballResults.Models.Api.FootballApi;
 using FootballResults.Models.Api.FootballApi.Responses;
-using Microsoft.Extensions.Options;
-using System;
+using FootballResults.Models.Config;
 
 namespace FootballResults.DatabaseUpdaters.Updaters
 {
@@ -16,22 +15,20 @@ namespace FootballResults.DatabaseUpdaters.Updaters
         protected override UpdaterSpecificSettings UpdaterSpecificSettingsForLeagueAndSeason => _apiConfig.DataFetch.MatchesForLeagueAndSeason;
         protected override UpdaterSpecificSettings UpdaterSpecificSettingsForDate => _apiConfig.DataFetch.MatchesForDate;
 
-        public MatchUpdater(IServiceScopeFactory serviceScopeFactory, ILoggerFactory loggerFactory, ILogger<MatchUpdater> logger, IOptions<FootballApiConfig> apiConfig)
-            : base(serviceScopeFactory, logger, apiConfig)
+        public MatchUpdater(IServiceScopeFactory serviceScopeFactory, ILoggerFactory loggerFactory, ILogger<MatchUpdater> logger)
+            : base(serviceScopeFactory, logger)
         {
             _loggerFactory = loggerFactory;
-            _venueUpdater = new VenueUpdaterForMatch(serviceScopeFactory, _loggerFactory.CreateLogger<VenueUpdaterForMatch>(), apiConfig);
+            _venueUpdater = new VenueUpdaterForMatch(serviceScopeFactory, _loggerFactory.CreateLogger<VenueUpdaterForMatch>());
         }
 
         protected override void ProcessData(IEnumerable<FixturesResponseItem> responseItems)
         {
-            _venueUpdater.ProcessData(_dbContext, responseItems); // save venues first
             ICollection<int> includedLeagues = GetIncludedLeagueIDs();
 
-            var existingMatches = _dbContext.Matches
-                .ToList();
-
             responseItems = responseItems.Where(item => item.League.ID.HasValue && includedLeagues.Contains(item.League.ID.Value)); // only matches for included leagues
+
+            _venueUpdater.ProcessData(_dbContext, responseItems); // save venues first
             var mappedMatches = responseItems.Select(MapMatch);
 
             for (int i = 0; i < responseItems.Count(); i++)
@@ -54,15 +51,16 @@ namespace FootballResults.DatabaseUpdaters.Updaters
 
                 responseRecord.LeagueSeasonID = relatedLeagueSeason.ID;
                 responseRecord.LastUpdate = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
-                var existingRecord = existingMatches.FirstOrDefault(existingRecord => existingRecord.ID.Equals(responseRecord.ID));
+                var existingRecord = _dbContext.Matches.FirstOrDefault(existingRecord => existingRecord.ID.Equals(responseRecord.ID));
 
                 if (existingRecord == null)
                 {
-                    existingMatches.Add(responseRecord);
                     Add(responseRecord);
                 }
                 else if (!existingRecord.Equals(responseRecord))
+                {
                     Update(existingRecord, responseRecord);
+                }
             }
 
             if (_currentMode == UpdaterMode.AllLeaguesAllSeasons || _currentMode == UpdaterMode.AllLeaguesCurrentSeason || _currentMode == UpdaterMode.AllLeaguesSpecificSeason
@@ -76,6 +74,15 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 if (relatedLeagueSeason != null)
                 {
                     relatedLeagueSeason.MatchesLastUpdate = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
+                }
+            }
+            else if (_currentMode == UpdaterMode.CurrentDate)
+            {
+                SystemInformation? systemInfo = _dbContext.SystemInformation.Find(1);
+
+                if (systemInfo != null)
+                {
+                    systemInfo.MatchesLastUpdateForCurrentDay = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
                 }
             }
         }

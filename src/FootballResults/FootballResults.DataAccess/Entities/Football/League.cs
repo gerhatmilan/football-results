@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace FootballResults.DataAccess.Entities.Football
 {
-    public class League : Entity, IBookmarkable
+    public class League : EntityWithID, IBookmarkable
     {
         private LeagueSeason _currentSeason;
 

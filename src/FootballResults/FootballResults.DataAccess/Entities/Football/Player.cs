@@ -2,7 +2,7 @@
 
 namespace FootballResults.DataAccess.Entities.Football
 {
-    public class Player : Entity
+    public class Player : EntityWithID
     {
         /// <summary>
         /// ID of the player

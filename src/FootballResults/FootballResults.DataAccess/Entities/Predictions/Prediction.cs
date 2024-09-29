@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FootballResults.DataAccess.Entities.Predictions
 {
-    public class Prediction : Entity
+    public class Prediction : EntityWithID
     {
         /// <summary>
         /// ID of the participation the prediction is made in

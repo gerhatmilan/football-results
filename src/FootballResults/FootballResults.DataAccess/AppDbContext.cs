@@ -1,4 +1,5 @@
-﻿using FootballResults.DataAccess.Entities.Football;
+﻿using FootballResults.DataAccess.Entities;
+using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Entities.Predictions;
 using FootballResults.DataAccess.Entities.Users;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,12 @@ namespace FootballResults.DataAccess
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
+        #region Public schema
+
+        public DbSet<SystemInformation> SystemInformation { get; set; }
+
+        #endregion
+        
         #region Football schema
 
         public DbSet<Country> Countries { get; set; }
@@ -45,6 +52,13 @@ namespace FootballResults.DataAccess
 
         private void SetTableNames(ModelBuilder modelBuilder)
         {
+            #region Public schema
+
+            modelBuilder.Entity<SystemInformation>()
+                .ToTable(name: "system_information", schema: "public");
+
+            #endregion
+
             #region Football schema
 
             modelBuilder.Entity<Country>()
@@ -114,6 +128,11 @@ namespace FootballResults.DataAccess
 
         private void SetPrimaryKeys(ModelBuilder modelBuilder)
         {
+            #region Public schema
+            modelBuilder.Entity<SystemInformation>()
+                .HasKey(e => e.ID);
+            #endregion
+
             #region Football schema
 
             modelBuilder.Entity<Country>()
@@ -168,6 +187,24 @@ namespace FootballResults.DataAccess
 
         private void SetColumns(ModelBuilder modelBuilder)
         {
+            #region Public schema
+
+            #region SystemInformation
+            modelBuilder.Entity<SystemInformation>()
+                .Property(e => e.ID)
+                .UseIdentityByDefaultColumn()
+                .HasColumnName("id")
+                .HasColumnType("int")
+                .IsRequired();
+            modelBuilder.Entity<SystemInformation>()
+                .Property(e => e.MatchesLastUpdateForCurrentDay)
+                .HasColumnName("matches_last_update_for_current_day")
+                .HasColumnType("timestamp")
+                .IsRequired(false);
+            #endregion
+
+            #endregion
+
             #region Football schema
 
             #region Country
@@ -1107,6 +1144,16 @@ namespace FootballResults.DataAccess
                 .IsRequired(false);
         }
 
+        private void SetData(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<SystemInformation>()
+                .HasData(new SystemInformation
+                {
+                    ID = 1,
+                    MatchesLastUpdateForCurrentDay = null
+                });
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -1115,6 +1162,7 @@ namespace FootballResults.DataAccess
             SetColumns(modelBuilder);
             SetPrimaryKeys(modelBuilder);
             SetRelationships(modelBuilder);
+            SetData(modelBuilder);
         }
     }
 }

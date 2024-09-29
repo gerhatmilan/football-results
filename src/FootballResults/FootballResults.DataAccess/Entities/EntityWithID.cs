@@ -1,6 +1,6 @@
 ﻿namespace FootballResults.DataAccess.Entities
 {
-    public abstract class Entity
+    public abstract class EntityWithID
     {
         public int ID { get; set; }
     }

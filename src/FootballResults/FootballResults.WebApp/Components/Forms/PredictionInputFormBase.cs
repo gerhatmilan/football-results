@@ -60,13 +60,13 @@ namespace FootballResults.WebApp.Components.Forms
                 HomeGoalsState = "invalid";
             if (PredictionModel.AwayTeamGoals < 0)
                 AwayGoalsState = "invalid";
-            if (Match.HasStarted())
+            if (Match.HasStarted)
             {
                 HomeGoalsState = AwayGoalsState = "invalid";
                 MatchStartedError = true;
             }
 
-            return PredictionModel.HomeTeamGoals >= 0 && PredictionModel.AwayTeamGoals >= 0 && !Match.HasStarted();
+            return PredictionModel.HomeTeamGoals >= 0 && PredictionModel.AwayTeamGoals >= 0 && !Match.HasStarted;
         }
 
         protected override void DisableForm()
@@ -102,7 +102,7 @@ namespace FootballResults.WebApp.Components.Forms
                 }
 
                 // invalid input(s), reset the form only if the match has not started yet
-                else if (!Match.HasStarted())
+                else if (!Match.HasStarted)
                 {
                     await EnableForm();
                 }
