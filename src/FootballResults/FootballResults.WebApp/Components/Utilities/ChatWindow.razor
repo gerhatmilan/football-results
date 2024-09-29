@@ -14,7 +14,7 @@
                         <div class="usernameDiv">@message?.User?.Username</div>
                     </div>
                     <div class="sentAtDiv">
-                        @if (message.SentAt != null)
+                        @if (message?.SentAt != null)
                         {
                             <ToLocal DateTime="@DateTime.SpecifyKind(message.SentAt.Value, DateTimeKind.Utc)" Format="@(MessageSentToday(message) ? "HH:MM" : "yyyy. mm. dd HH:MM")" @rendermode="@RenderMode.InteractiveServer" />
                         }
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="messageDiv">
-                    @message.Text
+                    @message?.Text
                 </div>
             </div>
         }
