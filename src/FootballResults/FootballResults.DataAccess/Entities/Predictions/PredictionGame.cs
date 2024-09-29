@@ -157,9 +157,8 @@ namespace FootballResults.DataAccess.Entities.Predictions
 
         private void RefreshStandings()
         {
-            Predictions.ToList().ForEach(prediction =>
-            {
-                if (prediction.Match.IsFinished && !prediction.PointsGiven)
+            Predictions.Where(p => p.Match.IsFinished && !p.PointsGiven).ToList()
+                .ForEach(prediction =>
                 {
                     var points = prediction.CalculatePoints();
                     var standing = prediction.Participation.Standing;
@@ -169,8 +168,7 @@ namespace FootballResults.DataAccess.Entities.Predictions
                         standing.Points += points;
                         prediction.PointsGiven = true;
                     }
-                }
-            });
+                });
 
             StandingsLastUpdate = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
         }

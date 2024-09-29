@@ -123,12 +123,6 @@ namespace FootballResults.WebApp.Services.Predictions
                 .AsSplitQuery()
                 .FirstOrDefaultAsync(g => g.ID == gameID);
 
-            if (game != null)
-            {
-                game.RefreshData();
-                await _dbContext.SaveChangesAsync();
-            }
-
             return game;
         }
 
