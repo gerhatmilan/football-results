@@ -17,14 +17,8 @@ namespace FootballResults.WebApp.Components.CardViews.PredictionGames
         [CascadingParameter(Name = "Match")]
         public Match? Match { get; set; }
 
-        protected Prediction? ExistingPrediction { get; set; }
-
-        protected override void OnParametersSet()
-        {
-            if (Match?.Predictions != null)
-            {
-                ExistingPrediction = Match.Predictions.FirstOrDefault(p => p.User.ID == User?.ID && p.PredictionGame.ID == Game?.ID);
-            }
-        }
+        protected Prediction? ExistingPrediction => Match?.Predictions != null
+            ? Match.Predictions.FirstOrDefault(p => p.User.ID == User?.ID && p.PredictionGame.ID == Game?.ID)
+            : null;
     }
 }

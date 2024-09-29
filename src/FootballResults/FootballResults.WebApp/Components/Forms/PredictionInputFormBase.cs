@@ -35,11 +35,8 @@ namespace FootballResults.WebApp.Components.Forms
 
         protected override void OnParametersSet()
         {
-            if (ExistingPrediction != null)
-            {
-                PredictionModel.HomeTeamGoals = ExistingPrediction.HomeTeamGoals;
-                PredictionModel.AwayTeamGoals = ExistingPrediction.AwayTeamGoals;
-            }
+            PredictionModel.HomeTeamGoals = ExistingPrediction?.HomeTeamGoals;
+            PredictionModel.AwayTeamGoals = ExistingPrediction?.AwayTeamGoals;
         }
 
         protected void EnableSuccessIndicator()

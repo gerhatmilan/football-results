@@ -143,14 +143,14 @@
         <div class="leagueStandingsCol">
             <!-- League standings -->
             <h2>League standings</h2>
-            @foreach (var league in Game.LeagueSeasons.Select(ls => ls.League))
+            @foreach (var leagueSeason in Game.LeagueSeasons)
             {
-                <h3>@league.Name</h3>
+                <h3>@leagueSeason.League.Name</h3>
 
-                @if (LeagueStandings != null)
+                @if (leagueSeason.Standings != null)
                 {
                     <div class="leagueStanding highlight">
-                        <StandingsCard Standings="@LeagueStandings.Where(s => s.League.ID == league.ID).OrderBy(s => s.Group).ThenBy(s => s.Rank)" />
+                        <StandingsCard Standings="@leagueSeason.Standings" />
                     </div>
                 }
                 else {

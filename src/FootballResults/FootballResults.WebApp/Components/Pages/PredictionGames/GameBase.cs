@@ -28,7 +28,6 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
         protected PredictionGame? Game { get; set; }
 
         protected League? SelectedLeague { get; set; }
-        protected IEnumerable<LeagueStanding>? LeagueStandings => (Game != null && SelectedLeague != null) ? SelectedLeague.LeagueSeasons.ElementAt(0).Standings : null;
         protected IEnumerable<Match>? Matches => (Game != null && SelectedLeague != null) ? SelectedLeague.LeagueSeasons.ElementAt(0).Matches : null;
 
         protected IEnumerable<Match> UpcomingMatchesToday => (Matches ?? new List<Match>()).Where(m => !m.IsFinished() && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date == ClientDate.Date).OrderBy(m => m.Date);
@@ -88,7 +87,10 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
 
                 if (Game != null)
                 {
-                    SelectedLeague = Game.LeagueSeasons.Select(ls => ls.League).ElementAt(0);
+                    SelectedLeague = Game.LeagueSeasons
+                        .Select(ls => ls.League)
+                        .OrderBy(l => l.Name)
+                        .ElementAt(0);
                 }
                 else
                 {
