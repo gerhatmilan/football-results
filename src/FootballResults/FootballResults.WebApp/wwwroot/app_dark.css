@@ -69,7 +69,11 @@ p {
 }
 
 .alert {
-    font-size: 1rem !important;
+    max-width: 800px;
+    margin: auto;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 0.8rem;
 }
 
 @media (max-width: 500px) {

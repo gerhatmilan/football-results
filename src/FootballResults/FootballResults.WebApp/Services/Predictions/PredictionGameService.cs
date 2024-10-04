@@ -1,10 +1,11 @@
 ﻿using FootballResults.DataAccess;
 using FootballResults.DataAccess.Entities.Predictions;
-using FootballResults.Models.General;
 using Microsoft.EntityFrameworkCore;
 using FootballResults.DataAccess.Entities.Football;
 using FootballResults.Models.Predictions;
 using FootballResults.DataAccess.Entities.Users;
+using FootballResults.Models.Files;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace FootballResults.WebApp.Services.Predictions
 {
@@ -40,12 +41,12 @@ namespace FootballResults.WebApp.Services.Predictions
 
         private async Task AddIncludedLeaguesAsync(int predictionGameID, CreatePredictionGameModel model)
         {
-            foreach (var pair in model.IncludedLeagues)
+            foreach (IncludedLeague includedLeague in model.IncludedLeagues)
             {
-                if (pair.Second)
+                if (includedLeague.Included)
                 {
                     // get the the current season for the given league
-                    LeagueSeason? leagueSeason = await _dbContext.LeagueSeasons.FirstOrDefaultAsync(i => i.LeagueID == pair.First.ID && i.InProgress);
+                    LeagueSeason? leagueSeason = await _dbContext.LeagueSeasons.FirstOrDefaultAsync(i => i.LeagueID == includedLeague.League.ID && i.InProgress);
 
                     if (leagueSeason != null)
                     {

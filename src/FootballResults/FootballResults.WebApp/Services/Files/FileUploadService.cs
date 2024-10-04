@@ -1,4 +1,4 @@
-﻿using FootballResults.Models.General;
+﻿using FootballResults.Models.Files;
 using Microsoft.AspNetCore.Components.Forms;
 
 namespace FootballResults.WebApp.Services.Files

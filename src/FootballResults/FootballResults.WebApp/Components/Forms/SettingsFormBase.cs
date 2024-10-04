@@ -63,7 +63,7 @@ namespace FootballResults.WebApp.Components.Forms
 
                 if ((Result = await UserService.ModifyUserAsync(User, SettingsModel)) == ModifyUserResult.Success)
                 {
-                    NavigationManager.Refresh(forceReload: true);
+                    NavigationManager.Refresh();
                 }
 
                 await EnableForm();

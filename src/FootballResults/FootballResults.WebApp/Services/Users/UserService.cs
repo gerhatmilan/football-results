@@ -1,7 +1,7 @@
 ﻿using FootballResults.DataAccess;
 using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Entities.Users;
-using FootballResults.Models.General;
+using FootballResults.Models.Files;
 using FootballResults.Models.Users;
 using Microsoft.EntityFrameworkCore;
 
