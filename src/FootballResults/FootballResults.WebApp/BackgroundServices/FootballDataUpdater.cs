@@ -48,10 +48,10 @@ namespace FootballResults.WebApp.BackgroundServices
                         {
                             try
                             {
-                                await UpdateMatchesForCurrentDayAsync(dbContext);
                                 await UpdateMatchesForCurrentSeasonAsync(dbContext);
                                 await UpdateStandingsForCurrentSeasonAsync(dbContext);
                                 await UpdateTopScorersForCurrentSeasonAsync(dbContext);
+                                await UpdateMatchesForCurrentDayAsync(dbContext);
                             }
                             catch (Exception ex)
                             {
