@@ -51,10 +51,10 @@ namespace FootballResults.WebApp.Components.Forms
                 CreateGameModel.PicturePath = Configuration.GetValue<String>("Images:PredictionGameDefault")!;
                 var leagues = await LeagueService.GetLeaguesAsync();
 
-                CreateGameModel.IncludedLeagues = new List<Pair<League, bool>>();
+                CreateGameModel.IncludedLeagues = new List<IncludedLeague>();
                 foreach (League league in leagues.OrderByDescending(l => l.Type).ThenBy(l => l.Name))
                 {
-                    CreateGameModel.IncludedLeagues.Add(new Pair<League, bool>(league, false));
+                    CreateGameModel.IncludedLeagues.Add(new IncludedLeague { League = league, Included = false });
                 }
             }
             catch (HttpRequestException)
@@ -67,7 +67,7 @@ namespace FootballResults.WebApp.Components.Forms
         protected bool ValidateIncludedLeagues()
         {
             // at least one league needs to be selected
-            if (CreateGameModel.IncludedLeagues.Count(pair => pair.Second == true) == 0)
+            if (!CreateGameModel.IncludedLeagues.Any(includedLeague => includedLeague.Included))
             {
                 IncludedLeaguesErrorMessage = "At least one league needs to be selected";
                 return false;

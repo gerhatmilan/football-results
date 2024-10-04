@@ -14,7 +14,7 @@ namespace FootballResults.Models.Predictions
         
         public string PicturePath { get; set; }
 
-        public ICollection<Pair<League, bool>> IncludedLeagues { get; set; }
+        public ICollection<IncludedLeague> IncludedLeagues { get; set; }
 
         [Required(ErrorMessage = "Exact scoreline reward must be provided")]
         [Range(1, int.MaxValue, ErrorMessage = "Exact scoreline reward must be a positive number")]
