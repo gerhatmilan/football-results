@@ -32,6 +32,11 @@ namespace FootballResults.DataAccess.Entities.Football
         public string LogoLink { get; set; }
 
         /// <summary>
+        /// Path pointing to an image of the team's logo
+        /// </summary>
+        public string LogoPath { get; set; }
+
+        /// <summary>
         /// Whether the team is a national team
         /// </summary>
         public bool National { get; set; }

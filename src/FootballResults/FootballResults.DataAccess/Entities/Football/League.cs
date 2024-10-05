@@ -30,6 +30,11 @@ namespace FootballResults.DataAccess.Entities.Football
         public string LogoLink { get; set; }
 
         /// <summary>
+        /// Path pointing to an image of the league's logo
+        /// </summary>
+        public string LogoPath { get; set; }
+
+        /// <summary>
         /// Bookmark ID for this league (equals to ID)
         /// </summary>
         [JsonIgnore]

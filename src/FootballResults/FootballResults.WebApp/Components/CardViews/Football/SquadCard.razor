@@ -19,7 +19,7 @@
                         {
                             <tr class="player">
                                 <td class="playerPhotoCell">
-                                    <img class="playerPhoto" src="@player.PhotoLink" alt="@player.Name" />
+                                    <img class="playerPhoto" src="@(player.PhotoPath ?? player.PhotoLink)" alt="@player.Name" />
                                 </td>
                                 <td class="playerName">
                                     @player.Name

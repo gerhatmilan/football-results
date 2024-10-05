@@ -15,7 +15,7 @@
                     </Authorized>
                 </AuthorizeView>
             </div>
-            <img class="leagueLogo" src="@League.LogoLink" alt="@League.Name logo" />
+            <img class="leagueLogo" src="@(League.LogoPath ?? League.LogoLink)" alt="@League.Name logo" />
         </div>
     </div>
     <div class="subMenu">
@@ -32,10 +32,7 @@
                 @if (Matches.Count() > 0)
                 {
                     <div class=LeagueDetailsSubMenu.Matches>
-                        @foreach (var matchesByLeagueGroup in GetMatchesByLeague())
-                        {
-                            <LeagueCard League="matchesByLeagueGroup.matches.First().League" Matches="matchesByLeagueGroup.matches" MatchOrderOption="@MatchOrderOption" BookmarkClicked="OnBookmarkClicked" />
-                        }
+                        <LeagueCard League="League" Matches="Matches" MatchOrderOption="@MatchOrderOption" BookmarkClicked="OnBookmarkClicked" />
                     </div>
                 }
                 else

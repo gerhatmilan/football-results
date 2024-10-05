@@ -27,7 +27,7 @@
                                 <td>
                                     <a class="teamDiv" href="teams/@standing.Team.Name">
                                         <div class="teamLogoDiv">
-                                            <img class="teamLogo" src="@standing.Team.LogoLink" alt="@standing.Team.Name logo" />
+                                            <img class="teamLogo" src="@(standing.Team.LogoPath ?? standing.Team.LogoLink)" alt="@standing.Team.Name logo" />
                                         </div>
                                         <div>@standing.Team.Name</div>
                                     </a>
@@ -69,7 +69,7 @@
                             <td>
                                 <a class="teamDiv" href="teams/@standing.Team.Name">
                                     <div class="teamLogoDiv">
-                                        <img class="teamLogo" src="@standing.Team.LogoLink" alt="@standing.Team.Name logo" />
+                                        <img class="teamLogo" src="@(standing.Team.LogoPath ?? standing.Team.LogoLink)" alt="@standing.Team.Name logo" />
                                     </div>
                                     <div>@standing.Team.Name</div>
                                 </a>

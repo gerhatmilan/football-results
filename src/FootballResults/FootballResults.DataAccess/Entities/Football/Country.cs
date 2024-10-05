@@ -15,6 +15,11 @@ namespace FootballResults.DataAccess.Entities.Football
         public string FlagLink { get; set; }
 
         /// <summary>
+        /// Path to the image of the country's flag
+        /// </summary>
+        public string FlagPath { get; set; }
+
+        /// <summary>
         /// Leagues in the country
         /// </summary>
         public IEnumerable<League> Leagues { get; set; }

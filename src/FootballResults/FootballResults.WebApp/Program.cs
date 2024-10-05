@@ -127,6 +127,7 @@ namespace FootballResults.WebApp
             _builder.Services.Configure<FootballApiConfig>(_configuration.GetSection("FootballApiConfig"));
             _builder.Services.AddHostedService<FootballDataUpdater>();
             _builder.Services.AddHostedService<PredictionGamesUpdater>();
+            _builder.Services.AddHostedService<ImageDownloader>();
 
             // Authentication
             _builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

@@ -2,10 +2,10 @@
 {
     <div class="countryCard">
         <div class="countryDiv">
-            @if (Country.FlagLink != null)
+            @if (Country.FlagPath != null || Country.FlagLink != null)
             {
                 <div class="countryLogoDiv">
-                    <img class="countryLogo" src="@Country.FlagLink" alt="@Country.Name flag" />
+                    <img class="countryLogo" src="@(Country.FlagPath ?? Country.FlagLink)" alt="@Country.Name flag" />
                 </div>
             }   
             <div class="countryName">@Country.Name</div>

@@ -40,6 +40,11 @@ namespace FootballResults.DataAccess.Entities.Football
         public string PhotoLink { get; set; }
 
         /// <summary>
+        /// Path pointing to an image of the player
+        /// </summary>
+        public string PhotoPath { get; set; }
+
+        /// <summary>
         /// Team of the player
         /// </summary>
         [JsonIgnore]

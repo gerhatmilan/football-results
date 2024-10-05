@@ -98,64 +98,25 @@ namespace FootballResults.API.Models
 
         public async Task<IEnumerable<Match>> Search(DateTime? date, DateTime? from, DateTime? to, int? year, int? month, int? day, string teamName, string leagueName, int? season, string round)
         {
-            IQueryable<Match> query = _dbContext.Matches
+            return await _dbContext.Matches
                 .Include(m => m.LeagueSeason)
                 .ThenInclude(ls => ls.League)
                 .Include(m => m.Venue)
                 .Include(m => m.HomeTeam)
                 .Include(m => m.AwayTeam)
                 .Where(m => (!String.IsNullOrEmpty(teamName) ? m.HomeTeam.Name.ToLower().Equals(teamName.ToLower())
-                    || m.AwayTeam.Name.ToLower().Equals(teamName.ToLower()) : true)
+                        || m.AwayTeam.Name.ToLower().Equals(teamName.ToLower()) : true)
                     && (!String.IsNullOrEmpty(leagueName) ? m.LeagueSeason.League.Name.ToLower().Equals(leagueName.ToLower()) : true)
                     && (season.HasValue ? m.LeagueSeason.Year == season : true)
-                    && (!String.IsNullOrEmpty(round) ? m.Round.ToLower().Equals(round.ToLower()) : true));
-
-            query = query
-                .OrderBy(m => m.Date)
-                .Select(m => new Match
-                {
-                    ID = m.ID,
-                    Date = m.Date,
-                    VenueID = m.VenueID,
-                    LeagueSeasonID = m.LeagueSeasonID,
-                    Round = m.Round,
-                    HomeTeamID = m.HomeTeamID,
-                    AwayTeamID = m.AwayTeamID,
-                    Status = m.Status,
-                    Minute = m.Minute,
-                    HomeTeamGoals = m.HomeTeamGoals,
-                    AwayTeamGoals = m.AwayTeamGoals,
-                    LastUpdate = m.LastUpdate,
-                    LeagueSeason = m.LeagueSeason,
-                    Venue = m.Venue,
-                    HomeTeam = new Team
-                    {
-                        ID = m.HomeTeam.ID,
-                        Name = m.HomeTeam.Name,
-                        ShortName = m.HomeTeam.ShortName,
-                        LogoLink = m.HomeTeam.LogoLink,
-                    },
-                    AwayTeam = new Team
-                    {
-                        ID = m.AwayTeam.ID,
-                        Name = m.AwayTeam.Name,
-                        ShortName = m.AwayTeam.ShortName,
-                        LogoLink = m.AwayTeam.LogoLink,
-                    },
-                });
-
-            query = query
-                .Where(m => m.Date.HasValue
+                    && (!String.IsNullOrEmpty(round) ? m.Round.ToLower().Equals(round.ToLower()) : true)
                     && (date.HasValue ? m.Date.Value.Date == DateTime.SpecifyKind(date.Value, DateTimeKind.Unspecified) : true)
                     && (from.HasValue ? m.Date.Value.Date >= DateTime.SpecifyKind(from.Value.Date, DateTimeKind.Unspecified) : true)
                     && (to.HasValue ? m.Date.Value.Date <= DateTime.SpecifyKind(to.Value.Date, DateTimeKind.Unspecified) : true)
                     && (year.HasValue ? m.Date.Value.Year == year : true)
                     && (month.HasValue ? m.Date.Value.Month == month : true)
-                    && (day.HasValue ? m.Date.Value.Day == day : true));
-
-            return await query
-                .AsNoTracking()
-                .ToListAsync();
+                    && (day.HasValue ? m.Date.Value.Day == day : true))
+               .AsNoTracking()
+               .ToListAsync();
         }
     }
 }

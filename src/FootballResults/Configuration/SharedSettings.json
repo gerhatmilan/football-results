@@ -61,6 +61,16 @@
     "MatchesUpdateForCurrentSeasonFrequency": "1.00:00:00",
     "StandingsUpdateForCurrentSeasonFrequency": "1.00:00:00",
     "TopScorersUpdateForCurrentSeasonFrequency": "1.00:00:00",
+	"ImageDownloaderFrequency": "100.00:00:00",
+
+	"PredictionGamePicturesDirectory": "images/prediction-games",
+	"ProfilePicturesDirectory": "images/profile-pictures",
+	"CountriesDirectory": "images/countries/flags",
+	"LeaguesDirectory": "images/leagues/logos",
+	"TeamsDirectory": "images/teams/logos",
+	"PlayersDirectory": "images/players",
+
+    "PredictionGameDefaultImage": "images/prediction-games/default.jpg",
 
     "IncludedLeagues": [
       {

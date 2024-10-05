@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using FootballResults.Models.General;
 using FootballResults.WebApp.Services.Files;
+using Microsoft.Extensions.Options;
+using FootballResults.Models.Config;
 
 namespace FootballResults.WebApp.Components.Forms
 {
@@ -23,7 +25,7 @@ namespace FootballResults.WebApp.Components.Forms
         protected NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
-        protected IConfiguration Configuration { get; set; } = default!;
+        protected IOptions<ApplicationConfig> ApplicationSettings { get; set; } = default!;
 
         [Parameter]
         public User User { get; set; } = default!;
@@ -43,12 +45,12 @@ namespace FootballResults.WebApp.Components.Forms
 
         protected override async Task OnInitializedAsync()
         {
-            base.Initialize(uploadDirectory: Configuration.GetValue<String>("Directories:PredictionGamePictures")!,
+            base.Initialize(uploadDirectory: ApplicationSettings.Value.PredictionGamePicturesDirectory,
                 maxAllowedBytes: 1000000, allowedFiles: new string[] { "image/png", "image/jpeg" });
 
             try
             {
-                CreateGameModel.PicturePath = Configuration.GetValue<String>("Images:PredictionGameDefault")!;
+                CreateGameModel.PicturePath = ApplicationSettings.Value.PredictionGameDefaultImage;
                 var leagues = await LeagueService.GetLeaguesAsync();
 
                 CreateGameModel.IncludedLeagues = new List<IncludedLeague>();
@@ -70,6 +72,11 @@ namespace FootballResults.WebApp.Components.Forms
             if (!CreateGameModel.IncludedLeagues.Any(includedLeague => includedLeague.Included))
             {
                 IncludedLeaguesErrorMessage = "At least one league needs to be selected";
+                return false;
+            }
+            else if (CreateGameModel.IncludedLeagues.Any(i => i.Included && i.League.CurrentSeason == null))
+            {
+                IncludedLeaguesErrorMessage = "One of the selected leagues does not have a season in progress";
                 return false;
             }
             else
@@ -109,18 +116,17 @@ namespace FootballResults.WebApp.Components.Forms
 
             if (User != null && file != null)
             {
-                FileUploadService uploadService = new FileUploadService(uploadDirectory: Configuration.GetValue<String>("Directories:PredictionGamePictures")!,
+                FileUploadService uploadService = new FileUploadService(uploadDirectory: ApplicationSettings.Value.PredictionGamePicturesDirectory,
                     maxAllowedBytes: 1000000, allowedFiles: new string[] { "image/png", "image/jpeg" });
 
-                var (success, retVal) = await uploadService.UploadFileAsync(file: file, newFileName: TemporaryFileName);
-
-                if (success)
+                FileUploadResult result = await uploadService.UploadFileAsync(file: file, newFileName: TemporaryFileName);
+                if (result.Success)
                 {
-                    CreateGameModel.PicturePath = retVal;
+                    CreateGameModel.PicturePath = result.Path;
                 }
                 else
                 {
-                    ImageErrorMessage = retVal;
+                    ImageErrorMessage = result.Message;
                 }
 
                 StateHasChanged();

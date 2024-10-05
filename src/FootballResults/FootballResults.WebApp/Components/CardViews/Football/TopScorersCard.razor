@@ -20,7 +20,7 @@
                         <td>
                             <div class="player">
                                 <div class="playerPhotoDiv">
-                                    <img class="playerPhoto" src="@topscorer.PhotoLink" alt="@topscorer.PlayerName photo"/>
+                                    <img class="playerPhoto" src="@(topscorer.PhotoPath ?? topscorer.PhotoLink)" alt="@topscorer.PlayerName photo"/>
                                 </div>
                                     @topscorer.PlayerName
                             </div>
@@ -28,7 +28,7 @@
                         </td>
                         <td>
                             <a class="teamLogoDiv" href="teams/@topscorer.Team.Name">
-                                <img class="teamLogo" src="@topscorer.Team.LogoLink" alt="@topscorer.Team.Name logo" />
+                                <img class="teamLogo" src="@(topscorer.Team.LogoPath ?? topscorer.Team.LogoLink)" alt="@topscorer.Team.Name logo" />
                             </a>
                         </td>
                         <td>

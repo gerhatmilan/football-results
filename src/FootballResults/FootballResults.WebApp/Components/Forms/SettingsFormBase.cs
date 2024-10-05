@@ -4,6 +4,8 @@ using FootballResults.WebApp.Services.Users;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components;
 using FootballResults.WebApp.Services.Files;
+using Microsoft.Extensions.Options;
+using FootballResults.Models.Config;
 
 namespace FootballResults.WebApp.Components.Forms
 {
@@ -19,7 +21,7 @@ namespace FootballResults.WebApp.Components.Forms
         protected NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
-        protected IConfiguration Configuration { get; set; } = default!;
+        protected IOptions<ApplicationConfig> ApplicationSettings { get; set; } = default!;
 
         protected SettingsModel SettingsModel { get; set; } = new SettingsModel();
 
@@ -31,8 +33,6 @@ namespace FootballResults.WebApp.Components.Forms
         {
             ImageErrorMessage = null;
             Result = ModifyUserResult.None;
-            FileUploadService = new FileUploadService(uploadDirectory: Configuration.GetValue<String>("Directories:ProfilePictures")!,
-                               maxAllowedBytes: 1000000, allowedFiles: new string[] { "image/png", "image/jpeg" });
         }
 
         protected override void OnParametersSet()
@@ -43,7 +43,7 @@ namespace FootballResults.WebApp.Components.Forms
 
         protected override void OnInitialized()
         {
-            base.Initialize(uploadDirectory: Configuration.GetValue<String>("Directories:ProfilePictures")!,
+            base.Initialize(uploadDirectory: ApplicationSettings.Value.ProfilePicturesDirectory,
                 maxAllowedBytes: 1000000, allowedFiles: new string[] { "image/png", "image/jpeg" });
         }
 
@@ -78,15 +78,15 @@ namespace FootballResults.WebApp.Components.Forms
             if (User != null && file != null)
             {
 
-                var (success, retVal) = await FileUploadService.UploadFileAsync(file: file, newFileName: TemporaryFileName);
+                FileUploadResult result = await FileUploadService.UploadFileAsync(file: file, newFileName: TemporaryFileName);
 
-                if (success)
+                if (result.Success)
                 {
-                    SettingsModel.ProfilePicturePath = retVal;
+                    SettingsModel.ProfilePicturePath = result.Path;
                 }
                 else
                 {
-                    ImageErrorMessage = retVal;
+                    ImageErrorMessage = result.Message;
                 }
 
                 StateHasChanged();

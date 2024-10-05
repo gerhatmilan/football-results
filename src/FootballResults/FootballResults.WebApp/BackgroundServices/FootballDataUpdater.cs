@@ -94,9 +94,9 @@ namespace FootballResults.WebApp.BackgroundServices
                 {
                     await _matchUpdater.StartAsync(DatabaseUpdaters.UpdaterMode.CurrentDate);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    _logger.LogError($"Football data update worker for matches failed");
+                    _logger.LogError($"Football data update worker for matches failed: {ex.Message}");
                 }
             }
         }
@@ -118,9 +118,9 @@ namespace FootballResults.WebApp.BackgroundServices
                     {
                         await _matchUpdater.StartAsync(DatabaseUpdaters.UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        _logger.LogError($"Football data update worker for matches failed to execute for {leagueSeason.League.Name} / {leagueSeason.Year}");
+                        _logger.LogError($"Football data update worker for matches failed to execute for {leagueSeason.League.Name} / {leagueSeason.Year}: {ex.Message}");
                     }
                 }
             }
@@ -143,9 +143,9 @@ namespace FootballResults.WebApp.BackgroundServices
                     {
                         await _standingUpdater.StartAsync(DatabaseUpdaters.UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        _logger.LogError($"Football data update worker for standings failed to execute for {leagueSeason.League.Name} / {leagueSeason.Year}");
+                        _logger.LogError($"Football data update worker for standings failed to execute for {leagueSeason.League.Name} / {leagueSeason.Year}: {ex.Message}");
                     }
                 }
             }
@@ -168,9 +168,9 @@ namespace FootballResults.WebApp.BackgroundServices
                     {
                         await _topScorerUpdater.StartAsync(DatabaseUpdaters.UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        _logger.LogError($"Football data update worker for topscorers failed to execute for {leagueSeason.League.Name} / {leagueSeason.Year}");
+                        _logger.LogError($"Football data update worker for topscorers failed to execute for {leagueSeason.League.Name} / {leagueSeason.Year}: {ex.Message}");
                     }
                 }
             }

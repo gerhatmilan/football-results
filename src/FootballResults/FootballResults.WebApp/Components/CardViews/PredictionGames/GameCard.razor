@@ -3,7 +3,9 @@
     <a href="/prediction-games/@Game.ID">
         <div class="gameCard @(Game.Finished ? "finished" : "")">
             <div class="gameName">@Game.Name</div>
-            <div class="gameBackground" style="background-image: url(@Game.ImagePath)"></div>
+            <div class="gameBackground">
+                <img class="gameBackgroundImage" src="@Game.ImagePath" alt="Game background" />
+            </div>
         </div>
     </a>
 }

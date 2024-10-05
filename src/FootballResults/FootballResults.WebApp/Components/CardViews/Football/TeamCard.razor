@@ -1,7 +1,7 @@
 ﻿<div class="teamDiv">
     <a href="/teams/@Team?.Name">
         <div class="teamLogoDiv">
-            <img class="teamLogo" src="@Team?.LogoLink" alt="@Team?.Name logo" />
+            <img class="teamLogo" src="@(Team?.LogoPath ?? Team?.LogoLink)" alt="@Team?.Name logo" />
         </div>
         <div class="teamName">
             @Team?.Name

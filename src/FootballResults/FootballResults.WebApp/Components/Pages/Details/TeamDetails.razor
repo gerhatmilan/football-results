@@ -15,7 +15,7 @@
                     </Authorized>
                 </AuthorizeView>
             </div>
-            <img class="teamLogo" src="@Team.LogoLink" alt="@Team.Name logo" />  
+            <img class="teamLogo" src="@(Team.LogoPath ?? Team.LogoLink)" alt="@Team.Name logo" />  
         </div>    
     </div>
     <div class="subMenu">

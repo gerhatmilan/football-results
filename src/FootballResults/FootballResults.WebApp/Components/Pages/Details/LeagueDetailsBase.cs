@@ -64,7 +64,7 @@ namespace FootballResults.WebApp.Components.Pages.Details
             MatchFilterParameters = new MatchFilterParameters()
             {
                 LeagueFilter = LeagueName,
-                SeasonFilter = League!.CurrentSeason?.Year
+                SeasonFilter = League!.CurrentSeason?.Year ?? League!.LeagueSeasons.Max(ls => ls.Year)
             };
         }
 
@@ -96,16 +96,6 @@ namespace FootballResults.WebApp.Components.Pages.Details
                     NavigationManager?.NavigateTo("/error", true);
                 }
             }  
-        }
-
-        protected List<(int leagueID, List<Match> matches)> GetMatchesByLeague()
-        {
-            return Matches!
-            .GroupBy(
-                m => m.League.ID,
-                (leagueID, matches) => (leagueID, Matches!.Where(m => m.League.ID.Equals(leagueID)).ToList())
-            )
-            .ToList();
         }
 
         protected void OnMatchFilterSubmitted(IEnumerable<Match> matches)

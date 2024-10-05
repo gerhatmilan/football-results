@@ -43,7 +43,7 @@ namespace FootballResults.WebApp.BackgroundServices
                             }
                             catch (Exception ex)
                             {
-                                _logger.LogError(ex, "An error occurred while updating prediction games data");
+                                _logger.LogError($"An error occurred while updating prediction games data: {ex.Message}");
                             }
                         }
                     }
@@ -56,29 +56,45 @@ namespace FootballResults.WebApp.BackgroundServices
 
         protected async Task UpdatePredictionGamesAsync(AppDbContext dbContext)
         {
-            ICollection<PredictionGame> games = await dbContext.PredictionGames
-                .Include(g => g.Participations)
-                    .ThenInclude(p => p.Predictions)
-                        .ThenInclude(pred => pred.Match)
-                .Include(g => g.Participations)
-                    .ThenInclude(p => p.Standing)
-                .Include(g => g.LeagueSeasons)
-                    .ThenInclude(ls => ls.Matches)
-                .AsSplitQuery()
-                .ToListAsync();
-
-            foreach (var game in games)
+            using (var transaction = await dbContext.Database.BeginTransactionAsync())
             {
                 try
                 {
-                    game.RefreshData();
+                    IQueryable<PredictionGame> games = dbContext.PredictionGames
+                        .Include(g => g.Participations)
+                            .ThenInclude(p => p.Predictions)
+                                .ThenInclude(pred => pred.Match)
+                        .Include(g => g.Participations)
+                            .ThenInclude(p => p.Standing)
+                        .Include(g => g.LeagueSeasons)
+                            .ThenInclude(ls => ls.Matches)
+                        .AsSplitQuery();
+
+                    foreach (var game in games)
+                    {
+                        try
+                        {
+                            game.RefreshData();
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex.ToString());
+                            _logger.LogError($"An error has occured while updating prediction games data (ID {game.ID}). Changes will be unmade for this game.");
+                            
+                            // revert changes
+                            game.Predictions.ToList().ForEach(p => dbContext.Entry(p).State = EntityState.Unchanged);
+                            game.Standings.ToList().ForEach(s => dbContext.Entry(s).State = EntityState.Unchanged);
+                            dbContext.Entry(game).State = EntityState.Unchanged;
+                        }
+                    }
+
                     await dbContext.SaveChangesAsync();
+                    await transaction.CommitAsync();
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex.ToString());
-                    _logger.LogError($"An error has occured while updating prediction games data (ID {game.ID}). Changes will be unmade for this game.");
-                    dbContext.ChangeTracker.Clear();
+                    Console.WriteLine($"Prediction games update failed: {ex.Message}");
+                    transaction.Rollback();
                 }
             }
         }

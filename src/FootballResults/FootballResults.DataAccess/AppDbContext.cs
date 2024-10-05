@@ -201,6 +201,31 @@ namespace FootballResults.DataAccess
                 .HasColumnName("matches_last_update_for_current_day")
                 .HasColumnType("timestamp")
                 .IsRequired(false);
+            modelBuilder.Entity<SystemInformation>()
+                .Property(e => e.CountryFlagsLastDownload)
+                .HasColumnName("country_flags_last_download")
+                .HasColumnType("timestamp")
+                .IsRequired(false);
+            modelBuilder.Entity<SystemInformation>()
+                .Property(e => e.LeagueLogosLastDownload)
+                .HasColumnName("league_logos_last_download")
+                .HasColumnType("timestamp")
+                .IsRequired(false);
+            modelBuilder.Entity<SystemInformation>()
+                .Property(e => e.TeamLogosLastDownload)
+                .HasColumnName("team_logos_last_download")
+                .HasColumnType("timestamp")
+                .IsRequired(false);
+            modelBuilder.Entity<SystemInformation>()
+                .Property(e => e.PlayerPhotosLastDownload)
+                .HasColumnName("player_photos_last_download")
+                .HasColumnType("timestamp")
+                .IsRequired(false);
+            modelBuilder.Entity<SystemInformation>()
+                .Property(e => e.TopScorerPhotosLastDownload)
+                .HasColumnName("topscorer_photos_last_download")
+                .HasColumnType("timestamp")
+                .IsRequired(false);
             #endregion
 
             #endregion
@@ -222,6 +247,11 @@ namespace FootballResults.DataAccess
             modelBuilder.Entity<Country>()
                 .Property(e => e.FlagLink)
                 .HasColumnName("flag_link")
+                .HasColumnType("varchar")
+                .IsRequired(false);
+            modelBuilder.Entity<Country>()
+                .Property(e => e.FlagPath)
+                .HasColumnName("flag_path")
                 .HasColumnType("varchar")
                 .IsRequired(false);
             modelBuilder.Entity<Country>()
@@ -254,6 +284,11 @@ namespace FootballResults.DataAccess
             modelBuilder.Entity<League>()
                 .Property(e => e.LogoLink)
                 .HasColumnName("logo_link")
+                .HasColumnType("varchar")
+                .IsRequired(false);
+            modelBuilder.Entity<League>()
+                .Property(e => e.LogoPath)
+                .HasColumnName("logo_path")
                 .HasColumnType("varchar")
                 .IsRequired(false);
             #endregion
@@ -473,6 +508,11 @@ namespace FootballResults.DataAccess
                 .HasColumnType("varchar")
                 .IsRequired(false);
             modelBuilder.Entity<Player>()
+                .Property(e => e.PhotoPath)
+                .HasColumnName("photo_path")
+                .HasColumnType("varchar")
+                .IsRequired(false);
+            modelBuilder.Entity<Player>()
                 .HasIndex(e => new { e.PlayerID, e.TeamID })
                 .IsUnique();
             #endregion
@@ -507,6 +547,11 @@ namespace FootballResults.DataAccess
             modelBuilder.Entity<Team>()
                 .Property(e => e.LogoLink)
                 .HasColumnName("logo_link")
+                .HasColumnType("varchar")
+                .IsRequired(false);
+            modelBuilder.Entity<Team>()
+                .Property(e => e.LogoPath)
+                .HasColumnName("logo_path")
                 .HasColumnType("varchar")
                 .IsRequired(false);
             modelBuilder.Entity<Team>()
@@ -552,6 +597,11 @@ namespace FootballResults.DataAccess
             modelBuilder.Entity<TopScorer>()
                 .Property(e => e.PhotoLink)
                 .HasColumnName("photo_link")
+                .HasColumnType("varchar")
+                .IsRequired(false);
+            modelBuilder.Entity<TopScorer>()
+                .Property(e => e.PhotoPath)
+                .HasColumnName("photo_path")
                 .HasColumnType("varchar")
                 .IsRequired(false);
             modelBuilder.Entity<TopScorer>()
@@ -1150,7 +1200,12 @@ namespace FootballResults.DataAccess
                 .HasData(new SystemInformation
                 {
                     ID = 1,
-                    MatchesLastUpdateForCurrentDay = null
+                    MatchesLastUpdateForCurrentDay = null,
+                    CountryFlagsLastDownload = null,
+                    LeagueLogosLastDownload = null,
+                    TeamLogosLastDownload = null,
+                    PlayerPhotosLastDownload = null,
+                    TopScorerPhotosLastDownload = null
                 });
         }
 
