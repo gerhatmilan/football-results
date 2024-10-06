@@ -43,14 +43,17 @@
                 }
             </p>
 
-            <!-- Invite button -->
-            @if (ShowJoinKey)
+            @if (Game.OwnerID == User?.ID)
             {
-                <button type="button" class="btn button" @onclick="() => { ShowJoinKey = false; }">Hide</button>
-            }
-            else
-            {
-                <button type="button" class="btn button" @onclick="() => { ShowJoinKey = true; }">Invite people...</button>
+                <!-- Invite button -->
+                @if (ShowJoinKey)
+                {
+                    <button type="button" class="btn button" @onclick="() => { ShowJoinKey = false; }">Hide</button>
+                }
+                else
+                {
+                    <button type="button" class="btn button" @onclick="() => { ShowJoinKey = true; }">Invite people...</button>
+                }
             }
 
             <!-- Game standings -->
