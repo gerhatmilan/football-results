@@ -1,72 +1,39 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.SignalR.Client;
+﻿using FootballResults.DataAccess.Entities.Predictions;
+using FootballResults.DataAccess.Entities.Users;
+using FootballResults.DataAccess;
+using Microsoft.AspNetCore.Components;
 
 namespace FootballResults.WebApp.Services.Chat
 {
-    public class ChatService<T> : IChatService<T>
+    public class ChatService : MessageService<Message>
     {
-        private HubConnection _hubConnection;
-        private NavigationManager _navigationManager;
+        private AppDbContext _dbContext;
 
-        public ICollection<T> Messages { get; set; }
-
-        public bool IsConnected => _hubConnection.State == HubConnectionState.Connected;
-
-        public event EventHandler? NewMessageArrived;
-
-        private void OnNewMessageArrived()
+        public ChatService(AppDbContext dbContext, NavigationManager navigationManager) : base(navigationManager, "/chathub")
         {
-            NewMessageArrived?.Invoke(this, new EventArgs());
+            _dbContext = dbContext;
         }
 
-        public ChatService(NavigationManager navigationManager)
+        private async Task<Message> SaveMessageAsync(Message message)
         {
-            _navigationManager = navigationManager;
-            
-            _hubConnection = new HubConnectionBuilder()
-                .WithUrl(_navigationManager.ToAbsoluteUri("/chathub"))
-                .Build();
+            Message savedMessage = (await _dbContext.Messages.AddAsync(message)).Entity;
+            await _dbContext.SaveChangesAsync();
 
-            Messages = new List<T>();
-
-            _hubConnection.On<T>("ReceiveMessage", (message) =>
-            {
-                Messages.Add(message);
-                OnNewMessageArrived();
-            });
-        }
-        
-        public async Task StartAsync()
-        {
-            if (!IsConnected)
-                await _hubConnection.StartAsync();
+            // load user property
+            _dbContext.Entry(savedMessage).Reference(m => m.User).Load();
+            return savedMessage;
         }
 
-        public async Task StopAsync()
+        public override async Task SendMessageToGroupAsync(string group, Message message)
         {
-            if (IsConnected)
-                await _hubConnection.StopAsync();
+            Message savedMessage = await SaveMessageAsync(message);
+            await base.SendMessageToGroupAsync(group, savedMessage);
         }
 
-        public virtual async Task JoinGroupAsync(string groupName)
+        public override async Task SendMessageAsync(Message message)
         {
-            await _hubConnection.SendAsync("JoinGroupAsync", groupName);
-        }
-
-        public virtual async Task SendMessageAsync(T message)
-        {
-            await _hubConnection.SendAsync("SendMessageAsync", message);
-        }
-
-        public virtual async Task SendMessageToGroupAsync(string groupName, T message)
-        {
-            await _hubConnection.SendAsync("SendMessageToGroupAsync", groupName, message);
-        }
-
-        public async ValueTask DisposeAsync()
-        {
-            await StopAsync();
-            Messages.Clear();
+            Message savedMessage = await SaveMessageAsync(message);
+            await base.SendMessageAsync(savedMessage);
         }
     }
 }

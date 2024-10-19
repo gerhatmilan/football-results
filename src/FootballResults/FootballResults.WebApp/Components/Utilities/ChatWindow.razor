@@ -1,9 +1,10 @@
-﻿@inherits ChatWindowBase
+﻿@implements IAsyncDisposable
 
-@if (Game != null && GameChatService.Messages.Count() > 0)
+@if (Messages != null && Messages.Count() > 0)
 {
     <div class="chatWindow highlight" @ref=ChatWindowReference>
-        @foreach (var message in GameChatService.Messages.Where(m => m.PredictionGameID == Game.ID).OrderBy(m => m.SentAt))
+
+        @foreach (var message in Messages)
         {
             <div class="chatRow">
                 <div class="detailsDiv">
@@ -33,3 +34,107 @@
 }
 
 <input type="text" class="input form-control" placeholder="Send a message" @bind="Message" @onkeyup="SendMessageAsync" />
+
+@code {
+    [Parameter]
+    public int? Group { get; set; }
+
+    [Parameter]
+    public ICollection<Message>? Messages { get; set; }
+
+    [Inject]
+    protected IClientTimeService ClientTimeService { get; set; } = default!;
+
+    [Inject]
+    protected IMessageService<Message> ChatService { get; set; } = default!;
+
+    [Inject]
+    protected IUserService UserService { get; set; } = default!;
+
+    [Inject]
+    protected IJSRuntime JSRuntime { get; set; } = default!;
+
+    [CascadingParameter(Name = "User")]
+    protected User? User { get; set; }
+
+    protected string? Message { get; set; }
+
+    protected ElementReference ChatWindowReference;
+    protected int LastScrollPosition = -1;
+    protected bool ShouldScrollToBottom = true;
+
+    protected TimeSpan ClientUtcDiff { get; set; }
+    protected DateTime ClientDate { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (User != null)
+        {
+            await ChatService.StartAsync();
+            ChatService.NewMessageArrived += ChatService_NewMessageArrived;
+
+            if (Group.HasValue)
+            {
+                await ChatService.JoinGroupAsync(groupName: Group.ToString()!);
+            }
+        }
+
+        ClientDate = await ClientTimeService.GetClientDateAsync();
+        ClientUtcDiff = await ClientTimeService.GetClientUtcDiffAsync();
+    }
+
+    protected async Task SendMessageAsync(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter" && !String.IsNullOrEmpty(Message) && User != null)
+        {
+            var message = new Message
+            {
+                UserID = User.ID,
+                PredictionGameID = Group,
+                MatchID = null,
+                Text = Message,
+                SentAt = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified)
+            };
+
+            if (Group.HasValue)
+            {
+                await ChatService.SendMessageToGroupAsync(groupName: Group.ToString()!, message: message);
+            }
+            else
+            {
+                await ChatService.SendMessageAsync(message: message);
+            }
+
+            ResetMessage();
+        }
+    }
+
+    protected async void ChatService_NewMessageArrived(object? sender, Message newMessage)
+    {
+        Messages!.Add(newMessage);
+        await InvokeAsync(StateHasChanged);
+        LastScrollPosition = await JSRuntime.InvokeAsync<int>("scrollToBottomIfLastScrollDown", ChatWindowReference, LastScrollPosition);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender && LastScrollPosition == -1)
+            await JSRuntime.InvokeVoidAsync("scrollToBottom", ChatWindowReference);
+    }
+
+    protected void ResetMessage()
+    {
+        Message = null;
+    }
+
+    protected bool MessageSentToday(Message message)
+    {
+        return message.SentAt != null && message.SentAt.Value.Add(ClientUtcDiff).Date == ClientDate.Date;
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        ChatService.NewMessageArrived -= ChatService_NewMessageArrived;
+        await ChatService.DisposeAsync();
+    }
+}

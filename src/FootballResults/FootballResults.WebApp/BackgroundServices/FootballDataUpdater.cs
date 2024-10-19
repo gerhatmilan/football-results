@@ -3,6 +3,10 @@ using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Models;
 using FootballResults.DatabaseUpdaters.Updaters;
 using FootballResults.Models.Config;
+using FootballResults.WebApp.Hubs;
+using FootballResults.WebApp.Services.Chat;
+using FootballResults.WebApp.Services.LiveUpdates;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -15,17 +19,20 @@ namespace FootballResults.WebApp.BackgroundServices
         protected readonly ILogger<FootballDataUpdater> _logger;
         protected readonly ApplicationConfig _applicationConfig;
         protected readonly TimeSpan _period;
+        protected readonly IHubContext<MessageHub<UpdateMessageType>> _notificationHubContext;
 
         protected MatchUpdater _matchUpdater;
         protected StandingUpdater _standingUpdater;
         protected TopScorerUpdater _topScorerUpdater;
 
-        protected static IEnumerable<string> MatchStatusesThatRequireUpdate { get; } = new List<string> { MatchStatus.NotStarted, MatchStatus.FirstHalf, MatchStatus.HalfTime, MatchStatus.SecondHalf, MatchStatus.ExtraTime, MatchStatus.BreakTime, MatchStatus.PenaltiesInProgress, MatchStatus.Interrupted, MatchStatus.Live };
+        protected static IEnumerable<string> MatchStatusesThatRequireUpdate { get; } = new List<string> { MatchStatus.NotStarted, MatchStatus.FirstHalf, MatchStatus.HalfTime, MatchStatus.SecondHalf, MatchStatus.ExtraTime, MatchStatus.BreakTime, MatchStatus.PenaltiesInProgress, MatchStatus.Suspended, MatchStatus.Interrupted, MatchStatus.Live };
 
-        public FootballDataUpdater(IServiceProvider serviceProvider, ILogger<FootballDataUpdater> logger)
+        public FootballDataUpdater(IServiceProvider serviceProvider, ILogger<FootballDataUpdater> logger, IOptions<ApplicationConfig> applicationConfig,
+            IHubContext<MessageHub<UpdateMessageType>> notificationHubContext)
         {
             _serviceProvider = serviceProvider;
-            _applicationConfig = serviceProvider.GetRequiredService<IOptions<ApplicationConfig>>().Value;
+            _applicationConfig = applicationConfig.Value;
+            _notificationHubContext = notificationHubContext;
             _logger = logger;
             _period = _applicationConfig.UpdaterWorkerFrequency;
 
@@ -71,16 +78,14 @@ namespace FootballResults.WebApp.BackgroundServices
             return !lastUpdate.HasValue || lastUpdate.Value.Add(maximumPassedTime) < DateTime.UtcNow;
         }
 
-        protected async Task<bool> MatchMightBeInProgressAsync(AppDbContext dbContext)
+        protected bool MatchMightBeInProgress(AppDbContext dbContext)
         {
-            ICollection<Match> matchesThatMightBeInProgress = await dbContext.Matches
-                .Where(i =>
+            return dbContext.Matches
+                .Any(i =>
                     i.Date != null
                     && i.Date < DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified)
                     && MatchStatusesThatRequireUpdate.Contains(i.Status)
-                ).ToListAsync();
-
-            return matchesThatMightBeInProgress.Any();
+                );
         }
 
         protected async Task UpdateMatchesForCurrentDayAsync(AppDbContext dbContext)
@@ -88,11 +93,14 @@ namespace FootballResults.WebApp.BackgroundServices
             DateTime? lastUpdate = dbContext.SystemInformation.Find(1)?.MatchesLastUpdateForCurrentDay;
 
             if (ShouldUpdate(lastUpdate, _applicationConfig.MatchesUpdateForCurrentDayFrequency)
-                && await MatchMightBeInProgressAsync(dbContext))
+                && MatchMightBeInProgress(dbContext))
             {
                 try
                 {
                     await _matchUpdater.StartAsync(DatabaseUpdaters.UpdaterMode.CurrentDate);
+
+                    // notify connected clients about the update
+                    await _notificationHubContext.Clients.All.SendAsync("ReceiveMessage", UpdateMessageType.MatchesUpdated);
                 }
                 catch (Exception ex)
                 {
@@ -117,6 +125,9 @@ namespace FootballResults.WebApp.BackgroundServices
                     try
                     {
                         await _matchUpdater.StartAsync(DatabaseUpdaters.UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
+
+                        // notify connected clients about the update
+                        await _notificationHubContext.Clients.All.SendAsync("ReceiveMessage", UpdateMessageType.MatchesUpdated);
                     }
                     catch (Exception ex)
                     {

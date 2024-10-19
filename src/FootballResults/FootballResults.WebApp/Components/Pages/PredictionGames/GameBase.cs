@@ -1,6 +1,8 @@
 ﻿using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Entities.Predictions;
 using FootballResults.DataAccess.Entities.Users;
+using FootballResults.WebApp.Services.Football.Client;
+using FootballResults.WebApp.Services.LiveUpdates;
 using FootballResults.WebApp.Services.Predictions;
 using FootballResults.WebApp.Services.Time;
 using FootballResults.WebApp.Services.Users;
@@ -8,7 +10,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace FootballResults.WebApp.Components.Pages.PredictionGames
 {
-    public class GameBase : ComponentBase
+    public class GameBase : LiveUpdatePageBase
     {
         [Inject]
         protected IClientTimeService ClientTimeService { get; set; } = default!;
@@ -28,7 +30,21 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
         protected PredictionGame? Game { get; set; }
 
         protected League? SelectedLeague { get; set; }
-        protected IEnumerable<Match>? Matches => (Game != null && SelectedLeague != null) ? SelectedLeague.LeagueSeasons.ElementAt(0).Matches : null;
+
+        protected IEnumerable<Match>? Matches
+        {
+            get
+            {
+                if (Game != null && SelectedLeague != null)
+                {
+                    return Game.Matches.Where(m => m.LeagueSeason == SelectedLeague.CurrentSeason);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
 
         protected IEnumerable<Match> UpcomingMatchesToday => (Matches ?? new List<Match>()).Where(m => !m.IsFinished && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date == ClientDate.Date).OrderBy(m => m.Date);
 
@@ -37,6 +53,8 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
         protected IEnumerable<Match> UpcomingMatchesDecludingToday => (Matches ?? new List<Match>()).Where(m => !m.IsFinished && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date != ClientDate.Date).OrderBy(m => m.Date);
 
         protected IEnumerable<Match> FinishedMatchesDecludingToday => (Matches ?? new List<Match>()).Where(m => m.IsFinished && m.Date.GetValueOrDefault().Add(ClientUtcDiff).Date != ClientDate.Date).OrderByDescending(m => m.Date);
+
+        protected bool MatchInProgress => (Matches ?? new List<Match>()).Any(m => m.IsInProgress);
 
         protected bool UserAuthorized { get; set; }
 
@@ -48,6 +66,7 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
 
         protected override async Task OnInitializedAsync()
         {
+            await base.OnInitializedAsync();
             ClientUtcDiff = await ClientTimeService.GetClientUtcDiffAsync();
             ClientDate = (await ClientTimeService.GetClientDateAsync()).Date;
         }
@@ -87,10 +106,10 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
 
                 if (Game != null)
                 {
-                    SelectedLeague = Game.LeagueSeasons
+                    SelectedLeague = SelectedLeague ?? Game.LeagueSeasons
                         .Select(ls => ls.League)
                         .OrderBy(l => l.Name)
-                        .ElementAt(0);
+                        .First();
                 }
                 else
                 {
@@ -111,6 +130,19 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
         protected async Task ChangeLeague(League league)
         {
             SelectedLeague = league;
+            await InvokeAsync(StateHasChanged);
+        }
+
+        protected override async void OnUpdateMessageReceivedAsync(object? sender, UpdateMessageType notificationType)
+        {
+            if (notificationType == UpdateMessageType.MatchesUpdated)
+            {
+                if (Game != null && SelectedLeague != null)
+                {
+                    await GameService!.ReloadMatchesAsync(Game);
+                }
+            }
+
             await InvokeAsync(StateHasChanged);
         }
     }

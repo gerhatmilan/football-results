@@ -59,7 +59,7 @@ else
     </div>
     <div class="head2head">
         <h1>Head to head</h1>
-        <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" MatchOrderChanged="@OnMatchOrderChanged" />
+        <MatchFilter FilterTargetPage=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" MatchOrderChanged="OnMatchOrderChanged" />
         @if (Matches != null)
         {
             @if (Matches.Count() > 0)

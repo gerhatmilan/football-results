@@ -2,30 +2,22 @@
 using FootballResults.DataAccess.Entities.Football;
 using FootballResults.WebApp.Components.Utilities;
 using FootballResults.WebApp.Services.Football;
+using FootballResults.WebApp.Services.LiveUpdates;
 
 namespace FootballResults.WebApp.Components.Pages.Details
 {
-    public class MatchDetailsBase : ComponentBase, IMatchFilterable
+    public class MatchDetailsBase : MatchFilterablePageBase
     {
-        [Inject]
-        protected IMatchService? MatchService { get; set; }
-
-        [Inject]
-        protected NavigationManager? NavigationManager { get; set; }
-
         [Parameter]
         public string? MatchID { get; set; }
         protected Match? Match { get; set; }
-        public IEnumerable<Match>? Matches { get; set; }
 
-        protected MatchFilterParameters? MatchFilterParameters { get; set; }
-
-        protected MatchOrderOption MatchOrderOption { get; set; } = MatchOrderOption.DateDesc;
+        protected override MatchOrderOption MatchOrderOption { get; set; } = MatchOrderOption.DateDesc;
 
         protected override async Task OnInitializedAsync()
         {
             await LoadMatchAsync();
-            InitializeFilters();
+            await base.OnInitializedAsync();
         }
 
         protected async Task LoadMatchAsync()
@@ -34,43 +26,37 @@ namespace FootballResults.WebApp.Components.Pages.Details
             {
                 Match = await MatchService!.GetMatchByIDAsync(int.Parse(MatchID!));
             }
-            catch (HttpRequestException)
+            catch (Exception)
             {
                 NavigationManager?.NavigateTo("/error", true);
             }
         }
 
-        protected void InitializeFilters()
+        protected override void InitializeMatchFilters()
         {
-            MatchFilterParameters = new MatchFilterParameters();
-            MatchFilterParameters.TeamFilter = Match!.HomeTeam.Name;
-            MatchFilterParameters.OpponentNameFilter = Match!.AwayTeam.Name;
-            MatchFilterParameters.SeasonFilter = DateTime.Now.ToLocalTime().Month >= 8 ? DateTime.Now.ToLocalTime().Year : DateTime.Now.ToLocalTime().Year - 1;
+            MatchFilterParameters = new MatchFilterParameters()
+            {
+                TeamFilter = Match!.HomeTeam.Name,
+                OpponentNameFilter = Match!.AwayTeam.Name,
+                SeasonFilter = DateTime.Now.ToLocalTime().Month >= 8 ? DateTime.Now.ToLocalTime().Year : DateTime.Now.ToLocalTime().Year - 1
+            };
         }
 
         protected List<(int leagueID, List<Match> matches)> GetMatchesByLeague()
         {
             return Matches!
-            .GroupBy(
-                m => m.League.ID,
-                (leagueID, matches) => (leagueID, Matches!.Where(m => m.League.ID.Equals(leagueID)).ToList())
-            )
-            .ToList();
+                .GroupBy(
+                    m => m.League.ID,
+                    (leagueID, matches) => (leagueID, Matches!.Where(m => m.League.ID.Equals(leagueID)).ToList())
+                )
+                .ToList();
         }
 
-        protected void OnMatchFilterSubmitted(IEnumerable<Match> matches)
-        {
-            Matches = matches.ToList();
-            StateHasChanged();
-        }
 
-        protected void OnMatchOrderChanged(MatchOrderOption newOrderOption)
+        protected override async void OnUpdateMessageReceivedAsync(object? sender, UpdateMessageType notificationType)
         {
-            if (newOrderOption != MatchOrderOption)
-            {
-                MatchOrderOption = newOrderOption;
-                StateHasChanged();
-            }
+            base.OnUpdateMessageReceivedAsync(sender, notificationType);
+            await LoadMatchAsync();
         }
     }
 }

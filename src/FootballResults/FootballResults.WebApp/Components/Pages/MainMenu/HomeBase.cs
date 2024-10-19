@@ -3,10 +3,11 @@ using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Entities.Users;
 using FootballResults.WebApp.Services.Football;
 using FootballResults.WebApp.Services.Time;
+using FootballResults.WebApp.Services.LiveUpdates;
 
 namespace FootballResults.WebApp.Components.Pages.MainMenu
 {
-    public partial class HomeBase : ComponentBase
+    public partial class HomeBase : LiveUpdatePageBase
     {
         [Inject]
         protected IClientTimeService ClientTimeService { get; set; } = default!;
@@ -30,15 +31,12 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
 
         protected override async Task OnInitializedAsync()
         {
+            await base.OnInitializedAsync();
+
             ClientUtcDiff = await ClientTimeService.GetClientUtcDiffAsync();
             SelectedDate = DateTime.UtcNow.Add(ClientUtcDiff);
 
             await LoadMatchesAsync();
-            FilterMatchesBasedOnClientDate();
-            if (Matches != null && !Matches.Any())
-            {
-                await LoadUpcomingMatchesAsync();
-            }
         }
 
         protected void FilterMatchesBasedOnClientDate()
@@ -54,14 +52,16 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
 
             try
             {
-                Matches = null;
-
                 // in case the matches based on client's date extends to the next or previous day according to UTC time
                 // e.g if the client time is UTC+5, and the match is at 3:00 at client's time, then the match starts at 22:00 UTC, but
                 // if a match starts at 5:00 at client's time, then the match starts at 0:00 UTC, which extends to the next day
-                var matches = await MatchService!.GetMatchesForIntervalAsync(selectedDateInUtc.AddDays(-1), selectedDateInUtc.AddDays(1));
+                Matches = await MatchService!.GetMatchesForIntervalAsync(selectedDateInUtc.AddDays(-1), selectedDateInUtc.AddDays(1));
 
-                Matches = matches.ToList();
+                FilterMatchesBasedOnClientDate();
+                if (Matches != null && !Matches.Any())
+                {
+                    await LoadUpcomingMatchesAsync();
+                }
             }
             catch (HttpRequestException)
             {
@@ -85,6 +85,16 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
             {
                 NavigationManager?.NavigateTo("/error", true);
             }
+        }
+
+        protected override async void OnUpdateMessageReceivedAsync(object? sender, UpdateMessageType notificationType)
+        {
+            if (notificationType == UpdateMessageType.MatchesUpdated)
+            {
+                await LoadMatchesAsync();
+            }
+
+            await InvokeAsync(StateHasChanged);
         }
     }
 }

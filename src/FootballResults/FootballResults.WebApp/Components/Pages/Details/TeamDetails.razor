@@ -25,7 +25,7 @@
     <div class="submenuContent">
         @if (ActiveSubMenu == "matches")
         {
-            <MatchFilter FilterTarget=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" MatchOrderChanged="@OnMatchOrderChanged" />
+            <MatchFilter FilterTargetPage=this FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" MatchOrderChanged="@OnMatchOrderChanged" />
             @if (Matches != null)
             {
                 @if (Matches.Count() > 0)

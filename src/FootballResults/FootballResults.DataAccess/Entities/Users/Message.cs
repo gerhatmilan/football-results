@@ -34,7 +34,6 @@ namespace FootballResults.DataAccess.Entities.Users
         /// <summary>
         /// User who sent the message
         /// </summary>
-        [JsonIgnore]
         public User User { get; set; }
 
         /// <summary>

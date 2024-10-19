@@ -26,7 +26,7 @@
     <div class="submenuContent">
         @if (ActiveSubMenu == LeagueDetailsSubMenu.Matches)
         {
-            <MatchFilter FilterTarget="this" FilterSubmitted="OnMatchFilterSubmitted" FilterParameters="MatchFilterParameters" SeasonChanged="OnSeasonChanged" MatchOrderChanged="OnMatchOrderChanged" />
+            <MatchFilter FilterTargetPage="this" FilterParameters="MatchFilterParameters" FilterSubmitted="OnMatchFilterSubmitted" MatchOrderChanged="OnMatchOrderChanged" />
             @if (Matches != null)
             {
                 @if (Matches.Count() > 0)
@@ -50,10 +50,10 @@
         {
             @if (Standings != null)
             {
-                @if (SeasonFilter != null)
+                @if (MatchFilterParameters?.SeasonFilter != null)
                 {
-                    <h2>Season @String.Concat(SeasonFilter.ToString()!.Substring(2),
-                        "/", (SeasonFilter + 1).ToString()!.Substring(2))
+                    <h2>Season @String.Concat(MatchFilterParameters.SeasonFilter.ToString()!.Substring(2),
+                          "/", (MatchFilterParameters.SeasonFilter + 1).ToString()!.Substring(2))
                     </h2>
 
                     @if (Standings.Count() > 0)
@@ -80,11 +80,11 @@
         {
             @if (TopScorers != null)
             {
-                @if (SeasonFilter != null)
+                @if (MatchFilterParameters?.SeasonFilter != null)
                 {
                     <h2>
-                        Season @String.Concat(SeasonFilter.ToString()!.Substring(2),
-                          "/", (SeasonFilter + 1).ToString()!.Substring(2))
+                        Season @String.Concat(MatchFilterParameters.SeasonFilter.ToString()!.Substring(2),
+                          "/", (MatchFilterParameters.SeasonFilter + 1).ToString()!.Substring(2))
                     </h2>
                     @if (TopScorers.Count() > 0)
                     {

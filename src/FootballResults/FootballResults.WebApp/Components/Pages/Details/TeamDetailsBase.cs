@@ -5,29 +5,23 @@ using FootballResults.WebApp.Services.Football;
 
 namespace FootballResults.WebApp.Components.Pages.Details
 {
-    public class TeamDetailsBase : ComponentBase, IMatchFilterable
+    public class TeamDetailsBase : MatchFilterablePageBase
     {
         [Inject]
         protected ITeamService? TeamService { get; set; }
 
-        [Inject]
-        protected NavigationManager? NavigationManager { get; set; }
-
         [Parameter]
         public string? TeamName { get; set; }
         protected Team? Team { get; set; }
-        public IEnumerable<Match>? Matches { get; set; }
         protected IEnumerable<Player>? Squad { get; set; }
         protected string? ActiveSubMenu { get; set; } = "matches";
 
-        protected MatchFilterParameters? MatchFilterParameters { get; set; }
-
-        protected MatchOrderOption MatchOrderOption { get; set; } = MatchOrderOption.DateAsc;
+        protected override MatchOrderOption MatchOrderOption { get; set; } = MatchOrderOption.DateAsc;
 
         protected override async Task OnInitializedAsync()
         {
             await LoadTeamAsync();
-            InitializeFilters();
+            await base.OnInitializedAsync();
         }
 
         protected async Task LoadTeamAsync()
@@ -42,7 +36,7 @@ namespace FootballResults.WebApp.Components.Pages.Details
             }
         }
 
-        protected void InitializeFilters()
+        protected override void InitializeMatchFilters()
         {
             MatchFilterParameters = new MatchFilterParameters();
             MatchFilterParameters.TeamFilter = TeamName;
@@ -52,43 +46,28 @@ namespace FootballResults.WebApp.Components.Pages.Details
         protected async Task LoadSquadAsync()
         {
             ActiveSubMenu = "squad";
-            if (Squad != null) return; // already loaded
-
-            try
+            if (Squad == null)
             {
-                Squad = null;
-                var players = await TeamService!.GetSquadForTeamAsync(Team!.Name);
-                Squad = players.ToList();
-            }
-            catch (HttpRequestException)
-            {
-                NavigationManager?.NavigateTo("/error", true);
+                try
+                {
+                    Squad = null;
+                    Squad = await TeamService!.GetSquadForTeamAsync(Team!.Name);
+                }
+                catch (Exception)
+                {
+                    NavigationManager?.NavigateTo("/error", true);
+                }
             }
         }
 
         protected List<(int leagueID, List<Match> matches)> GetMatchesByLeague()
         {
             return Matches!
-            .GroupBy(
-                m => m.League.ID,
-                (leagueID, matches) => (leagueID, Matches!.Where(m => m.League.ID.Equals(leagueID)).ToList())
-            )
-            .ToList();
-        }
-
-        protected void OnMatchFilterSubmitted(IEnumerable<Match> matches)
-        {
-            Matches = matches.ToList();
-            StateHasChanged();
-        }
-
-        protected void OnMatchOrderChanged(MatchOrderOption newOrderOption)
-        {
-            if (newOrderOption != MatchOrderOption)
-            {
-                MatchOrderOption = newOrderOption;
-                StateHasChanged();
-            }
+                .GroupBy(
+                    m => m.League.ID,
+                    (leagueID, matches) => (leagueID, Matches!.Where(m => m.League.ID.Equals(leagueID)).ToList())
+                )
+                .ToList();
         }
     }
 }

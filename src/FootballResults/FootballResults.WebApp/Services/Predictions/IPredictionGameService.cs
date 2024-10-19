@@ -9,12 +9,9 @@ namespace FootballResults.WebApp.Services.Predictions
     {
         Task<PredictionGame?> CreatePredictionGameAsync(int userID, CreatePredictionGameModel game);
         Task<PredictionGame?> GetPredictionGameAsync(int gameID);
+        Task ReloadMatchesAsync(PredictionGame game);
         Task<PredictionGame?> GetPredictionGameByKeyAsync(string joinKey);
         Task<Participation?> JoinGameAsync(int userID, int predictionGameID);
-        Task<IEnumerable<PredictionGameStanding>?> GetPredictionGameStandingsAsync(int predictionGameID);
-        Task<IEnumerable<Match>?> GetMatchesAsync(int predictionGameID);
-        Task<IEnumerable<LeagueStanding>?> GetLeagueStandingsAsync(int predictionGameID, int leagueSeasonID);
-        Task<IEnumerable<Match>?> GetMatchesAsync(int predictionGameID, int leagueSeasonID);
         Task<Prediction?> MakePredictionAsync(int userID, int predictionGameID, int matchID, PredictionModel model);    
         Task<bool> UpdatePredictionAsync(int predictonID, PredictionModel model);
     }

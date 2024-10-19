@@ -1,23 +1,23 @@
+using Blazored.LocalStorage;
+using FootballResults.API.Models;
+using FootballResults.DataAccess;
+using FootballResults.DataAccess.Entities.Users;
+using FootballResults.DataAccess.Repositories.Football;
+using FootballResults.Models.Config;
+using FootballResults.WebApp.BackgroundServices;
 using FootballResults.WebApp.Components;
+using FootballResults.WebApp.Hubs;
+using FootballResults.WebApp.Services;
+using FootballResults.WebApp.Services.Chat;
 using FootballResults.WebApp.Services.Football;
+using FootballResults.WebApp.Services.Football.Server;
+using FootballResults.WebApp.Services.LiveUpdates;
 using FootballResults.WebApp.Services.Predictions;
+using FootballResults.WebApp.Services.Time;
 using FootballResults.WebApp.Services.Users;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using FootballResults.WebApp.Hubs;
-using FootballResults.WebApp.Services.Chat;
-using FootballResults.DataAccess.Entities.Users;
-using FootballResults.WebApp.Services.Time;
-using Blazored.LocalStorage;
-using FootballResults.DataAccess;
-using FootballResults.WebApp.Services.Football.Server;
-using FootballResults.DataAccess.Repositories.Football;
-using FootballResults.API.Models;
-using FootballResults.DatabaseUpdaters.UpdaterMenu;
-using FootballResults.WebApp.BackgroundServices;
-using Microsoft.Extensions.Configuration;
-using Serilog;
-using FootballResults.Models.Config;
+using System.Text.Json.Serialization;
 
 namespace FootballResults.WebApp
 {
@@ -54,7 +54,8 @@ namespace FootballResults.WebApp
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();
 
-            app.MapHub<ChatHub<Message>>("/chathub");
+            app.MapHub<MessageHub<Message>>("/chathub");
+            app.MapHub<MessageHub<UpdateMessageType>>("/updatehub");
 
             app.Run();
         }
@@ -102,15 +103,20 @@ namespace FootballResults.WebApp
             // Add services to the container.
             _builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
-            _builder.Services.AddSignalR();
+            _builder.Services.AddSignalR()
+                .AddJsonProtocol(options =>
+                {
+                    options.PayloadSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+                });
             _builder.Services.AddBlazoredLocalStorage();
 
             // Custom services
             _builder.Services.AddScoped<ISignupService, SignupService>();
             _builder.Services.AddScoped<ILoginService, LoginService>();
             _builder.Services.AddScoped<IUserService, UserService>();
-            _builder.Services.AddTransient<IPredictionGameService, PredictionGameService>();
-            _builder.Services.AddTransient<IChatService<Message>, GameChatService>();
+            _builder.Services.AddScoped<IPredictionGameService, PredictionGameService>();
+            _builder.Services.AddTransient<IMessageService<Message>, ChatService>();
+            _builder.Services.AddTransient<IMessageService<UpdateMessageType>, UpdateNotificationService>();
             _builder.Services.AddScoped<IClientTimeService, ClientTimeService>();
 
             _builder.Services.AddScoped<ICountryRepository, CountryRepository>();

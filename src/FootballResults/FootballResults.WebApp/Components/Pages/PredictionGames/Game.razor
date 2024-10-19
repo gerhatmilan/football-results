@@ -58,15 +58,11 @@
 
             <!-- Game standings -->
             <h2>Standings</h2>
-            <GameStandingsCard Standings="@Game.GetLiveStandings()" />
+            <GameStandingsCard Standings="@Game.LiveStandings" />
 
             <!-- Chat -->
             <h2>Chat</h2>
-            <CascadingValue Name="Game" Value="Game">
-                <CascadingValue Name="User" Value="User">
-                    <ChatWindow />
-                </CascadingValue>
-            </CascadingValue>
+            <ChatWindow Group="@Game.ID" Messages="@Game.Messages" />
         </div>
         <div class="matchesCol">
             <!-- Matches -->

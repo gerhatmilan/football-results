@@ -1,45 +1,45 @@
 ﻿@inherits MatchFilterBase
 
-@if (FilterTarget != null)
+@if (FilterTargetPage != null)
 {
     <div class="filterSection">
         <div class="input-group mb-3">
-            <input type="number" class="form-control" placeholder="Year" @bind="FilterParameters!.YearFilter" @bind:after="FilterMatchesAsync" />
-            <input type="number" class="form-control" placeholder="Month" min="1" max="12" @bind="FilterParameters!.MonthFilter" @bind:after="FilterMatchesAsync" />
-            <input type="number" class="form-control" placeholder="Day" min="1" max="31" @bind="FilterParameters!.DayFilter" @bind:after="FilterMatchesAsync"  />
+            <input type="number" class="form-control" placeholder="Year" @bind="FilterParameters!.YearFilter" @bind:after="OnMatchFilterSubmitted" />
+            <input type="number" class="form-control" placeholder="Month" min="1" max="12" @bind="FilterParameters!.MonthFilter" @bind:after="OnMatchFilterSubmitted" />
+            <input type="number" class="form-control" placeholder="Day" min="1" max="31" @bind="FilterParameters!.DayFilter" @bind:after="OnMatchFilterSubmitted" />
         </div>
 
-        @if (FilterTarget.GetType() == typeof(TeamDetails))
+        @if (FilterTargetPage.GetType() == typeof(TeamDetails))
         {
             <div class="input-group mb-3">
-                <select title="Home or away only selector" class="form-select" @bind="FilterParameters!.HomeAwayFilter" @bind:after="FilterMatchesAsync">
+                <select title="Home or away only selector" class="form-select" @bind="FilterParameters!.HomeAwayFilter" @bind:after="OnMatchFilterSubmitted">
                     <option selected value="All">Home and Away</option>
                     <option value="Home">Home</option>
                     <option value="Away">Away</option>
                 </select>
             </div>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Opponent" @bind="FilterParameters!.OpponentNameFilter" @bind:after="FilterMatchesAsync" />
+                <input type="text" class="form-control" placeholder="Opponent" @bind="FilterParameters!.OpponentNameFilter" @bind:after="OnMatchFilterSubmitted" />
             </div>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Competition" @bind="FilterParameters!.LeagueFilter" @bind:after="FilterMatchesAsync" />
+                <input type="text" class="form-control" placeholder="Competition" @bind="FilterParameters!.LeagueFilter" @bind:after="OnMatchFilterSubmitted" />
             </div>
         }
-        else if (FilterTarget.GetType() == typeof(MatchDetails))
+        else if (FilterTargetPage.GetType() == typeof(MatchDetails))
         {
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Competition" @bind="FilterParameters!.LeagueFilter" @bind:after="FilterMatchesAsync" />
+                <input type="text" class="form-control" placeholder="Competition" @bind="FilterParameters!.LeagueFilter" @bind:after="OnMatchFilterSubmitted" />
             </div>
         }
 
         <div class="input-group mb-3">
-            <input type="number" class="form-control" min="2010" placeholder="Season" @bind="FilterParameters!.SeasonFilter" @bind:after="@(async () => { await OnSeasonChanged(); await FilterMatchesAsync(); })" />
+            <input type="number" class="form-control" min="2008" placeholder="Season" @bind="FilterParameters!.SeasonFilter" @bind:after="OnMatchFilterSubmitted" />
         </div>
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Round" @bind="FilterParameters!.RoundFilter" @bind:after="FilterMatchesAsync" />
+            <input type="text" class="form-control" placeholder="Round" @bind="FilterParameters!.RoundFilter" @bind:after="OnMatchFilterSubmitted" />
         </div>
 
-        @if (FilterTarget.GetType() == typeof(LeagueDetails))
+        @if (FilterTargetPage.GetType() == typeof(LeagueDetails))
         {
             <div class="input-group mb-3">
                 <button type="button" class="btn button"
@@ -54,7 +54,7 @@
                 </button>
             </div>
         }
-        else if (FilterTarget.GetType() == typeof(TeamDetails))
+        else if (FilterTargetPage.GetType() == typeof(TeamDetails))
         {
             <div class="input-group mb-3">
                 <button type="button" class="btn button"
@@ -69,7 +69,7 @@
                 </button>
             </div>
         }
-        else if (FilterTarget.GetType() == typeof(MatchDetails))
+        else if (FilterTargetPage.GetType() == typeof(MatchDetails))
         {
             <div class="input-group mb-3">
                 <button type="button" class="btn button"

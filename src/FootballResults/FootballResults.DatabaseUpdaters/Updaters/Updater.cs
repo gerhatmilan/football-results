@@ -158,7 +158,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 }
             }
 
-            _logger.LogInformation($"{GetType().Name} has finished. Press any key to continue...");
+            _logger.LogInformation($"{GetType().Name} has finished");
         }
 
         protected virtual async Task UpdateForAllLeaguesAllSeasonsAsync()

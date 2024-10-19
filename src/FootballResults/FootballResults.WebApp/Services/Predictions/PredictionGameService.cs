@@ -134,6 +134,14 @@ namespace FootballResults.WebApp.Services.Predictions
             return game;
         }
 
+        public async Task ReloadMatchesAsync(PredictionGame game)
+        {
+            foreach (Match match in game.Matches.Where(m => m.IsInProgress))
+            {
+                await _dbContext.Entry(match).ReloadAsync();
+            }
+        }
+
         public async Task<PredictionGame?> GetPredictionGameByKeyAsync(string joinKey)
         {
             return await _dbContext.PredictionGames
@@ -169,45 +177,6 @@ namespace FootballResults.WebApp.Services.Predictions
             await _dbContext.SaveChangesAsync();
 
             return standing;
-        }
-
-        public async Task<IEnumerable<PredictionGameStanding>?> GetPredictionGameStandingsAsync(int predictionGameID)
-        {
-            PredictionGame? gameInDatabase = await _dbContext.PredictionGames
-                .Include(g => g.Participations)
-                    .ThenInclude(p => p.Standing)
-                        .ThenInclude(s => s.User)
-                .FirstOrDefaultAsync(g => g.ID == predictionGameID);
-
-            return gameInDatabase != null ? gameInDatabase.Standings.OrderByDescending(standing => standing.Points) : null;
-        }
-        public async Task<IEnumerable<Match>?> GetMatchesAsync(int predictionGameID)
-        {
-            PredictionGame? gameInDatabase = await _dbContext.PredictionGames
-                .Include(g => g.LeagueSeasons)
-                    .ThenInclude(ls => ls.Matches)
-                .FirstOrDefaultAsync(i => i.ID == predictionGameID);
-
-            return gameInDatabase != null ? gameInDatabase.Matches : null;
-        }
-        public async Task<IEnumerable<LeagueStanding>?> GetLeagueStandingsAsync(int predictionGameID, int leagueSeasonID)
-        {
-            PredictionGame? gameInDatabase = await _dbContext.PredictionGames
-                .Include(g => g.LeagueSeasons).ThenInclude(ls => ls.League)
-                .Include(g => g.LeagueSeasons).ThenInclude(ls => ls.Standings)
-                .FirstOrDefaultAsync(i => i.ID == predictionGameID);
-
-            return gameInDatabase != null ? gameInDatabase.LeagueSeasons.FirstOrDefault(ls => ls.ID == leagueSeasonID)?.Standings : null;
-        }
-
-        public async Task<IEnumerable<Match>?> GetMatchesAsync(int predictionGameID, int leagueSeasonID)
-        {
-            PredictionGame? gameInDatabase = await _dbContext.PredictionGames
-                .Include(g => g.LeagueSeasons).ThenInclude(ls => ls.League)
-                .Include(g => g.LeagueSeasons).ThenInclude(ls => ls.Matches)
-                .FirstOrDefaultAsync(i => i.ID == predictionGameID);
-
-            return gameInDatabase != null ? gameInDatabase.Matches.Where(m => m.LeagueSeason.ID == leagueSeasonID) : null;
         }
 
         public async Task<Prediction?> MakePredictionAsync(int userID, int predictionGameID, int matchID, PredictionModel predictionModel)

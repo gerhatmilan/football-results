@@ -109,7 +109,7 @@ namespace FootballResults.DataAccess.Entities.Football
 
         public bool IsInProgress
         {
-            get => (Date < DateTime.UtcNow) && (Status == MatchStatus.FirstHalf || Status == MatchStatus.HalfTime || Status == MatchStatus.SecondHalf
+            get => HasStarted && ( Status == MatchStatus.NotStarted || Status == MatchStatus.FirstHalf || Status == MatchStatus.HalfTime || Status == MatchStatus.SecondHalf
                 || Status == MatchStatus.ExtraTime || Status == MatchStatus.BreakTime || Status == MatchStatus.PenaltiesInProgress || Status == MatchStatus.Suspended || Status == MatchStatus.Interrupted || Status == MatchStatus.Live);
         }
 

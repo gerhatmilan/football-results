@@ -91,7 +91,7 @@ namespace FootballResults.DataAccess.Entities.Predictions
         /// <summary>
         /// Messages sent by users in the prediction game
         /// </summary>
-        public IEnumerable<Message> Messages { get; set; }
+        public ICollection<Message> Messages { get; set; }
 
         /// <summary>
         /// Players participating in the prediction game
@@ -110,6 +110,40 @@ namespace FootballResults.DataAccess.Entities.Predictions
         [NotMapped]
         public IEnumerable<Prediction> Predictions => Participations?.SelectMany(p => p.Predictions);
 
+        [NotMapped]
+        public IEnumerable<PredictionGameStanding> LiveStandings
+        {
+            get
+            {
+                ICollection<PredictionGameStanding> existingStandingsCopy = new List<PredictionGameStanding>();
+
+                Standings.ToList().ForEach(s =>
+                {
+                    var standingCopy = new PredictionGameStanding
+                    {
+                        ID = s.ID,
+                        ParticipationID = s.ParticipationID,
+                        Points = s.Points,
+                        Participation = s.Participation,
+                        PredictionGame = s.PredictionGame,
+                        User = s.User
+                    };
+
+                    existingStandingsCopy.Add(standingCopy);
+                });
+
+                foreach (Prediction prediction in Predictions)
+                {
+                    if (!prediction.PointsGiven)
+                    {
+                        var points = prediction.CalculatePoints();
+                        existingStandingsCopy.FirstOrDefault(s => s.PredictionGame.ID == ID && s.User.ID == prediction.User.ID).Points += points;
+                    }
+                }
+                return existingStandingsCopy.OrderByDescending(s => s.Points);
+            }
+        }
+
         // skip navigations
         public IEnumerable<Participation> Participations { get; set; }
         
@@ -122,37 +156,6 @@ namespace FootballResults.DataAccess.Entities.Predictions
                 RefreshStandings();
                 RefreshFinished();
             }
-        }
-
-        public IEnumerable<PredictionGameStanding> GetLiveStandings()
-        {
-            ICollection<PredictionGameStanding> existingStandingsCopy = new List<PredictionGameStanding>();
-
-            Standings.ToList().ForEach(s =>
-            {
-                var standingCopy = new PredictionGameStanding
-                {
-                    ID = s.ID,
-                    ParticipationID = s.ParticipationID,
-                    Points = s.Points,
-                    Participation = s.Participation,
-                    PredictionGame = s.PredictionGame,
-                    User = s.User
-                };
-
-                existingStandingsCopy.Add(standingCopy);
-            });
-
-            Predictions.ToList().ForEach(p =>
-            {
-                if (!p.PointsGiven)
-                {
-                    var points = p.CalculatePoints();
-                    existingStandingsCopy.FirstOrDefault(s => s.PredictionGame.ID == ID && s.User.ID == p.User.ID).Points += points;
-                }
-            });
-
-            return existingStandingsCopy.OrderByDescending(s => s.Points);
         }
 
         private void RefreshStandings()

@@ -1,6 +1,7 @@
 ﻿using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Entities.Users;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace FootballResults.DataAccess.Entities.Predictions
 {
@@ -45,17 +46,20 @@ namespace FootballResults.DataAccess.Entities.Predictions
         /// Prediction game the prediction is made in
         /// </summary>
         [NotMapped]
+        [JsonIgnore]
         public PredictionGame PredictionGame => Participation?.PredictionGame;
 
         /// <summary>
         /// User who made the prediction
         /// </summary>
         [NotMapped]
+        [JsonIgnore]
         public User User => Participation?.User;
 
         /// <summary>
         /// Match the prediction is made for
         /// </summary>
+        [JsonIgnore]
         public Match Match { get; set; }
 
         public bool IsExactScorelineReward()

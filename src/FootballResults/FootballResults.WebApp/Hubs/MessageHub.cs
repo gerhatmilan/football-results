@@ -2,7 +2,7 @@
 
 namespace FootballResults.WebApp.Hubs
 {
-    public class ChatHub<T> : Hub
+    public class MessageHub<T> : Hub
     {
         public async Task SendMessageAsync(T message)
         {

@@ -3,10 +3,11 @@ using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Entities.Users;
 using FootballResults.WebApp.Services.Football;
 using FootballResults.WebApp.Services.Time;
+using FootballResults.WebApp.Services.LiveUpdates;
 
 namespace FootballResults.WebApp.Components.Pages.MainMenu
 {
-    public partial class MatchesBase : ComponentBase
+    public partial class MatchesBase : LiveUpdatePageBase
     {
         [Inject]
         protected IClientTimeService ClientTimeService { get; set; } = default!;
@@ -28,6 +29,7 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
 
         protected override async Task OnInitializedAsync()
         {
+            await base.OnInitializedAsync();
             ClientUtcDiff = await ClientTimeService.GetClientUtcDiffAsync();
         }
 
@@ -42,16 +44,8 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
             {
                 SelectedDate = newDate;
                 await LoadMatchesAsync();
-                FilterMatchesBasedOnClientDate();
                 StateHasChanged();
             }
-        }
-
-        protected void FilterMatchesBasedOnClientDate()
-        {
-            Matches = Matches!
-                .Where(m => m.Date.GetValueOrDefault().Add(ClientUtcDiff).Day == SelectedDate.Date.Day)
-                .ToList();
         }
 
         protected async Task LoadMatchesAsync()
@@ -65,14 +59,31 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
                 // in case the matches based on client's date extends to the next or previous day according to UTC time
                 // e.g if the client time is UTC+5, and the match is at 3:00 at client's time, then the match starts at 22:00 UTC, but
                 // if a match starts at 5:00 at client's time, then the match starts at 0:00 UTC, which extends to the next day
-                var matches = await MatchService.GetMatchesForIntervalAsync(selectedDateInUtc.AddDays(-1), selectedDateInUtc.AddDays(1));
+                Matches = await MatchService.GetMatchesForIntervalAsync(selectedDateInUtc.AddDays(-1), selectedDateInUtc.AddDays(1));
+                FilterMatchesBasedOnClientDate();
 
-                Matches = matches.ToList();
             }
             catch (HttpRequestException)
             {
                 NavigationManager.NavigateTo("/error", true);
             }
+        }
+
+        protected void FilterMatchesBasedOnClientDate()
+        {
+            Matches = Matches!
+                .Where(m => m.Date.GetValueOrDefault().Add(ClientUtcDiff).Day == SelectedDate.Date.Day)
+                .ToList();
+        }
+
+        protected override async void OnUpdateMessageReceivedAsync(object? sender, UpdateMessageType notificationType)
+        {
+            if (notificationType == UpdateMessageType.MatchesUpdated)
+            {
+                await LoadMatchesAsync();
+            }
+
+            await InvokeAsync(StateHasChanged);
         }
     }
 }
