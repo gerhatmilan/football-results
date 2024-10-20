@@ -63,7 +63,7 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
                 FilterMatchesBasedOnClientDate();
 
             }
-            catch (HttpRequestException)
+            catch (Exception)
             {
                 NavigationManager.NavigateTo("/error", true);
             }

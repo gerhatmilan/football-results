@@ -25,21 +25,17 @@ namespace FootballResults.WebApp.Components.Pages.General
         protected IEnumerable<League>? Leagues { get; set; }
         protected IEnumerable<Team>? Teams { get; set; }
 
-        protected override async Task OnParametersSetAsync()
+        protected override async Task OnInitializedAsync()
         {
             try
             {
-                if (String.IsNullOrEmpty(SearchValue))
-                {
-                    NavigationManager.NavigateTo("/", true);
-                }
-                else
+                if (!String.IsNullOrEmpty(SearchValue))
                 {
                     Leagues = await LeagueService.SearchAsync(SearchValue!);
                     Teams = await TeamService.SearchAsync(SearchValue!);
                 }
             }
-            catch (HttpRequestException)
+            catch (Exception)
             {
                 NavigationManager.NavigateTo("/error");
             }

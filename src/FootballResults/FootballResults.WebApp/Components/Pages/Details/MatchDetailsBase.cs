@@ -25,6 +25,11 @@ namespace FootballResults.WebApp.Components.Pages.Details
             try
             {
                 Match = await MatchService!.GetMatchByIDAsync(int.Parse(MatchID!));
+                
+                if (Match == null)
+                {
+                    NavigationManager.NavigateTo("/404", true);
+                }
             }
             catch (Exception)
             {

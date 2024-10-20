@@ -41,10 +41,15 @@ namespace FootballResults.WebApp.Components.Pages.Details
             try
             {
                 League = await LeagueService!.GetLeagueByNameAsync(LeagueName!);
+
+                if (League == null)
+                {
+                    NavigationManager.NavigateTo("/404", true);
+                }
             }
             catch (Exception)
             {
-                NavigationManager?.NavigateTo("/error", true);
+                NavigationManager.NavigateTo("/error", true);
             }
         }
 
@@ -67,7 +72,7 @@ namespace FootballResults.WebApp.Components.Pages.Details
                 }
                 catch (Exception)
                 {
-                    NavigationManager?.NavigateTo("/error", true);
+                    NavigationManager.NavigateTo("/error", true);
                 }
             }
         }
@@ -82,7 +87,7 @@ namespace FootballResults.WebApp.Components.Pages.Details
                 }
                 catch (Exception)
                 {
-                    NavigationManager?.NavigateTo("/error", true);
+                    NavigationManager.NavigateTo("/error", true);
                 }
             }  
         }

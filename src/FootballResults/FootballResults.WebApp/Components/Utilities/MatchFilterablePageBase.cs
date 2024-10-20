@@ -10,7 +10,7 @@ namespace FootballResults.WebApp.Components.Utilities
     public abstract class MatchFilterablePageBase : LiveUpdatePageBase
     {
         [Inject]
-        protected NavigationManager? NavigationManager { get; set; }
+        protected NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
         protected IMatchService? MatchService { get; set; } = default!;

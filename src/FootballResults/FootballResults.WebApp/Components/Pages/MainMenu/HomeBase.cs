@@ -63,7 +63,7 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
                     await LoadUpcomingMatchesAsync();
                 }
             }
-            catch (HttpRequestException)
+            catch (Exception)
             {
                 NavigationManager?.NavigateTo("/error", true);
             }
@@ -81,7 +81,7 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
                     .Take(5)
                     .ToList();
             }
-            catch (HttpRequestException)
+            catch (Exception)
             {
                 NavigationManager?.NavigateTo("/error", true);
             }

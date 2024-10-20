@@ -29,8 +29,13 @@ namespace FootballResults.WebApp.Components.Pages.Details
             try
             {
                 Team = await TeamService!.GetTeamByNameAsync(TeamName!);
+
+                if (Team == null)
+                {
+                    NavigationManager.NavigateTo("/404", true);
+                }
             }
-            catch (HttpRequestException)
+            catch (Exception)
             {
                 NavigationManager?.NavigateTo("/error", true);
             }

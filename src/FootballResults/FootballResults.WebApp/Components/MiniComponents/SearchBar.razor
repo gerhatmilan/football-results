@@ -2,15 +2,13 @@
 
 @code {
     [Inject]
-    protected NavigationManager? NavigationManager { get; set; }
-
-    protected string? SearchValue { get; set; }
+    protected NavigationManager NavigationManager { get; set; } = default!;
 
     protected void Search(ChangeEventArgs e)
     {
         if (e.Value != null && e.Value.ToString() != "")
         {
-            NavigationManager!.NavigateTo($"/search?value={e.Value.ToString()}");
+            NavigationManager.NavigateTo($"/search?value={e.Value.ToString()}", true);
         }
     }
 }

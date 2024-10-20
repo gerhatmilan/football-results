@@ -22,7 +22,7 @@ namespace FootballResults.DataAccess.Repositories.Football
             return await _dbContext.Leagues
                 .Include(l => l.LeagueSeasons)
                 .AsNoTracking()
-                .FirstAsync(l => l.Name.ToLower().Equals(leagueName.ToLower()));
+                .FirstOrDefaultAsync(l => l.Name.ToLower().Equals(leagueName.ToLower()));
         }
 
         public async Task<IEnumerable<int>> GetSeasonsForLeague(string leagueName)
@@ -30,7 +30,7 @@ namespace FootballResults.DataAccess.Repositories.Football
             League league = await _dbContext.Leagues
                 .Include(l => l.LeagueSeasons)
                 .AsNoTracking()
-                .FirstAsync(l => l.Name.ToLower().Equals(leagueName.ToLower()));
+                .FirstOrDefaultAsync(l => l.Name.ToLower().Equals(leagueName.ToLower()));
 
             return league.LeagueSeasons
                 .OrderBy(s => s.Year)
@@ -40,30 +40,34 @@ namespace FootballResults.DataAccess.Repositories.Football
 
         public async Task<IEnumerable<Team>> GetTeamsForLeague(string leagueName, int? season)
         {
-            League league = await _dbContext.Leagues.FirstAsync(league => league.Name.ToLower().Equals(leagueName.ToLower()));
+            League league = await _dbContext.Leagues.FirstOrDefaultAsync(league => league.Name.ToLower().Equals(leagueName.ToLower()));
 
-            return await _dbContext.LeagueStandings
-                .Where(s => s.LeagueSeason.LeagueID.Equals(league.ID) && (season.HasValue ? s.LeagueSeason.Year == season : true))
-                .Include(s => s.Team)
-                .Select(s => s.Team)
-                .OrderBy(t => t.Name)
-                .AsNoTracking()
-                .ToListAsync();
+            return league != null
+                ? await _dbContext.LeagueStandings
+                    .Where(s => s.LeagueSeason.LeagueID.Equals(league.ID) && (season.HasValue ? s.LeagueSeason.Year == season : true))
+                    .Include(s => s.Team)
+                    .Select(s => s.Team)
+                    .OrderBy(t => t.Name)
+                    .AsNoTracking()
+                    .ToListAsync()
+                : Enumerable.Empty<Team>();
         }
 
         public async Task<IEnumerable<string>> GetRoundsForLeagueAndSeason(string leagueName, int season)
         {
             League league = await _dbContext.Leagues
-                .FirstAsync(league => league.Name.ToLower().Equals(leagueName.ToLower()));
+                .FirstOrDefaultAsync(league => league.Name.ToLower().Equals(leagueName.ToLower()));
 
-            var nonDistinctRoundList = await _dbContext.Matches
-                .Include(m => m.LeagueSeason)
-                .Where(m => m.LeagueSeason.LeagueID == league.ID && m.LeagueSeason.Year == season)
-                .OrderBy(m => m.Date)
-                .ThenBy(m => m.Round)
-                .Select(m => m.Round)
-                .AsNoTracking()
-                .ToListAsync();
+            var nonDistinctRoundList = league != null
+                ? await _dbContext.Matches
+                    .Include(m => m.LeagueSeason)
+                    .Where(m => m.LeagueSeason.LeagueID == league.ID && m.LeagueSeason.Year == season)
+                    .OrderBy(m => m.Date)
+                    .ThenBy(m => m.Round)
+                    .Select(m => m.Round)
+                    .AsNoTracking()
+                    .ToListAsync()
+                : Enumerable.Empty<string>();
 
             var distinctRoundList = nonDistinctRoundList
                 .GroupBy(r => r)
@@ -76,76 +80,87 @@ namespace FootballResults.DataAccess.Repositories.Football
         {
             League league = await _dbContext.Leagues
                 .AsNoTracking()
-                .FirstAsync(league => league.Name.ToLower().Equals(leagueName.ToLower()));
+                .FirstOrDefaultAsync(league => league.Name.ToLower().Equals(leagueName.ToLower()));
 
-            var query = _dbContext.Matches
-               .Where(m => m.LeagueSeason.LeagueID.Equals(league.ID)
-                    && (season.HasValue ? m.LeagueSeason.Year == season : true)
-                    && (round != null ? m.Round.ToLower().Equals(round.ToLower()) : true));
+            if (league != null)
+            {
+                var query = _dbContext.Matches
+                   .Where(m => m.LeagueSeason.LeagueID.Equals(league.ID)
+                        && (season.HasValue ? m.LeagueSeason.Year == season : true)
+                        && (round != null ? m.Round.ToLower().Equals(round.ToLower()) : true));
 
-            return await query
-               .OrderBy(m => m.Date)
-               .Select(m => new Match
-               {
-                   ID = m.ID,
-                   LeagueSeasonID = m.LeagueSeasonID,
-                   HomeTeamID = m.HomeTeamID,
-                   AwayTeamID = m.AwayTeamID,
-                   Date = m.Date,
-                   Round = m.Round,
-                   Status = m.Status,
-                   Minute = m.Minute,
-                   HomeTeamGoals = m.HomeTeamGoals,
-                   AwayTeamGoals = m.AwayTeamGoals,
-                   LastUpdate = m.LastUpdate,
-                   HomeTeam = new Team
+                return await query
+                   .OrderBy(m => m.Date)
+                   .Select(m => new Match
                    {
-                       ID = m.HomeTeam.ID,
-                       Name = m.HomeTeam.Name,
-                       ShortName = m.HomeTeam.ShortName,
-                       LogoLink = m.HomeTeam.LogoLink,
-                   },
-                   AwayTeam = new Team
-                   {
-                       ID = m.AwayTeam.ID,
-                       Name = m.AwayTeam.Name,
-                       ShortName = m.AwayTeam.ShortName,
-                       LogoLink = m.AwayTeam.LogoLink,
-                   }
-               })
-               .AsNoTracking()
-               .ToListAsync();
+                       ID = m.ID,
+                       LeagueSeasonID = m.LeagueSeasonID,
+                       HomeTeamID = m.HomeTeamID,
+                       AwayTeamID = m.AwayTeamID,
+                       Date = m.Date,
+                       Round = m.Round,
+                       Status = m.Status,
+                       Minute = m.Minute,
+                       HomeTeamGoals = m.HomeTeamGoals,
+                       AwayTeamGoals = m.AwayTeamGoals,
+                       LastUpdate = m.LastUpdate,
+                       HomeTeam = new Team
+                       {
+                           ID = m.HomeTeam.ID,
+                           Name = m.HomeTeam.Name,
+                           ShortName = m.HomeTeam.ShortName,
+                           LogoLink = m.HomeTeam.LogoLink,
+                       },
+                       AwayTeam = new Team
+                       {
+                           ID = m.AwayTeam.ID,
+                           Name = m.AwayTeam.Name,
+                           ShortName = m.AwayTeam.ShortName,
+                           LogoLink = m.AwayTeam.LogoLink,
+                       }
+                   })
+                   .AsNoTracking()
+                   .ToListAsync();
+            }
+            else
+            {
+                return Enumerable.Empty<Match>();
+            }
         }
 
         public async Task<IEnumerable<LeagueStanding>> GetStandingsForLeagueAndSeason(string leagueName, int season)
         {
             League league = await _dbContext.Leagues
                 .AsNoTracking()
-                .FirstAsync(league => league.Name.ToLower().Equals(leagueName.ToLower()));
+                .FirstOrDefaultAsync(league => league.Name.ToLower().Equals(leagueName.ToLower()));
 
-            return await _dbContext.LeagueStandings
-               .Include(s => s.LeagueSeason)
-               .Where(s => s.LeagueSeason.LeagueID == league.ID && s.LeagueSeason.Year == season)
-               .Include(s => s.Team)
-               .OrderBy(s => s.Group)
-               .ThenBy(s => s.Rank)
-               .AsNoTracking()
-               .ToListAsync();
+            return league != null
+                ? await _dbContext.LeagueStandings
+                    .Include(s => s.LeagueSeason)
+                    .Where(s => s.LeagueSeason.LeagueID == league.ID && s.LeagueSeason.Year == season)
+                    .Include(s => s.Team)
+                    .OrderBy(s => s.Group)
+                    .ThenBy(s => s.Rank)
+                    .AsNoTracking()
+                    .ToListAsync()
+                : Enumerable.Empty<LeagueStanding>();
         }
 
         public async Task<IEnumerable<TopScorer>> GetTopScorersForLeagueAndSeason(string leagueName, int season)
         {
             League league = await _dbContext.Leagues
                 .AsNoTracking()
-                .FirstAsync(league => league.Name.ToLower().Equals(leagueName.ToLower()));
+                .FirstOrDefaultAsync(league => league.Name.ToLower().Equals(leagueName.ToLower()));
 
-            return await _dbContext.TopScorers
-               .Include(ts => ts.LeagueSeason)
-               .Where(ts => ts.LeagueSeason.LeagueID == league.ID && ts.LeagueSeason.Year == season)
-               .Include(ts => ts.Team)
-               .OrderBy(ts => ts.Rank)
-               .AsNoTracking()
-               .ToListAsync();
+            return league != null
+                ? await _dbContext.TopScorers
+                    .Include(ts => ts.LeagueSeason)
+                    .Where(ts => ts.LeagueSeason.LeagueID == league.ID && ts.LeagueSeason.Year == season)
+                    .Include(ts => ts.Team)
+                    .OrderBy(ts => ts.Rank)
+                    .AsNoTracking()
+                    .ToListAsync()
+                : Enumerable.Empty<TopScorer>();
         }
 
         public async Task<IEnumerable<League>> Search(string leagueName, string country, string type, int? currentSeason)

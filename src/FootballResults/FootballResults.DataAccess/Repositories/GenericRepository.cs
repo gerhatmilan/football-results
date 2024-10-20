@@ -19,7 +19,7 @@ namespace FootballResults.DataAccess.Repositories
         {
             return await _dbSet
                 .AsTracking(tracking ? QueryTrackingBehavior.TrackAll : QueryTrackingBehavior.NoTracking)
-                .FirstAsync(e => e.ID == id);
+                .FirstOrDefaultAsync(e => e.ID == id);
         }
 
         public virtual async Task<IEnumerable<T>> GetAllAsync(bool tracking)

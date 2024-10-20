@@ -113,7 +113,7 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
                 }
                 else
                 {
-                    NavigationManager!.NavigateTo("/error", true);
+                    NavigationManager!.NavigateTo("/404", true);
                 }
             }
             catch (Exception)

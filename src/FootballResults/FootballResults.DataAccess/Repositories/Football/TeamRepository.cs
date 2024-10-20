@@ -15,7 +15,7 @@ namespace FootballResults.API.Models
         {
             return await _dbContext.Teams
                 .AsNoTracking()
-                .FirstAsync(l => l.Name.ToLower().Equals(teamName.ToLower()));
+                .FirstOrDefaultAsync(l => l.Name.ToLower().Equals(teamName.ToLower()));
         }
 
         public async Task<IEnumerable<Player>> GetSquadForTeam(string teamName)
@@ -23,11 +23,18 @@ namespace FootballResults.API.Models
             Team team = await _dbContext.Teams
                 .Include(t => t.Squad)
                 .AsNoTracking()
-                .FirstAsync(t => t.Name.ToLower().Equals(teamName.ToLower()));
+                .FirstOrDefaultAsync(t => t.Name.ToLower().Equals(teamName.ToLower()));
 
-            return (team.Squad ?? new List<Player>())
-                .OrderByDescending(p => p.Number.HasValue)
-                .ThenBy(p => p.Number);
+            if (team != null && team.Squad != null)
+            {
+                return team.Squad
+                    .OrderByDescending(p => p.Number.HasValue)
+                    .ThenBy(p => p.Number);
+            }
+            else
+            {
+                return Enumerable.Empty<Player>();
+            }
         }
 
         public async Task<IEnumerable<Match>> GetMatchesForTeamAndLeagueAndSeason(string teamName, string leagueName, int season)
@@ -40,43 +47,50 @@ namespace FootballResults.API.Models
                 .Include(t => t.AwayMatches).ThenInclude(m => m.Venue)
                 .Include(t => t.AwayMatches).ThenInclude(m => m.HomeTeam)
                 .AsNoTracking()
-                .FirstAsync(t => t.Name.ToLower().Equals(teamName.ToLower()));
+                .FirstOrDefaultAsync(t => t.Name.ToLower().Equals(teamName.ToLower()));
 
-            return team.Matches
-                .Where(m => m.LeagueSeason.League.Name.ToLower().Equals(leagueName.ToLower()) && m.LeagueSeason.Year == season)
-                .Select(m => new Match
-                {
-                    ID = m.ID,
-                    Date = m.Date,
-                    VenueID = m.VenueID,
-                    LeagueSeasonID = m.LeagueSeasonID,
-                    Round = m.Round,
-                    HomeTeamID = m.HomeTeamID,
-                    AwayTeamID = m.AwayTeamID,
-                    Status = m.Status,
-                    Minute = m.Minute,
-                    HomeTeamGoals = m.HomeTeamGoals,
-                    AwayTeamGoals = m.AwayTeamGoals,
-                    LastUpdate = m.LastUpdate,
-                    LeagueSeason = m.LeagueSeason,
-                    Venue = m.Venue,
-                    HomeTeam = new Team
+            if (team != null)
+            {
+                return team.Matches
+                    .Where(m => m.LeagueSeason.League.Name.ToLower().Equals(leagueName.ToLower()) && m.LeagueSeason.Year == season)
+                    .Select(m => new Match
                     {
-                        ID = m.HomeTeam.ID,
-                        Name = m.HomeTeam.Name,
-                        ShortName = m.HomeTeam.ShortName,
-                        LogoLink = m.HomeTeam.LogoLink,
-                    },
-                    AwayTeam = new Team
-                    {
-                        ID = m.AwayTeam.ID,
-                        Name = m.AwayTeam.Name,
-                        ShortName = m.AwayTeam.ShortName,
-                        LogoLink = m.AwayTeam.LogoLink,
-                    },
-                })
-                .OrderBy(m => m.Date)
-                .ToList();
+                        ID = m.ID,
+                        Date = m.Date,
+                        VenueID = m.VenueID,
+                        LeagueSeasonID = m.LeagueSeasonID,
+                        Round = m.Round,
+                        HomeTeamID = m.HomeTeamID,
+                        AwayTeamID = m.AwayTeamID,
+                        Status = m.Status,
+                        Minute = m.Minute,
+                        HomeTeamGoals = m.HomeTeamGoals,
+                        AwayTeamGoals = m.AwayTeamGoals,
+                        LastUpdate = m.LastUpdate,
+                        LeagueSeason = m.LeagueSeason,
+                        Venue = m.Venue,
+                        HomeTeam = new Team
+                        {
+                            ID = m.HomeTeam.ID,
+                            Name = m.HomeTeam.Name,
+                            ShortName = m.HomeTeam.ShortName,
+                            LogoLink = m.HomeTeam.LogoLink,
+                        },
+                        AwayTeam = new Team
+                        {
+                            ID = m.AwayTeam.ID,
+                            Name = m.AwayTeam.Name,
+                            ShortName = m.AwayTeam.ShortName,
+                            LogoLink = m.AwayTeam.LogoLink,
+                        },
+                    })
+                    .OrderBy(m => m.Date)
+                    .ToList();
+            }
+            else
+            {
+                return Enumerable.Empty<Match>();
+            }
         }
 
         public async Task<IEnumerable<Team>> Search(string teamName, string country, bool? national)

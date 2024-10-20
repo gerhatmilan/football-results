@@ -25,7 +25,7 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
             {
                 CountriesWithTeams = await TeamService!.GetCountriesWithTeamsAsync();
             }
-            catch (HttpRequestException)
+            catch (Exception)
             {
                 NavigationManager?.NavigateTo("/error", true);
             }

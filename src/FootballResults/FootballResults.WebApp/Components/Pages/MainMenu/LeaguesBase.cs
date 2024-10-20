@@ -29,7 +29,7 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
             {
                 CountriesWithLeagues = await LeagueService!.GetCountriesWithLeaguesAsync();
             }
-            catch (HttpRequestException)
+            catch (Exception)
             {
                 NavigationManager?.NavigateTo("/error", true);
             }
