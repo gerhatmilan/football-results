@@ -134,6 +134,18 @@ namespace FootballResults.WebApp.Services.Predictions
             return game;
         }
 
+        public async Task DeletePredictionGameAsync(PredictionGame game)
+        {
+            foreach (Message message in game.Messages)
+            {
+                message.User = null;
+                _dbContext.Messages.Remove(message);
+            }
+
+            _dbContext.PredictionGames.Remove(game);
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task ReloadMatchesAsync(PredictionGame game)
         {
             foreach (Match match in game.Matches.Where(m => m.IsInProgress))

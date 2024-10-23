@@ -110,6 +110,11 @@ namespace FootballResults.DataAccess.Entities.Predictions
         [NotMapped]
         public IEnumerable<Prediction> Predictions => Participations?.SelectMany(p => p.Predictions);
 
+        // skip navigations
+        public IEnumerable<Participation> Participations { get; set; }
+
+        public IEnumerable<PredictionGameSeason> PredictionGameSeasons { get; set; }
+
         [NotMapped]
         public IEnumerable<PredictionGameStanding> LiveStandings
         {
@@ -143,11 +148,6 @@ namespace FootballResults.DataAccess.Entities.Predictions
                 return existingStandingsCopy.OrderByDescending(s => s.Points);
             }
         }
-
-        // skip navigations
-        public IEnumerable<Participation> Participations { get; set; }
-        
-        public IEnumerable<PredictionGameSeason> PredictionGameSeasons { get; set; }
 
         public void RefreshData()
         {

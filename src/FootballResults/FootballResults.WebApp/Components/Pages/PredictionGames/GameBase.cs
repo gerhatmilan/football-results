@@ -145,5 +145,17 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
 
             await InvokeAsync(StateHasChanged);
         }
+
+        protected void OnInviteButtonClicked()
+        {
+            ShowJoinKey = !ShowJoinKey;
+        }
+
+        protected async Task OnDeleteButtonClickedAsync()
+        {
+            await GameService.DeletePredictionGameAsync(Game!);
+            Game = null;
+            NavigationManager.NavigateTo("/prediction-games", true);
+        }
     }
 }

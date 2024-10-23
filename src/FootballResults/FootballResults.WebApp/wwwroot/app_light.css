@@ -59,6 +59,11 @@ p {
     color: white !important;
 }
 
+.buttonDanger, .buttonDanger:hover, .buttonDanger:active, .buttonDanger:focus {
+    background-color: red !important;
+    border: 1px solid red !important;
+}
+
 .highlight {
     background-color: var(--highlight);
     border-radius: 10px;

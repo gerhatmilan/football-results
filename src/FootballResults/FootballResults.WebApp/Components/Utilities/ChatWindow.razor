@@ -43,6 +43,9 @@
     public ICollection<Message>? Messages { get; set; }
 
     [Inject]
+    protected NavigationManager NavigationManager { get; set; } = default!;
+
+    [Inject]
     protected IClientTimeService ClientTimeService { get; set; } = default!;
 
     [Inject]
@@ -96,16 +99,23 @@
                 SentAt = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified)
             };
 
-            if (Group.HasValue)
+            try
             {
-                await ChatService.SendMessageToGroupAsync(groupName: Group.ToString()!, message: message);
-            }
-            else
-            {
-                await ChatService.SendMessageAsync(message: message);
-            }
+                if (Group.HasValue)
+                {
+                    await ChatService.SendMessageToGroupAsync(groupName: Group.ToString()!, message: message);
+                }
+                else
+                {
+                    await ChatService.SendMessageAsync(message: message);
+                }
 
-            ResetMessage();
+                ResetMessage();
+            }
+            catch (Exception)
+            {
+                NavigationManager.NavigateTo("/error", true);
+            }
         }
     }
 
