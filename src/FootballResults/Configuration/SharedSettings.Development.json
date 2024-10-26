@@ -1,7 +1,7 @@
 {
   "FootballApiConfig": {
     "DataFetch": {
-      "ShouldBackupData": true,
+      "ShouldBackupData": false,
       // if set to true, the data will be backed up to the specified path.
       // if LoadDataFromBackup is set to true, the data will be loaded from the files instead of making an API request.
 
