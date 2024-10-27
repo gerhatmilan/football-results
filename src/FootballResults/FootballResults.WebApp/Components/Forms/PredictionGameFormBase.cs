@@ -6,7 +6,6 @@ using FootballResults.WebApp.Services.Football;
 using FootballResults.WebApp.Services.Predictions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using FootballResults.Models.General;
 using FootballResults.WebApp.Services.Files;
 using Microsoft.Extensions.Options;
 using FootballResults.Models.Config;
