@@ -3,9 +3,11 @@ using FootballResults.DataAccess.Entities.Football;
 using FootballResults.Models.Api.FootballApi.Responses;
 using FootballResults.Models.Config;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace FootballResults.DatabaseUpdaters.Updaters
+namespace FootballResults.Models.Updaters
 {
     [Updater]
     [SupportedModes(UpdaterMode.SpecificTeam, UpdaterMode.BasedOnLastUpdate)]
@@ -59,7 +61,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                     continue;
                 }
 
-                DataAccess.Entities.Football.Team? existingTeam = _dbContext.Teams
+                DataAccess.Entities.Football.Team existingTeam = _dbContext.Teams
                     .FirstOrDefault(team => team.ID == responseItem.Team.ID);
 
                 if (existingTeam == null)
@@ -68,7 +70,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                     continue;
                 }
 
-                foreach (Player? mappedPlayer in responseItem.Players.Select(MapPlayer))
+                foreach (Player mappedPlayer in responseItem.Players.Select(MapPlayer))
                 {
                     if (mappedPlayer == null)
                     {
@@ -121,7 +123,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 && !string.IsNullOrEmpty(responseItem.Name);
         }
 
-        public static Player? MapPlayer(SquadPlayer responseItem)
+        public static Player MapPlayer(SquadPlayer responseItem)
         {
             if (ValidatePlayer(responseItem))
             {

@@ -1,4 +1,4 @@
-﻿namespace FootballResults.DatabaseUpdaters
+﻿namespace FootballResults.Models.Updaters
 {
     public enum UpdaterMode
     {

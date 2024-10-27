@@ -2,8 +2,10 @@ using FootballResults.DataAccess.Entities;
 using FootballResults.DataAccess.Entities.Football;
 using FootballResults.Models.Api.FootballApi.Responses;
 using FootballResults.Models.Config;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
-namespace FootballResults.DatabaseUpdaters.Updaters
+namespace FootballResults.Models.Updaters
 {
     [Updater]
     [SupportedModes(UpdaterMode.AllLeaguesAllSeasons, UpdaterMode.AllLeaguesCurrentSeason, UpdaterMode.AllLeaguesSpecificSeason, UpdaterMode.SpecificLeagueCurrentSeason, UpdaterMode.CurrentDate, UpdaterMode.SpecificDate)]
@@ -36,7 +38,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 var matchResponseItem = responseItems.ElementAt(i);
                 var responseRecord = mappedMatches.ElementAt(i);
 
-                DataAccess.Entities.Football.LeagueSeason? relatedLeagueSeason = _dbContext.LeagueSeasons.FirstOrDefault(leagueSeason => leagueSeason.LeagueID == matchResponseItem.League.ID && leagueSeason.Year == matchResponseItem.League.Season);
+                DataAccess.Entities.Football.LeagueSeason relatedLeagueSeason = _dbContext.LeagueSeasons.FirstOrDefault(leagueSeason => leagueSeason.LeagueID == matchResponseItem.League.ID && leagueSeason.Year == matchResponseItem.League.Season);
 
                 if (responseRecord == null)
                 {
@@ -69,7 +71,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 int leagueID = responseItems.FirstOrDefault()?.League.ID ?? -1;
                 int year = responseItems.FirstOrDefault()?.League.Season ?? -1;
 
-                DataAccess.Entities.Football.LeagueSeason? relatedLeagueSeason = _dbContext.LeagueSeasons.FirstOrDefault(leagueSeason => leagueSeason.LeagueID == leagueID && leagueSeason.Year == year);
+                DataAccess.Entities.Football.LeagueSeason relatedLeagueSeason = _dbContext.LeagueSeasons.FirstOrDefault(leagueSeason => leagueSeason.LeagueID == leagueID && leagueSeason.Year == year);
 
                 if (relatedLeagueSeason != null)
                 {
@@ -78,7 +80,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
             }
             else if (_currentMode == UpdaterMode.CurrentDate)
             {
-                SystemInformation? systemInfo = _dbContext.SystemInformation.Find(1);
+                SystemInformation systemInfo = _dbContext.SystemInformation.Find(1);
 
                 if (systemInfo != null)
                 {
@@ -120,7 +122,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 && responseItem.Teams.Away.ID.HasValue;
         }
 
-        public static Match? MapMatch(FixturesResponseItem responseItem)
+        public static Match MapMatch(FixturesResponseItem responseItem)
         {
             if (ValidateMatch(responseItem))
             {

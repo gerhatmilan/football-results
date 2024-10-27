@@ -2,9 +2,11 @@ using FootballResults.DataAccess.Entities.Football;
 using FootballResults.Models.Api.FootballApi.Responses;
 using FootballResults.Models.Config;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace FootballResults.DatabaseUpdaters.Updaters
+namespace FootballResults.Models.Updaters
 {
     [Updater]
     [SupportedModes(UpdaterMode.AllLeaguesAllSeasons, UpdaterMode.AllLeaguesCurrentSeason, UpdaterMode.AllLeaguesSpecificSeason, UpdaterMode.SpecificLeagueCurrentSeason)]
@@ -93,7 +95,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 && responseItem.Statistics.First().Goals.Total.HasValue;
         }
 
-        public static TopScorer? MapTopScorer(TopscorersResponseItem responseItem)
+        public static TopScorer MapTopScorer(TopscorersResponseItem responseItem)
         {
             if (ValidateTopScorer(responseItem))
             {

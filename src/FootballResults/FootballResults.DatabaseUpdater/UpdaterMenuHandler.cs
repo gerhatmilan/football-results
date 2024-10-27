@@ -1,11 +1,7 @@
-﻿using FootballResults.DataAccess;
-using FootballResults.DataAccess.Entities.Football;
-using FootballResults.DatabaseUpdaters.Updaters;
-using FootballResults.Models.Config;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+﻿using FootballResults.Models.Config;
+using FootballResults.Models.Updaters;
 
-namespace FootballResults.DatabaseUpdaters.UpdaterMenu
+namespace FootballResults.DatabaseUpdater
 {
     public class UpdaterMenuHandler
     {

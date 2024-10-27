@@ -1,4 +1,4 @@
-﻿namespace FootballResults.DatabaseUpdaters.UpdaterMenu
+﻿namespace FootballResults.DatabaseUpdater
 {
     public enum UpdaterMenuMode
     {

@@ -1,10 +1,11 @@
-﻿using FootballResults.DataAccess;
-using FootballResults.DatabaseUpdaters.Updaters;
-using FootballResults.Models.Config;
+﻿using FootballResults.Models.Config;
+using FootballResults.Models.Updaters;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace FootballResults.DatabaseUpdaters.UpdaterMenu
+namespace FootballResults.DatabaseUpdater
 {
     public class UpdaterRunner : BackgroundService
     {

@@ -1,16 +1,16 @@
 ﻿using Extensions;
-using FootballResults.DatabaseUpdaters.Updaters;
+using FootballResults.Models.Updaters;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
-namespace FootballResults.DatabaseUpdaters.UpdaterMenu
+namespace FootballResults.DatabaseUpdater
 {
     public static class UpdaterFactory
     {
         public static IEnumerable<Type> AvailableUpdaters
         {
-            get => Assembly.GetExecutingAssembly()
-                .GetUserDefinedClassesFromNamespace("FootballResults.DatabaseUpdaters.Updaters")
+            get => Assembly.Load("FootballResults.Models")
+                .GetUserDefinedClassesFromNamespace("FootballResults.Models.Updaters")
                 .Where(type => type.GetCustomAttribute<UpdaterAttribute>() != null
                     && type.GetCustomAttribute<SupportedModesAttribute>() != null
                     && !type.GetCustomAttribute<SupportedModesAttribute>()!.SupportedModes.Contains(UpdaterMode.Helper));

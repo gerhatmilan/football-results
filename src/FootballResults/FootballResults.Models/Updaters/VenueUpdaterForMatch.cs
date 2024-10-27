@@ -1,33 +1,34 @@
 using FootballResults.DataAccess.Entities.Football;
 using FootballResults.Models.Api.FootballApi.Responses;
 using FootballResults.Models.Config;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace FootballResults.DatabaseUpdaters.Updaters
+namespace FootballResults.Models.Updaters
 {
     [Updater]
     [SupportedModes(UpdaterMode.Helper)]
-    public class VenueUpdaterForTeam : Updater<TeamsResponse, TeamsResponseItem>
+    public class VenueUpdaterForMatch : Updater<FixturesResponse, FixturesResponseItem>
     {
-        protected override UpdaterSpecificSettings UpdaterSpecificSettingsForLeagueAndSeason => _apiConfig.DataFetch.TeamsForLeagueAndSeason;
+        protected override UpdaterSpecificSettings UpdaterSpecificSettingsForLeagueAndSeason => _apiConfig.DataFetch.MatchesForLeagueAndSeason;
 
-        public VenueUpdaterForTeam(IServiceScopeFactory serviceScopeFactory, ILogger<VenueUpdaterForTeam> logger)
+        public VenueUpdaterForMatch(IServiceScopeFactory serviceScopeFactory, ILogger<VenueUpdaterForMatch> logger)
             : base(serviceScopeFactory, logger) { }
 
-        protected override void ProcessData(IEnumerable<TeamsResponseItem> responseItems)
+        protected override void ProcessData(IEnumerable<FixturesResponseItem> responseItems)
         {
             var existingVenues = _dbContext.Venues.ToList();
 
             for (int i = 0; i < responseItems.Count(); i++)
             {
                 var responseItem = responseItems.ElementAt(i);
-                var mappedVenue = MapVenue(responseItem.Venue);
+                var mappedVenue = MapVenue(responseItem.Fixture.Venue);
 
-                Country? relatedCountry = _dbContext.Countries.FirstOrDefault(country => country.Name.Equals(responseItem.Team.Country));
+                Country relatedCountry = _dbContext.Countries.FirstOrDefault(country => country.Name.Equals(responseItem.League.Country));
 
                 if (mappedVenue == null)
                 {
-                    _logger.LogWarning("Invalid venue, skipping...");
                     continue;
                 }
                 else if (relatedCountry == null)
@@ -37,15 +38,14 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 }
 
                 mappedVenue.CountryID = relatedCountry.ID;
-                Venue? existingRecord = existingVenues.FirstOrDefault(existingVenues => existingVenues.ID == mappedVenue.ID);
+                Venue existingRecord = existingVenues.FirstOrDefault(existingVenues => existingVenues.ID == mappedVenue.ID);
 
                 if (existingRecord == null)
                 {
                     existingVenues.Add(mappedVenue);
                     Add(mappedVenue);
                 }
-                else if (!existingRecord.Equals(mappedVenue))
-                    Update(existingRecord, mappedVenue);
+                // we dont update venues at this point
             }
 
             _dbContext.SaveChanges();
@@ -62,17 +62,17 @@ namespace FootballResults.DatabaseUpdaters.Updaters
             _logger.LogDebug($"Updating venue with ID {existingRecord.ID}:"
                 + (existingRecord.ID != responseRecord.ID ? $"\n\tID: {existingRecord.ID} -> {responseRecord.ID}" : "")
                 + (existingRecord.City != responseRecord.City ? $"\n\tCity: {existingRecord.City} -> {responseRecord.City}" : "")
-                + (existingRecord.Name != responseRecord.City ? $"\n\tName: {existingRecord.Name} -> {responseRecord.Name}" : ""));
+                + (existingRecord.Name != responseRecord.Name ? $"\n\tName: {existingRecord.Name} -> {responseRecord.Name}" : ""));
 
             existingRecord.CopyFrom(responseRecord);
         }
 
-        public static bool ValidateVenue(TeamVenue responseItem)
+        public static bool ValidateVenue(FixtureVenue responseItem)
         {
             return responseItem.ID.HasValue;
         }
 
-        public static Venue? MapVenue(TeamVenue responseItem)
+        public static Venue MapVenue(FixtureVenue responseItem)
         {
             if (ValidateVenue(responseItem))
             {

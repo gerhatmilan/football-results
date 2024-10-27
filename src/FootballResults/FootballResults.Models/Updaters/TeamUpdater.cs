@@ -2,9 +2,11 @@ using FootballResults.DataAccess.Entities.Football;
 using FootballResults.Models.Api.FootballApi.Responses;
 using FootballResults.Models.Config;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace FootballResults.DatabaseUpdaters.Updaters
+namespace FootballResults.Models.Updaters
 {
     [Updater]
     [SupportedModes(UpdaterMode.AllLeaguesAllSeasons, UpdaterMode.AllLeaguesCurrentSeason, UpdaterMode.AllLeaguesSpecificSeason, UpdaterMode.SpecificLeagueCurrentSeason)]
@@ -37,7 +39,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 var teamResponseItem = responseItems.ElementAt(i);
                 var responseRecord = mappedTeams.ElementAt(i);
 
-                Country? relatedCountry = _dbContext.Countries.FirstOrDefault(country => country.Name.Equals(teamResponseItem.Team.Country));
+                Country relatedCountry = _dbContext.Countries.FirstOrDefault(country => country.Name.Equals(teamResponseItem.Team.Country));
 
                 if (responseRecord == null)
                 {
@@ -93,7 +95,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 && responseItem.Team.National.HasValue;
         }
 
-        public static DataAccess.Entities.Football.Team? MapTeam(TeamsResponseItem responseItem)
+        public static DataAccess.Entities.Football.Team MapTeam(TeamsResponseItem responseItem)
         {
             if (ValidateTeam(responseItem))
             {

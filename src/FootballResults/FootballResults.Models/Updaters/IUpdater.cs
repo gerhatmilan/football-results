@@ -1,4 +1,4 @@
-﻿namespace FootballResults.DatabaseUpdaters.Updaters
+﻿namespace FootballResults.Models.Updaters
 {
     public interface IUpdater
     {

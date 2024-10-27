@@ -1,11 +1,13 @@
-using Extensions;
 using FootballResults.DataAccess;
-using FootballResults.DatabaseUpdaters.UpdaterMenu;
 using FootballResults.Models.Config;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Serilog;
 
-namespace FootballResults.DatabaseUpdaters
+namespace FootballResults.DatabaseUpdater
 {
     public class Program
     {

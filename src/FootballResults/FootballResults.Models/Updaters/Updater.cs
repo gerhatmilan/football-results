@@ -1,16 +1,17 @@
 ﻿using Extensions;
 using FootballResults.DataAccess;
-using FootballResults.DataAccess.Entities.Football;
 using FootballResults.Models.Api;
 using FootballResults.Models.Api.FootballApi.Responses;
 using FootballResults.Models.Config;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Reflection;
 using System.Text;
 
-namespace FootballResults.DatabaseUpdaters.Updaters
+namespace FootballResults.Models.Updaters
 {
     public abstract class Updater<TResponse, TResponseItem> : IUpdater where TResponse : GeneralResponse<TResponseItem>
     {
@@ -22,16 +23,16 @@ namespace FootballResults.DatabaseUpdaters.Updaters
         protected WebApiClient _webApiClient;
         protected UpdaterMode _currentMode;
 
-        protected virtual UpdaterSpecificSettings? UpdaterSpecificSettings { get; } = null;
-        protected virtual UpdaterSpecificSettings? UpdaterSpecificSettingsForDate { get; } = null;
-        protected virtual UpdaterSpecificSettings? UpdaterSpecificSettingsForTeam { get; } = null;
-        protected virtual UpdaterSpecificSettings? UpdaterSpecificSettingsForLeagueAndSeason { get; } = null;
+        protected virtual UpdaterSpecificSettings UpdaterSpecificSettings { get; } = null;
+        protected virtual UpdaterSpecificSettings UpdaterSpecificSettingsForDate { get; } = null;
+        protected virtual UpdaterSpecificSettings UpdaterSpecificSettingsForTeam { get; } = null;
+        protected virtual UpdaterSpecificSettings UpdaterSpecificSettingsForLeagueAndSeason { get; } = null;
 
         public IEnumerable<UpdaterMode> SupportedModes
         {
             get
             {
-                SupportedModesAttribute? attribute = GetType().GetCustomAttribute<SupportedModesAttribute>();
+                SupportedModesAttribute attribute = GetType().GetCustomAttribute<SupportedModesAttribute>();
 
                 if (attribute == null)
                     return new List<UpdaterMode>();
@@ -139,7 +140,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
 
                 if (UpdaterSpecificSettings.LoadDataFromBackup)
                 {
-                    IEnumerable<TResponseItem>? data = LoadDataFromBackup(UpdaterSpecificSettings.BackupPath);
+                    IEnumerable<TResponseItem> data = LoadDataFromBackup(UpdaterSpecificSettings.BackupPath);
 
                     if (data != null)
                     {
@@ -148,7 +149,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 }
                 else
                 {
-                    TResponse? response = await FetchDataAsync(UpdaterSpecificSettings.Endpoint);
+                    TResponse response = await FetchDataAsync(UpdaterSpecificSettings.Endpoint);
 
                     if (HandleErrors(response))
                     {
@@ -185,7 +186,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 }
             }
 
-            _logger.LogInformation($"{GetType().Name} has finished. Press any key to continue...");
+            _logger.LogInformation($"{GetType().Name} has finished");
         }
 
         protected virtual async Task UpdateForAllLeaguesCurrentSeasonAsync()
@@ -205,7 +206,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
 
                 foreach (var league in leagues)
                 {
-                    DataAccess.Entities.Football.LeagueSeason? currentSeason = league.LeagueSeasons.FirstOrDefault(season => season.InProgress);
+                    DataAccess.Entities.Football.LeagueSeason currentSeason = league.LeagueSeasons.FirstOrDefault(season => season.InProgress);
 
                     if (currentSeason != null)
                     {
@@ -214,7 +215,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 }
             }
 
-            _logger.LogInformation($"{GetType().Name} has finished. Press any key to continue...");
+            _logger.LogInformation($"{GetType().Name} has finished");
         }
 
         protected virtual async Task UpdateForAllLeaguesSpecificSeasonAsync(int year)
@@ -234,7 +235,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
 
                 foreach (var league in leagues)
                 {
-                    DataAccess.Entities.Football.LeagueSeason? specificSeason = league.LeagueSeasons.FirstOrDefault(season => season.Year == year);
+                    DataAccess.Entities.Football.LeagueSeason specificSeason = league.LeagueSeasons.FirstOrDefault(season => season.Year == year);
 
                     if (specificSeason != null)
                     {
@@ -243,7 +244,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 }
             }
 
-            _logger.LogInformation($"{GetType().Name} has finished. Press any key to continue...");
+            _logger.LogInformation($"{GetType().Name} has finished");
         }
 
         protected virtual async Task UpdateForSpecificLeagueCurrentSeasonAsync(int leagueID)
@@ -257,11 +258,11 @@ namespace FootballResults.DatabaseUpdaters.Updaters
             {
                 _dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-                DataAccess.Entities.Football.League? league = _dbContext.Leagues
+                DataAccess.Entities.Football.League league = _dbContext.Leagues
                     .Include(league => league.LeagueSeasons)
                     .FirstOrDefault(league => league.ID.Equals(leagueID));
 
-                DataAccess.Entities.Football.LeagueSeason? currentSeason = _dbContext.LeagueSeasons.FirstOrDefault(season => season.LeagueID == leagueID && season.InProgress);
+                DataAccess.Entities.Football.LeagueSeason currentSeason = _dbContext.LeagueSeasons.FirstOrDefault(season => season.LeagueID == leagueID && season.InProgress);
 
                 if (league == null)
                     throw new InvalidOperationException("League not found");
@@ -277,7 +278,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 }
             }
 
-            _logger.LogInformation($"{GetType().Name} has finished. Press any key to continue...");
+            _logger.LogInformation($"{GetType().Name} has finished");
         }
 
         private async Task UpdateForLeagueAndSeasonAsync(int leagueID, int year)
@@ -287,7 +288,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
 
             if (UpdaterSpecificSettingsForLeagueAndSeason.LoadDataFromBackup)
             {
-                IEnumerable<TResponseItem>? data = LoadDataFromBackup(GetBackupPathFilledWithParameters(UpdaterSpecificSettingsForLeagueAndSeason.BackupPath, year, leagueID));
+                IEnumerable<TResponseItem> data = LoadDataFromBackup(GetBackupPathFilledWithParameters(UpdaterSpecificSettingsForLeagueAndSeason.BackupPath, year, leagueID));
 
                 if (data != null)
                 {
@@ -296,7 +297,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
             }
             else
             {
-                TResponse? response = await FetchDataAsync(GetEndpointFilledWithParameters(UpdaterSpecificSettingsForLeagueAndSeason.Endpoint, leagueID, year));
+                TResponse response = await FetchDataAsync(GetEndpointFilledWithParameters(UpdaterSpecificSettingsForLeagueAndSeason.Endpoint, leagueID, year));
 
                 if (HandleErrors(response))
                 {
@@ -326,7 +327,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
 
                 if (UpdaterSpecificSettingsForDate.LoadDataFromBackup)
                 {
-                    IEnumerable<TResponseItem>? data = LoadDataFromBackup(backupPath);
+                    IEnumerable<TResponseItem> data = LoadDataFromBackup(backupPath);
 
                     if (data != null)
                     {
@@ -335,7 +336,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 }
                 else
                 {
-                    TResponse? response = await FetchDataAsync(endpoint);
+                    TResponse response = await FetchDataAsync(endpoint);
 
                     if (HandleErrors(response))
                     {
@@ -345,14 +346,14 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                 }
             }
 
-            _logger.LogInformation($"{GetType().Name} has finished. Press any key to continue...");
+            _logger.LogInformation($"{GetType().Name} has finished");
         }
 
         protected virtual async Task UpdateForSpecificTeamAsync(int teamID)
         {
             _logger.LogInformation($"{GetType().Name} starting...");
             await UpdateForTeamAsync(teamID);
-            _logger.LogInformation($"{GetType().Name} has finished. Press any key to continue...");
+            _logger.LogInformation($"{GetType().Name} has finished");
         }
 
 
@@ -365,7 +366,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
             {
                 _dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-                DataAccess.Entities.Football.Team? existingTeam = _dbContext.Teams.FirstOrDefault(team => team.ID == teamID);
+                DataAccess.Entities.Football.Team existingTeam = _dbContext.Teams.FirstOrDefault(team => team.ID == teamID);
 
                 if (existingTeam == null)
                 {
@@ -378,7 +379,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
 
                     if (UpdaterSpecificSettingsForTeam.LoadDataFromBackup)
                     {
-                        IEnumerable<TResponseItem>? data = LoadDataFromBackup(backupPath);
+                        IEnumerable<TResponseItem> data = LoadDataFromBackup(backupPath);
 
                         if (data != null)
                         {
@@ -387,7 +388,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                     }
                     else
                     {
-                        TResponse? response = await FetchDataAsync(endpoint);
+                        TResponse response = await FetchDataAsync(endpoint);
 
                         if (HandleErrors(response))
                         {
@@ -401,7 +402,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
 
         protected virtual Task UpdateBasedOnLastUpdateAsync(TimeSpan maximumElapsedTimeSinceLastUpdate) { return Task.CompletedTask; }
 
-        protected virtual IEnumerable<TResponseItem>? LoadDataFromBackup(string backupPath)
+        protected virtual IEnumerable<TResponseItem> LoadDataFromBackup(string backupPath)
         {
             if (!File.Exists(backupPath))
             {
@@ -415,7 +416,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
             return JsonConvert.DeserializeObject<IEnumerable<TResponseItem>>(json);
         }
 
-        protected virtual async Task<TResponse?> FetchDataAsync(string endpoint)
+        protected virtual async Task<TResponse> FetchDataAsync(string endpoint)
         {
             _logger.LogInformation("API fetch in progress...");
             var response = await _webApiClient.GetAsync<TResponse>(endpoint, _apiConfig.RequestHeaders);
@@ -424,7 +425,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
             return response;
         }
 
-        protected virtual void BackupData(TResponse? response, string backupPath)
+        protected virtual void BackupData(TResponse response, string backupPath)
         {
             if (response != null && _apiConfig.DataFetch.ShouldBackupData)
             {
@@ -433,7 +434,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
             }
         }
 
-        protected virtual bool HandleErrors(TResponse? response)
+        protected virtual bool HandleErrors(TResponse response)
         {
             if (response == null)
                 throw new Exception("API response deserialization failed");

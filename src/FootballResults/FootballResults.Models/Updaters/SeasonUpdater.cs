@@ -1,9 +1,11 @@
 using FootballResults.Models.Api.FootballApi.Responses;
 using FootballResults.Models.Config;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace FootballResults.DatabaseUpdaters.Updaters
+namespace FootballResults.Models.Updaters
 {
     [Updater]
     [SupportedModes(UpdaterMode.Helper)]
@@ -37,7 +39,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                         continue;
                     }
 
-                    DataAccess.Entities.Football.LeagueSeason? existingLeagueSeason = existingLeageSeasons.FirstOrDefault(existingLeagueSeason => existingLeagueSeason?.Year == mappedLeagueSeason.Year
+                    DataAccess.Entities.Football.LeagueSeason existingLeagueSeason = existingLeageSeasons.FirstOrDefault(existingLeagueSeason => existingLeagueSeason?.Year == mappedLeagueSeason.Year
                         && existingLeagueSeason.League?.ID == leagueResponseItem.League.ID);
 
                     mappedLeagueSeason.LeagueID = leagueResponseItem.League.ID!.Value;
@@ -79,7 +81,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
             // && responseItem.Coverage.TopScorers.GetValueOrDefault(false);
         }
 
-        public static DataAccess.Entities.Football.LeagueSeason? MapSeason(LeagueSeason responseItem)
+        public static DataAccess.Entities.Football.LeagueSeason MapSeason(LeagueSeason responseItem)
         {
             if (ValidateSeason(responseItem))
             {

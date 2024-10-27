@@ -1,4 +1,4 @@
-﻿namespace FootballResults.DatabaseUpdaters
+﻿namespace FootballResults.Models.Updaters
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class SupportedModesAttribute : Attribute

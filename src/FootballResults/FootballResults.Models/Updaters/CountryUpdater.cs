@@ -1,9 +1,11 @@
 using FootballResults.DataAccess.Entities.Football;
 using FootballResults.Models.Api.FootballApi.Responses;
 using FootballResults.Models.Config;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace FootballResults.DatabaseUpdaters.Updaters
+namespace FootballResults.Models.Updaters
 {
     [Updater]
     [SupportedModes(UpdaterMode.Classic)]
@@ -18,7 +20,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
         {
             List<Country> existingCountries = _dbContext.Countries.ToList();
 
-            foreach (Country? responseRecord in responseItems.Select(MapCountry))
+            foreach (Country responseRecord in responseItems.Select(MapCountry))
             {
                 if (responseRecord == null)
                 {
@@ -26,7 +28,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
                     continue;
                 }
 
-                Country? existingRecord = existingCountries.FirstOrDefault(existingCountry => existingCountry.Name.Equals(responseRecord.Name));
+                Country existingRecord = existingCountries.FirstOrDefault(existingCountry => existingCountry.Name.Equals(responseRecord.Name));
 
                 if (existingRecord == null)
                 {
@@ -51,7 +53,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
             Country newTurkey = new Country();
             newTurkey.CopyFrom(responseRecord);
             newTurkey.Name = "Türkiye";
-            Country? existingRecord = existingCountries.FirstOrDefault(existingCountry => existingCountry.Name.Equals(newTurkey.Name));
+            Country existingRecord = existingCountries.FirstOrDefault(existingCountry => existingCountry.Name.Equals(newTurkey.Name));
             if (existingRecord == null)
             {
                 existingCountries.Add(newTurkey);
@@ -81,7 +83,7 @@ namespace FootballResults.DatabaseUpdaters.Updaters
             return !string.IsNullOrWhiteSpace(responseItem.Name);
         }
 
-        public static Country? MapCountry(CountriesResponseItem responseItem)
+        public static Country MapCountry(CountriesResponseItem responseItem)
         {
             if (ValidateCountry(responseItem))
             {

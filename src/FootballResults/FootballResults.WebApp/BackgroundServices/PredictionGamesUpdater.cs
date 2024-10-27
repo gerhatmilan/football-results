@@ -2,7 +2,6 @@
 using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Entities.Predictions;
 using FootballResults.DataAccess.Models;
-using FootballResults.DatabaseUpdaters.Updaters;
 using FootballResults.Models.Config;
 using FootballResults.WebApp.Components.Pages.PredictionGames;
 using Microsoft.EntityFrameworkCore;

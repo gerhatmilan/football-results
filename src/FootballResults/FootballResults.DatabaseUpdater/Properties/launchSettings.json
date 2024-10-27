@@ -1,7 +1,7 @@
 ﻿{
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
-    "FootballResults.DatabaseUpdaters": {
+    "FootballResults.DatabaseUpdater": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "environmentVariables": {

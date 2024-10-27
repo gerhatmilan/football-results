@@ -1,14 +1,13 @@
 ﻿using FootballResults.DataAccess;
 using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Models;
-using FootballResults.DatabaseUpdaters.Updaters;
 using FootballResults.Models.Config;
+using FootballResults.Models.Updaters;
 using FootballResults.WebApp.Hubs;
 using FootballResults.WebApp.Services.Chat;
 using FootballResults.WebApp.Services.LiveUpdates;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
 namespace FootballResults.WebApp.BackgroundServices
@@ -97,7 +96,7 @@ namespace FootballResults.WebApp.BackgroundServices
             {
                 try
                 {
-                    await _matchUpdater.StartAsync(DatabaseUpdaters.UpdaterMode.CurrentDate);
+                    await _matchUpdater.StartAsync(UpdaterMode.CurrentDate);
 
                     // notify connected clients about the update
                     await _notificationHubContext.Clients.All.SendAsync("ReceiveMessage", UpdateMessageType.MatchesUpdated);
@@ -124,7 +123,7 @@ namespace FootballResults.WebApp.BackgroundServices
                 {
                     try
                     {
-                        await _matchUpdater.StartAsync(DatabaseUpdaters.UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
+                        await _matchUpdater.StartAsync(UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
 
                         // notify connected clients about the update
                         await _notificationHubContext.Clients.All.SendAsync("ReceiveMessage", UpdateMessageType.MatchesUpdated);
@@ -152,7 +151,7 @@ namespace FootballResults.WebApp.BackgroundServices
                 {
                     try
                     {
-                        await _standingUpdater.StartAsync(DatabaseUpdaters.UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
+                        await _standingUpdater.StartAsync(UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
                     }
                     catch (Exception ex)
                     {
@@ -177,7 +176,7 @@ namespace FootballResults.WebApp.BackgroundServices
                 {
                     try
                     {
-                        await _topScorerUpdater.StartAsync(DatabaseUpdaters.UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
+                        await _topScorerUpdater.StartAsync(UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
                     }
                     catch (Exception ex)
                     {
