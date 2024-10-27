@@ -31,10 +31,8 @@
     <ProjectReference Include="..\FootballResults.Models\FootballResults.Models.csproj" />
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /E /I /Y &quot;$(SolutionDir)Configuration&quot; &quot;$(TargetDir)Configuration&quot;&#xA;" />
-  </Target>
+  <ItemGroup>
+	<None Include="..\Configuration\**" CopyToOutputDirectory="PreserveNewest" LinkBase="Configuration\" />
+  </ItemGroup>
 
 </Project>

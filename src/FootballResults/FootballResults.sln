@@ -18,10 +18,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballResults.DatabaseUpd
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions", "Extensions\Extensions.csproj", "{5DA65AA3-5854-4CAC-A054-B06E37B1A588}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{F828EFD6-7098-4DFF-80A0-89C394B66C51}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{6896527E-A6AA-4530-A36B-F466D0AB5F70}"
 	ProjectSection(SolutionItems) = preProject
-		Configuration\SharedSettings.Development.json = Configuration\SharedSettings.Development.json
-		Configuration\SharedSettings.json = Configuration\SharedSettings.json
+		Configuration\sharedSettings.Development.json = Configuration\sharedSettings.Development.json
+		Configuration\sharedSettings.json = Configuration\sharedSettings.json
 	EndProjectSection
 EndProject
 Global

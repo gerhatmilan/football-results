@@ -71,8 +71,8 @@ namespace FootballResults.WebApp
             string _configurationFolder = Path.Combine(_environment.ContentRootPath, "..", "Configuration");
 
             _configuration = _builder.Configuration
-                .AddJsonFile(Path.Combine(_configurationFolder, "SharedSettings.json"))
-                .AddJsonFile(Path.Combine(_configurationFolder, $"SharedSettings.{_environment.EnvironmentName}.json"))
+                .AddJsonFile(Path.Combine(_configurationFolder, "sharedSettings.json"))
+                .AddJsonFile(Path.Combine(_configurationFolder, $"sharedSettings.{_environment.EnvironmentName}.json"))
                 .AddJsonFile(Path.Combine(_environment.ContentRootPath, "appsettings.json"))
                 .AddJsonFile(Path.Combine(_environment.ContentRootPath, $"appsettings.{_environment.EnvironmentName}.json"))
                 .AddEnvironmentVariables()

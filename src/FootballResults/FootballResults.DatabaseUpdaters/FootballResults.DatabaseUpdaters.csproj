@@ -22,6 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="databackup\standings\" />
+	<None Include="..\Configuration\**" CopyToOutputDirectory="PreserveNewest" LinkBase="Configuration\" />
   </ItemGroup>
 </Project>
