@@ -31,5 +31,6 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
+	<None Include="..\Configuration\**" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
