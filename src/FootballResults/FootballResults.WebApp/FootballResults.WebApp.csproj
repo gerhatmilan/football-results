@@ -5,6 +5,9 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <OutputType>WinExe</OutputType>
+    <UserSecretsId>366de54d-5dba-4cdc-8631-4b070e0825ac</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 	
   <ItemGroup>
@@ -23,10 +26,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FootballResults.DataAccess\FootballResults.DataAccess.csproj" />
     <ProjectReference Include="..\FootballResults.Models\FootballResults.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+  	<None Include="..\Configuration\**" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

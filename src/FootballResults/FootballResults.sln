@@ -22,7 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configurat
 		Configuration\sharedSettings.json = Configuration\sharedSettings.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballResults.DatabaseUpdater", "FootballResults.DatabaseUpdater\FootballResults.DatabaseUpdater.csproj", "{3D5E2A05-839D-4F9B-BBD6-C64330546294}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballResults.DatabaseUpdater", "FootballResults.DatabaseUpdater\FootballResults.DatabaseUpdater.csproj", "{3D5E2A05-839D-4F9B-BBD6-C64330546294}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E623E1BD-A4F1-48F2-89D4-0B0BD315A44B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +56,10 @@ Global
 		{3D5E2A05-839D-4F9B-BBD6-C64330546294}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D5E2A05-839D-4F9B-BBD6-C64330546294}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D5E2A05-839D-4F9B-BBD6-C64330546294}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E623E1BD-A4F1-48F2-89D4-0B0BD315A44B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E623E1BD-A4F1-48F2-89D4-0B0BD315A44B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E623E1BD-A4F1-48F2-89D4-0B0BD315A44B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E623E1BD-A4F1-48F2-89D4-0B0BD315A44B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

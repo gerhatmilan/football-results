@@ -44,7 +44,6 @@ namespace FootballResults.WebApp
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAntiforgery();
             app.UseAuthentication();
@@ -57,6 +56,8 @@ namespace FootballResults.WebApp
             app.MapHub<MessageHub<Message>>("/chathub");
             app.MapHub<MessageHub<UpdateMessageType>>("/updatehub");
 
+            ApplyMigrations(app);
+
             app.Run();
         }
 
@@ -68,13 +69,13 @@ namespace FootballResults.WebApp
 
         private static void BuildConfiguration()
         {
-            string _configurationFolder = Path.Combine(_environment.ContentRootPath, "..", "Configuration");
+            string baseDirectory = AppContext.BaseDirectory;
 
             _configuration = _builder.Configuration
-                .AddJsonFile(Path.Combine(_configurationFolder, "sharedSettings.json"))
-                .AddJsonFile(Path.Combine(_configurationFolder, $"sharedSettings.{_environment.EnvironmentName}.json"))
-                .AddJsonFile(Path.Combine(_environment.ContentRootPath, "appsettings.json"))
-                .AddJsonFile(Path.Combine(_environment.ContentRootPath, $"appsettings.{_environment.EnvironmentName}.json"))
+                .AddJsonFile(Path.Combine(baseDirectory, "sharedSettings.json"))
+                .AddJsonFile(Path.Combine(baseDirectory, $"sharedSettings.{_environment.EnvironmentName}.json"), optional: true)
+                .AddJsonFile(Path.Combine(baseDirectory, "appsettings.json"))
+                .AddJsonFile(Path.Combine(baseDirectory, $"appsettings.{_environment.EnvironmentName}.json"), optional: true)
                 .AddEnvironmentVariables()
                 .Build();
         }
@@ -82,19 +83,22 @@ namespace FootballResults.WebApp
         private static void CheckConfiguration()
         {
             string configNotFound = string.Empty;
+            string key = string.Empty;
 
             if (_configuration.GetConnectionString("DefaultConnection") == null)
             {
                 configNotFound = "Database connection string";
+                key = "ConnectionStrings__DefaultConnection";
             }
             else if (_configuration.GetValue<string>("FootballApiConfig:ApiKey") == null)
             {
                 configNotFound = "API key";
+                key = "FootballApiConfig__ApiKey";
             }
 
             if (!string.IsNullOrEmpty(configNotFound))
             {
-                throw new Exception($"{configNotFound} not found. Please provide it in appsettings.json or as an environment variable.");
+                throw new Exception($"{configNotFound} not found. Please provide it in appsettings.json or as an environment variable with key {key}.");
             }
         }
 
@@ -156,6 +160,15 @@ namespace FootballResults.WebApp
                     .UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll)
                     .LogTo(Console.Write, minimumLevel: LogLevel.Warning);
             }, ServiceLifetime.Transient);
+        }
+
+        private static void ApplyMigrations(WebApplication app)
+        {
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                dbContext.Database.Migrate();
+            }
         }
     }
 }

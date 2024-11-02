@@ -1,0 +1,5 @@
+name: footballresults
+services:
+  webapp:
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
