@@ -1,4 +1,4 @@
-name: footballresults
+name: football-results
 services:
   webapp:
     environment:

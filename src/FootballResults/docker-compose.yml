@@ -1,9 +1,7 @@
-name: footballresults
+name: football-results
 services:
   webapp:
-    build:
-      context: .
-      dockerfile: FootballResults.WebApp/Dockerfile
+    image: gerhatmilan/football-results-webapp:latest
     environment:
       ASPNETCORE_HTTP_PORTS: 80
       ConnectionStrings__DefaultConnection: ${ConnectionStrings__DefaultConnection}
