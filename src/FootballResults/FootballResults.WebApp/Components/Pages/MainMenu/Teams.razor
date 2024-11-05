@@ -7,16 +7,19 @@
 
 @if (CountriesWithTeams != null)
 {
-    @foreach (Country country in CountriesWithTeams.OrderBy(c => c.Name))
-    {
-        <div class="teamsGroup">
-            <CountryCard Country="country" />     
-            @foreach (Team team in country.Teams.OrderBy(t => t.Name))
-            {
-                <TeamHeaderCard Team="team" />
-            }
-        </div>
-    }
+    <Virtualize TItem="Country" Items="CountriesWithTeams.OrderBy(c => c.Name).ToList()" Context="country">
+        <ItemContent>
+            <CountryCard Country="country" />
+
+            <Virtualize TItem="Team" Items="country.Teams.OrderBy(t => t.Name).ToList()" Context="team">
+                <ItemContent>
+                    <div class="teamsGroup">
+                        <TeamHeaderCard Team="team" />
+                    </div>
+                </ItemContent>
+            </Virtualize>
+        </ItemContent>
+    </Virtualize>
 }
 else
 {
