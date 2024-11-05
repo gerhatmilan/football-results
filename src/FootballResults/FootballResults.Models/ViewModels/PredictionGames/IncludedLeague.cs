@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FootballResults.Models.Predictions
+namespace FootballResults.Models.ViewModels.PredictionGames
 {
     public class IncludedLeague
     {

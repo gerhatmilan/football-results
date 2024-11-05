@@ -1,7 +1,7 @@
 ﻿using FootballResults.DataAccess.Entities.Predictions;
 using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Entities.Users;
-using FootballResults.Models.Predictions;
+using FootballResults.Models.ViewModels.PredictionGames;
 
 namespace FootballResults.WebApp.Services.Predictions
 {

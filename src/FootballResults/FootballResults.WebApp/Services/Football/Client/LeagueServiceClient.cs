@@ -63,9 +63,5 @@ namespace FootballResults.WebApp.Services.Football.Client
             HttpResponseMessage response = await _httpClient.GetAsync($"api/leagues/search?name={leagueName}");
             return await HandleResponseAsync<IEnumerable<League>>(response) ?? Enumerable.Empty<League>();
         }
-        public IEnumerable<League> GetLeaguesFavoritesFirst(User user, IEnumerable<League> leagues)
-        {
-            return leagues.OrderByDescending(l => user.FavoriteLeagues.Select(fl => fl.ID).Contains(l.ID)).ThenBy(l => l.Name);
-        }
     }
 }

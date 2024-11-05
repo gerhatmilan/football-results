@@ -1,16 +1,16 @@
 ﻿using FootballResults.DataAccess.Entities.Football;
 using System.ComponentModel.DataAnnotations;
 
-namespace FootballResults.Models.Predictions
+namespace FootballResults.Models.ViewModels.PredictionGames
 {
     public class CreatePredictionGameModel
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "Name is required")]
         [MinLength(5, ErrorMessage = "Name must be at least 5 characters long")]
         public string Name { get; set; }
-        
+
         public string Description { get; set; }
-        
+
         public string PicturePath { get; set; }
 
         public ICollection<IncludedLeague> IncludedLeagues { get; set; }

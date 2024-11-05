@@ -1,6 +1,6 @@
 ﻿using FootballResults.DataAccess.Entities.Predictions;
 using FootballResults.DataAccess.Entities.Users;
-using FootballResults.Models.Predictions;
+using FootballResults.Models.ViewModels.PredictionGames;
 using FootballResults.WebApp.Services.Predictions;
 using Microsoft.AspNetCore.Components;
 

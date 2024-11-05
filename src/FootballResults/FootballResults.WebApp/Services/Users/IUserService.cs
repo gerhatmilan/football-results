@@ -1,6 +1,6 @@
 ﻿using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Entities.Users;
-using FootballResults.Models.Users;
+using FootballResults.Models.ViewModels.Users;
 
 namespace FootballResults.WebApp.Services.Users
 {

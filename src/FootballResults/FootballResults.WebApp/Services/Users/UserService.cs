@@ -3,7 +3,7 @@ using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Entities.Users;
 using FootballResults.Models.Config;
 using FootballResults.Models.Files;
-using FootballResults.Models.Users;
+using FootballResults.Models.ViewModels.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 

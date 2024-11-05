@@ -1,4 +1,4 @@
-﻿namespace FootballResults.Models.Predictions
+﻿namespace FootballResults.Models.ViewModels.PredictionGames
 {
     public class PredictionModel
     {

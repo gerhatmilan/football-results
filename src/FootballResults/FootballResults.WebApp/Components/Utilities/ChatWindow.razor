@@ -4,8 +4,7 @@
 {
     <div class="chatWindow highlight" @ref=ChatWindowReference>
 
-        @foreach (var message in Messages)
-        {
+        <Virtualize TItem="Message" Items="Messages" Context="message">
             <div class="chatRow">
                 <div class="detailsDiv">
                     <div class="userDiv">
@@ -29,7 +28,7 @@
                     @message?.Text
                 </div>
             </div>
-        }
+        </Virtualize>
     </div>
 }
 

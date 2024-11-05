@@ -35,10 +35,5 @@ namespace FootballResults.WebApp.Services.Football.Client
             var result = await _httpClient.GetFromJsonAsync<IEnumerable<Team>>($"api/teams/search?name={teamName}");
             return result ?? Enumerable.Empty<Team>();
         }
-
-        public IEnumerable<Team> GetTeamsFavoritesFirst(User user, IEnumerable<Team> teams)
-        {
-            return teams.OrderByDescending(t => user.FavoriteTeams.Select(ft => ft.ID).Contains(t.ID)).ThenBy(t => t.Name);
-        }
     }
 }

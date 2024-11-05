@@ -1,5 +1,6 @@
 ﻿using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Entities.Users;
+using FootballResults.Models.ViewModels.Football;
 
 namespace FootballResults.WebApp.Services.Football
 {
@@ -15,7 +16,5 @@ namespace FootballResults.WebApp.Services.Football
         Task<IEnumerable<Match>> GetMatchesForLeagueAndSeasonAsync(string leagueName, int season);
         Task<IEnumerable<Match>> SearchForMatchAsync(DateTime? date = null, DateTime? from = null, DateTime? to = null,
             int? year = null, int? month = null, int? day = null, string? teamName = null, string? leagueName = null, int? season = null, string? round = null);
-        IEnumerable<(int leagueID, List<Match> matches)> GetMatchesGroupedByLeague(IEnumerable<Match> matches);
-        IEnumerable<(int leagueID, List<Match> matches)> GetMatchesGroupedByLeagueFavoritesFirst(User user, IEnumerable<Match> matches);
     }
 }

@@ -64,16 +64,11 @@ else
         {
             @if (Matches.Count() > 0)
             {
-                <div class="head2head">
-                    <div class="roundMatches">
-                        @foreach (var matchesByLeagueGroup in GetMatchesByLeague())
-                        {
-                            {
-                                <LeagueCard League="matchesByLeagueGroup.matches.First().League" Matches="matchesByLeagueGroup.matches" MatchOrderOption="@MatchOrderOption" />
-                            }
-                        }
-                    </div>
-                </div>
+                <Virtualize TItem="LeagueMatchGroup" Items="ViewHelper.GetMatchesGroupedByLeague(Matches, User).ToList()" Context="leagueMatchGroup">
+                    <ItemContent>
+                        <LeagueHeaderCard League="leagueMatchGroup.League" Matches="leagueMatchGroup.Matches" MatchOrderOption="@MatchOrderOption" />
+                    </ItemContent>
+                </Virtualize>
             }
             else
             {

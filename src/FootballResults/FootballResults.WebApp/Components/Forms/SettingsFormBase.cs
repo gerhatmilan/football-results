@@ -1,11 +1,11 @@
 ﻿using FootballResults.DataAccess.Entities.Users;
-using FootballResults.Models.Users;
 using FootballResults.WebApp.Services.Users;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components;
 using FootballResults.WebApp.Services.Files;
 using Microsoft.Extensions.Options;
 using FootballResults.Models.Config;
+using FootballResults.Models.ViewModels.Users;
 
 namespace FootballResults.WebApp.Components.Forms
 {

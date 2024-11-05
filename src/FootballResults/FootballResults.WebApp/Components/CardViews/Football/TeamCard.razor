@@ -7,31 +7,10 @@
             @Team?.Name
         </div>
     </a>
-    <div>
-        @if (ShowBookmark)
-        {
-            <AuthorizeView>
-                <Authorized>
-                    <BookmarkIcon Bookmark="Team" ButtonClicked="OnBookmarkClicked" DefaultColor="defaultLight" />
-                </Authorized>
-            </AuthorizeView>
-        }
-    </div>
 </div>
 
 
 @code {
     [Parameter]
     public Team? Team { get; set; }
-
-    [Parameter]
-    public bool ShowBookmark { get; set; }
-
-    [Parameter]
-    public EventCallback BookmarkClicked { get; set; }
-
-    private async Task OnBookmarkClicked()
-    {
-        await BookmarkClicked.InvokeAsync();
-    }
 }

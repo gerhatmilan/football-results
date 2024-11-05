@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FootballResults.Models.Predictions
+namespace FootballResults.Models.ViewModels.PredictionGames
 {
     public class JoinPredictionGameFormModel
     {

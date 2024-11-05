@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
-namespace FootballResults.Models.Users
+namespace FootballResults.Models.ViewModels.Users
 {
     public class LoginModel
     {

@@ -11,13 +11,13 @@
         <ItemContent>
             <CountryCard Country="country" />
 
-            <Virtualize TItem="Team" Items="country.Teams.OrderBy(t => t.Name).ToList()" Context="team">
-                <ItemContent>
-                    <div class="teamsGroup">
-                        <TeamHeaderCard Team="team" />
-                    </div>
-                </ItemContent>
-            </Virtualize>
+            <div class="teamsGroup">
+                <Virtualize TItem="Team" Items="ViewHelper.GetFavoriteTeamsFirst(country.Teams, User).ToList()" Context="team">
+                    <ItemContent>
+                            <TeamHeaderCard Team="team" />
+                    </ItemContent>
+                </Virtualize>
+            </div>
         </ItemContent>
     </Virtualize>
 }

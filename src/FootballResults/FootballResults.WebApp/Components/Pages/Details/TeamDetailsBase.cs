@@ -2,6 +2,7 @@
 using FootballResults.DataAccess.Entities.Football;
 using FootballResults.WebApp.Components.Utilities;
 using FootballResults.WebApp.Services.Football;
+using FootballResults.DataAccess.Entities.Users;
 
 namespace FootballResults.WebApp.Components.Pages.Details
 {
@@ -9,6 +10,9 @@ namespace FootballResults.WebApp.Components.Pages.Details
     {
         [Inject]
         protected ITeamService? TeamService { get; set; }
+
+        [CascadingParameter(Name = "User")]
+        public User User { get; set; } = default!;
 
         [Parameter]
         public string? TeamName { get; set; }
@@ -63,16 +67,6 @@ namespace FootballResults.WebApp.Components.Pages.Details
                     NavigationManager?.NavigateTo("/error", true);
                 }
             }
-        }
-
-        protected List<(int leagueID, List<Match> matches)> GetMatchesByLeague()
-        {
-            return Matches!
-                .GroupBy(
-                    m => m.League.ID,
-                    (leagueID, matches) => (leagueID, Matches!.Where(m => m.League.ID.Equals(leagueID)).ToList())
-                )
-                .ToList();
         }
     }
 }

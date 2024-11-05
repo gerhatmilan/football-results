@@ -12,10 +12,11 @@
 {
     @if (Matches.Any())
     {
-        @foreach (var leagueWithMatchesGroup in (User != null ? MatchService.GetMatchesGroupedByLeagueFavoritesFirst(User, Matches) : MatchService.GetMatchesGroupedByLeague(Matches)))
-        {
-            <LeagueHeaderCard League="leagueWithMatchesGroup.matches.ElementAt(0).League" Matches="leagueWithMatchesGroup.matches" MatchOrderOption="@MatchOrderOption.RoundThenDateAsc" />
-        }
+        <Virtualize TItem="LeagueMatchGroup" Items="LeagueMatchGroups.ToList()" Context="leagueMatchGroup">
+            <ItemContent>
+                <LeagueHeaderCard League="leagueMatchGroup.League" Matches="leagueMatchGroup.Matches" MatchOrderOption="@MatchOrderOption.RoundThenDateAsc" />
+            </ItemContent>
+        </Virtualize>
     }
     else
     {

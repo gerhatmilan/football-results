@@ -4,6 +4,7 @@ using FootballResults.DataAccess.Entities.Users;
 using FootballResults.WebApp.Services.Football;
 using FootballResults.WebApp.Services.Time;
 using FootballResults.WebApp.Services.LiveUpdates;
+using FootballResults.Models.ViewModels.Football;
 
 namespace FootballResults.WebApp.Components.Pages.MainMenu
 {
@@ -26,6 +27,14 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
         protected DateTime SelectedDate { get; set; }
 
         protected IEnumerable<Match>? Matches { get; set; }
+
+        protected IEnumerable<LeagueMatchGroup> LeagueMatchGroups
+        {
+            get
+            {
+                return Matches != null ? ViewHelper.GetMatchesGroupedByLeague(Matches!, User) : Enumerable.Empty<LeagueMatchGroup>();
+            }
+        }
 
         protected override async Task OnInitializedAsync()
         {

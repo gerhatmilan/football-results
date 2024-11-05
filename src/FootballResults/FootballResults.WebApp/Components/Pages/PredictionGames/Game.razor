@@ -111,23 +111,25 @@
                         @if (UpcomingMatchesDecludingToday.Count() > 0)
                         {
                             <h3>Upcoming</h3>
-                            @foreach (Match match in UpcomingMatchesDecludingToday)
-                            {
-                                <CascadingValue Name="Match" Value="match">
-                                    <GameMatchCard />
-                                </CascadingValue>
-                            }
+                            <Virtualize TItem="Match" Items="UpcomingMatchesDecludingToday.ToList()" Context="match">
+                                <ItemContent>
+                                    <CascadingValue Name="Match" Value="match">
+                                        <GameMatchCard />
+                                    </CascadingValue>
+                                </ItemContent>
+                            </Virtualize>
                         }
                         
                         @if (FinishedMatchesDecludingToday.Count() > 0)
                         {
                             <h3>Finished</h3>
-                            @foreach (Match match in FinishedMatchesDecludingToday)
-                            {
-                                <CascadingValue Name="Match" Value="match">
-                                    <GameMatchCard />
-                                </CascadingValue>
-                            }
+                            <Virtualize TItem="Match" Items="FinishedMatchesDecludingToday.ToList()" Context="match">
+                                <ItemContent>
+                                    <CascadingValue Name="Match" Value="match">
+                                        <GameMatchCard />
+                                    </CascadingValue>
+                                </ItemContent>
+                            </Virtualize>
                         }
                     </CascadingValue>
                 </CascadingValue>

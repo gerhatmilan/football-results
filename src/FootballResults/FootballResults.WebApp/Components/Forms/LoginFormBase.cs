@@ -1,5 +1,5 @@
 ﻿using FootballResults.DataAccess.Entities.Users;
-using FootballResults.Models.Users;
+using FootballResults.Models.ViewModels.Users;
 using FootballResults.WebApp.Services.Users;
 using Microsoft.AspNetCore.Components;
 

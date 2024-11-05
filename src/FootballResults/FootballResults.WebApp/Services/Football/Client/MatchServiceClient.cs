@@ -66,26 +66,5 @@ namespace FootballResults.WebApp.Services.Football.Client
             var result = await _httpClient.GetFromJsonAsync<IEnumerable<Match>>($"api/matches/search?date={date}&from={from}&to={to}&year={year}&month={month}&day={day}&team={teamName}&league={leagueName}&season={season}&round={round}");
             return result ?? Enumerable.Empty<Match>();
         }
-
-        public IEnumerable<(int leagueID, List<Match> matches)> GetMatchesGroupedByLeague(IEnumerable<Match> matches)
-        {
-            return matches
-            .GroupBy(
-                m => m.LeagueSeason.LeagueID,
-                (leagueID, matches) => (leagueID, matches!.Where(m => m.LeagueSeason.LeagueID.Equals(leagueID))
-                    .OrderBy(m => m.Date).ToList())
-            )
-            .OrderBy(pair => pair.Item2.ElementAt(0).League.CountryID) // order by country name of the league
-            .ThenBy(pair => pair.Item2.ElementAt(0).League.Name) // then by league name
-            .ToList();
-        }
-
-        public IEnumerable<(int leagueID, List<Match> matches)> GetMatchesGroupedByLeagueFavoritesFirst(User user, IEnumerable<Match> matches)
-        {
-            var groupedMatches = GetMatchesGroupedByLeague(matches);
-
-            return groupedMatches
-                .OrderByDescending(pair => user.FavoriteLeagues.Select(fl => fl.ID).Contains(pair.leagueID)); // favorite leagues first
-        }
     }
 }

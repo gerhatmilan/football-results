@@ -46,9 +46,5 @@ namespace FootballResults.WebApp.Services.Football.Server
         {
             return await _leagueRepository.Search(leagueName, null, null, null);
         }
-        public IEnumerable<League> GetLeaguesFavoritesFirst(User user, IEnumerable<League> leagues)
-        {
-            return leagues.OrderByDescending(l => user.FavoriteLeagues.Select(fl => fl.ID).Contains(l.ID)).ThenBy(l => l.Name);
-        }
     }
 }

@@ -2,12 +2,12 @@
 using FootballResults.DataAccess.Entities.Predictions;
 using Microsoft.EntityFrameworkCore;
 using FootballResults.DataAccess.Entities.Football;
-using FootballResults.Models.Predictions;
 using FootballResults.DataAccess.Entities.Users;
 using FootballResults.Models.Files;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Options;
 using FootballResults.Models.Config;
+using FootballResults.Models.ViewModels.PredictionGames;
 
 namespace FootballResults.WebApp.Services.Predictions
 {

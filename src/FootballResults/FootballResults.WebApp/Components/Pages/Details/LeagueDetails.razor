@@ -31,9 +31,7 @@
             {
                 @if (Matches.Count() > 0)
                 {
-                    <div class=LeagueDetailsSubMenu.Matches>
-                        <LeagueCard League="League" Matches="Matches" MatchOrderOption="@MatchOrderOption" BookmarkClicked="OnBookmarkClicked" />
-                    </div>
+                    <LeagueHeaderCard League="League" Matches="Matches" MatchOrderOption="MatchOrderOption" BookmarkClicked="OnBookmarkClicked" />
                 }
                 else
                 {

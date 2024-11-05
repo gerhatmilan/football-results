@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using FootballResults.DataAccess.Entities.Football;
 using FootballResults.WebApp.Services.Football;
+using FootballResults.DataAccess.Entities.Users;
 
 namespace FootballResults.WebApp.Components.Pages.MainMenu
 {
@@ -11,6 +12,9 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
 
         [Inject]
         protected ITeamService? TeamService { get; set; }
+
+        [CascadingParameter(Name = "User")]
+        protected User User { get; set; } = default!;
 
         protected IEnumerable<Country>? CountriesWithTeams { get; set; }
 

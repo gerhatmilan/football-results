@@ -3,6 +3,7 @@ using FootballResults.DataAccess;
 using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Entities.Users;
 using FootballResults.DataAccess.Repositories.Football;
+using FootballResults.Models.ViewModels.Football;
 
 namespace FootballResults.WebApp.Services.Football.Server
 {
@@ -58,27 +59,6 @@ namespace FootballResults.WebApp.Services.Football.Server
             int? year = null, int? month = null, int? day = null, string? teamName = null, string? leagueName = null, int? season = null, string? round = null)
         {
             return await _matchRepository.Search(date, from, to, year, month, day, teamName, leagueName, season, round);
-        }
-
-        public IEnumerable<(int leagueID, List<Match> matches)> GetMatchesGroupedByLeague(IEnumerable<Match> matches)
-        {
-            return matches
-            .GroupBy(
-                m => m.LeagueSeason.LeagueID,
-                (leagueID, matches) => (leagueID, matches!.Where(m => m.LeagueSeason.LeagueID.Equals(leagueID))
-                    .OrderBy(m => m.Date).ToList())
-            )
-            .OrderBy(pair => pair.Item2.ElementAt(0).League.CountryID) // order by country name of the league
-            .ThenBy(pair => pair.Item2.ElementAt(0).League.Name) // then by league name
-            .ToList();
-        }
-
-        public IEnumerable<(int leagueID, List<Match> matches)> GetMatchesGroupedByLeagueFavoritesFirst(User user, IEnumerable<Match> matches)
-        {
-            var groupedMatches = GetMatchesGroupedByLeague(matches);
-
-            return groupedMatches
-                .OrderByDescending(pair => user.FavoriteLeagues.Select(fl => fl.ID).Contains(pair.leagueID)); // favorite leagues first
         }
     }
 }

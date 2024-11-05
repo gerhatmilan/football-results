@@ -1,7 +1,6 @@
 ﻿using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Entities.Users;
 using FootballResults.DataAccess.Entities.Predictions;
-using FootballResults.Models.Predictions;
 using FootballResults.WebApp.Services.Football;
 using FootballResults.WebApp.Services.Predictions;
 using Microsoft.AspNetCore.Components;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using FootballResults.WebApp.Services.Files;
 using Microsoft.Extensions.Options;
 using FootballResults.Models.Config;
+using FootballResults.Models.ViewModels.PredictionGames;
 
 namespace FootballResults.WebApp.Components.Forms
 {

@@ -106,6 +106,7 @@ namespace FootballResults.API.Models
             return await _dbContext.Matches
                 .Include(m => m.LeagueSeason)
                 .ThenInclude(ls => ls.League)
+                .ThenInclude(l => l.Country)
                 .Include(m => m.Venue)
                 .Include(m => m.HomeTeam)
                 .Include(m => m.AwayTeam)

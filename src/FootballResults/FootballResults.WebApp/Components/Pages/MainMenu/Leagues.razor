@@ -7,14 +7,15 @@
 
 @if (CountriesWithLeagues != null)
 {
-    @foreach (Country country in CountriesWithLeagues.OrderBy(c => c.Name))
-    {
+    <Virtualize TItem="Country" Items="CountriesWithLeagues.OrderBy(c => c.Name).ToList()" Context="country">
         <CountryCard Country="country" />
-        @foreach (League league in (User != null ? LeagueService.GetLeaguesFavoritesFirst(User, country.Leagues) : country.Leagues.OrderBy(l => l.Name)))
-        {
-            <LeagueHeaderCard League="league" />
-        }
-    }
+
+        <Virtualize TItem="League" Items="ViewHelper.GetFavoriteLeaguesFirst(country.Leagues, User).ToList()" Context="league">
+            <ItemContent>
+                <LeagueHeaderCard League="league" />
+            </ItemContent>
+        </Virtualize>
+    </Virtualize>
 }
 else
 {

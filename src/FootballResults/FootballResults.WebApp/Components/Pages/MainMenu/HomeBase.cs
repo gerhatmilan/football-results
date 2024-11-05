@@ -4,6 +4,7 @@ using FootballResults.DataAccess.Entities.Users;
 using FootballResults.WebApp.Services.Football;
 using FootballResults.WebApp.Services.Time;
 using FootballResults.WebApp.Services.LiveUpdates;
+using FootballResults.Models.ViewModels.Football;
 
 namespace FootballResults.WebApp.Components.Pages.MainMenu
 {

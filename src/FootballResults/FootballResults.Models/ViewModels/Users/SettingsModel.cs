@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FootballResults.Models.Users
+namespace FootballResults.Models.ViewModels.Users
 {
     public class SettingsModel
     {

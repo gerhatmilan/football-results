@@ -11,32 +11,34 @@
 
 @if (User != null)
 {
-    @if (User.FavoriteLeagues.Count() > 0)
-    {
-        <h2>Leagues</h2>
-        <div class="leagues">
-            @foreach (var league in User.FavoriteLeagues.OrderBy(l => l.CountryID).ThenBy(l => l.Name))
-            {
-                <LeagueCard League="league" BookmarkClicked="OnBookmarkClicked" />
-            }
-        </div>
-    }
-    @if (User.FavoriteTeams.Count() > 0)
-    {
-        <h2>Teams</h2>
-        <div class="teams highlight">
-            @foreach (var team in User.FavoriteTeams.OrderBy(t => t.Name))
-            {
-                <TeamCard Team="team" BookmarkClicked="OnBookmarkClicked" ShowBookmark />
-            }
-        </div>
-    }
     @if ((User.FavoriteLeagues.Count() == 0) && (User.FavoriteTeams.Count() == 0))
     {
-        <p>You can bookmark your favorite leagues and teams for quick access</p>
+        <p>You can set your leagues and teams as favorite for quicker access</p>
+    }
+    else
+    {
+        @if (User.FavoriteLeagues.Count() > 0)
+        {
+            <h2>Leagues</h2>
+
+            <Virtualize TItem="League" Items="ViewHelper.GetFavoriteLeaguesFirst(User.FavoriteLeagues, User).ToList()" Context="league">
+                <ItemContent>
+                    <LeagueHeaderCard League="league" />
+                </ItemContent>
+            </Virtualize>
+        }
+        @if (User.FavoriteTeams.Count() > 0)
+        {
+            <h2>Teams</h2>
+
+            <Virtualize TItem="Team" Items="ViewHelper.GetFavoriteTeamsFirst(User.FavoriteTeams, User).ToList()" Context="team">
+                <ItemContent>
+                    <TeamHeaderCard Team="team" />
+                </ItemContent>
+            </Virtualize>
+        }
     }
 }
-
 
 @code {
     [CascadingParameter(Name = "User")]

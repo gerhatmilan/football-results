@@ -3,13 +3,18 @@ using FootballResults.DataAccess.Entities.Football;
 using FootballResults.WebApp.Components.Utilities;
 using FootballResults.WebApp.Services.Football;
 using FootballResults.WebApp.Services.LiveUpdates;
+using FootballResults.DataAccess.Entities.Users;
 
 namespace FootballResults.WebApp.Components.Pages.Details
 {
     public class MatchDetailsBase : MatchFilterablePageBase
     {
+        [CascadingParameter(Name = "User")]
+        public User User { get; set; } = default!;
+
         [Parameter]
         public string? MatchID { get; set; }
+
         protected Match? Match { get; set; }
 
         protected override MatchOrderOption MatchOrderOption { get; set; } = MatchOrderOption.DateDesc;
@@ -46,17 +51,6 @@ namespace FootballResults.WebApp.Components.Pages.Details
                 SeasonFilter = DateTime.Now.ToLocalTime().Month >= 8 ? DateTime.Now.ToLocalTime().Year : DateTime.Now.ToLocalTime().Year - 1
             };
         }
-
-        protected List<(int leagueID, List<Match> matches)> GetMatchesByLeague()
-        {
-            return Matches!
-                .GroupBy(
-                    m => m.League.ID,
-                    (leagueID, matches) => (leagueID, Matches!.Where(m => m.League.ID.Equals(leagueID)).ToList())
-                )
-                .ToList();
-        }
-
 
         protected override async void OnUpdateMessageReceivedAsync(object? sender, UpdateMessageType notificationType)
         {

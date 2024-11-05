@@ -3,27 +3,33 @@
 
 <PageTitle>Search @SearchValue</PageTitle>
 
-@if (Leagues != null && Leagues.Count() > 0)
-{
-    <h1>Leagues</h1>
-    <div class="leagues">
-        @foreach (var league in (User != null ? LeagueService.GetLeaguesFavoritesFirst(User, Leagues) : Leagues.OrderBy(l => l.CountryID)))
-        {
-            <LeagueCard League="league" />
-        }
-    </div>
-}
-@if (Teams != null && Teams.Count() > 0)
-{
-    <h1>Teams</h1>
-    <div class="teams highlight">
-        @foreach (var team in (User != null ? TeamService.GetTeamsFavoritesFirst(User, Teams) : Teams.OrderBy(t => t.Name)))
-        {
-            <TeamCard Team="team" ShowBookmark />
-        }
-    </div>
-}
 @if ((Leagues != null && Leagues.Count() == 0) && (Teams != null && Teams.Count() == 0))
 {
     <h1>No results found</h1>
+}
+else
+{
+    <h1>Search results</h1>
+
+    @if (Leagues != null && Leagues.Count() > 0)
+    {
+        <h2>Leagues</h2>
+    
+        <Virtualize TItem="League" Items="ViewHelper.GetFavoriteLeaguesFirst(Leagues, User).ToList()" Context="league">
+            <ItemContent>
+                <LeagueHeaderCard League="league" />
+            </ItemContent>
+        </Virtualize>
+    }
+
+    @if (Teams != null && Teams.Count() > 0)
+    {
+        <h2>Teams</h2>
+
+        <Virtualize TItem="Team" Items="ViewHelper.GetFavoriteTeamsFirst(Teams, User).ToList()" Context="team">
+            <ItemContent>
+                <TeamHeaderCard Team="team" />
+            </ItemContent>
+        </Virtualize>
+    }
 }
