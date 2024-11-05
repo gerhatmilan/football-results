@@ -1,10 +1,7 @@
-﻿.leagueCard {
+﻿.leagueHeader {
     margin: 1rem auto;
     max-width: 800px;
     width: 100%;
-}
-
-.leagueHeader {
     display: flex;
     background-color: var(--link);
     border-radius: 10px;
@@ -29,6 +26,8 @@
     text-align: left;
     height: 100%;
     padding: 10px;
+    width: unset;
+    margin-right: 10px;
 }
 
 .leagueName {
@@ -36,12 +35,13 @@
     color: white
 }
 
-@media (min-width: 0px) {
-    .leagueLogoDiv {
-        width: 40%;
-        min-width: 30px;
-    }
+.leagueMatches {
+    margin: 1rem auto;
+    max-width: 800px;
+    width: 100%;
+}
 
+@media (min-width: 0px) {
     .leagueLogo {
         height: 100%;
         aspect-ratio: 1/1;
@@ -58,10 +58,6 @@
 }
 
 @media (min-width: 500px) {
-    .leagueLogoDiv {
-        width: 20%;
-    }
-
     .leagueName {
         font-size: 1.5rem;
     }

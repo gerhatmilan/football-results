@@ -1,21 +1,21 @@
 ﻿@if (League != null)
 {
-    <div class="leagueCard">
-        <div class="leagueHeader">
-            <a class="leagueDetails"href="/leagues/@League.Name">
-                <div class="leagueLogoDiv">
-                    <img class="leagueLogo" src="@(League.LogoPath ?? League.LogoLink)" alt="@League.Name logo" />
-                </div>
-                <div class="leagueName">
-                    @League.Name
-                </div>
-            </a>
-            <AuthorizeView>
-                <Authorized>
-                    <BookmarkIcon Bookmark="League" DefaultColor="defaultLight" ButtonClicked="OnBookmarkClicked" />
-                </Authorized>
-            </AuthorizeView>
-        </div>
+    <div class="leagueHeader">
+        <a class="leagueDetails"href="/leagues/@League.Name">
+            <div class="leagueLogoDiv">
+                <img class="leagueLogo" src="@(League.LogoPath ?? League.LogoLink)" alt="@League.Name logo" />
+            </div>
+            <div class="leagueName">
+                @League.Name
+            </div>
+        </a>
+        <AuthorizeView>
+            <Authorized>
+                <BookmarkIcon Bookmark="League" DefaultColor="defaultLight" ButtonClicked="OnBookmarkClicked" />
+            </Authorized>
+        </AuthorizeView>
+    </div>
+    <div class="leagueMatches">
         @if (Matches != null)
         {
             switch (MatchOrderOption)
@@ -26,7 +26,7 @@
                         <h2>@match.Round</h2>
                         <MatchCard Match="match" />
                     }
-                    
+
                     break;
                 case MatchOrderOption.DateDesc:
                     @foreach (Match match in Matches.OrderByDescending(m => m.Date))
@@ -38,9 +38,9 @@
                     break;
                 case MatchOrderOption.RoundThenDateAsc:
                     var matchesByRound = Matches.GroupBy(m => m.Round)
-                        .OrderBy(group => group.Max(match => match.Date))
-                        .ThenBy(group => group.Key.Length)
-                        .ThenBy(group => group.Key);
+                    .OrderBy(group => group.Max(match => match.Date))
+                    .ThenBy(group => group.Key.Length)
+                    .ThenBy(group => group.Key);
 
                     @foreach (var roundGroup in matchesByRound)
                     {
@@ -55,9 +55,9 @@
 
                 case MatchOrderOption.RoundThenDateDesc:
                     matchesByRound = Matches.GroupBy(m => m.Round)
-                        .OrderByDescending(group => group.Max(match => match.Date))
-                        .ThenByDescending(group => group.Key.Length)
-                        .ThenByDescending(group => group.Key);
+                    .OrderByDescending(group => group.Max(match => match.Date))
+                    .ThenByDescending(group => group.Key.Length)
+                    .ThenByDescending(group => group.Key);
 
                     @foreach (var roundGroup in matchesByRound)
                     {

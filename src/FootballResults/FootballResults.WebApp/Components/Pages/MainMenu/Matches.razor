@@ -4,16 +4,19 @@
 
 <PageTitle>Matches</PageTitle>
 
+<h1>Matches</h1>
+
 <Calendar SelectedDateValueChanged="OnSelectedDateChangedInCalendarAsync" />
 
 @if (Matches != null)
 {
     @if (Matches.Any())
-        @foreach (var leagueWithMatchesGroup in (User != null ? MatchService.GetMatchesGroupedByLeagueFavoritesFirst(User, Matches) : MatchService.GetMatchesGroupedByLeague(Matches)))
     {
-            <LeagueCard League="leagueWithMatchesGroup.matches.ElementAt(0).League" Matches="leagueWithMatchesGroup.matches" MatchOrderOption="@MatchOrderOption.RoundThenDateAsc" />
+        @foreach (var leagueWithMatchesGroup in (User != null ? MatchService.GetMatchesGroupedByLeagueFavoritesFirst(User, Matches) : MatchService.GetMatchesGroupedByLeague(Matches)))
+        {
+            <LeagueHeaderCard League="leagueWithMatchesGroup.matches.ElementAt(0).League" Matches="leagueWithMatchesGroup.matches" MatchOrderOption="@MatchOrderOption.RoundThenDateAsc" />
+        }
     }
-
     else
     {
         <h1>No matches on this day 😒</h1>

@@ -1,0 +1,62 @@
+﻿.teamHeader {
+    margin: 1rem auto;
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    background-color: var(--link);
+    border-radius: 10px;
+}
+
+.teamDetails {
+    text-decoration: none;
+    color: inherit;
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.teamDetails:hover {
+    cursor: pointer;
+    background-color: var(--link-hover);
+    border-radius: 10px;
+}
+
+.teamLogoDiv {
+    text-align: left;
+    height: 100%;
+    padding: 10px;
+    width: unset;
+    margin-right: 10px;
+}
+
+.teamName {
+    text-align: left;
+    color: white
+}
+
+@media (min-width: 0px) {
+    .teamLogo {
+        height: 100%;
+        aspect-ratio: 1/1;
+    }
+
+    .teamName {
+        width: 80%;
+        font-size: 1rem;
+    }
+
+    .teamHeader {
+        height: 3.5rem;
+    }
+}
+
+@media (min-width: 500px) {
+    .teamName {
+        font-size: 1.5rem;
+    }
+
+    .teamHeader {
+        height: 5rem;
+    }
+}

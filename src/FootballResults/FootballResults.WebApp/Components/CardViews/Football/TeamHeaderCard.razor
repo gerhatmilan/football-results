@@ -1,0 +1,31 @@
+﻿@if (Team != null)
+{
+    <div class="teamHeader">
+        <a class="teamDetails" href="/teams/@Team.Name">
+            <div class="teamLogoDiv">
+                <img class="teamLogo" src="@(Team.LogoPath ?? Team.LogoLink)" alt="@Team.Name logo" />
+            </div>
+            <div class="teamName">
+                @Team.Name
+            </div>
+        </a>
+        <AuthorizeView>
+            <Authorized>
+                <BookmarkIcon Bookmark="Team" DefaultColor="defaultLight" ButtonClicked="OnBookmarkClicked" />
+            </Authorized>
+        </AuthorizeView>
+    </div>
+}
+
+@code {
+        [Parameter]
+        public Team? Team { get; set; }
+
+        [Parameter]
+        public EventCallback BookmarkClicked { get; set; }
+
+        private async Task OnBookmarkClicked()
+        {
+            await BookmarkClicked.InvokeAsync();
+        }
+}
