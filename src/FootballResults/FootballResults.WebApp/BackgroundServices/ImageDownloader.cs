@@ -23,7 +23,7 @@ namespace FootballResults.WebApp.BackgroundServices
             _serviceProvider = serviceProvider;
             _applicationConfig = serviceProvider.GetRequiredService<IOptions<ApplicationConfig>>().Value;
             _logger = logger;
-            _period = _applicationConfig.UpdaterWorkerFrequency;
+            _period = _applicationConfig.ImageDownloaderWorkerFrequency;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -32,7 +32,7 @@ namespace FootballResults.WebApp.BackgroundServices
             {
                 do
                 {
-                    _logger.LogInformation($"Image downloader worker started at {DateTime.Now}");
+                    _logger.LogInformation($"Image downloader worker started");
 
                     using (var scope = _serviceProvider.CreateScope())
                     {
@@ -53,7 +53,7 @@ namespace FootballResults.WebApp.BackgroundServices
                         }
                     }
 
-                    _logger.LogInformation($"Image downloader worker finished at {DateTime.Now}");
+                    _logger.LogInformation($"Image downloader worker finished");
                 }
                 while (!stoppingToken.IsCancellationRequested && await timer.WaitForNextTickAsync(stoppingToken));
             }

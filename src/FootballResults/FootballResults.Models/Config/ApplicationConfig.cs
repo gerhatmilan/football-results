@@ -17,6 +17,7 @@ namespace FootballResults.Models.Config
         public TimeSpan MatchesUpdateForCurrentSeasonFrequency { get; set; }
         public TimeSpan StandingsUpdateForCurrentSeasonFrequency { get; set; }
         public TimeSpan TopScorersUpdateForCurrentSeasonFrequency { get; set; }
+        public TimeSpan ImageDownloaderWorkerFrequency { get; set; }
         public TimeSpan ImageDownloaderFrequency { get; set; }
 
         public string PredictionGamePicturesDirectory { get => GetPath(predictionGamePicturesDirectory); set => predictionGamePicturesDirectory = value; }

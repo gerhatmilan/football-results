@@ -1,6 +1,7 @@
 ﻿using Extensions;
 using FootballResults.DataAccess;
 using FootballResults.Models.Api;
+using FootballResults.Models.Api.FootballApi.Exceptions;
 using FootballResults.Models.Api.FootballApi.Responses;
 using FootballResults.Models.Config;
 using Microsoft.EntityFrameworkCore;
@@ -420,7 +421,7 @@ namespace FootballResults.Models.Updaters
         {
             _logger.LogInformation("API fetch in progress...");
             var response = await _webApiClient.GetAsync<TResponse>(endpoint, _apiConfig.RequestHeaders);
-            _logger.LogInformation("API fetch has completed successfully. Processing response...");
+            _logger.LogInformation("Response received. Checking response...");
 
             return response;
         }
@@ -447,7 +448,11 @@ namespace FootballResults.Models.Updaters
                     sb.AppendLine(item.Value);
                 }
 
-                throw new Exception(sb.ToString());
+                throw new MissingApiKeyException(sb.ToString());
+            }
+            else
+            {
+                _logger.LogInformation("API fetch has completed successfully. Processing response...");
             }
 
             return true;

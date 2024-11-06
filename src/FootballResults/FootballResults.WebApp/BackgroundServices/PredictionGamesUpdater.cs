@@ -30,7 +30,7 @@ namespace FootballResults.WebApp.BackgroundServices
             {
                 do
                 {
-                    _logger.LogInformation($"Prediction games update worker started at {DateTime.Now}");
+                    _logger.LogInformation($"Prediction games update worker started");
 
                     using (var scope = _serviceProvider.CreateScope())
                     {
@@ -47,7 +47,7 @@ namespace FootballResults.WebApp.BackgroundServices
                         }
                     }
 
-                    _logger.LogInformation($"Prediction games update worker finished at {DateTime.Now}");
+                    _logger.LogInformation($"Prediction games update worker finished");
                 }
                 while (!stoppingToken.IsCancellationRequested && await timer.WaitForNextTickAsync(stoppingToken));
             }

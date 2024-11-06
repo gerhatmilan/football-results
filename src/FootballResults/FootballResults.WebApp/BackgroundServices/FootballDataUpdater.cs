@@ -1,6 +1,7 @@
 ﻿using FootballResults.DataAccess;
 using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Models;
+using FootballResults.Models.Api.FootballApi.Exceptions;
 using FootballResults.Models.Config;
 using FootballResults.Models.Updaters;
 using FootballResults.WebApp.Hubs;
@@ -46,7 +47,7 @@ namespace FootballResults.WebApp.BackgroundServices
             {
                 do
                 {
-                    _logger.LogInformation($"Football data update worker started at {DateTime.Now}");
+                    _logger.LogInformation($"Football data update worker started");
 
                     using (var scope = _serviceProvider.CreateScope())
                     {
@@ -59,6 +60,10 @@ namespace FootballResults.WebApp.BackgroundServices
                                 await UpdateTopScorersForCurrentSeasonAsync(dbContext);
                                 await UpdateMatchesForCurrentDayAsync(dbContext);
                             }
+                            catch (MissingApiKeyException ex)
+                            {
+                                _logger.LogError(ex.Message);
+                            }
                             catch (Exception ex)
                             {
                                 _logger.LogError(ex, "An error occurred while updating data");
@@ -66,7 +71,7 @@ namespace FootballResults.WebApp.BackgroundServices
                         }
                     }
 
-                    _logger.LogInformation($"Football data update worker finished at {DateTime.Now}");
+                    _logger.LogInformation($"Football data update worker finished");
                 }
                 while (!stoppingToken.IsCancellationRequested && await timer.WaitForNextTickAsync(stoppingToken));
             }
@@ -101,7 +106,7 @@ namespace FootballResults.WebApp.BackgroundServices
                     // notify connected clients about the update
                     await _notificationHubContext.Clients.All.SendAsync("ReceiveMessage", UpdateMessageType.MatchesUpdated);
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (ex is not MissingApiKeyException)
                 {
                     _logger.LogError($"Football data update worker for matches failed: {ex.Message}");
                 }
@@ -128,7 +133,7 @@ namespace FootballResults.WebApp.BackgroundServices
                         // notify connected clients about the update
                         await _notificationHubContext.Clients.All.SendAsync("ReceiveMessage", UpdateMessageType.MatchesUpdated);
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (ex is not MissingApiKeyException)
                     {
                         _logger.LogError($"Football data update worker for matches failed to execute for {leagueSeason.League.Name} / {leagueSeason.Year}: {ex.Message}");
                     }
@@ -153,7 +158,7 @@ namespace FootballResults.WebApp.BackgroundServices
                     {
                         await _standingUpdater.StartAsync(UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (ex is not MissingApiKeyException)
                     {
                         _logger.LogError($"Football data update worker for standings failed to execute for {leagueSeason.League.Name} / {leagueSeason.Year}: {ex.Message}");
                     }
@@ -178,7 +183,7 @@ namespace FootballResults.WebApp.BackgroundServices
                     {
                         await _topScorerUpdater.StartAsync(UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
                     }
-                    catch (Exception ex)
+                    catch (Exception ex) when (ex is not MissingApiKeyException)
                     {
                         _logger.LogError($"Football data update worker for topscorers failed to execute for {leagueSeason.League.Name} / {leagueSeason.Year}: {ex.Message}");
                     }
