@@ -63,7 +63,7 @@ namespace FootballResults.WebApp.Services.Users
                         // rename the uploaded profile picture file to the user's ID
                         await FileManager.MoveFileAsync(Path.Combine(WWWROOT, settingsModel.ProfilePicturePath), Path.Combine(WWWROOT, saveFilePath, saveFileName));
 
-                        user.ProfilePicturePath = saveFilePath + $"/{saveFileName}";
+                        user.ProfilePicturePath = Path.Combine(saveFilePath, saveFileName);
                     }
 
                     await _dbContext.SaveChangesAsync();

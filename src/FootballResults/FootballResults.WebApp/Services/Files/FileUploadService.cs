@@ -46,14 +46,20 @@ namespace FootballResults.WebApp.Services.Files
 
             var fileExtension = Path.GetExtension(file.Name);
             var fileName = $"{newFileName}{fileExtension}";
-            await using var fs = new FileStream(Path.Combine(combinedPath, fileName), FileMode.Create);
-            await file.OpenReadStream(_maxAllowedBytes).CopyToAsync(fs);
+
+            await using (var fileStream = new FileStream(Path.Combine(combinedPath, fileName), FileMode.Create))
+            {
+                await using (var readStream = file.OpenReadStream(_maxAllowedBytes))
+                {
+                    await readStream.CopyToAsync(fileStream);
+                }
+            }
 
             return new FileUploadResult()
             {
                 Success = true,
                 Message = "File was successfully updated",
-                Path = _uploadDirectory + "/" + fileName
+                Path = Path.Combine(_uploadDirectory, fileName)
             };
         }
 

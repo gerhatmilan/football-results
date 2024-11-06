@@ -1,10 +1,13 @@
-﻿@if (Game != null)
+﻿@using FootballResults.Models.Config
+@using Microsoft.Extensions.Options
+
+@if (Game != null)
 {
     <a href="/prediction-games/@Game.ID">
         <div class="gameCard @(Game.Finished ? "finished" : "")">
             <div class="gameName">@Game.Name</div>
             <div class="gameBackground">
-                <img class="gameBackgroundImage" src="@Game.ImagePath" alt="Game background" />
+                <img class="gameBackgroundImage" src="@(Game.ImagePath ?? ApplicationSettings.Value.PredictionGameDefaultImage)" alt="Game background" />
             </div>
         </div>
     </a>
@@ -13,4 +16,7 @@
 @code {
     [Parameter]
     public PredictionGame? Game { get; set; }
+
+    [Inject]
+    protected IOptions<ApplicationConfig> ApplicationSettings { get; set; } = default!;
 }

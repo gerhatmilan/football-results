@@ -86,7 +86,7 @@ namespace FootballResults.WebApp.Services.Predictions
                         await FileManager.MoveFileAsync(Path.Combine(WWWROOT, model.PicturePath), Path.Combine(WWWROOT, saveFilePath, saveFileName));
 
                         // rename the uploaded picture file to the game's ID
-                        savedGame.ImagePath = saveFilePath + $"/{saveFileName}";
+                        savedGame.ImagePath = Path.Combine(saveFilePath, saveFileName);
                     }
 
                     // add the selected leagues to the game
@@ -144,6 +144,11 @@ namespace FootballResults.WebApp.Services.Predictions
 
             _dbContext.PredictionGames.Remove(game);
             await _dbContext.SaveChangesAsync();
+
+            if (game.ImagePath != null)
+            {
+                await FileManager.DeleteFileAsync(Path.Combine(WWWROOT, game.ImagePath));
+            }
         }
 
         public async Task ReloadMatchesAsync(PredictionGame game)

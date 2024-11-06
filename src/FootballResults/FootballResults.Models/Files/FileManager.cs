@@ -2,7 +2,7 @@
 {
     public static class FileManager
     {
-        private static async Task DeleteFileAsync(string filePath)
+        public static async Task DeleteFileAsync(string filePath)
         {
             await Task.Run(() => File.Delete(filePath));
         }

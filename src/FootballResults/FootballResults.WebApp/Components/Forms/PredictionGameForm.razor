@@ -17,7 +17,7 @@
                 </div>
                 <div class="pictureDiv mb-3">
                     <label for="picture">Picture</label>
-                    <img class="gameBackground" src="@CreateGameModel.PicturePath" alt="Game background">
+                    <img class="gameBackground" src="@(CreateGameModel.PicturePath ?? ApplicationSettings.Value.PredictionGameDefaultImage)" alt="Game background">
                     <InputFile id="picture" class="input form-control" OnChange="OnImageSelectedAsync" />
                     @if (ImageErrorMessage != null)
                     {
