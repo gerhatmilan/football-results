@@ -35,6 +35,19 @@
   </ItemGroup>
 
   <ItemGroup>
-  	<None Include="..\Configuration\**" CopyToOutputDirectory="PreserveNewest" />
+	  <Content Remove="appsettings.Development.json" />
+	  <Content Include="appsettings.Development.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Never" />
+	  <Content Include="../Configuration/sharedSettings.json" CopyToOutputDirectory="PreserveNewest" />
+	  <Content Include="../Configuration/sharedSettings.Development.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+	
+  <ItemGroup>
+	<Content Remove="wwwroot\images\countries\**\*" />
+	<Content Remove="wwwroot\images\leagues\**\*" />
+	<Content Remove="wwwroot\images\players\**\*" />
+	<Content Remove="wwwroot\images\teams\**\*" />
+	<Content Remove="wwwroot\images\profile-pictures\**\*" />
+	<Content Remove="wwwroot\images\prediction-games\**\*" />
+	<Content Include="wwwroot\images\prediction-games\default.jpg" />
   </ItemGroup>
 </Project>

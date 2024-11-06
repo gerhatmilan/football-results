@@ -79,18 +79,16 @@ I used the <b>Free Pricing Tier</b> for demonstration purposes, consider that <b
 
 If everything was set up correctly, you can access the web applicaton from your browser at http://localhost/
 
-At first, the website will not show any data. This is because you have to fetch the necessary data from the API manually (the reason for this is the rate limit for the free pricing tier). The docker container of the webapp includes a console application where you can fetch the necessary data from the API. For this, you have to:
+At first, the website will not show any data. This is because you have to fetch the necessary data from the API manually (the reason for this is the rate limit for the free pricing tier). The docker container with the name "football-results-dbupdater" contains a console application where you can fetch the necessary data from the API. For this, you have to:
 1. Enter Docker Desktop
-2. Go to Containers/football-results/webapp
+2. Go to Containers/football-results/dbupdater
 3. Access the file system of the container under <b>Exec</b> menupoint
-4. Navigate to the folder containing the console application at /app/DatabaseUpdater. Normally you have to run the following command:
-    ```sh
-    cd ../DatabaseUpdater
-    ```
-5. Start the console application
+4. Check if you are in the correct directory (app) and start the console application:
+
    ```sh
    dotnet FootballResults.DatabaseUpdater.dll
    ```
+
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
@@ -107,7 +105,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [HTML5-url]: https://www.w3schools.com/html/
 [CSS3]: https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=ffffff
 [CSS3-url]: https://www.w3schools.com/css/
-[Javascript]: https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=555555
+[Javascript]: https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=ffffff
 [Javascript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 [Git]: https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=ffffff
 [Git-url]: https://git-scm.com/

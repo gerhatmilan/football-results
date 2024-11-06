@@ -10,6 +10,15 @@ services:
       - 80:80
     depends_on:
       - database
+  dbupdater:
+    image: gerhatmilan/football-results-dbupdater:latest
+    environment:
+        ConnectionStrings__DefaultConnection: ${ConnectionStrings__DefaultConnection}
+        FootballApiConfig__ApiKey: ${FootballApiConfig__ApiKey}
+    ports:
+        - 5431:5430
+    depends_on:
+        - database
   database:
     image: postgres:latest
     environment:
@@ -17,7 +26,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - 5432:5432
+      - 5433:5432
     volumes: 
       - database:/var/lib/postgresql/data
 volumes:

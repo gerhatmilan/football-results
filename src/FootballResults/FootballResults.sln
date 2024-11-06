@@ -16,15 +16,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballResults.DataAccess"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions", "Extensions\Extensions.csproj", "{5DA65AA3-5854-4CAC-A054-B06E37B1A588}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{6896527E-A6AA-4530-A36B-F466D0AB5F70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballResults.DatabaseUpdater", "FootballResults.DatabaseUpdater\FootballResults.DatabaseUpdater.csproj", "{3D5E2A05-839D-4F9B-BBD6-C64330546294}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E623E1BD-A4F1-48F2-89D4-0B0BD315A44B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{052B2BBB-E871-4679-950E-F63D12DD2368}"
 	ProjectSection(SolutionItems) = preProject
 		Configuration\sharedSettings.Development.json = Configuration\sharedSettings.Development.json
 		Configuration\sharedSettings.json = Configuration\sharedSettings.json
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballResults.DatabaseUpdater", "FootballResults.DatabaseUpdater\FootballResults.DatabaseUpdater.csproj", "{3D5E2A05-839D-4F9B-BBD6-C64330546294}"
-EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E623E1BD-A4F1-48F2-89D4-0B0BD315A44B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
