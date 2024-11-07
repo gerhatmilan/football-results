@@ -8,6 +8,9 @@ services:
       FootballApiConfig__ApiKey: ${FootballApiConfig__ApiKey}
     ports:
       - 80:80
+    volumes:
+        - wwwroot:/app/wwwroot
+        - config:/app/config
     depends_on:
       - database
   dbupdater:
@@ -17,6 +20,8 @@ services:
         FootballApiConfig__ApiKey: ${FootballApiConfig__ApiKey}
     ports:
         - 5431:5430
+    volumes:
+        - config:/app/config
     depends_on:
         - database
   database:
@@ -31,3 +36,5 @@ services:
       - database:/var/lib/postgresql/data
 volumes:
   database:
+  wwwroot:
+  config:

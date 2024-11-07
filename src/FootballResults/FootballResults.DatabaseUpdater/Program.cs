@@ -14,6 +14,7 @@ namespace FootballResults.DatabaseUpdater
         private static HostApplicationBuilder _builder = default!;
         private static IConfiguration _configuration = default!;
         private static IHostEnvironment _environment = default!;
+        private static string CONFIG = "config";
 
         public static void Main(string[] args)
         {
@@ -55,8 +56,8 @@ namespace FootballResults.DatabaseUpdater
             string baseDirectory = AppContext.BaseDirectory;
 
             _configuration = _builder.Configuration
-                .AddJsonFile(Path.Combine(baseDirectory, "sharedSettings.json"))
-                .AddJsonFile(Path.Combine(baseDirectory, $"sharedSettings.{_environment.EnvironmentName}.json"), optional: true)
+                .AddJsonFile(Path.Combine(baseDirectory, CONFIG, "sharedSettings.json"))
+                .AddJsonFile(Path.Combine(baseDirectory, CONFIG, $"sharedSettings.{_environment.EnvironmentName}.json"), optional: true)
                 .AddJsonFile(Path.Combine(baseDirectory, "appsettings.json"))
                 .AddJsonFile(Path.Combine(baseDirectory, $"appsettings.{_environment.EnvironmentName}.json"), optional: true)
                 .AddEnvironmentVariables()

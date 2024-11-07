@@ -25,11 +25,27 @@
   <ItemGroup>
 	<Content Include="Properties\launchSettings.json" CopyToPublishDirectory="Never" />
   </ItemGroup>
-	
+
   <ItemGroup>
-	<Content Include="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="appsettings.Development.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Never" />
-	<Content Include="../Configuration/sharedSettings.json" CopyToOutputDirectory="PreserveNewest" />
-	<Content Include="../Configuration/sharedSettings.Development.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Never" />
+	<Content Remove="appsettings.json" />
+	<Content Remove="appsettings.Development.json" />
+	<Content Include="appsettings.json">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	</Content>
+	<Content Include="appsettings.Development.json">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+	</Content>
+    <Content Include="../Configuration/sharedSettings.json">
+  	    <Link>config\%(RecursiveDir)%(Filename)%(Extension)</Link>
+  	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="../Configuration/sharedSettings.Development.json">
+  	    <Link>config\%(RecursiveDir)%(Filename)%(Extension)</Link>
+  	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  	    <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 </Project>
