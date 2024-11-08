@@ -1,5 +1,6 @@
 ﻿using Extensions;
 using FootballResults.DataAccess;
+using FootballResults.DataAccess.Entities.Football;
 using FootballResults.Models.Api;
 using FootballResults.Models.Api.FootballApi.Exceptions;
 using FootballResults.Models.Api.FootballApi.Responses;
@@ -89,6 +90,11 @@ namespace FootballResults.Models.Updaters
                         throw new InvalidOperationException("No parameters provided for specific league current season mode");
                     await UpdateForSpecificLeagueCurrentSeasonAsync((int)modeParameters[0]);
                     break;
+                case UpdaterMode.SpecificLeagueAllSeasons:
+                    if (modeParameters == null || modeParameters.Length == 0 || modeParameters[0].GetType() != typeof(int))
+                        throw new InvalidOperationException("No parameters provided for specific league all seasons mode");
+                    await UpdateForSpecificLeagueAllSeasonsAsync((int)modeParameters[0]);
+                    break;
                 case UpdaterMode.SpecificDate:
                     if (modeParameters == null || modeParameters.Length == 0 || modeParameters[0].GetType() != typeof(DateTime))
                         throw new InvalidOperationException("No parameters provided for specific date mode");
@@ -106,6 +112,11 @@ namespace FootballResults.Models.Updaters
                     if (modeParameters == null || modeParameters.Length == 0 || modeParameters[0].GetType() != typeof(int))
                         throw new InvalidOperationException("No parameters provided for specific team mode");
                     await UpdateForSpecificTeamAsync((int)modeParameters[0]);
+                    break;
+                case UpdaterMode.SpecificCountryAllTeams:
+                    if (modeParameters == null || modeParameters.Length == 0 || modeParameters[0].GetType() != typeof(int))
+                        throw new InvalidOperationException("No parameters provided for specific country all teams mode");
+                    await UpdateForSpecificCountryAllTeamsAsync((int)modeParameters[0]);
                     break;
                 default:
                     throw new InvalidOperationException("Invalid mode");
@@ -183,6 +194,7 @@ namespace FootballResults.Models.Updaters
                     foreach (var season in league.LeagueSeasons.OrderBy(s => s.Year))
                     {
                         await UpdateForLeagueAndSeasonAsync(league.ID, season.Year);
+                        await DelayApiCallAsync();
                     }
                 }
             }
@@ -212,6 +224,7 @@ namespace FootballResults.Models.Updaters
                     if (currentSeason != null)
                     {
                         await UpdateForLeagueAndSeasonAsync(league.ID, currentSeason.Year);
+                        await DelayApiCallAsync();
                     }
                 }
             }
@@ -241,6 +254,7 @@ namespace FootballResults.Models.Updaters
                     if (specificSeason != null)
                     {
                         await UpdateForLeagueAndSeasonAsync(league.ID, specificSeason.Year);
+                        await DelayApiCallAsync();
                     }
                 }
             }
@@ -282,6 +296,34 @@ namespace FootballResults.Models.Updaters
             _logger.LogInformation($"{GetType().Name} has finished");
         }
 
+        protected virtual async Task UpdateForSpecificLeagueAllSeasonsAsync(int leagueID)
+        {
+            _logger.LogInformation($"{GetType().Name} starting...");
+
+            if (UpdaterSpecificSettingsForLeagueAndSeason == null)
+                throw new InvalidOperationException("Updater settings missing");
+
+            using (IServiceScope scope = _serviceScopeFactory.CreateScope())
+            {
+                _dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+                DataAccess.Entities.Football.League league = _dbContext.Leagues
+                    .Include(league => league.LeagueSeasons)
+                    .FirstOrDefault(league => league.ID.Equals(leagueID));
+
+                if (league == null)
+                    throw new InvalidOperationException("League not found");
+
+                foreach (var season in league.LeagueSeasons.OrderBy(s => s.Year))
+                {
+                    await UpdateForLeagueAndSeasonAsync(league.ID, season.Year);
+                    await DelayApiCallAsync();
+                }
+            }
+
+            _logger.LogInformation($"{GetType().Name} has finished");
+        }
+
         private async Task UpdateForLeagueAndSeasonAsync(int leagueID, int year)
         {
             if (UpdaterSpecificSettingsForLeagueAndSeason == null)
@@ -305,9 +347,6 @@ namespace FootballResults.Models.Updaters
                     BackupData(response, GetBackupPathFilledWithParameters(UpdaterSpecificSettingsForLeagueAndSeason.BackupPath, year, leagueID));
                     await ProcessAsync(response!.Response);
                 }
-
-                // to avoid rate limiting
-                await DelayApiCallAsync();
             }
         }
 
@@ -357,7 +396,6 @@ namespace FootballResults.Models.Updaters
             _logger.LogInformation($"{GetType().Name} has finished");
         }
 
-
         protected virtual async Task UpdateForTeamAsync(int teamID)
         {
             if (UpdaterSpecificSettingsForTeam == null)
@@ -401,6 +439,35 @@ namespace FootballResults.Models.Updaters
             }
         }
 
+        protected virtual async Task UpdateForSpecificCountryAllTeamsAsync(int countryID)
+        {
+            _logger.LogInformation($"{GetType().Name} starting...");
+
+            if (UpdaterSpecificSettingsForTeam == null)
+                throw new InvalidOperationException("Updater settings missing");
+
+            using (IServiceScope scope = _serviceScopeFactory.CreateScope())
+            {
+                _dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+                Country country = _dbContext.Countries.FirstOrDefault(country => country.ID == countryID);
+
+                if (country == null)
+                {
+                    _logger.LogWarning($"Country with ID {countryID} does not exist in the database.");
+                }
+
+                foreach (var team in _dbContext.Teams.Where(team => team.CountryID == country.ID))
+                {
+                    await UpdateForTeamAsync(team.ID);
+                    await DelayApiCallAsync();
+                }
+            }
+
+            _logger.LogInformation($"{GetType().Name} has finished");
+
+        }
+
         protected virtual Task UpdateBasedOnLastUpdateAsync(TimeSpan maximumElapsedTimeSinceLastUpdate) { return Task.CompletedTask; }
 
         protected virtual IEnumerable<TResponseItem> LoadDataFromBackup(string backupPath)
@@ -442,13 +509,22 @@ namespace FootballResults.Models.Updaters
             else if (response.Errors.Count > 0)
             {
                 StringBuilder sb = new StringBuilder();
-                sb.AppendLine("API response contains errors:");
                 foreach (var item in response.Errors)
                 {
-                    sb.AppendLine(item.Value);
+                    switch (item.Key)
+                    {
+                        case FootballApiErrorType.MISSING_TOKEN:
+                            throw new MissingApiKeyException(item.Value);
+                        case FootballApiErrorType.OUT_OF_QUOTA:
+                            throw new OutOfQuotaException(item.Value);
+                        default:
+                            sb.AppendLine(item.Value);
+                            break;
+                    }
                 }
 
-                throw new MissingApiKeyException(sb.ToString());
+                sb.AppendLine("API response contains errors:");
+                throw new Exception(sb.ToString());
             }
             else
             {

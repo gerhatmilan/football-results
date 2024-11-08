@@ -10,7 +10,7 @@ using Microsoft.Extensions.Options;
 namespace FootballResults.Models.Updaters
 {
     [Updater]
-    [SupportedModes(UpdaterMode.SpecificTeam, UpdaterMode.BasedOnLastUpdate)]
+    [SupportedModes(UpdaterMode.SpecificTeam, UpdaterMode.SpecificCountryAllTeams, UpdaterMode.BasedOnLastUpdate)]
     public class SquadUpdater : Updater<SquadsResponse, SquadsResponseItem>
     {
         protected override UpdaterSpecificSettings UpdaterSpecificSettingsForTeam => _apiConfig.DataFetch.SquadForTeam;

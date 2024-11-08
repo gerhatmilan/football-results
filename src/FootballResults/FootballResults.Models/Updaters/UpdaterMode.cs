@@ -7,10 +7,12 @@
         AllLeaguesAllSeasons,
         AllLeaguesCurrentSeason,
         AllLeaguesSpecificSeason,
+        SpecificLeagueAllSeasons,
         SpecificLeagueCurrentSeason,
         CurrentDate,
         SpecificDate,
         SpecificTeam,
+        SpecificCountryAllTeams,
         BasedOnLastUpdate
     }
 }

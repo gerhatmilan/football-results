@@ -1,6 +1,6 @@
 ﻿namespace FootballResults.Models.Api.FootballApi.Exceptions
 {
-    public class MissingApiKeyException : Exception
+    public class MissingApiKeyException : ApiException
     {
         public MissingApiKeyException() { }
 

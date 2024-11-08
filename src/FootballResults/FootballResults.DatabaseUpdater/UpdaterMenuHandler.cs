@@ -161,6 +161,21 @@ namespace FootballResults.DatabaseUpdater
             }
         }
 
+        public int GetCountryFromUser()
+        {
+            Console.Write("Country ID: ");
+            string? input = Console.ReadLine();
+
+            if (input != null && int.TryParse(input, out int id))
+            {
+                return id;
+            }
+            else
+            {
+                throw new InvalidDataException("Invalid input format.");
+            }
+        }
+
         public TimeSpan GetLastUpdateBoundaryFromUser()
         {
             Console.WriteLine("The update will occur only when more time has passed since the last update than the given value.");

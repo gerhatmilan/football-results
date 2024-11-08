@@ -199,12 +199,16 @@ namespace FootballResults.DatabaseUpdater
                 case UpdaterMode.SpecificDate:
                     await RunUpdaterAsync(_menuHandler.GetDateFromUser());
                     break;
+                case UpdaterMode.SpecificLeagueAllSeasons:
                 case UpdaterMode.SpecificLeagueCurrentSeason:
                     _menuHandler.MenuMode = UpdaterMenuMode.ShowLeagues;
                     _menuHandler.ResetConsole();
                     break;
                 case UpdaterMode.SpecificTeam:
                     await RunUpdaterAsync(_menuHandler.GetTeamFromUser());
+                    break;
+                case UpdaterMode.SpecificCountryAllTeams:
+                    await RunUpdaterAsync(_menuHandler.GetCountryFromUser());
                     break;
                 case UpdaterMode.BasedOnLastUpdate:
                     await RunUpdaterAsync(_menuHandler.GetLastUpdateBoundaryFromUser());

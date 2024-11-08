@@ -60,7 +60,7 @@ namespace FootballResults.WebApp.BackgroundServices
                                 await UpdateTopScorersForCurrentSeasonAsync(dbContext);
                                 await UpdateMatchesForCurrentDayAsync(dbContext);
                             }
-                            catch (MissingApiKeyException ex)
+                            catch (ApiException ex)
                             {
                                 _logger.LogError(ex.Message);
                             }
@@ -106,7 +106,7 @@ namespace FootballResults.WebApp.BackgroundServices
                     // notify connected clients about the update
                     await _notificationHubContext.Clients.All.SendAsync("ReceiveMessage", UpdateMessageType.MatchesUpdated);
                 }
-                catch (Exception ex) when (ex is not MissingApiKeyException)
+                catch (Exception ex) when (ex is not ApiException)
                 {
                     _logger.LogError($"Football data update worker for matches failed: {ex.Message}");
                 }
@@ -133,7 +133,7 @@ namespace FootballResults.WebApp.BackgroundServices
                         // notify connected clients about the update
                         await _notificationHubContext.Clients.All.SendAsync("ReceiveMessage", UpdateMessageType.MatchesUpdated);
                     }
-                    catch (Exception ex) when (ex is not MissingApiKeyException)
+                    catch (Exception ex) when (ex is not ApiException)
                     {
                         _logger.LogError($"Football data update worker for matches failed to execute for {leagueSeason.League.Name} / {leagueSeason.Year}: {ex.Message}");
                     }
@@ -158,7 +158,7 @@ namespace FootballResults.WebApp.BackgroundServices
                     {
                         await _standingUpdater.StartAsync(UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
                     }
-                    catch (Exception ex) when (ex is not MissingApiKeyException)
+                    catch (Exception ex) when (ex is not ApiException)
                     {
                         _logger.LogError($"Football data update worker for standings failed to execute for {leagueSeason.League.Name} / {leagueSeason.Year}: {ex.Message}");
                     }
@@ -183,7 +183,7 @@ namespace FootballResults.WebApp.BackgroundServices
                     {
                         await _topScorerUpdater.StartAsync(UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
                     }
-                    catch (Exception ex) when (ex is not MissingApiKeyException)
+                    catch (Exception ex) when (ex is not ApiException)
                     {
                         _logger.LogError($"Football data update worker for topscorers failed to execute for {leagueSeason.League.Name} / {leagueSeason.Year}: {ex.Message}");
                     }
