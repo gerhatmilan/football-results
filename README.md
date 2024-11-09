@@ -36,16 +36,14 @@ I used the <b>Free Pricing Tier</b> for demonstration purposes, consider that <b
    ```sh
    git clone https://github.com/gerhatmilan/football-results
    ```
-
-2. Navigate to the project folder at <b>/src/FootbalResults</b>
-
-3. Set up <b>Configuration/sharedSettings.json</b> based on your needs. You can set:
+   
+2. Set up <b>Configuration/sharedSettings.json</b> based on your needs. You can set:
     * The rate limit that the API currently uses for your account (using the free tier it will be 10 api calls/minute). This is important because the application needs to know how frequently it can make the requests.
     * Whether the application should save the api data and where it should save them
     * Which football leagues should the application get the data for
     * How frequently should the application update the data
 
-3. Create a file named <b>.env</b> at <b>/src/FootbalResults</b>, which will store the required environment variables, and fill it with the following data:
+3. Create a file named <b>.env</b> at the root folder, which will store the required environment variables, and fill it with the following data:
 
     3.1 An username for setting up the superuser for the PostgreSQL database
     ```sh
@@ -70,7 +68,7 @@ I used the <b>Free Pricing Tier</b> for demonstration purposes, consider that <b
 
     <b>It is important that you can not change the key of the variables and you provide all the required parameters in the connection string!</b>
     
-4. Create the docker containers with Docker Compose (from the project folder)
+4. Create the docker containers with Docker Compose (from the root folder)
     ```sh
     docker compose -f docker-compose.yml up -d
     ```
