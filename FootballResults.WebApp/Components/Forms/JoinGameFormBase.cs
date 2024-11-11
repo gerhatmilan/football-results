@@ -14,17 +14,14 @@ namespace FootballResults.WebApp.Components.Forms
         [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
 
-        [Parameter]
+        [CascadingParameter(Name = "User")]
         public User? User { get; set; }
 
         protected JoinPredictionGameFormModel Model { get; set; } = new JoinPredictionGameFormModel();
 
-        protected string? ErrorMessage { get; set; }
-
         protected override void ResetErrorMessages()
         {
-            ErrorMessage = null;
-            StateHasChanged();
+            Model.ResetMessages();
         }
 
         protected async Task Submit()
@@ -35,18 +32,32 @@ namespace FootballResults.WebApp.Components.Forms
             PredictionGame? gameByKey = await PredictionGameService.GetPredictionGameByKeyAsync(Model.JoinKey!);
 
             if (gameByKey == null)
-                ErrorMessage = "No game found with the provided key";
-            else if (gameByKey.Players.Contains(User))
-                ErrorMessage = "You have already joined this game";
+            {
+                Model.GameNotFoundError = true;
+            }
+            else if (gameByKey.Players.Any(i => i.ID == User!.ID))
+            {
+                NavigationManager!.NavigateTo($"/prediction-games/{gameByKey.ID}", true);
+            }
             else
             {
-                if (await PredictionGameService.JoinGameAsync(User!.ID, gameByKey.ID) != null)
-                    NavigationManager!.NavigateTo($"/prediction-games/{gameByKey.ID}", true);
-                else
-                    ErrorMessage = "Failed to join the game at this time. Try again later";
+                try
+                {
+                    if (await PredictionGameService.JoinGameAsync(User!.ID, gameByKey.ID) != null)
+                    {
+                        NavigationManager!.NavigateTo($"/prediction-games/{gameByKey.ID}", true);
+                    }
+                    else
+                    {
+                        Model.Error = true;
+                    }
+                }
+                catch (Exception)
+                {
+                    Model.Error = true;
+                }
             }
 
-            StateHasChanged();
             await EnableForm();
         }
     }

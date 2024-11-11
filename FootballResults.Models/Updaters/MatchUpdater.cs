@@ -1,7 +1,7 @@
 using FootballResults.DataAccess.Entities;
 using FootballResults.DataAccess.Entities.Football;
+using FootballResults.DataAccess.Models;
 using FootballResults.Models.Api.FootballApi.Responses;
-using FootballResults.Models.Config;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -14,8 +14,8 @@ namespace FootballResults.Models.Updaters
         private readonly ILoggerFactory _loggerFactory;
         private VenueUpdaterForMatch _venueUpdater;
 
-        protected override UpdaterSpecificSettings UpdaterSpecificSettingsForLeagueAndSeason => _apiConfig.DataFetch.MatchesForLeagueAndSeason;
-        protected override UpdaterSpecificSettings UpdaterSpecificSettingsForDate => _apiConfig.DataFetch.MatchesForDate;
+        protected override EndpointConfig UpdaterSpecificSettingsForLeagueAndSeason => _endpointConfigs.FirstOrDefault(i => i.Name == Defaults.MatchesForLeagueAndSeason);
+        protected override EndpointConfig UpdaterSpecificSettingsForDate => _endpointConfigs.FirstOrDefault(i => i.Name == Defaults.MatchesForDate);
 
         public MatchUpdater(IServiceScopeFactory serviceScopeFactory, ILoggerFactory loggerFactory, ILogger<MatchUpdater> logger)
             : base(serviceScopeFactory, logger)
@@ -26,7 +26,7 @@ namespace FootballResults.Models.Updaters
 
         protected override void ProcessData(IEnumerable<FixturesResponseItem> responseItems)
         {
-            ICollection<int> includedLeagues = GetIncludedLeagueIDs();
+            ICollection<int> includedLeagues = LeaguesWithUpdateActive.Select(i => i.ID).ToList();
 
             responseItems = responseItems.Where(item => item.League.ID.HasValue && includedLeagues.Contains(item.League.ID.Value)); // only matches for included leagues
 

@@ -1,42 +1,60 @@
-﻿using FootballResults.DataAccess.Entities.Users;
+﻿using FootballResults.Models.Authentication;
 using FootballResults.Models.ViewModels.Users;
-using FootballResults.WebApp.Services.Users;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
+using System.Net;
 
 namespace FootballResults.WebApp.Components.Forms
 {
-    public class LoginFormBase : ComponentBase
+    public class LoginFormBase : FormBase
     {
         [Inject]
-        protected ILoginService? LoginService { get; set; }
+        protected NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
-        protected NavigationManager? NavigationManager { get; set; }
+        protected HttpClient HttpClient { get; set; } = default!;
 
-        protected LoginResult LoginResult { get; set; }
+        [Inject] IJSRuntime JSRuntime { get; set; } = default!;
 
         [SupplyParameterFromForm(FormName = "LoginForm")]
         public LoginModel LoginModel { get; set; } = new LoginModel();
 
-        protected override void OnAfterRender(bool firstRender)
+        protected override void ResetErrorMessages()
         {
-            base.OnAfterRender(firstRender);
+            LoginModel.ResetMessages();
         }
 
         protected async Task AuthenticateUserAsync()
         {
+            ResetErrorMessages();
+            DisableForm();
+
             try
             {
-                (User? userInDatabase, LoginResult) = await LoginService!.AuthenticateUserAsync(LoginModel.Username, LoginModel.Password);
-
-                if (LoginResult == LoginResult.Success)
+                LoginRequest request = new LoginRequest
                 {
-                    NavigationManager!.NavigateTo($"/user/login/{userInDatabase!.ID}", true);
+                    Username = LoginModel.Username,
+                    Password = LoginModel.Password
+                };
+
+                int responseStatusCode = await JSRuntime.InvokeAsync<int>("postRequest", NavigationManager.BaseUri + "api/authentication/login", request);
+
+                switch (responseStatusCode)
+                {
+                    case (int)HttpStatusCode.OK:
+                        NavigationManager.NavigateTo("/", forceLoad: true);
+                        break;
+                    case (int)HttpStatusCode.Unauthorized:
+                        LoginModel.InvalidCredentialsError = true;
+                        break;
+                    default:
+                        LoginModel.Error = true;
+                        break;
                 }
             }
             catch (Exception)
             {
-                NavigationManager!.NavigateTo("/error", true);
+                LoginModel.Error = true;
             }
         }
     }

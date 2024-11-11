@@ -102,7 +102,9 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
         {
             try
             {
+                await UpdateLock.WaitAsync();
                 Game = await GameService!.GetPredictionGameAsync(int.Parse(GameID!));
+                UpdateLock.Release();
 
                 if (Game != null)
                 {
@@ -139,7 +141,9 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
             {
                 if (Game != null && SelectedLeague != null)
                 {
+                    await UpdateLock.WaitAsync();
                     await GameService!.ReloadMatchesAsync(Game);
+                    UpdateLock.Release();
                 }
             }
 

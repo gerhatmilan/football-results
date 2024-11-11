@@ -10,7 +10,7 @@
                 <label>Email</label>
                 <InputText @bind-Value="@SignupModel.Email" class="input form-control" placeholder="Email" />
                 <ValidationMessage For="@(() => SignupModel.Email)" class="error" />
-                @if (SignUpResult is SignUpResult.EmailAlreadyInUse)
+                @if (SignupModel.EmailAlreadyInUseError)
                 {
                     <div class="error">Email is already in use</div>
                 }
@@ -19,7 +19,7 @@
                 <label>Username</label>
                 <InputText @bind-Value="@SignupModel.Username" class="input form-control" placeholder="Username" />
                 <ValidationMessage For="@(() => SignupModel.Username)" class="error" />
-                @if (SignUpResult is SignUpResult.UsernameAlreadyInUse)
+                @if (SignupModel.UsernameAlreadyInUseError)
                 {
                     <div class="error">Username is already in use</div>
                 }
@@ -30,16 +30,20 @@
                 <ValidationMessage For="@(() => SignupModel.Password)" class="error" />
             </div>
             <div id="submitDiv">
-                <button type="submit" class="btn button">Sign up</button>
+                <button type="submit" disabled="@ButtonDisabled" class="btn button">Sign up</button>
             </div>
         </EditForm>
     </div>
 
-    @if (SignUpResult is SignUpResult.Success)
+    @if (SignupModel.Success)
     {
         <div class="alert alert-success" role="alert">
             Registration successful! You can now <a href="/login">log in</a>.
         </div>
+    }
+    else if (SignupModel.Error)
+    {
+        <div class="alert alert-danger" role="alert">An error has occured. Please try again later.</div>
     }
 }
 else

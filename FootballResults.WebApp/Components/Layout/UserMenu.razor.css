@@ -33,6 +33,10 @@
     margin: 0;
 }
 
+::deep .nav-link:hover {
+    cursor: pointer;
+}
+
 .nav-item:hover {
     color: var(--link);
 }

@@ -40,6 +40,8 @@ namespace FootballResults.WebApp.Components.Utilities
         {
             try
             {
+                await UpdateLock.WaitAsync();
+
                 var result = await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: MatchFilterParameters!.MonthFilter, day: MatchFilterParameters!.DayFilter
                     , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter);
 
@@ -117,6 +119,8 @@ namespace FootballResults.WebApp.Components.Utilities
 
                 Matches = result;
                 FilterMatchesBasedOnClientDate();
+
+                UpdateLock.Release();
             }
             catch (Exception)
             {

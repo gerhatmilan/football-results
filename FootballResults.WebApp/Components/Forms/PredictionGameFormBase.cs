@@ -6,9 +6,9 @@ using FootballResults.WebApp.Services.Predictions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using FootballResults.WebApp.Services.Files;
-using Microsoft.Extensions.Options;
-using FootballResults.Models.Config;
 using FootballResults.Models.ViewModels.PredictionGames;
+using FootballResults.DataAccess.Entities;
+using FootballResults.WebApp.Services.Application;
 
 namespace FootballResults.WebApp.Components.Forms
 {
@@ -24,27 +24,25 @@ namespace FootballResults.WebApp.Components.Forms
         protected NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
-        protected IOptions<ApplicationConfig> ApplicationSettings { get; set; } = default!;
+        protected IApplicationService ApplicationService { get; set; } = default!;
 
         [Parameter]
         public User User { get; set; } = default!;
 
         protected CreatePredictionGameModel CreateGameModel { get; set; } = new CreatePredictionGameModel();
 
-        protected string? NotCreatedErrorMessage { get; set; }
-        protected string? IncludedLeaguesErrorMessage { get; set; }
-        protected string? ImageErrorMessage { get; set; }
+        protected ApplicationConfig ApplicationConfig { get; set; } = default!;
 
         protected override void ResetErrorMessages()
         {
-            NotCreatedErrorMessage = null;
-            IncludedLeaguesErrorMessage = null;
-            ImageErrorMessage = null;
+            CreateGameModel.ResetMessages();
         }
 
         protected override async Task OnInitializedAsync()
         {
-            base.Initialize(uploadDirectory: ApplicationSettings.Value.PredictionGamePicturesDirectory,
+            ApplicationConfig = await ApplicationService.GetApplicationConfigAsync();
+
+            base.Initialize(uploadDirectory: ApplicationConfig.PredictionGamePicturesDirectory,
                 maxAllowedBytes: 1000000, allowedFiles: new string[] { "image/png", "image/jpeg" });
 
             try
@@ -57,64 +55,42 @@ namespace FootballResults.WebApp.Components.Forms
                     CreateGameModel.IncludedLeagues.Add(new IncludedLeague { League = league, Included = false });
                 }
             }
-            catch (HttpRequestException)
+            catch (Exception)
             {
                 NavigationManager.NavigateTo("/error", true);
             }
         }
 
-
-        protected bool ValidateIncludedLeagues()
-        {
-            // at least one league needs to be selected
-            if (!CreateGameModel.IncludedLeagues.Any(includedLeague => includedLeague.Included))
-            {
-                IncludedLeaguesErrorMessage = "At least one league needs to be selected";
-                return false;
-            }
-            else if (CreateGameModel.IncludedLeagues.Any(i => i.Included && i.League.CurrentSeason == null))
-            {
-                IncludedLeaguesErrorMessage = "One of the selected leagues does not have a season in progress";
-                return false;
-            }
-            else
-            {
-                IncludedLeaguesErrorMessage = null;
-                return true;
-            }
-        }
-
         protected async Task SubmitAsync()
         {
-            DisableForm();
-
-            if (!ValidateIncludedLeagues())
+            if (!CreateGameModel.ValidateIncludedLeagues() || CreateGameModel.ImageError)
             {
-                await EnableForm();
                 return;
             }
+
+            ResetErrorMessages();
+            DisableForm();
 
             PredictionGame? createdGame = await PredictionGameService.CreatePredictionGameAsync(User.ID, CreateGameModel);
             if (createdGame != null)
             {
-                NavigationManager.NavigateTo("/prediction-games", true);
+                NavigationManager.NavigateTo($"/prediction-games/{createdGame.ID}", true);
             }
             else
             {
-                NotCreatedErrorMessage = "The game could not be created. Please try again later.";
+                CreateGameModel.Error = true;
+                await EnableForm();
             }
-
-            await EnableForm();
         }
 
         protected async Task OnImageSelectedAsync(InputFileChangeEventArgs e)
         {
-            ImageErrorMessage = null;
+            ResetErrorMessages();
             var file = e.File;
 
             if (User != null && file != null)
             {
-                FileUploadService uploadService = new FileUploadService(uploadDirectory: ApplicationSettings.Value.PredictionGamePicturesDirectory,
+                FileUploadService uploadService = new FileUploadService(uploadDirectory: ApplicationConfig.PredictionGamePicturesDirectory,
                     maxAllowedBytes: 1000000, allowedFiles: new string[] { "image/png", "image/jpeg" });
 
                 FileUploadResult result = await uploadService.UploadFileAsync(file: file, newFileName: TemporaryFileName);
@@ -124,7 +100,7 @@ namespace FootballResults.WebApp.Components.Forms
                 }
                 else
                 {
-                    ImageErrorMessage = result.Message;
+                    CreateGameModel.ImageErrorMessage = result.Message;
                 }
 
                 StateHasChanged();

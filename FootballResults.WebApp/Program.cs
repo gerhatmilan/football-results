@@ -2,12 +2,13 @@ using Blazored.LocalStorage;
 using FootballResults.API.Models;
 using FootballResults.DataAccess;
 using FootballResults.DataAccess.Entities.Users;
+using FootballResults.DataAccess.Models;
 using FootballResults.DataAccess.Repositories.Football;
-using FootballResults.Models.Config;
 using FootballResults.WebApp.BackgroundServices;
 using FootballResults.WebApp.Components;
 using FootballResults.WebApp.Hubs;
 using FootballResults.WebApp.Services;
+using FootballResults.WebApp.Services.Application;
 using FootballResults.WebApp.Services.Chat;
 using FootballResults.WebApp.Services.Football;
 using FootballResults.WebApp.Services.Football.Server;
@@ -26,7 +27,6 @@ namespace FootballResults.WebApp
         private static WebApplicationBuilder _builder = default!;
         private static IConfiguration _configuration = default!;
         private static IHostEnvironment _environment = default!;
-        private static string CONFIG = "config";
 
         public static void Main(string[] args)
         {
@@ -51,6 +51,8 @@ namespace FootballResults.WebApp
             app.UseAuthorization();
             app.UseStatusCodePagesWithRedirects("{0}");
 
+            app.MapControllers();
+
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();
 
@@ -73,8 +75,6 @@ namespace FootballResults.WebApp
             string baseDirectory = AppContext.BaseDirectory;
 
             _configuration = _builder.Configuration
-                .AddJsonFile(Path.Combine(baseDirectory, CONFIG, "sharedSettings.json"))
-                .AddJsonFile(Path.Combine(baseDirectory, CONFIG, $"sharedSettings.{_environment.EnvironmentName}.json"), optional: true)
                 .AddJsonFile(Path.Combine(baseDirectory, "appsettings.json"))
                 .AddJsonFile(Path.Combine(baseDirectory, $"appsettings.{_environment.EnvironmentName}.json"), optional: true)
                 .AddEnvironmentVariables()
@@ -91,10 +91,10 @@ namespace FootballResults.WebApp
                 configNotFound = "Database connection string";
                 key = "ConnectionStrings__DefaultConnection";
             }
-            else if (_configuration.GetValue<string>("FootballApiConfig:ApiKey") == null)
+            else if (_configuration.GetValue<string>(Defaults.FootballApiKeyEncryptionKey) == null)
             {
-                configNotFound = "API key";
-                key = "FootballApiConfig__ApiKey";
+                configNotFound = "API encryption key";
+                key = Defaults.FootballApiKeyEncryptionKey;
             }
 
             if (!string.IsNullOrEmpty(configNotFound))
@@ -108,12 +108,14 @@ namespace FootballResults.WebApp
             // Add services to the container.
             _builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+            _builder.Services.AddControllers();
             _builder.Services.AddSignalR()
                 .AddJsonProtocol(options =>
                 {
                     options.PayloadSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
                 });
             _builder.Services.AddBlazoredLocalStorage();
+            _builder.Services.AddHttpClient();
 
             // Custom services
             _builder.Services.AddScoped<ISignupService, SignupService>();
@@ -133,9 +135,9 @@ namespace FootballResults.WebApp
             _builder.Services.AddScoped<ILeagueService, LeagueServiceServer>();
             _builder.Services.AddScoped<ITeamService, TeamServiceServer>();
 
+            _builder.Services.AddScoped<IApplicationService, ApplicationService>();
+
             // Background services
-            _builder.Services.Configure<ApplicationConfig>(_configuration.GetSection("ApplicationConfig"));
-            _builder.Services.Configure<FootballApiConfig>(_configuration.GetSection("FootballApiConfig"));
             _builder.Services.AddHostedService<FootballDataUpdater>();
             _builder.Services.AddHostedService<PredictionGamesUpdater>();
             _builder.Services.AddHostedService<ImageDownloader>();
@@ -144,7 +146,7 @@ namespace FootballResults.WebApp
             _builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.Cookie.Name = "auth_cookie";
+                    options.Cookie.Name = "AuthCookie";
                     options.LoginPath = "/login";
                     options.LogoutPath = "/logout";
                     options.Cookie.MaxAge = TimeSpan.FromDays(7);

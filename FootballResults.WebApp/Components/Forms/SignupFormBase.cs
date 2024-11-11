@@ -1,11 +1,10 @@
-﻿using FootballResults.DataAccess.Entities.Users;
-using FootballResults.WebApp.Services.Users;
+﻿using FootballResults.WebApp.Services.Users;
 using Microsoft.AspNetCore.Components;
 using FootballResults.Models.ViewModels.Users;
 
 namespace FootballResults.WebApp.Components.Forms
 {
-    public partial class SignupFormBase : ComponentBase
+    public partial class SignupFormBase : FormBase
     {
         [SupplyParameterFromForm(FormName = "SignUpForm")]
         public SignupModel SignupModel { get; set; } = new SignupModel();
@@ -16,25 +15,26 @@ namespace FootballResults.WebApp.Components.Forms
         [Inject]
         public NavigationManager? NavigationManager { get; set; }
 
-        protected SignUpResult SignUpResult { get; set; }
+        protected override void ResetErrorMessages()
+        {
+            SignupModel.ResetMessages();
+        }
 
         protected async Task RegisterUserAsync()
         {
-            User user = new User
-            {
-                Email = SignupModel.Email,
-                Username = SignupModel.Username,
-                Password = SignupModel.Password
-            };
+            ResetErrorMessages();
+            DisableForm();
 
             try
             {
-                SignUpResult = await SignupService!.RegisterUserAsync(user);
+                await SignupService!.RegisterUserAsync(SignupModel);
             }
             catch (Exception)
             {
                 NavigationManager!.NavigateTo("/error", true);
             }
+
+            await EnableForm();
         }
     }
 }

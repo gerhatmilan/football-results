@@ -1,9 +1,9 @@
+using FootballResults.DataAccess.Entities;
+using FootballResults.DataAccess.Models;
 using FootballResults.Models.Api.FootballApi.Responses;
-using FootballResults.Models.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace FootballResults.Models.Updaters
 {
@@ -11,7 +11,7 @@ namespace FootballResults.Models.Updaters
     [SupportedModes(UpdaterMode.Helper)]
     public class SeasonUpdater : Updater<LeaguesResponse, LeaguesResponseItem>
     {
-        protected override UpdaterSpecificSettings UpdaterSpecificSettings => _apiConfig.DataFetch.Leagues;
+        protected override EndpointConfig UpdaterSpecificSettings => _endpointConfigs.FirstOrDefault(i => i.Name == Defaults.Leagues);
 
         public SeasonUpdater(IServiceScopeFactory serviceScopeFactory, ILogger<SeasonUpdater> logger)
             : base(serviceScopeFactory, logger) { }
@@ -23,7 +23,7 @@ namespace FootballResults.Models.Updaters
                .ToList();
 
             // filter leagues based on configuration file
-            ICollection<int> includedLeagueIDs = GetIncludedLeagueIDs();
+            ICollection<int> includedLeagueIDs = LeaguesWithUpdateActive.Select(i => i.ID).ToList();
             var filteredResponseItems = responseItems.Where(responseItem => responseItem.League.ID != null
                 && includedLeagueIDs.Contains(responseItem.League.ID.Value));
 

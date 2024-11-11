@@ -1,9 +1,9 @@
+using FootballResults.DataAccess.Entities;
 using FootballResults.DataAccess.Entities.Football;
+using FootballResults.DataAccess.Models;
 using FootballResults.Models.Api.FootballApi.Responses;
-using FootballResults.Models.Config;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace FootballResults.Models.Updaters
 {
@@ -11,7 +11,7 @@ namespace FootballResults.Models.Updaters
     [SupportedModes(UpdaterMode.Helper)]
     public class VenueUpdaterForTeam : Updater<TeamsResponse, TeamsResponseItem>
     {
-        protected override UpdaterSpecificSettings UpdaterSpecificSettingsForLeagueAndSeason => _apiConfig.DataFetch.TeamsForLeagueAndSeason;
+        protected override EndpointConfig UpdaterSpecificSettingsForLeagueAndSeason => _endpointConfigs.FirstOrDefault(i => i.Name == Defaults.TeamsForLeagueAndSeason);
 
         public VenueUpdaterForTeam(IServiceScopeFactory serviceScopeFactory, ILogger<VenueUpdaterForTeam> logger)
             : base(serviceScopeFactory, logger) { }

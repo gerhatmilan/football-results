@@ -1,5 +1,5 @@
 using FootballResults.DataAccess;
-using FootballResults.Models.Config;
+using FootballResults.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +14,6 @@ namespace FootballResults.DatabaseUpdater
         private static HostApplicationBuilder _builder = default!;
         private static IConfiguration _configuration = default!;
         private static IHostEnvironment _environment = default!;
-        private static string CONFIG = "config";
 
         public static void Main(string[] args)
         {
@@ -56,8 +55,6 @@ namespace FootballResults.DatabaseUpdater
             string baseDirectory = AppContext.BaseDirectory;
 
             _configuration = _builder.Configuration
-                .AddJsonFile(Path.Combine(baseDirectory, CONFIG, "sharedSettings.json"))
-                .AddJsonFile(Path.Combine(baseDirectory, CONFIG, $"sharedSettings.{_environment.EnvironmentName}.json"), optional: true)
                 .AddJsonFile(Path.Combine(baseDirectory, "appsettings.json"))
                 .AddJsonFile(Path.Combine(baseDirectory, $"appsettings.{_environment.EnvironmentName}.json"), optional: true)
                 .AddEnvironmentVariables()
@@ -87,10 +84,10 @@ namespace FootballResults.DatabaseUpdater
                 configNotFound = "Database connection string";
                 key = "ConnectionStrings__DefaultConnection";
             }
-            else if (_configuration.GetValue<string>("FootballApiConfig:ApiKey") == null)
+            else if (_configuration.GetValue<string>(Defaults.FootballApiKeyEncryptionKey) == null)
             {
-                configNotFound = "API key";
-                key = "FootballApiConfig__ApiKey";
+                configNotFound = "API encryption key";
+                key = Defaults.FootballApiKeyEncryptionKey;
             }
 
             if (!string.IsNullOrEmpty(configNotFound))
@@ -101,9 +98,6 @@ namespace FootballResults.DatabaseUpdater
 
         private static void ConfigureServices()
         {
-            _builder.Services.Configure<FootballApiConfig>(_configuration.GetSection("FootballApiConfig"));
-            _builder.Services.Configure<ApplicationConfig>(_configuration.GetSection("ApplicationConfig"));
-
             _builder.Services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseNpgsql(_configuration.GetConnectionString("DefaultConnection"))

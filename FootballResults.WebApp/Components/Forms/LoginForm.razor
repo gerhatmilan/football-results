@@ -10,30 +10,33 @@
         @if (LoginModel != null)
         {
             <div id="loginForm" class="form">
-                <EditForm Context="editFormContext" FormName="LoginForm" Model="@LoginModel" OnValidSubmit="AuthenticateUserAsync">
+                <EditForm Context="editFormContext" FormName="LoginForm" Model="@LoginModel" OnValidSubmit="AuthenticateUserAsync"  >
                     <DataAnnotationsValidator />
 
                     <div class="mb-3">
                         <label>Username</label>
                         <InputText @bind-Value="@LoginModel.Username" class="input form-control" placeholder="Username" />
                         <ValidationMessage For="@(() => LoginModel.Username)" class="error" />
-                        @if (LoginResult is LoginResult.UserNotFound)
-                        {
-                            <div class="error">User not found</div>
-                        }
                     </div>
                     <div class="mb-3">
                         <label>Password</label>
                         <InputText @bind-Value="@LoginModel.Password" class="input form-control" type="password" placeholder="Password" />
                         <ValidationMessage For="@(() => LoginModel.Password)" class="error" />
-                        @if (LoginResult is LoginResult.InvalidPassword)
-                        {
-                            <div class="error">Invalid password</div>
-                        }
                     </div>
+
                     <div id="submitDiv">
                         <button type="submit" class="btn button">Log in</button>
                     </div>
+
+                    
+                    @if (LoginModel.InvalidCredentialsError)
+                    {
+                        <div class="alert alert-danger">Invalid username or password</div>
+                    }
+                    else if (LoginModel.Error)
+                    {
+                        <div class="alert alert-danger">An error has occured. Please try again later.</div>
+                    }
                 </EditForm>
             </div>
         }

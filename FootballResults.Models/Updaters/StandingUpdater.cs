@@ -1,10 +1,10 @@
+using FootballResults.DataAccess.Entities;
 using FootballResults.DataAccess.Entities.Football;
+using FootballResults.DataAccess.Models;
 using FootballResults.Models.Api.FootballApi.Responses;
-using FootballResults.Models.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace FootballResults.Models.Updaters
 {
@@ -12,7 +12,7 @@ namespace FootballResults.Models.Updaters
     [SupportedModes(UpdaterMode.AllLeaguesAllSeasons, UpdaterMode.AllLeaguesCurrentSeason, UpdaterMode.AllLeaguesSpecificSeason, UpdaterMode.SpecificLeagueAllSeasons, UpdaterMode.SpecificLeagueCurrentSeason)]
     public class StandingUpdater : Updater<StandingsResponse, StandingsResponseItem>
     {
-        protected override UpdaterSpecificSettings UpdaterSpecificSettingsForLeagueAndSeason => _apiConfig.DataFetch.StandingsForLeagueAndSeason;
+        protected override EndpointConfig UpdaterSpecificSettingsForLeagueAndSeason => _endpointConfigs.FirstOrDefault(i => i.Name == Defaults.StandingsForLeagueAndSeason);
 
         public StandingUpdater(IServiceScopeFactory serviceScopeFactory, ILogger<StandingUpdater> logger)
             : base(serviceScopeFactory, logger) { }

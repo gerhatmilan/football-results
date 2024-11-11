@@ -1,0 +1,29 @@
+﻿@if (Data != null)
+{
+    <div class="endpointConfig">
+        <h3 id="@($"EndpointConfig{nameof(Data.Name)}{Data.ID}")">@Data.Name</h3>
+
+        <div class="mb-3">
+            <label for="@($"EndpointConfig{nameof(Data.Endpoint)}{Data.ID}")">Endpoint</label>
+            <InputText id="@($"EndpointConfig{nameof(Data.Endpoint)}{Data.ID}")" @bind-Value="@Data.Endpoint" class="input form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label for="@($"EndpointConfig{nameof(Data.BackupPath)}{Data.ID}")">Name</label>
+            <InputText id="@($"EndpointConfig{nameof(Data.BackupPath)}{Data.ID}")" @bind-Value="@Data.BackupPath" class="input form-control" />
+        </div>
+
+        <div class="mb-3 checkboxDiv">
+            <label for="@($"EndpointConfig{nameof(Data.LoadDataFromBackup)}{Data.ID}")">Load data from backup instead of API fetch</label>
+            <InputCheckbox id="@($"EndpointConfig{nameof(Data.LoadDataFromBackup)}{Data.ID}")" class="checkbox" @bind-Value="@Data.LoadDataFromBackup" />
+        </div>
+    </div>   
+}
+else {
+    <LoadingSpinner />
+}
+
+@code {
+    [Parameter]
+    public EndpointConfig? Data { get; set; }
+}

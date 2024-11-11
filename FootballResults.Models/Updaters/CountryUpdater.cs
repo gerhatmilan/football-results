@@ -1,9 +1,9 @@
+using FootballResults.DataAccess.Entities;
 using FootballResults.DataAccess.Entities.Football;
+using FootballResults.DataAccess.Models;
 using FootballResults.Models.Api.FootballApi.Responses;
-using FootballResults.Models.Config;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace FootballResults.Models.Updaters
 {
@@ -11,7 +11,7 @@ namespace FootballResults.Models.Updaters
     [SupportedModes(UpdaterMode.Classic)]
     public class CountryUpdater : Updater<CountriesResponse, CountriesResponseItem>
     {
-        protected override UpdaterSpecificSettings UpdaterSpecificSettings => _apiConfig.DataFetch.Countries;
+        protected override EndpointConfig UpdaterSpecificSettings => _endpointConfigs.FirstOrDefault(i => i.Name == Defaults.Countries);
 
         public CountryUpdater(IServiceScopeFactory serviceScopeFactory, ILogger<CountryUpdater> logger)
             : base(serviceScopeFactory, logger) { }

@@ -1,16 +1,14 @@
-﻿using FootballResults.Models.Config;
+﻿using FootballResults.DataAccess;
+using FootballResults.DataAccess.Entities.Football;
 using FootballResults.Models.Updaters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace FootballResults.DatabaseUpdater
 {
     public class UpdaterRunner : BackgroundService
     {
-        private readonly FootballApiConfig _apiConfig;
-        private readonly ApplicationConfig _applicationConfig;
         private readonly IServiceProvider _serviceProvider;
         private readonly IHostApplicationLifetime _applicationLifetime;
         private readonly ILogger<UpdaterRunner> _logger;
@@ -20,17 +18,27 @@ namespace FootballResults.DatabaseUpdater
         private UpdaterMenuHandler _menuHandler;
         private IUpdater? _selectedUpdater;
         private UpdaterMode? _selectedMode;
-        private IEnumerable<IncludedLeagueRecord> IncludedLeagues => _applicationConfig.IncludedLeagues;
+
+        private IEnumerable<League> LeaguesWithActiveUpdate { get; set; }
 
         public UpdaterRunner(IServiceProvider serviceProvider, IHostApplicationLifetime applicationLifetime, ILogger<UpdaterRunner> logger, IHostEnvironment hostingEnvironment)
         {
-            _apiConfig = serviceProvider.GetRequiredService<IOptions<FootballApiConfig>>().Value;
-            _applicationConfig = serviceProvider.GetRequiredService<IOptions<ApplicationConfig>>().Value;
             _serviceProvider = serviceProvider;
             _applicationLifetime = applicationLifetime;
             _logger = logger;
             _hostingEnvironment = hostingEnvironment;
-            _menuHandler = new UpdaterMenuHandler(IncludedLeagues);
+
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                AppDbContext dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+                LeaguesWithActiveUpdate = dbContext.Leagues
+                    .Where(l => l.UpdatesActive)
+                    .OrderBy(l => l.Name)
+                    .ToList();
+            }
+
+            _menuHandler = new UpdaterMenuHandler(LeaguesWithActiveUpdate);
         }
 
         public override Task StartAsync(CancellationToken stoppingToken)
@@ -111,7 +119,7 @@ namespace FootballResults.DatabaseUpdater
                     _menuHandler.SelectedOption = _menuHandler.SelectedOption == _selectedUpdater!.SupportedModes.Count() - 1 ? 0 : _menuHandler.SelectedOption + 1;
                     break;
                 case UpdaterMenuMode.ShowLeagues:
-                    _menuHandler.SelectedOption = _menuHandler.SelectedOption == IncludedLeagues.Count() - 1 ? 0 : _menuHandler.SelectedOption + 1;
+                    _menuHandler.SelectedOption = _menuHandler.SelectedOption == LeaguesWithActiveUpdate.Count() - 1 ? 0 : _menuHandler.SelectedOption + 1;
                     break;
             }
             
@@ -129,7 +137,7 @@ namespace FootballResults.DatabaseUpdater
                     _menuHandler.SelectedOption = _menuHandler.SelectedOption == 0 ? _selectedUpdater!.SupportedModes.Count() - 1 : _menuHandler.SelectedOption - 1;
                     break;
                 case UpdaterMenuMode.ShowLeagues:
-                    _menuHandler.SelectedOption = _menuHandler.SelectedOption == 0 ? IncludedLeagues.Count() - 1 : _menuHandler.SelectedOption - 1;
+                    _menuHandler.SelectedOption = _menuHandler.SelectedOption == 0 ? LeaguesWithActiveUpdate.Count() - 1 : _menuHandler.SelectedOption - 1;
                     break;
             }
             _menuHandler.ResetCursorPosition();
@@ -221,7 +229,7 @@ namespace FootballResults.DatabaseUpdater
 
         private async Task OnLeagueSelectedAsync()
         {
-            await RunUpdaterAsync(IncludedLeagues.ElementAt(_menuHandler.SelectedOption).ID);
+            await RunUpdaterAsync(LeaguesWithActiveUpdate.ElementAt(_menuHandler.SelectedOption).ID);
         }
     }
 }

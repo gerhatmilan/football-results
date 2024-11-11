@@ -2,6 +2,7 @@
 using FootballResults.DataAccess;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using FootballResults.Models.ViewModels.Users;
 
 namespace FootballResults.WebApp.Services.Users
 {
@@ -27,15 +28,24 @@ namespace FootballResults.WebApp.Services.Users
             return await _dbContext!.Users.AnyAsync(u => u.Username == user.Username);
         }
 
-        public async Task<SignUpResult> RegisterUserAsync(User user)
+        public async Task RegisterUserAsync(SignupModel model)
         {
+            User user = new User
+            {
+                Email = model.Email,
+                Username = model.Username,
+                Password = model.Password
+            };
+
             if (await IsDupliateEmailAsync(user))
             {
-                return SignUpResult.EmailAlreadyInUse;
+                model.EmailAlreadyInUseError = true;
+                return;
             }
             if (await IsDuplicateUsername(user))
             {
-                return SignUpResult.UsernameAlreadyInUse;
+                model.UsernameAlreadyInUseError = true;
+                return;
             }
 
             var hashedPassword = GetHashedPassword(user);
@@ -47,10 +57,18 @@ namespace FootballResults.WebApp.Services.Users
                 RegistrataionDate = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified)
             };
 
-            _dbContext.Add(hashedUser);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Add(hashedUser);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                model.Error = true;
+                return;
+            }
 
-            return SignUpResult.Success;
+            model.Success = true;
         }
     }
 }

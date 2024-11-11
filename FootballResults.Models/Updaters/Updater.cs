@@ -1,14 +1,15 @@
 ﻿using Extensions;
 using FootballResults.DataAccess;
+using FootballResults.DataAccess.Entities;
 using FootballResults.DataAccess.Entities.Football;
+using FootballResults.DataAccess.Models;
 using FootballResults.Models.Api;
 using FootballResults.Models.Api.FootballApi.Exceptions;
 using FootballResults.Models.Api.FootballApi.Responses;
-using FootballResults.Models.Config;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Reflection;
 using System.Text;
@@ -19,16 +20,21 @@ namespace FootballResults.Models.Updaters
     {
         protected readonly IServiceScopeFactory _serviceScopeFactory;
         protected readonly ILogger _logger;
-        protected readonly FootballApiConfig _apiConfig;
-        protected readonly ApplicationConfig _applicationConfig;
+        protected readonly IConfiguration _configuration;
         protected AppDbContext _dbContext = default!;
         protected WebApiClient _webApiClient;
         protected UpdaterMode _currentMode;
 
-        protected virtual UpdaterSpecificSettings UpdaterSpecificSettings { get; } = null;
-        protected virtual UpdaterSpecificSettings UpdaterSpecificSettingsForDate { get; } = null;
-        protected virtual UpdaterSpecificSettings UpdaterSpecificSettingsForTeam { get; } = null;
-        protected virtual UpdaterSpecificSettings UpdaterSpecificSettingsForLeagueAndSeason { get; } = null;
+        protected ApiConfig _apiConfig;
+        protected ApplicationConfig _applicationConfig;
+        protected IEnumerable<EndpointConfig> _endpointConfigs;
+
+        protected virtual EndpointConfig UpdaterSpecificSettings { get; } = null;
+        protected virtual EndpointConfig UpdaterSpecificSettingsForDate { get; } = null;
+        protected virtual EndpointConfig UpdaterSpecificSettingsForTeam { get; } = null;
+        protected virtual EndpointConfig UpdaterSpecificSettingsForLeagueAndSeason { get; } = null;
+
+        protected IEnumerable<DataAccess.Entities.Football.League> LeaguesWithUpdateActive { get; set; }
 
         public IEnumerable<UpdaterMode> SupportedModes
         {
@@ -47,8 +53,22 @@ namespace FootballResults.Models.Updaters
         {
             _serviceScopeFactory = serviceScopeFactory;
             _logger = logger;
-            _apiConfig = _serviceScopeFactory.CreateScope().ServiceProvider.GetRequiredService<IOptions<FootballApiConfig>>().Value;
-            _applicationConfig = _serviceScopeFactory.CreateScope().ServiceProvider.GetRequiredService<IOptions<ApplicationConfig>>().Value;
+
+            using (var scope = _serviceScopeFactory.CreateScope())
+            {
+                _configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+                _dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+                _apiConfig = _dbContext.ApiConfig.OrderBy(i => i.ID).FirstOrDefault();
+                _applicationConfig = _dbContext.ApplicationConfig.OrderBy(i => i.ID).FirstOrDefault();
+                _endpointConfigs = _dbContext.EndpointConfig.ToList();
+
+                LeaguesWithUpdateActive = _dbContext.Leagues
+                    .Where(l => l.UpdatesActive)
+                    .OrderBy(l => l.Name)
+                    .ToList();
+            }
+
             _webApiClient = new WebApiClient(_apiConfig.BaseAddress, logger);
         }
 
@@ -134,11 +154,6 @@ namespace FootballResults.Models.Updaters
             return string.Format(backupPath, parameters);
         }
 
-        protected ICollection<int> GetIncludedLeagueIDs()
-        {
-            return _applicationConfig.IncludedLeagues.Select(includedLeague => includedLeague.ID).ToList();
-        }
-
         protected virtual async Task UpdateAsync()
         {
             _logger.LogInformation($"{GetType().Name} starting...");
@@ -186,8 +201,8 @@ namespace FootballResults.Models.Updaters
                 _dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
                 List<DataAccess.Entities.Football.League> leagues = _dbContext.Leagues
-                .Include(league => league.LeagueSeasons)
-                .ToList();
+                    .Include(league => league.LeagueSeasons)
+                    .ToList();
 
                 foreach (var league in leagues)
                 {
@@ -486,8 +501,10 @@ namespace FootballResults.Models.Updaters
 
         protected virtual async Task<TResponse> FetchDataAsync(string endpoint)
         {
+            var requestHeaders = await _apiConfig.GetRequestHeadersAsync(_configuration.GetSection(Defaults.FootballApiKeyEncryptionKey).Value);
+
             _logger.LogInformation("API fetch in progress...");
-            var response = await _webApiClient.GetAsync<TResponse>(endpoint, _apiConfig.RequestHeaders);
+            var response = await _webApiClient.GetAsync<TResponse>(endpoint, requestHeaders);
             _logger.LogInformation("Response received. Checking response...");
 
             return response;
@@ -495,7 +512,7 @@ namespace FootballResults.Models.Updaters
 
         protected virtual void BackupData(TResponse response, string backupPath)
         {
-            if (response != null && _apiConfig.DataFetch.ShouldBackupData)
+            if (response != null && _apiConfig.BackupData)
             {
                 FileExtensions.WriteAllText(backupPath, JsonConvert.SerializeObject(response.Response, Formatting.Indented), createDirectory: true);
                 _logger.LogInformation($"Data backup saved to {backupPath}");
@@ -565,7 +582,7 @@ namespace FootballResults.Models.Updaters
 
         protected async Task DelayApiCallAsync()
         {
-            double secondsToWait = 60.0 / _apiConfig.RateLimit;
+            double secondsToWait = _apiConfig.RateLimit.HasValue && _apiConfig.RateLimit.Value > 0 ? (60.0 / _apiConfig.RateLimit.Value) : 0;
             int milliSecondsToWait = (int)Math.Ceiling(secondsToWait * 1000);
             _logger.LogInformation($"Delaying next API call for {milliSecondsToWait} milliseconds...");
             await Task.Delay(milliSecondsToWait);

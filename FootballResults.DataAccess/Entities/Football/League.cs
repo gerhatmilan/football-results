@@ -35,6 +35,11 @@ namespace FootballResults.DataAccess.Entities.Football
         public string LogoPath { get; set; }
 
         /// <summary>
+        /// A flag whether regular updates should occur for the league
+        /// </summary>
+        public bool UpdatesActive { get; set; }
+
+        /// <summary>
         /// Bookmark ID for this league (equals to ID)
         /// </summary>
         [JsonIgnore]

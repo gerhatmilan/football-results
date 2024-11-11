@@ -1,15 +1,14 @@
 ﻿using FootballResults.DataAccess;
+using FootballResults.DataAccess.Entities;
 using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Models;
 using FootballResults.Models.Api.FootballApi.Exceptions;
-using FootballResults.Models.Config;
 using FootballResults.Models.Updaters;
 using FootballResults.WebApp.Hubs;
-using FootballResults.WebApp.Services.Chat;
+using FootballResults.WebApp.Services.Application;
 using FootballResults.WebApp.Services.LiveUpdates;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace FootballResults.WebApp.BackgroundServices
 {
@@ -18,32 +17,26 @@ namespace FootballResults.WebApp.BackgroundServices
         protected readonly IServiceProvider _serviceProvider;
         protected readonly ILogger<FootballDataUpdater> _logger;
         protected readonly ApplicationConfig _applicationConfig;
-        protected readonly TimeSpan _period;
         protected readonly IHubContext<MessageHub<UpdateMessageType>> _notificationHubContext;
-
-        protected MatchUpdater _matchUpdater;
-        protected StandingUpdater _standingUpdater;
-        protected TopScorerUpdater _topScorerUpdater;
 
         protected static IEnumerable<string> MatchStatusesThatRequireUpdate { get; } = new List<string> { MatchStatus.NotStarted, MatchStatus.FirstHalf, MatchStatus.HalfTime, MatchStatus.SecondHalf, MatchStatus.ExtraTime, MatchStatus.BreakTime, MatchStatus.PenaltiesInProgress, MatchStatus.Suspended, MatchStatus.Interrupted, MatchStatus.Live };
 
-        public FootballDataUpdater(IServiceProvider serviceProvider, ILogger<FootballDataUpdater> logger, IOptions<ApplicationConfig> applicationConfig,
-            IHubContext<MessageHub<UpdateMessageType>> notificationHubContext)
+        public FootballDataUpdater(IServiceProvider serviceProvider, ILogger<FootballDataUpdater> logger, IHubContext<MessageHub<UpdateMessageType>> notificationHubContext)
         {
             _serviceProvider = serviceProvider;
-            _applicationConfig = applicationConfig.Value;
             _notificationHubContext = notificationHubContext;
             _logger = logger;
-            _period = _applicationConfig.UpdaterWorkerFrequency;
 
-            _matchUpdater = (MatchUpdater)ActivatorUtilities.CreateInstance(_serviceProvider, typeof(MatchUpdater));
-            _standingUpdater = (StandingUpdater)ActivatorUtilities.CreateInstance(_serviceProvider, typeof(StandingUpdater));
-            _topScorerUpdater = (TopScorerUpdater)ActivatorUtilities.CreateInstance(_serviceProvider, typeof(TopScorerUpdater));
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                IApplicationService applicationService = scope.ServiceProvider.GetRequiredService<IApplicationService>();
+                _applicationConfig = applicationService.GetApplicationConfigAsync().Result;
+            }
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            using (PeriodicTimer timer = new PeriodicTimer(_period))
+            using (PeriodicTimer timer = new PeriodicTimer(_applicationConfig.UpdateWorkerFrequency))
             {
                 do
                 {
@@ -55,6 +48,8 @@ namespace FootballResults.WebApp.BackgroundServices
                         {
                             try
                             {
+                                await dbContext.Entry(_applicationConfig).ReloadAsync();
+
                                 await UpdateMatchesForCurrentSeasonAsync(dbContext);
                                 await UpdateStandingsForCurrentSeasonAsync(dbContext);
                                 await UpdateTopScorersForCurrentSeasonAsync(dbContext);
@@ -96,12 +91,13 @@ namespace FootballResults.WebApp.BackgroundServices
         {
             DateTime? lastUpdate = dbContext.SystemInformation.Find(1)?.MatchesLastUpdateForCurrentDay;
 
-            if (ShouldUpdate(lastUpdate, _applicationConfig.MatchesUpdateForCurrentDayFrequency)
+            if (ShouldUpdate(lastUpdate, _applicationConfig.MatchUpdateForCurrentDayFrequency)
                 && MatchMightBeInProgress(dbContext))
             {
                 try
                 {
-                    await _matchUpdater.StartAsync(UpdaterMode.CurrentDate);
+                    MatchUpdater matchUpdater = (MatchUpdater)ActivatorUtilities.CreateInstance(_serviceProvider, typeof(MatchUpdater));
+                    await matchUpdater.StartAsync(UpdaterMode.CurrentDate);
 
                     // notify connected clients about the update
                     await _notificationHubContext.Clients.All.SendAsync("ReceiveMessage", UpdateMessageType.MatchesUpdated);
@@ -117,18 +113,19 @@ namespace FootballResults.WebApp.BackgroundServices
         {
             ICollection<LeagueSeason> currentLeagueSeasons = await dbContext.LeagueSeasons
                 .Include(ls => ls.League)
-                .Where(i => i.InProgress)
+                .Where(i => i.InProgress && i.League.UpdatesActive)
                 .ToListAsync();
 
             foreach (var leagueSeason in currentLeagueSeasons)
             {
                 DateTime? lastUpdate = leagueSeason.MatchesLastUpdate;
 
-                if (ShouldUpdate(lastUpdate, _applicationConfig.MatchesUpdateForCurrentSeasonFrequency))
+                if (ShouldUpdate(lastUpdate, _applicationConfig.MatchUpdateForCurrentSeasonFrequency))
                 {
                     try
                     {
-                        await _matchUpdater.StartAsync(UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
+                        MatchUpdater matchUpdater = (MatchUpdater)ActivatorUtilities.CreateInstance(_serviceProvider, typeof(MatchUpdater));
+                        await matchUpdater.StartAsync(UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
 
                         // notify connected clients about the update
                         await _notificationHubContext.Clients.All.SendAsync("ReceiveMessage", UpdateMessageType.MatchesUpdated);
@@ -145,7 +142,7 @@ namespace FootballResults.WebApp.BackgroundServices
         {
             ICollection<LeagueSeason> currentLeagueSeasons = await dbContext.LeagueSeasons
                 .Include(ls => ls.League)
-                .Where(i => i.InProgress)
+                .Where(i => i.InProgress && i.League.UpdatesActive)
                 .ToListAsync();
 
             foreach (var leagueSeason in currentLeagueSeasons)
@@ -156,7 +153,8 @@ namespace FootballResults.WebApp.BackgroundServices
                 {
                     try
                     {
-                        await _standingUpdater.StartAsync(UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
+                        StandingUpdater standingUpdater = (StandingUpdater)ActivatorUtilities.CreateInstance(_serviceProvider, typeof(StandingUpdater));
+                        await standingUpdater.StartAsync(UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
                     }
                     catch (Exception ex) when (ex is not ApiException)
                     {
@@ -170,7 +168,7 @@ namespace FootballResults.WebApp.BackgroundServices
         {
             ICollection<LeagueSeason> currentLeagueSeasons = await dbContext.LeagueSeasons
                 .Include(ls => ls.League)
-                .Where(i => i.InProgress)
+                .Where(i => i.InProgress && i.League.UpdatesActive)
                 .ToListAsync();
 
             foreach (var leagueSeason in currentLeagueSeasons)
@@ -181,7 +179,8 @@ namespace FootballResults.WebApp.BackgroundServices
                 {
                     try
                     {
-                        await _topScorerUpdater.StartAsync(UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
+                        TopScorerUpdater topScorerUpdater = (TopScorerUpdater)ActivatorUtilities.CreateInstance(_serviceProvider, typeof(TopScorerUpdater));
+                        await topScorerUpdater.StartAsync(UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
                     }
                     catch (Exception ex) when (ex is not ApiException)
                     {

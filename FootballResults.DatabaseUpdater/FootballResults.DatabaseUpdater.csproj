@@ -37,15 +37,5 @@
 		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		<CopyToPublishDirectory>Never</CopyToPublishDirectory>
 	</Content>
-    <Content Include="../Configuration/sharedSettings.json">
-  	    <Link>config\%(RecursiveDir)%(Filename)%(Extension)</Link>
-  	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="../Configuration/sharedSettings.Development.json">
-  	    <Link>config\%(RecursiveDir)%(Filename)%(Extension)</Link>
-  	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  	    <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </Content>
   </ItemGroup>
 </Project>

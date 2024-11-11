@@ -1,11 +1,9 @@
 ﻿using FootballResults.DataAccess;
 using FootballResults.DataAccess.Entities;
 using FootballResults.DataAccess.Entities.Football;
-using FootballResults.Models.Config;
 using FootballResults.Models.Files;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+using FootballResults.WebApp.Services.Application;
+using FootballResults.WebApp.Services.Predictions;
 
 namespace FootballResults.WebApp.BackgroundServices
 {
@@ -14,21 +12,25 @@ namespace FootballResults.WebApp.BackgroundServices
         protected readonly IServiceProvider _serviceProvider;
         protected readonly ILogger<ImageDownloader> _logger;
         protected readonly ApplicationConfig _applicationConfig;
-        protected readonly TimeSpan _period;
 
         private const string WWWROOT = "wwwroot";
 
         public ImageDownloader(IServiceProvider serviceProvider, ILogger<ImageDownloader> logger)
         {
             _serviceProvider = serviceProvider;
-            _applicationConfig = serviceProvider.GetRequiredService<IOptions<ApplicationConfig>>().Value;
+
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                IApplicationService applicationService = scope.ServiceProvider.GetRequiredService<IApplicationService>();
+                _applicationConfig = applicationService.GetApplicationConfigAsync().Result;
+            }
+
             _logger = logger;
-            _period = _applicationConfig.ImageDownloaderWorkerFrequency;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            using (PeriodicTimer timer = new PeriodicTimer(_period))
+            using (PeriodicTimer timer = new PeriodicTimer(_applicationConfig.ImageDownloadWorkerFrequency))
             {
                 do
                 {
@@ -40,6 +42,8 @@ namespace FootballResults.WebApp.BackgroundServices
                         {
                             try
                             {
+                                await dbContext.Entry(_applicationConfig).ReloadAsync();
+
                                 await DownloadCountryFlagsAsync(dbContext);
                                 await DownloadLeagueLogosAsync(dbContext);
                                 await DownloadTeamLogosAsync(dbContext);
@@ -71,7 +75,7 @@ namespace FootballResults.WebApp.BackgroundServices
             SystemInformation? systemInfo = await dbContext.SystemInformation.FindAsync(1);
             DateTime? lastUpdate = systemInfo?.CountryFlagsLastDownload;
 
-            bool shouldUpdateBasedOnLastDownload = ShouldUpdate(lastUpdate, _applicationConfig.ImageDownloaderFrequency);
+            bool shouldUpdateBasedOnLastDownload = ShouldUpdate(lastUpdate, _applicationConfig.ImageDownloadFrequency);
 
             // if there is no last download date, or the last download date is older than the specified, download (or update) all files
             if (systemInfo != null && shouldUpdateBasedOnLastDownload)
@@ -143,7 +147,7 @@ namespace FootballResults.WebApp.BackgroundServices
             SystemInformation? systemInfo = await dbContext.SystemInformation.FindAsync(1);
             DateTime? lastUpdate = systemInfo?.LeagueLogosLastDownload;
 
-            bool shouldUpdateBasedOnLastDownload = ShouldUpdate(lastUpdate, _applicationConfig.ImageDownloaderFrequency);
+            bool shouldUpdateBasedOnLastDownload = ShouldUpdate(lastUpdate, _applicationConfig.ImageDownloadFrequency);
 
             if (systemInfo != null && shouldUpdateBasedOnLastDownload)
             {
@@ -213,7 +217,7 @@ namespace FootballResults.WebApp.BackgroundServices
             SystemInformation? systemInfo = await dbContext.SystemInformation.FindAsync(1);
             DateTime? lastUpdate = systemInfo?.TeamLogosLastDownload;
 
-            bool shouldUpdateBasedOnLastDownload = ShouldUpdate(lastUpdate, _applicationConfig.ImageDownloaderFrequency);
+            bool shouldUpdateBasedOnLastDownload = ShouldUpdate(lastUpdate, _applicationConfig.ImageDownloadFrequency);
 
             if (systemInfo != null && shouldUpdateBasedOnLastDownload)
             {
@@ -281,7 +285,7 @@ namespace FootballResults.WebApp.BackgroundServices
             SystemInformation? systemInfo = await dbContext.SystemInformation.FindAsync(1);
             DateTime? lastUpdate = systemInfo?.PlayerPhotosLastDownload;
 
-            bool shouldUpdateBasedOnLastDownload = ShouldUpdate(lastUpdate, _applicationConfig.ImageDownloaderFrequency);
+            bool shouldUpdateBasedOnLastDownload = ShouldUpdate(lastUpdate, _applicationConfig.ImageDownloadFrequency);
 
             if (systemInfo != null && shouldUpdateBasedOnLastDownload)
             {
@@ -349,7 +353,7 @@ namespace FootballResults.WebApp.BackgroundServices
             SystemInformation? systemInfo = await dbContext.SystemInformation.FindAsync(1);
             DateTime? lastUpdate = systemInfo?.TopScorerPhotosLastDownload;
 
-            bool shouldUpdateBasedOnLastDownload = ShouldUpdate(lastUpdate, _applicationConfig.ImageDownloaderFrequency);
+            bool shouldUpdateBasedOnLastDownload = ShouldUpdate(lastUpdate, _applicationConfig.ImageDownloadFrequency);
 
             if (systemInfo != null && shouldUpdateBasedOnLastDownload)
             {

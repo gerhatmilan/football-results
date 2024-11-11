@@ -1,17 +1,10 @@
 ﻿using FootballResults.DataAccess.Entities.Users;
+using FootballResults.Models.ViewModels.Users;
 
 namespace FootballResults.WebApp.Services.Users
 {
-    public enum LoginResult
-    {
-        None,
-        Success,
-        UserNotFound,
-        InvalidPassword
-    }
-
     public interface ILoginService
     {
-        Task<Tuple<User?, LoginResult>> AuthenticateUserAsync(string username, string password);
+        Task<User?> AuthenticateUserAsync(string username, string password);
     }
 }

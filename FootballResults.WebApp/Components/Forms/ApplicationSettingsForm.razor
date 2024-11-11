@@ -1,0 +1,127 @@
+﻿@inherits ApplicationSettingsFormBase
+
+@if (Config != null)
+{
+    <div class="form">
+        <EditForm FormName="SettingsForm" Model="@Config" OnValidSubmit="SubmitAsync">
+            <DataAnnotationsValidator />
+
+            <h2>API settings</h2>
+
+            <div class="mb-3">
+                <label for="baseAddress">Base address</label>
+                <InputText id="baseAddress" @bind-Value="@Config.ApiConfig.BaseAddress" class="input form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="baseAddressHeaderKey">Base address header key</label>
+                <InputText id="baseAddressHeaderKey" @bind-Value="@Config.ApiConfig.BaseAdressHeaderKey" class="input form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="apiKeyHeaderKey">API key header key</label>
+                <InputText id="apiKeyHeaderKey" @bind-Value="@Config.ApiConfig.ApiKeyHeaderKey" class="input form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="apiKey">API key</label>
+                <InputText id="apiKey" @bind-Value="@ApplicationSettingsFormModel.ApiKeyBoundValue" class="input form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="rateLimit">Rate limit</label>
+                <InputNumber id="rateLimit" @bind-Value="@Config.ApiConfig.RateLimit" class="input form-control" />
+            </div>
+            <div class="mb-3 checkboxDiv">
+                <label for="backupData">Backup API data</label>
+                <InputCheckbox id="backupData" class="checkbox" @bind-Value="@Config.ApiConfig.BackupData" />
+            </div>
+
+            <h2>Updater frequencies</h2>
+
+            <div class="mb-3 timeSpanContainer">
+                <label for="updateWorkerFrequency">Update worker frequency</label>
+                <InputTimeSpan Id="updateWorkerFrequency" @bind-Value="@Config.ApplicationConfig.UpdateWorkerFrequency" />
+            </div>
+            <div class="mb-3 timeSpanContainer">
+                <label for="matchUpdateForCurrentDayFrequency">Match update for current day frequency</label>
+                <InputTimeSpan Id="matchUpdateForCurrentDayFrequency" @bind-Value="@Config.ApplicationConfig.MatchUpdateForCurrentDayFrequency" />
+            </div>
+            <div class="mb-3 timeSpanContainer">
+                <label for="matchUpdateForCurrentSeasonFrequency">Match update for current season frequency</label>
+                <InputTimeSpan Id="matchUpdateForCurrentSeasonFrequency" @bind-Value="@Config.ApplicationConfig.MatchUpdateForCurrentSeasonFrequency" />
+            </div>
+            <div class="mb-3 timeSpanContainer">
+                <label for="standingsUpdateForCurrentSeasonFrequency">Standings update for current season frequency</label>
+                <InputTimeSpan Id="standingsUpdateForCurrentSeasonFrequency" @bind-Value="@Config.ApplicationConfig.StandingsUpdateForCurrentSeasonFrequency" />
+            </div>
+            <div class="mb-3 timeSpanContainer">
+                <label for="topScorersUpdateForCurrentSeasonFrequency">Top scorers update for current season frequency</label>
+                <InputTimeSpan Id="topScorersUpdateForCurrentSeasonFrequency" @bind-Value="@Config.ApplicationConfig.TopScorersUpdateForCurrentSeasonFrequency" />
+            </div>
+            <div class="mb-3 timeSpanContainer">
+                <label for="imageDownloadWorkerFrequency">Image download worker frequency</label>
+                <InputTimeSpan Id="imageDownloadWorkerFrequency" @bind-Value="@Config.ApplicationConfig.ImageDownloadWorkerFrequency" />
+            </div>
+            <div class="mb-3 timeSpanContainer">
+                <label for="imageDownloadFrequency">Image download frequency</label>
+                <InputTimeSpan Id="imageDownloadFrequency" @bind-Value="@Config.ApplicationConfig.ImageDownloadFrequency" />
+            </div>
+
+            <h2>Directories / Images</h2>
+
+            <div class="mb-3">
+                <label for="predictionGamePicturesDirectory">Prediction game pictures directory</label>
+                <InputText id="predictionGamePicturesDirectory" @bind-Value="@Config.ApplicationConfig.PredictionGamePicturesDirectory" class="input form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="profilePicturesDirectory">Profile pictures directory</label>
+                <InputText id="profilePicturesDirectory" @bind-Value="@Config.ApplicationConfig.ProfilePicturesDirectory" class="input form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="countriesDirectory">Countries directory</label>
+                <InputText id="countriesDirectory" @bind-Value="@Config.ApplicationConfig.CountriesDirectory" class="input form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="leaguesDirectory">Leagues directory</label>
+                <InputText id="leaguesDirectory" @bind-Value="@Config.ApplicationConfig.LeaguesDirectory" class="input form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="teamsDirectory">Teams directory</label>
+                <InputText id="teamsDirectory" @bind-Value="@Config.ApplicationConfig.TeamsDirectory" class="input form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="playersDirectory">Players directory</label>
+                <InputText id="playersDirectory" @bind-Value="@Config.ApplicationConfig.PlayersDirectory" class="input form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="predictionGameDefaultImage">Prediction game default image</label>
+                <InputText id="predictionGameDefaultImage" @bind-Value="@Config.ApplicationConfig.PredictionGameDefaultImage" class="input form-control" />
+            </div>
+
+
+            <h2>Endpoints</h2>
+            @foreach (EndpointConfig endpointConfig in Config.EndpointConfigs.OrderBy(i => i.Name))
+            {
+                <EndpointConfigView Data="endpointConfig" />
+            }
+            
+
+            <div id="submitDiv">
+                <button type="submit" class="btn button" disabled="@ButtonDisabled">Save changes</button>
+            </div>
+
+
+            @if (ApplicationSettingsFormModel.Success)
+            {
+                <div class="alert alert-success" role="alert">
+                    Settings saved successfully!
+                </div>
+            }
+            else if (ApplicationSettingsFormModel.Error)
+            {
+                <div class="alert alert-danger" role="alert">An error occurred while saving the settings. Please try again.</div>
+            }
+        </EditForm>
+    </div>
+}
+else
+{
+    <LoadingSpinner />
+}

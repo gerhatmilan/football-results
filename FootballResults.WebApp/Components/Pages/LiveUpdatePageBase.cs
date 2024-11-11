@@ -10,6 +10,11 @@ namespace FootballResults.WebApp.Components.Pages
         [Inject]
         protected IMessageService<UpdateMessageType> UpdateNotificationService { get; set; } = default!;
 
+        /// <summary>
+        /// Needed to prevent concurrent queries on the same db context at the same time
+        /// </summary>
+        protected SemaphoreSlim UpdateLock { get; } = new SemaphoreSlim(1, 1);
+
         protected override async Task OnInitializedAsync()
         {
             await InitializeUpdateNotificationServiceAsync();

@@ -1,11 +1,11 @@
 using FootballResults.DataAccess;
+using FootballResults.DataAccess.Entities;
 using FootballResults.DataAccess.Entities.Football;
+using FootballResults.DataAccess.Models;
 using FootballResults.Models.Api.FootballApi.Responses;
-using FootballResults.Models.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace FootballResults.Models.Updaters
 {
@@ -13,7 +13,7 @@ namespace FootballResults.Models.Updaters
     [SupportedModes(UpdaterMode.SpecificTeam, UpdaterMode.SpecificCountryAllTeams, UpdaterMode.BasedOnLastUpdate)]
     public class SquadUpdater : Updater<SquadsResponse, SquadsResponseItem>
     {
-        protected override UpdaterSpecificSettings UpdaterSpecificSettingsForTeam => _apiConfig.DataFetch.SquadForTeam;
+        protected override EndpointConfig UpdaterSpecificSettingsForTeam => _endpointConfigs.FirstOrDefault(i => i.Name == Defaults.SquadForTeam);
 
         public SquadUpdater(IServiceScopeFactory serviceScopeFactory, ILogger<TopScorerUpdater> logger)
             : base(serviceScopeFactory, logger) { }

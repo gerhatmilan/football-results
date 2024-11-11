@@ -22,6 +22,260 @@ namespace FootballResults.DataAccess.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("FootballResults.DataAccess.Entities.ApiConfig", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+
+                    b.Property<byte[]>("ApiKey")
+                        .HasColumnType("bytea")
+                        .HasColumnName("api_key");
+
+                    b.Property<string>("ApiKeyHeaderKey")
+                        .IsRequired()
+                        .HasColumnType("varchar")
+                        .HasColumnName("api_key_header_key");
+
+                    b.Property<bool>("BackupData")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("backup_data");
+
+                    b.Property<string>("BaseAddress")
+                        .IsRequired()
+                        .HasColumnType("varchar")
+                        .HasColumnName("base_address");
+
+                    b.Property<string>("BaseAdressHeaderKey")
+                        .IsRequired()
+                        .HasColumnType("varchar")
+                        .HasColumnName("base_adress_header_key");
+
+                    b.Property<int?>("RateLimit")
+                        .HasColumnType("int")
+                        .HasColumnName("rate_limit");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("api_config", "public");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            ApiKeyHeaderKey = "x-rapidapi-key",
+                            BackupData = false,
+                            BaseAddress = "https://v3.football.api-sports.io",
+                            BaseAdressHeaderKey = "x-rapidapi-host",
+                            RateLimit = 10
+                        });
+                });
+
+            modelBuilder.Entity("FootballResults.DataAccess.Entities.ApplicationConfig", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("CountriesDirectory")
+                        .IsRequired()
+                        .HasColumnType("varchar")
+                        .HasColumnName("countries_directory");
+
+                    b.Property<long>("ImageDownloadFrequencyTicks")
+                        .HasColumnType("bigint")
+                        .HasColumnName("image_download_frequency");
+
+                    b.Property<long>("ImageDownloadWorkerFrequencyTicks")
+                        .HasColumnType("bigint")
+                        .HasColumnName("image_download_worker_frequency");
+
+                    b.Property<string>("LeaguesDirectory")
+                        .IsRequired()
+                        .HasColumnType("varchar")
+                        .HasColumnName("leagues_directory");
+
+                    b.Property<long>("MatchUpdateForCurrentDayFrequencyTicks")
+                        .HasColumnType("bigint")
+                        .HasColumnName("match_update_for_current_day_frequency");
+
+                    b.Property<long>("MatchUpdateForCurrentSeasonFrequencyTicks")
+                        .HasColumnType("bigint")
+                        .HasColumnName("match_update_for_current_season_frequency");
+
+                    b.Property<string>("PlayersDirectory")
+                        .IsRequired()
+                        .HasColumnType("varchar")
+                        .HasColumnName("players_directory");
+
+                    b.Property<string>("PredictionGameDefaultImage")
+                        .IsRequired()
+                        .HasColumnType("varchar")
+                        .HasColumnName("prediction_game_default_image");
+
+                    b.Property<string>("PredictionGamePicturesDirectory")
+                        .IsRequired()
+                        .HasColumnType("varchar")
+                        .HasColumnName("prediction_game_pictures_directory");
+
+                    b.Property<string>("ProfilePicturesDirectory")
+                        .IsRequired()
+                        .HasColumnType("varchar")
+                        .HasColumnName("profile_pictures_directory");
+
+                    b.Property<long>("StandingsUpdateForCurrentSeasonFrequencyTicks")
+                        .HasColumnType("bigint")
+                        .HasColumnName("standings_update_for_current_season_frequency");
+
+                    b.Property<string>("TeamsDirectory")
+                        .IsRequired()
+                        .HasColumnType("varchar")
+                        .HasColumnName("teams_directory");
+
+                    b.Property<long>("TopScorersUpdateForCurrentSeasonFrequencyTicks")
+                        .HasColumnType("bigint")
+                        .HasColumnName("top_scorers_update_for_current_season_frequency");
+
+                    b.Property<long>("UpdateWorkerFrequencyTicks")
+                        .HasColumnType("bigint")
+                        .HasColumnName("update_worker_frequency");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("application_config", "public");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            CountriesDirectory = "images\\countries\\flags",
+                            ImageDownloadFrequencyTicks = 86400000000000L,
+                            ImageDownloadWorkerFrequencyTicks = 864000000000L,
+                            LeaguesDirectory = "images\\leagues\\logos",
+                            MatchUpdateForCurrentDayFrequencyTicks = 6000000000L,
+                            MatchUpdateForCurrentSeasonFrequencyTicks = 864000000000L,
+                            PlayersDirectory = "images\\players",
+                            PredictionGameDefaultImage = "images\\prediction-games\\default.jpg",
+                            PredictionGamePicturesDirectory = "images\\prediction-games",
+                            ProfilePicturesDirectory = "images\\profile-pictures",
+                            StandingsUpdateForCurrentSeasonFrequencyTicks = 864000000000L,
+                            TeamsDirectory = "images\\teams\\logos",
+                            TopScorersUpdateForCurrentSeasonFrequencyTicks = 864000000000L,
+                            UpdateWorkerFrequencyTicks = 600000000L
+                        });
+                });
+
+            modelBuilder.Entity("FootballResults.DataAccess.Entities.EndpointConfig", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("BackupPath")
+                        .HasColumnType("varchar")
+                        .HasColumnName("backup_path");
+
+                    b.Property<string>("Endpoint")
+                        .IsRequired()
+                        .HasColumnType("varchar")
+                        .HasColumnName("endpoint");
+
+                    b.Property<bool>("LoadDataFromBackup")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("load_data_from_backup");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar")
+                        .HasColumnName("name");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("endpoint_config", "public");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            BackupPath = ".\\databackup\\countries\\countries.json",
+                            Endpoint = "/countries",
+                            LoadDataFromBackup = false,
+                            Name = "Countries"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            BackupPath = ".\\databackup\\leagues\\leagues.json",
+                            Endpoint = "/leagues",
+                            LoadDataFromBackup = false,
+                            Name = "Leagues"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            BackupPath = ".\\databackup\\teams\\{0}\\{1}.json",
+                            Endpoint = "/teams?league={0}&season={1}",
+                            LoadDataFromBackup = false,
+                            Name = "TeamsForLeagueAndSeason"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            BackupPath = ".\\databackup\\squads\\{0}.json",
+                            Endpoint = "/players/squads?team={0}",
+                            LoadDataFromBackup = false,
+                            Name = "SquadForTeam"
+                        },
+                        new
+                        {
+                            ID = 5,
+                            BackupPath = ".\\databackup\\matches\\{0}\\{1}.json",
+                            Endpoint = "/fixtures?league={0}&season={1}",
+                            LoadDataFromBackup = false,
+                            Name = "MatchesForLeagueAndSeason"
+                        },
+                        new
+                        {
+                            ID = 6,
+                            BackupPath = ".\\databackup\\matches\\date\\{0}.json",
+                            Endpoint = "/fixtures?date={0}",
+                            LoadDataFromBackup = false,
+                            Name = "MatchesForDate"
+                        },
+                        new
+                        {
+                            ID = 7,
+                            BackupPath = ".\\databackup\\standings\\{0}\\{1}.json",
+                            Endpoint = "/standings?league={0}&season={1}",
+                            LoadDataFromBackup = false,
+                            Name = "StandingsForLeagueAndSeason"
+                        },
+                        new
+                        {
+                            ID = 8,
+                            BackupPath = ".\\databackup\\topscorers\\{0}\\{1}.json",
+                            Endpoint = "/players/topscorers?league={0}&season={1}",
+                            LoadDataFromBackup = false,
+                            Name = "TopScorersForLeagueAndSeason"
+                        });
+                });
+
             modelBuilder.Entity("FootballResults.DataAccess.Entities.Football.Country", b =>
                 {
                     b.Property<int>("ID")
@@ -79,6 +333,12 @@ namespace FootballResults.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("varchar")
                         .HasColumnName("type");
+
+                    b.Property<bool>("UpdatesActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("updates_active");
 
                     b.HasKey("ID");
 
@@ -801,6 +1061,12 @@ namespace FootballResults.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("varchar")
                         .HasColumnName("email");
+
+                    b.Property<bool>("IsAdmin")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("is_admin");
 
                     b.Property<string>("Password")
                         .IsRequired()

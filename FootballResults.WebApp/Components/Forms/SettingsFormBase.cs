@@ -3,9 +3,10 @@ using FootballResults.WebApp.Services.Users;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components;
 using FootballResults.WebApp.Services.Files;
-using Microsoft.Extensions.Options;
-using FootballResults.Models.Config;
 using FootballResults.Models.ViewModels.Users;
+using FootballResults.WebApp.Services.Predictions;
+using FootballResults.DataAccess.Entities;
+using FootballResults.WebApp.Services.Application;
 
 namespace FootballResults.WebApp.Components.Forms
 {
@@ -20,48 +21,41 @@ namespace FootballResults.WebApp.Components.Forms
         [Inject]
         protected NavigationManager NavigationManager { get; set; } = default!;
 
-        [Inject]
-        protected IOptions<ApplicationConfig> ApplicationSettings { get; set; } = default!;
+        [Inject] IApplicationService ApplicationService { get; set; } = default!;
+
+        protected ApplicationConfig ApplicationConfig { get; set; } = default!;
 
         protected SettingsModel SettingsModel { get; set; } = new SettingsModel();
 
-        protected string? ImageErrorMessage { get; set; }
-
-        protected ModifyUserResult Result { get; set; }
-
         protected override void ResetErrorMessages()
         {
-            ImageErrorMessage = null;
-            Result = ModifyUserResult.None;
+            SettingsModel.ResetMessages();
         }
 
         protected override void OnParametersSet()
         {
             SettingsModel.Username = User?.Username;
-            SettingsModel.ProfilePicturePath = User?.ProfilePicturePath;
+            SettingsModel.ImagePath = User?.ProfilePicturePath;
         }
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            base.Initialize(uploadDirectory: ApplicationSettings.Value.ProfilePicturesDirectory,
+            ApplicationConfig = await ApplicationService.GetApplicationConfigAsync();
+
+            base.Initialize(uploadDirectory: ApplicationConfig.ProfilePicturesDirectory,
                 maxAllowedBytes: 1000000, allowedFiles: new string[] { "image/png", "image/jpeg" });
         }
 
         protected async Task SubmitAsync()
         {
-            if (User == null)
-            {
-                Result = ModifyUserResult.Error;
+            if (SettingsModel.Username == User!.Username && SettingsModel.ImagePath == User.ProfilePicturePath)
                 return;
-            }
-            else if (SettingsModel.Username == User.Username && SettingsModel.ProfilePicturePath == User.ProfilePicturePath)
-                return;
-            else
+            else if (!SettingsModel.ImageError)
             {
                 ResetErrorMessages();
                 DisableForm();
 
-                if ((Result = await UserService.ModifyUserAsync(User, SettingsModel)) == ModifyUserResult.Success)
+                if (await UserService.ModifyUserAsync(User, SettingsModel))
                 {
                     NavigationManager.Refresh();
                 }
@@ -77,16 +71,23 @@ namespace FootballResults.WebApp.Components.Forms
 
             if (User != null && file != null)
             {
-
-                FileUploadResult result = await FileUploadService.UploadFileAsync(file: file, newFileName: TemporaryFileName);
-
-                if (result.Success)
+                try
                 {
-                    SettingsModel.ProfilePicturePath = result.Path;
+                    FileUploadResult result = await FileUploadService.UploadFileAsync(file: file, newFileName: TemporaryFileName);
+
+                    if (result.Success)
+                    {
+                        SettingsModel.ImagePath = result.Path;
+                    }
+                    else
+                    {
+                        SettingsModel.ImageError = true;
+                        SettingsModel.ImageErrorMessage = result.Message;
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    ImageErrorMessage = result.Message;
+                    SettingsModel.Error = true;
                 }
 
                 StateHasChanged();

@@ -1,0 +1,48 @@
+﻿<div id="@($"{Id}TimeSpanElementContainer")" class="timeSpanElementContainer">
+    <div class="timeSpanElement">
+        <label for="@($"{Id}Days")">Days</label>
+        <input id="@($"{Id}Days")" type="number" class="input form-control" min="0" @bind="Days" @bind:after="UpdateTimeSpan" />
+    </div>
+    <div class="timeSpanElement">
+        <label for="@($"{Id}Hours")">Hours</label>
+        <input id="@($"{Id}Hours")" type="number" class="input form-control" min="0" @bind="Hours" @bind:after="UpdateTimeSpan" />
+    </div>
+    <div class="timeSpanElement">
+        <label for="@($"{Id}Minutes")">Minutes</label>
+        <input id="@($"{Id}Minutes")" type="number" class="input form-control" min="0" @bind="Minutes" @bind:after="UpdateTimeSpan" />
+    </div>
+    <div class="timeSpanElement">
+        <label for="@($"{Id}Seconds")">Seconds</label>
+        <input id="@($"{Id}Seconds")" type="number" class="input form-control" min="0" @bind="Seconds" @bind:after="UpdateTimeSpan" />
+    </div>
+</div>
+
+@code {
+    private int Days { get; set; }
+    private int Hours { get; set; }
+    private int Minutes { get; set; }
+    private int Seconds { get; set; }
+
+    [Parameter]
+    public string? Id { get; set; }
+
+    [Parameter]
+    public TimeSpan Value { get; set; }
+
+    [Parameter]
+    public EventCallback<TimeSpan> ValueChanged { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        Days = Value.Days;
+        Hours = Value.Hours;
+        Minutes = Value.Minutes;
+        Seconds = Value.Seconds;
+    }
+
+    private async Task UpdateTimeSpan()
+    {
+        Value = new TimeSpan(Days, Hours, Minutes, Seconds);
+        await ValueChanged.InvokeAsync(Value);
+    }
+}

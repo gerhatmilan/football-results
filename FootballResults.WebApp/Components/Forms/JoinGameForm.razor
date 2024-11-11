@@ -1,21 +1,30 @@
 ﻿@inherits JoinGameFormBase
 @using System.ComponentModel.DataAnnotations
 
-<div class="form">
-    <EditForm FormName="JoinGameForm" Model="@Model" OnValidSubmit="Submit">
-        <DataAnnotationsValidator />
+@if (User != null)
+{
+    <div class="form">
+        <EditForm FormName="JoinGameForm" Model="@Model" OnValidSubmit="Submit">
+            <DataAnnotationsValidator />
 
-        <div class="mb-3">
-            <label for="joinkey" style="display: none">Join key</label>
-            <InputText id="joinkey" @bind-Value="@Model.JoinKey" class="input form-control" placeholder="Join key" />
-            <ValidationMessage For="@(() => Model.JoinKey)" class="error" />
-        </div>
-        @if (ErrorMessage != null)
-        {
-            <div class="error">@ErrorMessage</div>
-        }
-        <div class="submitDiv">
-            <button type="submit" class="btn button" disabled="@ButtonDisabled">Join</button>
-        </div>
-    </EditForm>
-</div>
+            <div class="mb-3">
+                <label for="joinkey" style="display: none">Join key</label>
+                <InputText id="joinkey" @bind-Value="@Model.JoinKey" class="input form-control" placeholder="Join key" />
+                <ValidationMessage For="@(() => Model.JoinKey)" class="error" />
+            </div>
+
+            <div class="submitDiv">
+                <button type="submit" class="btn button" disabled="@ButtonDisabled">Join</button>
+            </div>
+
+            @if (Model.GameNotFoundError)
+            {
+                <div class="alert alert-danger" role="alert">No game found with the provided key</div>
+            }
+            else if (Model.Error)
+            {
+                <div class="alert alert-danger" role="alert">Failed to join the game at this time. Try again later</div>
+            }
+        </EditForm>
+    </div>
+}

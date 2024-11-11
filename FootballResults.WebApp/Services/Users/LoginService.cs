@@ -25,17 +25,20 @@ namespace FootballResults.WebApp.Services.Users
                 .FirstOrDefaultAsync(u => u.Username == username);
         }
 
-        public async Task<Tuple<User?, LoginResult>> AuthenticateUserAsync(string username, string password)
+        public async Task<User?> AuthenticateUserAsync(string username, string password)
         {
             User? userInDatabase = await GetUserAsync(username);
 
             if (userInDatabase == null)
-                return Tuple.Create<User?, LoginResult>(null, LoginResult.UserNotFound);
-
+            {
+                return null;
+            }
             if (!IsCorrectPassword(password, userInDatabase))
-                return Tuple.Create<User?, LoginResult>(null, LoginResult.InvalidPassword);
+            {
+                return null;
+            }
 
-            return Tuple.Create<User?, LoginResult>(userInDatabase, LoginResult.Success);
+            return userInDatabase;
         }
     }
 }

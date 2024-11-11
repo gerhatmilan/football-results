@@ -8,33 +8,33 @@
             <label>Username</label>
             <InputText @bind-Value="@SettingsModel.Username" class="input form-control" />
             <ValidationMessage For="@(() => SettingsModel.Username)" class="error" />
-            @if (Result == ModifyUserResult.UsernameAlreadyInUse)
+            @if (SettingsModel.UsernameAlreadyInUseError)
             {
                 <div class="error">Username already in use. Try another name.</div>
             }
         </div>
         <div class="mb-3">
             <label for="profilePic">Profile picture</label>
-            <img class="profilePicture @(SettingsModel.ProfilePicturePath != null ? "show" : "")" src="@SettingsModel.ProfilePicturePath" alt="Avatar">
+            <img class="profilePicture @(SettingsModel.ImagePath != null ? "show" : "")" src="@SettingsModel.ImagePath" alt="Avatar">
             <InputFile id="profilePic" class="input form-control" OnChange="OnImageSelectedAsync" />
-            @if (ImageErrorMessage != null)
+            @if (SettingsModel.ImageError)
             {
-                <div class="error">@ImageErrorMessage</div>
+                <div class="error">@SettingsModel.ImageErrorMessage</div>
             }
         </div>
         <div id="submitDiv">
             <button type="submit" class="btn button" disabled="@ButtonDisabled">Save changes</button>
         </div>
 
-        @if (Result == ModifyUserResult.Success)
+        @if (SettingsModel.Success)
         {
             <div class="alert alert-success" role="alert">
                 User profile successfully updated
             </div>
         }
-        else if (Result == ModifyUserResult.Error)
+        else if (SettingsModel.Error)
         {
-            <div class="error">An error has occured. Please try again later.</div>
+            <div class="alert alert-danger">An error has occured. Please try again later.</div>
         }
     </EditForm>
 </div>

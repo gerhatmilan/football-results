@@ -1,4 +1,4 @@
-﻿using FootballResults.Models.Config;
+﻿using FootballResults.DataAccess.Entities.Football;
 using FootballResults.Models.Updaters;
 
 namespace FootballResults.DatabaseUpdater
@@ -17,7 +17,7 @@ namespace FootballResults.DatabaseUpdater
 
         private UpdaterMenuMode _menuMode;
 
-        private IEnumerable<IncludedLeagueRecord> IncludedLeagues { get; set; }
+        private IEnumerable<League> LeaguesWithActiveUpdate { get; set; }
 
         public string Description => DESCRIPTION;
         public int SelectedOption { get; set; }
@@ -34,9 +34,9 @@ namespace FootballResults.DatabaseUpdater
             }
         }
 
-        public UpdaterMenuHandler(IEnumerable<IncludedLeagueRecord> includedLeagues)
+        public UpdaterMenuHandler(IEnumerable<League> leaguesWithActiveUpdates)
         {
-            IncludedLeagues = includedLeagues;
+            LeaguesWithActiveUpdate = leaguesWithActiveUpdates;
             SelectedOption = 0;
             Console.CursorVisible = false;
             _menuMode = UpdaterMenuMode.ShowUpdaters;
@@ -102,9 +102,9 @@ namespace FootballResults.DatabaseUpdater
         {
             Console.WriteLine($"\n{selectedUpdater.GetType().Name} > Available modes > {selectedMode} > Available leagues\n");
 
-            for (int i = 0; i < IncludedLeagues.Count(); i++)
+            for (int i = 0; i < LeaguesWithActiveUpdate.Count(); i++)
             {
-                ShowOption(i, IncludedLeagues.ElementAt(i).Name);
+                ShowOption(i, LeaguesWithActiveUpdate.ElementAt(i).Name);
             }
 
             Console.WriteLine();

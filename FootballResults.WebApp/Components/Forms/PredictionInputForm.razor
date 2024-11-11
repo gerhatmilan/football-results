@@ -7,12 +7,12 @@
 
         <div class="inputsDiv">
             <label for="@($"{Match.ID}H")">@Match.HomeTeam.Name goals</label>
-            <input type="number" id="@($"{Match.ID}H")" class="input form-control @HomeGoalsState" disabled="@ButtonDisabled" @bind="@PredictionModel.HomeTeamGoals" @bind:after="OnInputChange" />
+            <input type="number" id="@($"{Match.ID}H")" class="input form-control @PredictionModel.HomeGoalsState" disabled="@ButtonDisabled" @bind="@PredictionModel.HomeTeamGoals" @bind:after="OnInputChange" />
 
             <label for="@($"{Match.ID}A")">@Match.AwayTeam.Name goals</label>
-            <input type="number" id="@($"{Match.ID}A")" class="input form-control @AwayGoalsState" disabled="@ButtonDisabled" @bind="@PredictionModel.AwayTeamGoals" @bind:after="OnInputChange" />
+            <input type="number" id="@($"{Match.ID}A")" class="input form-control @PredictionModel.AwayGoalsState" disabled="@ButtonDisabled" @bind="@PredictionModel.AwayTeamGoals" @bind:after="OnInputChange" />
         </div>
-        @if (MatchStartedError)
+        @if (PredictionModel.MatchStartedError)
         {
             <div class="error">Match has started!</div>
         }

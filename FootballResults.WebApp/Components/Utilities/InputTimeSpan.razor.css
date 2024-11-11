@@ -1,0 +1,45 @@
+﻿.timeSpanElementContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.timeSpanElement {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0.5rem 1rem 0.5rem 0;
+}
+
+label {
+    margin-right: 10px;
+    width: 100%;
+}
+
+input {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    text-align: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+@media (max-width: 750px)
+{
+    .timeSpanElement {
+        width: 100%;
+    }
+}
+
+@media (min-width: 750px) {
+    .timeSpanElement {
+        max-width: 100px;
+    }
+}

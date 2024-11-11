@@ -1,7 +1,6 @@
 ﻿using FootballResults.DataAccess;
-using FootballResults.DataAccess.Entities.Football;
+using FootballResults.DataAccess.Entities;
 using FootballResults.DataAccess.Entities.Users;
-using FootballResults.Models.Config;
 using FootballResults.Models.Files;
 using FootballResults.Models.ViewModels.Users;
 using Microsoft.EntityFrameworkCore;
@@ -12,13 +11,13 @@ namespace FootballResults.WebApp.Services.Users
     public class UserService : IUserService
     {
         private readonly AppDbContext _dbContext;
-        private readonly IOptions<ApplicationConfig> _applicationSettings;
+        private readonly ApplicationConfig _applicationConfig;
         private const string WWWROOT = "wwwroot";
 
-        public UserService(AppDbContext dbContext, IOptions<ApplicationConfig> applicationSettings)
+        public UserService(AppDbContext dbContext)
         {
             _dbContext = dbContext;
-            _applicationSettings = applicationSettings;
+            _applicationConfig = dbContext.ApplicationConfig.OrderBy(i => i.ID).First();
         }
 
         private async Task<bool> IsDuplicateUsername(string userName)
@@ -38,7 +37,7 @@ namespace FootballResults.WebApp.Services.Users
                .FirstOrDefaultAsync(u => u.ID == userID);
         }
 
-        public async Task<ModifyUserResult> ModifyUserAsync(User user, SettingsModel settingsModel)
+        public async Task<bool> ModifyUserAsync(User user, SettingsModel settingsModel)
         {
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
@@ -49,31 +48,37 @@ namespace FootballResults.WebApp.Services.Users
                         if (!await IsDuplicateUsername(settingsModel.Username))
                             user.Username = settingsModel.Username;
                         else
-                            return ModifyUserResult.UsernameAlreadyInUse;
+                        {
+                            settingsModel.UsernameAlreadyInUseError = true;
+                            return false;
+                        }
                     }
 
-                    if (user.ProfilePicturePath != settingsModel.ProfilePicturePath)
+                    if (user.ProfilePicturePath != settingsModel.ImagePath)
                     {
-                        string saveFilePath = _applicationSettings.Value.ProfilePicturesDirectory;
-                        string saveFileName = $"{user.ID}{Path.GetExtension(settingsModel.ProfilePicturePath)}";
+                        string saveFilePath = _applicationConfig.ProfilePicturesDirectory;
+                        string saveFileName = $"{user.ID}{Path.GetExtension(settingsModel.ImagePath)}";
 
                         // delete all old profile pictures for this user, regardless of extension
                         await FileManager.DeleteFilesWithNameAsync(Path.Combine(WWWROOT, saveFilePath), user.ID.ToString());
 
                         // rename the uploaded profile picture file to the user's ID
-                        await FileManager.MoveFileAsync(Path.Combine(WWWROOT, settingsModel.ProfilePicturePath), Path.Combine(WWWROOT, saveFilePath, saveFileName));
+                        await FileManager.MoveFileAsync(Path.Combine(WWWROOT, settingsModel.ImagePath), Path.Combine(WWWROOT, saveFilePath, saveFileName));
 
                         user.ProfilePicturePath = Path.Combine(saveFilePath, saveFileName);
                     }
 
                     await _dbContext.SaveChangesAsync();
                     transaction.Commit();
-                    return ModifyUserResult.Success;
+                    
+                    settingsModel.Success = true;
+                    return true;
                 }
                 catch (Exception)
                 {
                     transaction.Rollback();
-                    return ModifyUserResult.Error;
+                    settingsModel.Error = true;
+                    return false;
                 }
             }
         }

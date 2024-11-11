@@ -1,0 +1,49 @@
+﻿h2 {
+    text-align: left;
+}
+
+label, ::deep label {
+    margin: 0.5rem 0;
+    color: var(--link);
+}
+
+::deep .timeSpanElement label {
+    color: var(--light) !important;
+}
+
+#submitDiv {
+    text-align: center;
+}
+
+.button {
+    max-width: 150px;
+    text-align: center;
+}
+
+.checkboxDiv, ::deep .checkboxDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.checkboxDiv label, ::deep .checkboxDiv label {
+    margin-right: 10px;
+}
+
+.timeSpanContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px !important;
+}
+
+@media (min-width: 750px) {
+    .timeSpanContainer {
+        flex-direction: row;
+    }
+
+    .timeSpanContainer label {
+        width: 30%;
+        margin-right: 20px;
+    }
+}

@@ -1,9 +1,8 @@
 ﻿using FootballResults.DataAccess;
-using FootballResults.DataAccess.Entities.Football;
+using FootballResults.DataAccess.Entities;
 using FootballResults.DataAccess.Entities.Predictions;
-using FootballResults.DataAccess.Models;
-using FootballResults.Models.Config;
-using FootballResults.WebApp.Components.Pages.PredictionGames;
+using FootballResults.WebApp.Services.Application;
+using FootballResults.WebApp.Services.Predictions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -14,19 +13,22 @@ namespace FootballResults.WebApp.BackgroundServices
         protected readonly IServiceProvider _serviceProvider;
         protected readonly ILogger<PredictionGamesUpdater> _logger;
         protected readonly ApplicationConfig _applicationConfig;
-        protected readonly TimeSpan _period;
 
         public PredictionGamesUpdater(IServiceProvider serviceProvider, ILogger<PredictionGamesUpdater> logger)
         {
             _serviceProvider = serviceProvider;
-            _applicationConfig = serviceProvider.GetRequiredService<IOptions<ApplicationConfig>>().Value;
             _logger = logger;
-            _period = _applicationConfig.UpdaterWorkerFrequency;
+
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                IApplicationService applicationService = scope.ServiceProvider.GetRequiredService<IApplicationService>();
+                _applicationConfig = applicationService.GetApplicationConfigAsync().Result;
+            }
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            using (PeriodicTimer timer = new PeriodicTimer(_period))
+            using (PeriodicTimer timer = new PeriodicTimer(_applicationConfig.UpdateWorkerFrequency))
             {
                 do
                 {
@@ -38,6 +40,7 @@ namespace FootballResults.WebApp.BackgroundServices
                         {
                             try
                             {
+                                await dbContext.Entry(_applicationConfig).ReloadAsync();
                                 await UpdatePredictionGamesAsync(dbContext);
                             }
                             catch (Exception ex)

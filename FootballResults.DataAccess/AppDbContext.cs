@@ -2,8 +2,8 @@
 using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Entities.Predictions;
 using FootballResults.DataAccess.Entities.Users;
+using FootballResults.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace FootballResults.DataAccess
 {
@@ -14,6 +14,9 @@ namespace FootballResults.DataAccess
         #region Public schema
 
         public DbSet<SystemInformation> SystemInformation { get; set; }
+        public DbSet<ApiConfig> ApiConfig { get; set; }
+        public DbSet<ApplicationConfig> ApplicationConfig { get; set; }
+        public DbSet<EndpointConfig> EndpointConfig { get; set; }
 
         #endregion
         
@@ -56,6 +59,15 @@ namespace FootballResults.DataAccess
 
             modelBuilder.Entity<SystemInformation>()
                 .ToTable(name: "system_information", schema: "public");
+
+            modelBuilder.Entity<ApiConfig>()
+                .ToTable(name: "api_config", schema: "public");
+
+            modelBuilder.Entity<ApplicationConfig>()
+                .ToTable(name: "application_config", schema: "public");
+
+            modelBuilder.Entity<EndpointConfig>()
+                .ToTable(name: "endpoint_config", schema: "public");
 
             #endregion
 
@@ -130,6 +142,12 @@ namespace FootballResults.DataAccess
         {
             #region Public schema
             modelBuilder.Entity<SystemInformation>()
+                .HasKey(e => e.ID);
+            modelBuilder.Entity<ApiConfig>()
+                .HasKey(e => e.ID);
+            modelBuilder.Entity<ApplicationConfig>()
+                .HasKey(e => e.ID);
+            modelBuilder.Entity<EndpointConfig>()
                 .HasKey(e => e.ID);
             #endregion
 
@@ -228,6 +246,164 @@ namespace FootballResults.DataAccess
                 .IsRequired(false);
             #endregion
 
+            #region ApiConfig
+            modelBuilder.Entity<ApiConfig>()
+                .Property(e => e.ID)
+                .UseIdentityByDefaultColumn()
+                .HasColumnName("id")
+                .HasColumnType("int")
+                .IsRequired();
+            modelBuilder.Entity<ApiConfig>()
+                .Property(e => e.BaseAddress)
+                .HasColumnName("base_address")
+                .HasColumnType("varchar")
+                .IsRequired();
+            modelBuilder.Entity<ApiConfig>()
+                .Property(e => e.BaseAdressHeaderKey)
+                .HasColumnName("base_adress_header_key")
+                .HasColumnType("varchar")
+                .IsRequired();
+            modelBuilder.Entity<ApiConfig>()
+                .Property(e => e.ApiKey)
+                .HasColumnName("api_key")
+                .HasColumnType("bytea")
+                .IsRequired(false);
+            modelBuilder.Entity<ApiConfig>()
+                .Property(e => e.ApiKeyHeaderKey)
+                .HasColumnName("api_key_header_key")
+                .HasColumnType("varchar")
+                .IsRequired(true);
+            modelBuilder.Entity<ApiConfig>()
+                .Property(e => e.RateLimit)
+                .HasColumnName("rate_limit")
+                .HasColumnType("int")
+                .IsRequired(false);
+            modelBuilder.Entity<ApiConfig>()
+                .Property(e => e.BackupData)
+                .HasColumnName("backup_data")
+                .HasColumnType("boolean")
+                .HasDefaultValue(false)
+                .IsRequired(true);
+            #endregion
+
+            #region ApplicationConfig
+            modelBuilder.Entity<ApplicationConfig>()
+                .Property(e => e.ID)
+                .UseIdentityByDefaultColumn()
+                .HasColumnName("id")
+                .HasColumnType("int")
+                .IsRequired();
+            modelBuilder.Entity<ApplicationConfig>()
+                .Property(e => e.ID)
+                .UseIdentityByDefaultColumn()
+                .HasColumnName("id")
+                .HasColumnType("int")
+                .IsRequired();
+            modelBuilder.Entity<ApplicationConfig>()
+                .Property(e => e.UpdateWorkerFrequencyTicks)
+                .HasColumnName("update_worker_frequency")
+                .HasColumnType("bigint")
+                .IsRequired();
+            modelBuilder.Entity<ApplicationConfig>()
+                .Property(e => e.MatchUpdateForCurrentDayFrequencyTicks)
+                .HasColumnName("match_update_for_current_day_frequency")
+                .HasColumnType("bigint")
+                .IsRequired();
+            modelBuilder.Entity<ApplicationConfig>()
+                .Property(e => e.MatchUpdateForCurrentSeasonFrequencyTicks)
+                .HasColumnName("match_update_for_current_season_frequency")
+                .HasColumnType("bigint")
+                .IsRequired();
+            modelBuilder.Entity<ApplicationConfig>()
+                .Property(e => e.StandingsUpdateForCurrentSeasonFrequencyTicks)
+                .HasColumnName("standings_update_for_current_season_frequency")
+                .HasColumnType("bigint")
+                .IsRequired();
+            modelBuilder.Entity<ApplicationConfig>()
+                .Property(e => e.TopScorersUpdateForCurrentSeasonFrequencyTicks)
+                .HasColumnName("top_scorers_update_for_current_season_frequency")
+                .HasColumnType("bigint")
+                .IsRequired();
+            modelBuilder.Entity<ApplicationConfig>()
+                .Property(e => e.ImageDownloadWorkerFrequencyTicks)
+                .HasColumnName("image_download_worker_frequency")
+                .HasColumnType("bigint")
+                .IsRequired();
+            modelBuilder.Entity<ApplicationConfig>()
+                .Property(e => e.ImageDownloadFrequencyTicks)
+                .HasColumnName("image_download_frequency")
+                .HasColumnType("bigint")
+                .IsRequired();
+            modelBuilder.Entity<ApplicationConfig>()
+                .Property(e => e.PredictionGamePicturesDirectory)
+                .HasColumnName("prediction_game_pictures_directory")
+                .HasColumnType("varchar")
+                .IsRequired();
+            modelBuilder.Entity<ApplicationConfig>()
+                .Property(e => e.ProfilePicturesDirectory)
+                .HasColumnName("profile_pictures_directory")
+                .HasColumnType("varchar")
+                .IsRequired();
+            modelBuilder.Entity<ApplicationConfig>()
+                .Property(e => e.CountriesDirectory)
+                .HasColumnName("countries_directory")
+                .HasColumnType("varchar")
+                .IsRequired();
+            modelBuilder.Entity<ApplicationConfig>()
+                .Property(e => e.LeaguesDirectory)
+                .HasColumnName("leagues_directory")
+                .HasColumnType("varchar")
+                .IsRequired();
+            modelBuilder.Entity<ApplicationConfig>()
+                .Property(e => e.TeamsDirectory)
+                .HasColumnName("teams_directory")
+                .HasColumnType("varchar")
+                .IsRequired();
+            modelBuilder.Entity<ApplicationConfig>()
+                .Property(e => e.PlayersDirectory)
+                .HasColumnName("players_directory")
+                .HasColumnType("varchar")
+                .IsRequired();
+            modelBuilder.Entity<ApplicationConfig>()
+                .Property(e => e.PredictionGameDefaultImage)
+                .HasColumnName("prediction_game_default_image")
+                .HasColumnType("varchar")
+                .IsRequired();
+            #endregion
+
+            #region EndpointConfig
+            modelBuilder.Entity<EndpointConfig>()
+                .Property(e => e.ID)
+                .UseIdentityByDefaultColumn()
+                .HasColumnName("id")
+                .HasColumnType("int")
+                .IsRequired();
+            modelBuilder.Entity<EndpointConfig>()
+                .Property(e => e.Name)
+                .HasColumnName("name")
+                .HasColumnType("varchar")
+                .IsRequired();
+            modelBuilder.Entity<EndpointConfig>()
+                .Property(e => e.Endpoint)
+                .HasColumnName("endpoint")
+                .HasColumnType("varchar")
+                .IsRequired();
+            modelBuilder.Entity<EndpointConfig>()
+                .Property(e => e.BackupPath)
+                .HasColumnName("backup_path")
+                .HasColumnType("varchar")
+                .IsRequired(false);
+            modelBuilder.Entity<EndpointConfig>()
+                .Property(e => e.LoadDataFromBackup)
+                .HasColumnName("load_data_from_backup")
+                .HasColumnType("boolean")
+                .HasDefaultValue(false)
+                .IsRequired();
+            modelBuilder.Entity<EndpointConfig>()
+                .HasIndex(e => e.Name)
+                .IsUnique();
+            #endregion
+
             #endregion
 
             #region Football schema
@@ -291,6 +467,12 @@ namespace FootballResults.DataAccess
                 .HasColumnName("logo_path")
                 .HasColumnType("varchar")
                 .IsRequired(false);
+            modelBuilder.Entity<League>()
+                .Property(e => e.UpdatesActive)
+                .HasColumnName("updates_active")
+                .HasColumnType("boolean")
+                .HasDefaultValue(false)
+                .IsRequired();
             #endregion
 
             #region LeagueSeason
@@ -931,6 +1113,12 @@ namespace FootballResults.DataAccess
                 .ValueGeneratedNever()
                 .IsRequired(false);
             modelBuilder.Entity<User>()
+                .Property(e => e.IsAdmin)
+                .HasColumnName("is_admin")
+                .HasColumnType("boolean")
+                .HasDefaultValue(false)
+                .IsRequired(true);
+            modelBuilder.Entity<User>()
                 .HasIndex(e => e.Email)
                 .IsUnique();
             modelBuilder.Entity<User>()
@@ -1207,6 +1395,107 @@ namespace FootballResults.DataAccess
                     PlayerPhotosLastDownload = null,
                     TopScorerPhotosLastDownload = null
                 });
+
+            modelBuilder.Entity<ApiConfig>()
+                .HasData(new ApiConfig
+                {
+                    ID = 1,
+                    BaseAddress = Defaults.BaseAddress,
+                    BaseAdressHeaderKey = Defaults.BaseAddressHeaderKey,
+                    ApiKey = null,
+                    ApiKeyHeaderKey = Defaults.ApiKeyHeaderKey,
+                    RateLimit = Defaults.RateLimit,
+                    BackupData = false
+                });
+
+            modelBuilder.Entity<ApplicationConfig>()
+                .HasData(new ApplicationConfig
+                {
+                    ID = 1,
+                    UpdateWorkerFrequencyTicks = TimeSpan.FromMinutes(1).Ticks,
+                    MatchUpdateForCurrentDayFrequencyTicks = TimeSpan.FromMinutes(10).Ticks,
+                    MatchUpdateForCurrentSeasonFrequencyTicks = TimeSpan.FromDays(1).Ticks,
+                    StandingsUpdateForCurrentSeasonFrequencyTicks = TimeSpan.FromDays(1).Ticks,
+                    TopScorersUpdateForCurrentSeasonFrequencyTicks = TimeSpan.FromDays(1).Ticks,
+                    ImageDownloadWorkerFrequencyTicks = TimeSpan.FromDays(1).Ticks,
+                    ImageDownloadFrequencyTicks = TimeSpan.FromDays(100).Ticks,
+                    PredictionGamePicturesDirectory = Defaults.PredictionGamePicturesDirectory,
+                    ProfilePicturesDirectory = Defaults.ProfilePicturesDirectory,
+                    CountriesDirectory = Defaults.CountriesDirectory,
+                    LeaguesDirectory = Defaults.LeaguesDirectory,
+                    TeamsDirectory = Defaults.TeamsDirectory,
+                    PlayersDirectory = Defaults.PlayersDirectory,
+                    PredictionGameDefaultImage = Defaults.PredictionGameDefaultImage
+                });
+
+            modelBuilder.Entity<EndpointConfig>()
+                .HasData
+                (
+                    new EndpointConfig
+                    {
+                        ID = 1,
+                        Name = Defaults.Countries,
+                        Endpoint = Defaults.CountriesEndpoint,
+                        BackupPath = Defaults.CountriesDefaultBackupPath,
+                        LoadDataFromBackup = false
+                    },
+                    new EndpointConfig
+                    {
+                        ID = 2,
+                        Name = Defaults.Leagues,
+                        Endpoint = Defaults.LeaguesEndpint,
+                        BackupPath = Defaults.LeaguesDefaultBackupPath,
+                        LoadDataFromBackup = false
+                    },
+                    new EndpointConfig
+                    {
+                        ID = 3,
+                        Name = Defaults.TeamsForLeagueAndSeason,
+                        Endpoint = Defaults.TeamsForLeagueAndSeasonEndpoint,
+                        BackupPath = Defaults.TeamsForLeagueAndSeasonDefaultBackupPath,
+                        LoadDataFromBackup = false
+                    },
+                    new EndpointConfig
+                    {
+                        ID = 4,
+                        Name = Defaults.SquadForTeam,
+                        Endpoint = Defaults.SquadForTeamEndpoint,
+                        BackupPath = Defaults.SquadForTeamDefaultBackupPath,
+                        LoadDataFromBackup = false
+                    },
+                    new EndpointConfig
+                    {
+                        ID = 5,
+                        Name = Defaults.MatchesForLeagueAndSeason,
+                        Endpoint = Defaults.MatchesForLeagueAndSeasonEndpoint,
+                        BackupPath = Defaults.MatchesForLeagueAndSeasonDefaultBackupPath,
+                        LoadDataFromBackup = false
+                    },
+                    new EndpointConfig
+                    {
+                        ID = 6,
+                        Name = Defaults.MatchesForDate,
+                        Endpoint = Defaults.MatchesForDateEndpoint,
+                        BackupPath = Defaults.MatchesForDateDefaultBackupPath,
+                        LoadDataFromBackup = false
+                    },
+                    new EndpointConfig
+                    {
+                        ID = 7,
+                        Name = Defaults.StandingsForLeagueAndSeason,
+                        Endpoint = Defaults.StandingsForLeagueAndSeasonEndpoint,
+                        BackupPath = Defaults.StandingsForLeagueAndSeasonDefaultBackupPath,
+                        LoadDataFromBackup = false
+                    },
+                    new EndpointConfig
+                    {
+                        ID = 8,
+                        Name = Defaults.TopScorersForLeagueAndSeason,
+                        Endpoint = Defaults.TopScorersForLeagueAndSeasonEndpoint,
+                        BackupPath = Defaults.TopScorersForLeagueAndSeasonDefaultBackupPath,
+                        LoadDataFromBackup = false
+                    }
+                );
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -20,12 +20,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballResults.DatabaseUpd
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E623E1BD-A4F1-48F2-89D4-0B0BD315A44B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{052B2BBB-E871-4679-950E-F63D12DD2368}"
-	ProjectSection(SolutionItems) = preProject
-		Configuration\sharedSettings.Development.json = Configuration\sharedSettings.Development.json
-		Configuration\sharedSettings.json = Configuration\sharedSettings.json
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -1,27 +1,27 @@
 ﻿@if (User.PredictionGames != null)
 {
-        @if (CreatedGames.Count() > 0)
+        @if (CreatedGames != null && CreatedGames.Count() > 0)
         {
             <h2>Created Games</h2>
             <div class="gameList">
                 @foreach (var game in CreatedGames.OrderBy(g => g.Finished).ThenByDescending(g => g.CreatedAt))
                 {
-                    <GameCard Game="game" />
+                    <GameCard Game="game" DefaultImagePath="@ApplicationConfig?.PredictionGameDefaultImage" />
                 }
             </div>
         }
         
-        @if (JoinedGames.Count() > 0)
+        @if (JoinedGames != null && JoinedGames.Count() > 0)
         {
             <h2>Joined Games</h2>
             <div class="gameList">
                 @foreach (var game in JoinedGames.OrderBy(g => g.Finished).ThenByDescending(g => g.CreatedAt))
                 {
-                    <GameCard Game="game" />
+                    <GameCard Game="game" DefaultImagePath="@ApplicationConfig?.PredictionGameDefaultImage" />
                 }
             </div>
         }
-        @if (CreatedGames.Count() == 0 && JoinedGames.Count() == 0)
+        @if (CreatedGames != null && JoinedGames != null && CreatedGames.Count() == 0 && JoinedGames.Count() == 0)
         {
             <p>
                 You are not participating in any prediction game yet. You can create your own game or join an existing one via
@@ -38,12 +38,19 @@ else
     [CascadingParameter(Name = "User")]
     public User User { get; set; } = default!;
 
+    [Inject]
+    protected IApplicationService ApplicationService { get; set; } = default!;
+
+    protected ApplicationConfig ApplicationConfig { get; set; } = default!;
+
     private IEnumerable<PredictionGame> CreatedGames { get; set; } = default!;
 
     private IEnumerable<PredictionGame> JoinedGames { get; set; } = default!;
 
-    protected override void OnParametersSet()
+    protected override async Task OnParametersSetAsync()
     {
+        ApplicationConfig = await ApplicationService.GetApplicationConfigAsync();
+
         if (User != null)
         {
             CreatedGames = User.PredictionGames.Where(g => g.OwnerID == User.ID);

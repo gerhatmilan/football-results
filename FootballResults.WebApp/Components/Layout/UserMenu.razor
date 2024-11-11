@@ -23,8 +23,17 @@
                             Settings
                         </NavLink>
                     </li>
+                    <AuthorizeView Roles="Admin">
+                        <Authorized Context="AdminContext">
+                            <li class="nav-item">
+                                <NavLink class="nav-link" href="/application-settings">
+                                    App settings
+                                </NavLink>
+                            </li>
+                        </Authorized>
+                    </AuthorizeView>
                     <li class="nav-item">
-                        <NavLink class="nav-link" href="/user/logout">
+                        <NavLink class="nav-link" @onclick="LogoutAsync">
                             Log out
                         </NavLink>
                     </li>
@@ -49,4 +58,16 @@
 @code {
     [CascadingParameter(Name = "User")]
     public User? User { get; set; }
+
+    [Inject]
+    protected NavigationManager NavigationManager { get; set; } = default!;
+
+    [Inject]
+    protected IJSRuntime JSRuntime { get; set; } = default!;
+
+    protected async Task LogoutAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("postRequest", NavigationManager.BaseUri + "api/authentication/logout");
+        NavigationManager.Refresh(forceReload: true);
+    }
 }

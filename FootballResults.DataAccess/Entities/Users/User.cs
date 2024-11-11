@@ -33,6 +33,11 @@ namespace FootballResults.DataAccess.Entities.Users
         public DateTime? RegistrataionDate { get; set; }
 
         /// <summary>
+        /// A flag whether the user is an admin user
+        /// </summary>
+        public bool IsAdmin { get; set; }
+
+        /// <summary>
         /// Leagues the user marked as favorite
         /// </summary>
         public IEnumerable<League> FavoriteLeagues { get; set; }

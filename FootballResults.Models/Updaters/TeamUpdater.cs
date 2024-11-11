@@ -1,10 +1,10 @@
+using FootballResults.DataAccess.Entities;
 using FootballResults.DataAccess.Entities.Football;
+using FootballResults.DataAccess.Models;
 using FootballResults.Models.Api.FootballApi.Responses;
-using FootballResults.Models.Config;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace FootballResults.Models.Updaters
 {
@@ -15,7 +15,7 @@ namespace FootballResults.Models.Updaters
         private readonly ILoggerFactory _loggerFactory;
         private VenueUpdaterForTeam _venueUpdater;
 
-        protected override UpdaterSpecificSettings UpdaterSpecificSettingsForLeagueAndSeason => _apiConfig.DataFetch.TeamsForLeagueAndSeason;
+        protected override EndpointConfig UpdaterSpecificSettingsForLeagueAndSeason => _endpointConfigs.FirstOrDefault(i => i.Name == Defaults.TeamsForLeagueAndSeason);
 
         public TeamUpdater(IServiceScopeFactory serviceScopeFactory, ILoggerFactory loggerFactory, ILogger<TeamUpdater> logger)
             : base(serviceScopeFactory, logger)

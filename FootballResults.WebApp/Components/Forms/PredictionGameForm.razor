@@ -17,20 +17,20 @@
                 </div>
                 <div class="pictureDiv mb-3">
                     <label for="picture">Picture</label>
-                    <img class="gameBackground" src="@(CreateGameModel.PicturePath ?? ApplicationSettings.Value.PredictionGameDefaultImage)" alt="Game background">
+                    <img class="gameBackground" src="@(CreateGameModel.PicturePath ?? ApplicationConfig?.PredictionGameDefaultImage)" alt="Game background">
                     <InputFile id="picture" class="input form-control" OnChange="OnImageSelectedAsync" />
-                    @if (ImageErrorMessage != null)
+                    @if (CreateGameModel.ImageError)
                     {
-                        <div class="error">@ImageErrorMessage</div>
+                        <div class="error">@CreateGameModel.ImageErrorMessage</div>
                     }
                 </div>
             </div>
             <div class="col2">
                 <div class="leaguesIncludedDiv mb-3">
                     <label>Leagues to be included in the prediction game</label>
-                    @if (IncludedLeaguesErrorMessage != null)
+                    @if (CreateGameModel.IncludedLeaguesError)
                     {
-                        <div class="error">@IncludedLeaguesErrorMessage</div>
+                        <div class="error">@CreateGameModel.IncludedLeaguesErrorMessage</div>
                     }
 
                     @if (CreateGameModel.IncludedLeagues != null)
@@ -78,9 +78,9 @@
         <div class="submitDiv">
             <button type="submit" class="btn button" disabled="@ButtonDisabled">Create</button>
         </div>
-        @if (NotCreatedErrorMessage != null)
+        @if (CreateGameModel.Error)
         {
-            <div class="error">@NotCreatedErrorMessage</div>
+            <div class="alert alert-danger" role="alert">The game could not be created. Please try again later.</div>
         }
     </div>
 </EditForm>
