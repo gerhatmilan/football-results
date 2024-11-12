@@ -16,7 +16,7 @@ namespace FootballResults.Models.Updaters
         public CountryUpdater(IServiceScopeFactory serviceScopeFactory, ILogger<CountryUpdater> logger)
             : base(serviceScopeFactory, logger) { }
 
-        protected override void ProcessData(IEnumerable<CountriesResponseItem> responseItems)
+        protected override void ProcessData(IEnumerable<CountriesResponseItem> responseItems, UpdaterMode? mode = null)
         {
             List<Country> existingCountries = _dbContext.Countries.ToList();
 

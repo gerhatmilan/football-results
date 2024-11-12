@@ -18,6 +18,8 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
 
         protected IEnumerable<Country>? CountriesWithTeams { get; set; }
 
+        protected string Filter { get; set; } = string.Empty;
+
         protected override async Task OnInitializedAsync()
         {
             await LoadTeamsAsync();
@@ -25,14 +27,7 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
 
         protected async Task LoadTeamsAsync()
         {
-            try
-            {
-                CountriesWithTeams = await TeamService!.GetCountriesWithTeamsAsync();
-            }
-            catch (Exception)
-            {
-                NavigationManager?.NavigateTo("/error", true);
-            }
+            CountriesWithTeams = await TeamService!.GetCountriesWithTeamsAsync();
         }
     }
 }

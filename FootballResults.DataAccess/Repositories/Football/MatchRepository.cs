@@ -10,7 +10,7 @@ namespace FootballResults.API.Models
     {
         public MatchRepository(AppDbContext dbContext) : base(dbContext) { }
 
-        public override async Task<Match> GetByIDAsync(int id, bool tracking)
+        public override async Task<Match> GetByIDAsync(int id, bool tracking = true)
         {
             Match match = await _dbContext.Matches
                 .Include(m => m.LeagueSeason)
@@ -50,7 +50,7 @@ namespace FootballResults.API.Models
             }
         }
 
-        public async Task<IEnumerable<Match>> GetHeadToHead(string teamName1, string teamName2)
+        public async Task<IEnumerable<Match>> GetHeadToHead(string teamName1, string teamName2, bool tracking = true)
         {
             return await _dbContext.Matches
                 .Where(m =>
@@ -97,11 +97,11 @@ namespace FootballResults.API.Models
                     },
                 })
                 .OrderBy(m => m.Date)
-                .AsNoTracking()
+                .AsTracking(tracking ? QueryTrackingBehavior.TrackAll : QueryTrackingBehavior.NoTracking)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Match>> Search(DateTime? date, DateTime? from, DateTime? to, int? year, int? month, int? day, string teamName, string leagueName, int? season, string round)
+        public async Task<IEnumerable<Match>> Search(DateTime? date, DateTime? from, DateTime? to, int? year, int? month, int? day, string teamName, string leagueName, int? season, string round, bool tracking = true)
         {
             return await _dbContext.Matches
                 .Include(m => m.LeagueSeason)
@@ -121,8 +121,8 @@ namespace FootballResults.API.Models
                     && (year.HasValue ? m.Date.Value.Year == year : true)
                     && (month.HasValue ? m.Date.Value.Month == month : true)
                     && (day.HasValue ? m.Date.Value.Day == day : true))
-               .AsNoTracking()
-               .ToListAsync();
+                .AsTracking(tracking ? QueryTrackingBehavior.TrackAll : QueryTrackingBehavior.NoTracking)
+                .ToListAsync();
         }
     }
 }

@@ -9,7 +9,9 @@ using Microsoft.Extensions.Logging;
 namespace FootballResults.Models.Updaters
 {
     [Updater]
-    [SupportedModes(UpdaterMode.AllLeaguesAllSeasons, UpdaterMode.AllLeaguesCurrentSeason, UpdaterMode.AllLeaguesSpecificSeason, UpdaterMode.SpecificLeagueAllSeasons, UpdaterMode.SpecificLeagueCurrentSeason)]
+    [SupportedModes(UpdaterMode.AllLeaguesAllSeasons, UpdaterMode.AllLeaguesCurrentSeason, UpdaterMode.AllLeaguesSpecificSeason,
+        UpdaterMode.ActiveLeaguesAllSeasons, UpdaterMode.ActiveLeaguesCurrentSeason, UpdaterMode.ActiveLeaguesSpecificSeason,
+        UpdaterMode.SpecificLeagueAllSeasons, UpdaterMode.SpecificLeagueCurrentSeason)]
     public class StandingUpdater : Updater<StandingsResponse, StandingsResponseItem>
     {
         protected override EndpointConfig UpdaterSpecificSettingsForLeagueAndSeason => _endpointConfigs.FirstOrDefault(i => i.Name == Defaults.StandingsForLeagueAndSeason);
@@ -17,7 +19,7 @@ namespace FootballResults.Models.Updaters
         public StandingUpdater(IServiceScopeFactory serviceScopeFactory, ILogger<StandingUpdater> logger)
             : base(serviceScopeFactory, logger) { }
 
-        protected override void ProcessData(IEnumerable<StandingsResponseItem> responseItems)
+        protected override void ProcessData(IEnumerable<StandingsResponseItem> responseItems, UpdaterMode? mode = null)
         {
             int? leagueID = responseItems.FirstOrDefault()?.League?.ID;
             int? season = responseItems.FirstOrDefault()?.League?.Season;

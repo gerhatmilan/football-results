@@ -35,15 +35,8 @@ namespace FootballResults.WebApp.Components.Forms
 
         protected override async Task OnInitializedAsync()
         {
-            try
-            {
-                Config = await ApplicationService.GetConfigAsync();
-                await ApplicationService.InitializeApplicationSettingsFormModelAsync(Config, ApplicationSettingsFormModel);
-            }
-            catch (Exception)
-            {
-                NavigationManager.NavigateTo("/error");
-            }
+            Config = await ApplicationService.GetConfigAsync();
+            await ApplicationService.InitializeApplicationSettingsFormModelAsync(Config, ApplicationSettingsFormModel);
         }
 
         protected async Task SubmitAsync()

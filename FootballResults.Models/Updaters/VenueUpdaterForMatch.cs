@@ -16,7 +16,7 @@ namespace FootballResults.Models.Updaters
         public VenueUpdaterForMatch(IServiceScopeFactory serviceScopeFactory, ILogger<VenueUpdaterForMatch> logger)
             : base(serviceScopeFactory, logger) { }
 
-        protected override void ProcessData(IEnumerable<FixturesResponseItem> responseItems)
+        protected override void ProcessData(IEnumerable<FixturesResponseItem> responseItems, UpdaterMode? mode = null)
         {
             var existingVenues = _dbContext.Venues.ToList();
 

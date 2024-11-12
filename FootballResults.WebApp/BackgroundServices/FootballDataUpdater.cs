@@ -97,7 +97,7 @@ namespace FootballResults.WebApp.BackgroundServices
                 try
                 {
                     MatchUpdater matchUpdater = (MatchUpdater)ActivatorUtilities.CreateInstance(_serviceProvider, typeof(MatchUpdater));
-                    await matchUpdater.StartAsync(UpdaterMode.CurrentDate);
+                    await matchUpdater.StartAsync(UpdaterMode.CurrentDateActiveLeagues);
 
                     // notify connected clients about the update
                     await _notificationHubContext.Clients.All.SendAsync("ReceiveMessage", UpdateMessageType.MatchesUpdated);

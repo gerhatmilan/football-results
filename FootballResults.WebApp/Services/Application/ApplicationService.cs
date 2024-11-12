@@ -1,9 +1,11 @@
 ﻿using FootballResults.DataAccess;
 using FootballResults.DataAccess.Entities;
+using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Models;
 using FootballResults.Models.Application;
 using FootballResults.Models.ViewModels.Application;
 using FootballResults.WebApp.Components.Forms;
+using FootballResults.WebApp.Services.Football;
 using FootballResults.WebApp.Services.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -41,12 +43,14 @@ namespace FootballResults.WebApp.Services.Application
             ApiConfig apiConfig = await GetApiConfigAsync();
             ApplicationConfig applicationConfig = await GetApplicationConfigAsync();
             IEnumerable<EndpointConfig> endpointConfigs = await GetEndpointConfigsAsync();
+            IEnumerable<League> leagues = await _dbContext.Leagues.ToListAsync();
 
             return new Config
             {
                 ApiConfig = apiConfig,
                 ApplicationConfig = applicationConfig,
-                EndpointConfigs = endpointConfigs
+                EndpointConfigs = endpointConfigs,
+                Leagues = leagues
             };
         }
 

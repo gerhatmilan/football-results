@@ -1,6 +1,7 @@
 ﻿using FootballResults.DataAccess;
 using FootballResults.DataAccess.Entities.Football;
 using FootballResults.Models.Updaters;
+using FootballResults.Models.Updaters.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -15,11 +16,8 @@ namespace FootballResults.DatabaseUpdater
         private readonly IHostEnvironment _hostingEnvironment;
 
         private bool _running = true;
+        private UpdaterRunnerService _updaterRunnerService;
         private UpdaterMenuHandler _menuHandler;
-        private IUpdater? _selectedUpdater;
-        private UpdaterMode? _selectedMode;
-
-        private IEnumerable<League> LeaguesWithActiveUpdate { get; set; }
 
         public UpdaterRunner(IServiceProvider serviceProvider, IHostApplicationLifetime applicationLifetime, ILogger<UpdaterRunner> logger, IHostEnvironment hostingEnvironment)
         {
@@ -27,18 +25,8 @@ namespace FootballResults.DatabaseUpdater
             _applicationLifetime = applicationLifetime;
             _logger = logger;
             _hostingEnvironment = hostingEnvironment;
-
-            using (var scope = _serviceProvider.CreateScope())
-            {
-                AppDbContext dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-                LeaguesWithActiveUpdate = dbContext.Leagues
-                    .Where(l => l.UpdatesActive)
-                    .OrderBy(l => l.Name)
-                    .ToList();
-            }
-
-            _menuHandler = new UpdaterMenuHandler(LeaguesWithActiveUpdate);
+            _updaterRunnerService = new UpdaterRunnerService(serviceProvider);
+            _menuHandler = new UpdaterMenuHandler(_updaterRunnerService);
         }
 
         public override Task StartAsync(CancellationToken stoppingToken)
@@ -58,7 +46,7 @@ namespace FootballResults.DatabaseUpdater
 
             while (!cancellationToken.IsCancellationRequested && _running)
             {
-                _menuHandler.ShowMenu(_selectedUpdater, _selectedMode);
+                _menuHandler.ShowMenu(_updaterRunnerService.SelectedUpdater, _updaterRunnerService.SelectedMode);
                 _menuHandler.WaitForInput();
 
                 try
@@ -110,16 +98,13 @@ namespace FootballResults.DatabaseUpdater
 
         private void OnArrowDown()
         {
-            switch (_menuHandler.MenuMode)
+            switch (_updaterRunnerService.MenuMode)
             {
                 case UpdaterMenuMode.ShowUpdaters:
-                    _menuHandler.SelectedOption = _menuHandler.SelectedOption == UpdaterFactory.AvailableUpdaters.Count() - 1 ? 0 : _menuHandler.SelectedOption + 1;
+                    _menuHandler.SelectedOption = _menuHandler.SelectedOption == IUpdaterRunnerService.AvailableUpdaters.Count() - 1 ? 0 : _menuHandler.SelectedOption + 1;
                     break;
                 case UpdaterMenuMode.ShowModes:
-                    _menuHandler.SelectedOption = _menuHandler.SelectedOption == _selectedUpdater!.SupportedModes.Count() - 1 ? 0 : _menuHandler.SelectedOption + 1;
-                    break;
-                case UpdaterMenuMode.ShowLeagues:
-                    _menuHandler.SelectedOption = _menuHandler.SelectedOption == LeaguesWithActiveUpdate.Count() - 1 ? 0 : _menuHandler.SelectedOption + 1;
+                    _menuHandler.SelectedOption = _menuHandler.SelectedOption == _updaterRunnerService.SelectedUpdater!.SupportedModes.Count() - 1 ? 0 : _menuHandler.SelectedOption + 1;
                     break;
             }
             
@@ -128,16 +113,13 @@ namespace FootballResults.DatabaseUpdater
 
         private void OnArrowUp()
         {
-            switch (_menuHandler.MenuMode)
+            switch (_updaterRunnerService.MenuMode)
             {
                 case UpdaterMenuMode.ShowUpdaters:
-                    _menuHandler.SelectedOption = _menuHandler.SelectedOption == 0 ? UpdaterFactory.AvailableUpdaters.Count() - 1 : _menuHandler.SelectedOption - 1;
+                    _menuHandler.SelectedOption = _menuHandler.SelectedOption == 0 ? IUpdaterRunnerService.AvailableUpdaters.Count() - 1 : _menuHandler.SelectedOption - 1;
                     break;
                 case UpdaterMenuMode.ShowModes:
-                    _menuHandler.SelectedOption = _menuHandler.SelectedOption == 0 ? _selectedUpdater!.SupportedModes.Count() - 1 : _menuHandler.SelectedOption - 1;
-                    break;
-                case UpdaterMenuMode.ShowLeagues:
-                    _menuHandler.SelectedOption = _menuHandler.SelectedOption == 0 ? LeaguesWithActiveUpdate.Count() - 1 : _menuHandler.SelectedOption - 1;
+                    _menuHandler.SelectedOption = _menuHandler.SelectedOption == 0 ? _updaterRunnerService.SelectedUpdater!.SupportedModes.Count() - 1 : _menuHandler.SelectedOption - 1;
                     break;
             }
             _menuHandler.ResetCursorPosition();
@@ -145,16 +127,13 @@ namespace FootballResults.DatabaseUpdater
 
         private async Task OnEnterAsync()
         {
-            switch (_menuHandler.MenuMode)
+            switch (_updaterRunnerService.MenuMode)
             {
                 case UpdaterMenuMode.ShowUpdaters:
                     OnUpdaterSelected();
                     break;
                 case UpdaterMenuMode.ShowModes:
                     await OnModeSelectedAsync();
-                    break;
-                case UpdaterMenuMode.ShowLeagues:
-                    await OnLeagueSelectedAsync();
                     break;
             }
         }
@@ -167,16 +146,9 @@ namespace FootballResults.DatabaseUpdater
 
         private void OnBackSpace()
         {
-            if (_menuHandler.MenuMode == UpdaterMenuMode.ShowModes)
+            if (_updaterRunnerService.MenuMode == UpdaterMenuMode.ShowModes)
             {
-                _menuHandler.MenuMode = UpdaterMenuMode.ShowUpdaters;
-                _menuHandler.SelectedOption = UpdaterFactory.AvailableUpdaters.ToList().IndexOf(_selectedUpdater!.GetType());
-                _menuHandler.ResetConsole();
-            }
-            else if (_menuHandler.MenuMode == UpdaterMenuMode.ShowLeagues)
-            {
-                _menuHandler.MenuMode = UpdaterMenuMode.ShowModes;
-                _menuHandler.SelectedOption = _selectedUpdater!.SupportedModes.ToList().IndexOf(_selectedMode!.Value);
+                _updaterRunnerService.MenuMode = UpdaterMenuMode.ShowUpdaters;
                 _menuHandler.ResetConsole();
             }
             else
@@ -187,49 +159,83 @@ namespace FootballResults.DatabaseUpdater
 
         private async Task RunUpdaterAsync(params object[] modeParameters)
         {
-            await _selectedUpdater!.StartAsync(_selectedMode!.Value, modeParameters);
-            _menuHandler.MenuMode = UpdaterMenuMode.ShowUpdaters;
+            await _updaterRunnerService.RunUpdaterAsync(modeParameters);
             _menuHandler.ResetConsole(waitForInput: true);
         }
 
         private void OnUpdaterSelected()
         {
-            _selectedUpdater = UpdaterFactory.CreateUpdater(_menuHandler.SelectedOption, _serviceProvider);
-            _menuHandler.MenuMode = UpdaterMenuMode.ShowModes;
+            _updaterRunnerService.SetUpdater(_menuHandler.SelectedOption);
             _menuHandler.ResetConsole();
         }
 
         private async Task OnModeSelectedAsync()
         {
-            _selectedMode = _selectedUpdater?.SupportedModes?.ElementAt(_menuHandler.SelectedOption);
-            switch (_selectedMode)
+            _updaterRunnerService.SetUpdaterMode(_menuHandler.SelectedOption);
+
+            switch (_updaterRunnerService.SelectedMode)
             {
                 case UpdaterMode.SpecificDate:
-                    await RunUpdaterAsync(_menuHandler.GetDateFromUser());
+                case UpdaterMode.SpecificDateActiveLeagues:
+                    DateTime? date = _menuHandler.GetDateFromUser();
+
+                    if (date != null)
+                    {
+                        await RunUpdaterAsync(date);
+                    }
+                    else
+                    {
+                        _updaterRunnerService.MenuMode = UpdaterMenuMode.ShowModes;
+                        _menuHandler.ResetConsole();
+                    }
                     break;
                 case UpdaterMode.SpecificLeagueAllSeasons:
                 case UpdaterMode.SpecificLeagueCurrentSeason:
-                    _menuHandler.MenuMode = UpdaterMenuMode.ShowLeagues;
-                    _menuHandler.ResetConsole();
-                    break;
                 case UpdaterMode.SpecificTeam:
-                    await RunUpdaterAsync(_menuHandler.GetTeamFromUser());
-                    break;
                 case UpdaterMode.SpecificCountryAllTeams:
-                    await RunUpdaterAsync(_menuHandler.GetCountryFromUser());
+                    int? id = _menuHandler.GetIDFromUser();
+
+                    if (id != null)
+                    {
+                        await RunUpdaterAsync(id);
+                    }
+                    else
+                    {
+                        _updaterRunnerService.MenuMode = UpdaterMenuMode.ShowModes;
+                        _menuHandler.ResetConsole();
+                    }
+                    break;
+                case UpdaterMode.AllLeaguesSpecificSeason:
+                case UpdaterMode.ActiveLeaguesSpecificSeason:
+                    int? season = _menuHandler.GetSeasonFromUser();
+
+                    if (season != null)
+                    {
+                        await RunUpdaterAsync(season);
+                    }
+                    else
+                    {
+                        _updaterRunnerService.MenuMode = UpdaterMenuMode.ShowModes;
+                        _menuHandler.ResetConsole();
+                    }
                     break;
                 case UpdaterMode.BasedOnLastUpdate:
-                    await RunUpdaterAsync(_menuHandler.GetLastUpdateBoundaryFromUser());
+                    TimeSpan? lastUpdateBoundary = _menuHandler.GetLastUpdateBoundaryFromUser();
+
+                    if (lastUpdateBoundary != null)
+                    {
+                        await RunUpdaterAsync(lastUpdateBoundary);
+                    }
+                    else
+                    {
+                        _updaterRunnerService.MenuMode = UpdaterMenuMode.ShowModes;
+                        _menuHandler.ResetConsole();
+                    }
                     break;
                 default:
                     await RunUpdaterAsync();
                     break;
             }
-        }
-
-        private async Task OnLeagueSelectedAsync()
-        {
-            await RunUpdaterAsync(LeaguesWithActiveUpdate.ElementAt(_menuHandler.SelectedOption).ID);
         }
     }
 }

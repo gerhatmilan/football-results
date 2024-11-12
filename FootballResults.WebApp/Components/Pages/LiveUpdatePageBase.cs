@@ -15,6 +15,11 @@ namespace FootballResults.WebApp.Components.Pages
         /// </summary>
         protected SemaphoreSlim UpdateLock { get; } = new SemaphoreSlim(1, 1);
 
+        /// <summary>
+        /// Needed to prevent live update messages to be processed before the initial load has completed (for example client time javascript information is needed before loading matches)
+        /// </summary>
+        public ManualResetEvent InitialLoadCompletedEvent = new ManualResetEvent(false);
+
         protected override async Task OnInitializedAsync()
         {
             await InitializeUpdateNotificationServiceAsync();

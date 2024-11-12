@@ -65,4 +65,5 @@ article {
 ::deep .checkbox {
     width: 20px;
     height: 20px;
+    accent-color: var(--link);
 }

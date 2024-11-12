@@ -47,7 +47,7 @@ namespace FootballResults.Models.Updaters
             _logger.LogInformation($"{GetType().Name} has finished. Press any key to continue...");
         }
 
-        protected override void ProcessData(IEnumerable<SquadsResponseItem> responseItems)
+        protected override void ProcessData(IEnumerable<SquadsResponseItem> responseItems, UpdaterMode? mode = null)
         {
             var existingPlayers = _dbContext.Players
                 .Include(p => p.Team)

@@ -5,11 +5,11 @@ namespace FootballResults.WebApp.Services.Football
 {
     public interface ILeagueService
     {
-        Task<League?> GetLeagueByNameAsync(string leagueName);
-        Task<IEnumerable<League>> GetLeaguesAsync();
-        Task<IEnumerable<Country>> GetCountriesWithLeaguesAsync();
-        Task<IEnumerable<LeagueStanding>> GetStandingsForLeagueAndSeasonAsync(string leagueName, int season);
-        Task<IEnumerable<TopScorer>> GetTopScorersForLeagueAndSeasonAsync(string leagueName, int season);
-        Task<IEnumerable<League>> SearchAsync(string leagueName);
+        Task<League?> GetLeagueByNameAsync(string leagueName, bool tracking = true);
+        Task<IEnumerable<League>> GetLeaguesAsync(bool tracking = true);
+        Task<IEnumerable<Country>> GetCountriesWithLeaguesAsync(bool tracking = true);
+        Task<IEnumerable<LeagueStanding>> GetStandingsForLeagueAndSeasonAsync(string leagueName, int season, bool tracking = true);
+        Task<IEnumerable<TopScorer>> GetTopScorersForLeagueAndSeasonAsync(string leagueName, int season, bool tracking = true);
+        Task<IEnumerable<League>> SearchAsync(string leagueName, bool tracking = true);
     }
 }

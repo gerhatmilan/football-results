@@ -1,5 +1,5 @@
-﻿using FootballResults.DataAccess.Entities.Football;
-using FootballResults.Models.Updaters;
+﻿using FootballResults.Models.Updaters;
+using FootballResults.Models.Updaters.Services;
 
 namespace FootballResults.DatabaseUpdater
 {
@@ -15,31 +15,19 @@ namespace FootballResults.DatabaseUpdater
             $"\n{GREEN}Enter{DEFAULT}: select option" +
             $"\n{GREEN}Q{DEFAULT}: quit";
 
-        private UpdaterMenuMode _menuMode;
-
-        private IEnumerable<League> LeaguesWithActiveUpdate { get; set; }
+        private UpdaterRunnerService _updaterRunnerService;
 
         public string Description => DESCRIPTION;
         public int SelectedOption { get; set; }
         public int CursorPositionLeft { get; set; }
         public int CursorPositionTop { get; set; }
         public ConsoleKeyInfo SelectedKey { get; set; }
-        public UpdaterMenuMode MenuMode
-        {
-            get => _menuMode;
-            set
-            {
-                _menuMode = value;
-                SelectedOption = 0;
-            }
-        }
 
-        public UpdaterMenuHandler(IEnumerable<League> leaguesWithActiveUpdates)
+        public UpdaterMenuHandler(UpdaterRunnerService updaterRunnerService)
         {
-            LeaguesWithActiveUpdate = leaguesWithActiveUpdates;
+            _updaterRunnerService = updaterRunnerService;
             SelectedOption = 0;
             Console.CursorVisible = false;
-            _menuMode = UpdaterMenuMode.ShowUpdaters;
         }
 
         public void SaveCursorPosition()
@@ -58,6 +46,19 @@ namespace FootballResults.DatabaseUpdater
             Console.Clear();
             ShowDescription();
             SaveCursorPosition();
+
+            if (_updaterRunnerService.SelectedUpdater != null && _updaterRunnerService.MenuMode == UpdaterMenuMode.ShowUpdaters)
+            {
+                SelectedOption = _updaterRunnerService.SelectedUpdaterIndex;
+            }
+            else if (_updaterRunnerService.SelectedMode != null && _updaterRunnerService.MenuMode == UpdaterMenuMode.ShowModes)
+            {
+                SelectedOption = _updaterRunnerService.SelectedModeIndex;
+            }
+            else
+            {
+                SelectedOption = 0;
+            }
         }
 
         public void ShowDescription()
@@ -72,11 +73,11 @@ namespace FootballResults.DatabaseUpdater
 
         private void ShowUpdaterMenu()
         {
-            Type[] availableUpdaters = UpdaterFactory.AvailableUpdaters.ToArray();
+            Type[] availableUpdaters = IUpdaterRunnerService.AvailableUpdaters.ToArray();
 
             Console.WriteLine("\nAvailable updaters\n");
 
-            for (int i = 0; i < UpdaterFactory.AvailableUpdaters.Count(); i++)
+            for (int i = 0; i < IUpdaterRunnerService.AvailableUpdaters.Count(); i++)
             {
                 ShowOption(i, availableUpdaters[i].Name);
             }
@@ -98,30 +99,15 @@ namespace FootballResults.DatabaseUpdater
             Console.WriteLine();
         }
 
-        private void ShowLeaguesMenu(IUpdater selectedUpdater, UpdaterMode selectedMode)
-        {
-            Console.WriteLine($"\n{selectedUpdater.GetType().Name} > Available modes > {selectedMode} > Available leagues\n");
-
-            for (int i = 0; i < LeaguesWithActiveUpdate.Count(); i++)
-            {
-                ShowOption(i, LeaguesWithActiveUpdate.ElementAt(i).Name);
-            }
-
-            Console.WriteLine();
-        }
-
         public void ShowMenu(IUpdater? selectedUpdater, UpdaterMode? selectedMode)
         {
-            switch (_menuMode)
+            switch (_updaterRunnerService.MenuMode)
             {
                 case UpdaterMenuMode.ShowUpdaters:
                     ShowUpdaterMenu();
                     break;
                 case UpdaterMenuMode.ShowModes:
                     ShowModesMenu(selectedUpdater!);
-                    break;
-                case UpdaterMenuMode.ShowLeagues:
-                    ShowLeaguesMenu(selectedUpdater!, selectedMode!.Value);
                     break;
             }
         }
@@ -131,66 +117,87 @@ namespace FootballResults.DatabaseUpdater
             SelectedKey = Console.ReadKey(intercept: true);
         }
 
-        public DateTime GetDateFromUser()
+        public DateTime? GetDateFromUser()
         {
             Console.Write("Date: ");
             string? input = Console.ReadLine();
+            DateTime date;
 
-            if (input != null && DateTime.TryParse(input, out DateTime date))
+            if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
             {
-                return date;
+                return null;
             }
-            else
+            else if (!DateTime.TryParse(input, out date))
             {
-                throw new InvalidDataException("Invalid date format.");
+                Console.Write("Invalid input format!");
+                Thread.Sleep(2000);
+                return null;
             }
+
+            return date;
         }
 
-        public int GetTeamFromUser()
+        public int? GetIDFromUser()
         {
-            Console.Write("Team ID: ");
+            Console.Write("ID: ");
             string? input = Console.ReadLine();
+            int id;
 
-            if (input != null && int.TryParse(input, out int id))
+            if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
             {
-                return id;
+                return null;
             }
-            else
+            else if (!int.TryParse(input, out id))
             {
-                throw new InvalidDataException("Invalid input format.");
+                Console.Write("Invalid input format!");
+                Thread.Sleep(2000);
+                return null;
             }
+
+            return id;
         }
 
-        public int GetCountryFromUser()
+        public int? GetSeasonFromUser()
         {
-            Console.Write("Country ID: ");
+            Console.Write("Season: ");
             string? input = Console.ReadLine();
+            int season;
 
-            if (input != null && int.TryParse(input, out int id))
+            if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
             {
-                return id;
+                return null;
             }
-            else
+            else if (!int.TryParse(input, out season))
             {
-                throw new InvalidDataException("Invalid input format.");
+                Console.Write("Invalid input format!");
+                Thread.Sleep(2000);
+                return null;
             }
+
+            return season;
         }
 
-        public TimeSpan GetLastUpdateBoundaryFromUser()
+
+        public TimeSpan? GetLastUpdateBoundaryFromUser()
         {
             Console.WriteLine("The update will occur only when more time has passed since the last update than the given value.");
             Console.WriteLine("Format: [d.]hh:mm:ss");
             Console.Write("Maximum elapsed time since the last update: ");
             string? input = Console.ReadLine();
+            TimeSpan maximumElapsedTime;
 
-            if (input != null && TimeSpan.TryParse(input, out TimeSpan maximumElapsedTime))
+            if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
             {
-                return maximumElapsedTime;
+                return null;
             }
-            else
+            else if (!TimeSpan.TryParse(input, out maximumElapsedTime))
             {
-                throw new InvalidDataException("Invalid format.");
+                Console.Write("Invalid input format!");
+                Thread.Sleep(2000);
+                return null;
             }
+
+            return maximumElapsedTime;
         }
     }
 }

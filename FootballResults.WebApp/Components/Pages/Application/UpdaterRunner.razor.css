@@ -1,0 +1,57 @@
+﻿h2 {
+    text-align: left;
+    color: var(--light);
+    word-break: break-word;
+}
+
+span {
+    color: var(--link);
+}
+
+#updaterMenu, #endpointSettings {
+    margin: auto;
+    max-width: 1200px;
+}
+
+.updaterModesContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.button {
+    width: 100%;
+    max-width: 270px;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.inputContainer label {
+    margin-right: 20px;
+}
+
+.inputContainer ::deep input {
+    max-width: fit-content;
+}
+
+#submitDiv {
+    text-align: center;
+}
+
+@media (max-width: 1200px) {
+    .updaterModesContainer {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 350px) {
+    .updaterModesContainer .button {
+        font-size: 0.5rem;
+        word-wrap: break-word;
+    }
+}

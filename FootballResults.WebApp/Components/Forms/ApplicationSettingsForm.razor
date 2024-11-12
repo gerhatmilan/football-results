@@ -94,14 +94,16 @@
                 <label for="predictionGameDefaultImage">Prediction game default image</label>
                 <InputText id="predictionGameDefaultImage" @bind-Value="@Config.ApplicationConfig.PredictionGameDefaultImage" class="input form-control" />
             </div>
-
-
-            <h2>Endpoints</h2>
-            @foreach (EndpointConfig endpointConfig in Config.EndpointConfigs.OrderBy(i => i.Name))
-            {
-                <EndpointConfigView Data="endpointConfig" />
-            }
             
+            <h2>Leagues with automatic updates</h2>
+            <Virtualize TItem="League" Items="Config.Leagues.OrderBy(l => !l.UpdatesActive).ThenBy(l => l.Name).ToList()" Context="league">
+                <ItemContent>
+                    <div class="mb-3 checkboxDiv updatesActiveDiv">
+                        <label for="@($"updatesActive{league.ID}")">@($"{league.Name} ({league.ID})")</label>
+                        <InputCheckbox id="@($"updatesActive{league.ID}")" class="checkbox" @bind-Value="@league.UpdatesActive" />
+                    </div>
+                </ItemContent>
+            </Virtualize>
 
             <div id="submitDiv">
                 <button type="submit" class="btn button" disabled="@ButtonDisabled">Save changes</button>

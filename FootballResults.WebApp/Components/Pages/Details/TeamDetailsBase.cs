@@ -30,18 +30,11 @@ namespace FootballResults.WebApp.Components.Pages.Details
 
         protected async Task LoadTeamAsync()
         {
-            try
-            {
-                Team = await TeamService!.GetTeamByNameAsync(TeamName!);
+            Team = await TeamService!.GetTeamByNameAsync(TeamName!);
 
-                if (Team == null)
-                {
-                    NavigationManager.NavigateTo("/404", true);
-                }
-            }
-            catch (Exception)
+            if (Team == null)
             {
-                NavigationManager?.NavigateTo("/error", true);
+                NavigationManager.NavigateTo("/404", true);
             }
         }
 
@@ -57,15 +50,7 @@ namespace FootballResults.WebApp.Components.Pages.Details
             ActiveSubMenu = "squad";
             if (Squad == null)
             {
-                try
-                {
-                    Squad = null;
-                    Squad = await TeamService!.GetSquadForTeamAsync(Team!.Name);
-                }
-                catch (Exception)
-                {
-                    NavigationManager?.NavigateTo("/error", true);
-                }
+                Squad = await TeamService!.GetSquadForTeamAsync(Team!.Name);
             }
         }
     }

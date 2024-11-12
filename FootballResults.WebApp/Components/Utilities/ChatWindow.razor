@@ -98,23 +98,16 @@
                 SentAt = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified)
             };
 
-            try
+            if (Group.HasValue)
             {
-                if (Group.HasValue)
-                {
-                    await ChatService.SendMessageToGroupAsync(groupName: Group.ToString()!, message: message);
-                }
-                else
-                {
-                    await ChatService.SendMessageAsync(message: message);
-                }
+                await ChatService.SendMessageToGroupAsync(groupName: Group.ToString()!, message: message);
+            }
+            else
+            {
+                await ChatService.SendMessageAsync(message: message);
+            }
 
-                ResetMessage();
-            }
-            catch (Exception)
-            {
-                NavigationManager.NavigateTo("/error", true);
-            }
+            ResetMessage();
         }
     }
 

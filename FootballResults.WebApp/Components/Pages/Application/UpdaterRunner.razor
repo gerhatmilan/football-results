@@ -1,0 +1,104 @@
+﻿@page "/updater-runner"
+@attribute [Authorize(Roles = "Admin")]
+@inherits UpdaterRunnerBase
+
+<PageTitle>Updater runner</PageTitle>
+
+<h1>Updater runner</h1>
+
+<div id="updaterMenu">
+    @if (UpdaterRunnerFormModel.ModeSelected)
+    {
+        <h2>Updater type: <span>@UpdaterRunnerService.SelectedUpdater.GetType().Name</span></h2>
+        <h2>Mode: <span>@UpdaterRunnerService.SelectedMode</span></h2>
+
+        <EditForm FormName="ParametersForm" Model="UpdaterRunnerFormModel" OnValidSubmit="SubmitAsync">
+            <div class="mb-3 inputContainer">
+                @switch (UpdaterRunnerService.SelectedMode)
+                {
+                    case UpdaterMode.SpecificLeagueAllSeasons:
+                    case UpdaterMode.SpecificLeagueCurrentSeason:
+                    case UpdaterMode.SpecificTeam:
+                    case UpdaterMode.SpecificCountryAllTeams:
+                        <label for="modeParameterID">ID:</label>
+                        <InputNumber id="modeParameterID" @bind-Value="@UpdaterRunnerFormModel.ModeParameterInteger" class="input form-control" />
+                        break;
+                    case UpdaterMode.SpecificDate:
+                    case UpdaterMode.SpecificDateActiveLeagues:
+                        <label for="modeParameterDateTime">Date:</label>
+                        <InputDate id="modeParameterDateTime" @bind-Value="@UpdaterRunnerFormModel.ModeParameterDateTime" class="input form-control" />
+                        break;
+                    case UpdaterMode.BasedOnLastUpdate:
+                        <label for="modeParameterTimeSpan">Maximum elapsed time since the last update:</label>
+                        <InputTimeSpan @bind-Value="@UpdaterRunnerFormModel.ModeParameterTimeSpan" />
+                        break;
+                }
+            </div>
+
+            <div id="submitDiv">
+                <button type="submit" class="btn button" disabled="@ButtonDisabled">Start</button>
+            </div>
+
+            @if (UpdaterRunnerFormModel.Success)
+            {
+                <div class="alert alert-success" role="alert">
+                    Updater finished successfully!
+                </div>
+            }
+            else if (UpdaterRunnerFormModel.Error)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @UpdaterRunnerFormModel.ErrorMessage
+                </div>
+            }
+            else if (ButtonDisabled)
+            {
+                // loading in progress
+                <LoadingSpinner />
+            }
+        </EditForm>
+    }
+    else
+    {
+        @foreach (var updaterType in IUpdaterRunnerService.AvailableUpdaters)
+        {
+            <h2>@updaterType.Name</h2>
+            <div class="updaterModesContainer">
+                @foreach (var mode in IUpdater.GetSupportedModesForType(updaterType))
+                {
+                    <button type="button" class="button btn" @onclick="@(() => OnOptionSelected(updaterType.Name, mode))">@mode.ToString()</button>
+                }
+            </div>
+        }
+
+        @if (EndpointConfigs != null)
+        {
+            <div id="endpointSettings">
+
+                <h2>Endpoints</h2>
+
+                <EditForm FormName="EndpointSettingsForm" Model="EndpointConfigs" OnValidSubmit="SaveAsync">
+                    @foreach (EndpointConfig endpointConfig in EndpointConfigs.OrderBy(i => i.Name))
+                    {
+                        <EndpointConfigView Data="endpointConfig" />
+                    }
+
+                    <div id="submitDiv">
+                        <button type="submit" class="btn button" disabled="@ButtonDisabled">Save changes</button>
+                    </div>
+
+                    @if (ApplicationSettingsFormModel.Success)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            Settings saved successfully!
+                        </div>
+                    }
+                    else if (ApplicationSettingsFormModel.Error)
+                    {
+                        <div class="alert alert-danger" role="alert">An error occurred while saving the settings. Please try again.</div>
+                    }
+                </EditForm>
+            </div>
+        }
+    }
+</div>

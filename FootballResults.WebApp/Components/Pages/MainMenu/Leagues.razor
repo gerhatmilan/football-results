@@ -5,12 +5,37 @@
 
 <h1>Leagues</h1>
 
+<div class="mb-3 filterContainer">
+    <InputText id="leagueFilter" @bind-Value="Filter" class="input form-control" placeholder="Search..." />
+</div>
 @if (CountriesWithLeagues != null)
 {
-    <Virtualize TItem="Country" Items="CountriesWithLeagues.OrderBy(c => c.Name).ToList()" Context="country">
+    if (string.IsNullOrWhiteSpace(Filter))
+    {
+        <CountryCard Text="Favorites" />
+        <Virtualize TItem="League" Items="ViewHelper.GetFavoriteLeaguesOnly(CountriesWithLeagues.SelectMany(c => c.Leagues), User).ToList()" Context="league">
+            <ItemContent>
+                <LeagueHeaderCard League="league" />
+            </ItemContent>
+        </Virtualize>
+    }
+
+    <Virtualize TItem="Country" Items="CountriesWithLeagues
+        .Where(
+            c => c.Name.ToLower().Contains(Filter.ToLower())
+            || c.Leagues.Any(l => l.Name.ToLower().Contains(Filter.ToLower()))
+        )    
+        .OrderBy(c => c.Name).ToList()" Context="country">
+
         <CountryCard Country="country" />
 
-        <Virtualize TItem="League" Items="ViewHelper.GetFavoriteLeaguesFirst(country.Leagues, User).ToList()" Context="league">
+        <Virtualize TItem="League" Items="ViewHelper.GetFavoriteLeaguesFirst(country.Leagues, User)
+            .Where(
+                l => l.Country.Name.ToLower().Contains(Filter.ToLower())
+                || l.Name.ToLower().Contains(Filter.ToLower())
+            )
+            .ToList()" Context="league">
+
             <ItemContent>
                 <LeagueHeaderCard League="league" />
             </ItemContent>

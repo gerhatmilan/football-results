@@ -45,19 +45,12 @@ namespace FootballResults.WebApp.Components.Forms
             base.Initialize(uploadDirectory: ApplicationConfig.PredictionGamePicturesDirectory,
                 maxAllowedBytes: 1000000, allowedFiles: new string[] { "image/png", "image/jpeg" });
 
-            try
-            {
-                var leagues = await LeagueService.GetLeaguesAsync();
+            var leagues = await LeagueService.GetLeaguesAsync();
 
-                CreateGameModel.IncludedLeagues = new List<IncludedLeague>();
-                foreach (League league in leagues.OrderByDescending(l => l.Type).ThenBy(l => l.Name))
-                {
-                    CreateGameModel.IncludedLeagues.Add(new IncludedLeague { League = league, Included = false });
-                }
-            }
-            catch (Exception)
+            CreateGameModel.IncludedLeagues = new List<IncludedLeague>();
+            foreach (League league in leagues.Where(league => league.UpdatesActive).OrderBy(l => l.Name))
             {
-                NavigationManager.NavigateTo("/error", true);
+                CreateGameModel.IncludedLeagues.Add(new IncludedLeague { League = league, Included = false });
             }
         }
 

@@ -27,17 +27,10 @@ namespace FootballResults.WebApp.Components.Pages.General
 
         protected override async Task OnInitializedAsync()
         {
-            try
+            if (!String.IsNullOrEmpty(SearchValue))
             {
-                if (!String.IsNullOrEmpty(SearchValue))
-                {
-                    Leagues = await LeagueService.SearchAsync(SearchValue!);
-                    Teams = await TeamService.SearchAsync(SearchValue!);
-                }
-            }
-            catch (Exception)
-            {
-                NavigationManager.NavigateTo("/error");
+                Leagues = await LeagueService.SearchAsync(SearchValue!);
+                Teams = await TeamService.SearchAsync(SearchValue!);
             }
         }
     }

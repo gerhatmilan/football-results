@@ -25,14 +25,7 @@ namespace FootballResults.WebApp.Components.Forms
             ResetErrorMessages();
             DisableForm();
 
-            try
-            {
-                await SignupService!.RegisterUserAsync(SignupModel);
-            }
-            catch (Exception)
-            {
-                NavigationManager!.NavigateTo("/error", true);
-            }
+            await SignupService!.RegisterUserAsync(SignupModel);
 
             await EnableForm();
         }

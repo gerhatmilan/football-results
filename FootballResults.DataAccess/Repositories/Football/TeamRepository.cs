@@ -11,18 +11,18 @@ namespace FootballResults.API.Models
     {
         public TeamRepository(AppDbContext dbContext) : base(dbContext) { }
 
-        public async Task<Team> GetTeamByName(string teamName)
+        public async Task<Team> GetTeamByName(string teamName, bool tracking = true)
         {
             return await _dbContext.Teams
-                .AsNoTracking()
+                .AsTracking(tracking ? QueryTrackingBehavior.TrackAll : QueryTrackingBehavior.NoTracking)
                 .FirstOrDefaultAsync(l => l.Name.ToLower().Equals(teamName.ToLower()));
         }
 
-        public async Task<IEnumerable<Player>> GetSquadForTeam(string teamName)
+        public async Task<IEnumerable<Player>> GetSquadForTeam(string teamName, bool tracking = true)
         {
             Team team = await _dbContext.Teams
                 .Include(t => t.Squad)
-                .AsNoTracking()
+                .AsTracking(tracking ? QueryTrackingBehavior.TrackAll : QueryTrackingBehavior.NoTracking)
                 .FirstOrDefaultAsync(t => t.Name.ToLower().Equals(teamName.ToLower()));
 
             if (team != null && team.Squad != null)
@@ -37,7 +37,7 @@ namespace FootballResults.API.Models
             }
         }
 
-        public async Task<IEnumerable<Match>> GetMatchesForTeamAndLeagueAndSeason(string teamName, string leagueName, int season)
+        public async Task<IEnumerable<Match>> GetMatchesForTeamAndLeagueAndSeason(string teamName, string leagueName, int season, bool tracking = true)
         {
             Team team = await _dbContext.Teams
                 .Include(t => t.HomeMatches).ThenInclude(m => m.LeagueSeason).ThenInclude(ls => ls.League)
@@ -46,7 +46,7 @@ namespace FootballResults.API.Models
                 .Include(t => t.AwayMatches).ThenInclude(m => m.LeagueSeason).ThenInclude(ls => ls.League)
                 .Include(t => t.AwayMatches).ThenInclude(m => m.Venue)
                 .Include(t => t.AwayMatches).ThenInclude(m => m.HomeTeam)
-                .AsNoTracking()
+                .AsTracking(tracking ? QueryTrackingBehavior.TrackAll : QueryTrackingBehavior.NoTracking)
                 .FirstOrDefaultAsync(t => t.Name.ToLower().Equals(teamName.ToLower()));
 
             if (team != null)
@@ -93,13 +93,13 @@ namespace FootballResults.API.Models
             }
         }
 
-        public async Task<IEnumerable<Team>> Search(string teamName, string country, bool? national)
+        public async Task<IEnumerable<Team>> Search(string teamName, string country, bool? national, bool tracking = true)
         {
             return await _dbContext.Teams
                 .Where(t => (!String.IsNullOrEmpty(teamName) ? t.Name.ToLower().Contains(teamName.ToLower()) : true)
                     && (!String.IsNullOrEmpty(country) ? t.Country.Name.ToLower().Contains(country.ToLower()) : true)
                     && (national.HasValue ? t.National == national : true))
-                .AsNoTracking()
+                .AsTracking(tracking ? QueryTrackingBehavior.TrackAll : QueryTrackingBehavior.NoTracking)
                 .ToListAsync();
         }
     }

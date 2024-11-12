@@ -1,14 +1,18 @@
-﻿@if (Country != null)
+﻿@if (Country != null || Text != null)
 {
     <div class="countryCard">
         <div class="countryDiv">
-            @if (Country.FlagPath != null || Country.FlagLink != null)
+            @if (Country != null)
             {
-                <div class="countryLogoDiv">
-                    <img class="countryLogo" src="@(Country.FlagPath ?? Country.FlagLink)" alt="@Country.Name flag" />
-                </div>
-            }   
-            <div class="countryName">@Country.Name</div>
+                @if (Country.FlagPath != null || Country.FlagLink != null)
+                {
+                    <div class="countryLogoDiv">
+                        <img class="countryLogo" src="@(Country.FlagPath ?? Country.FlagLink)" alt="@Country.Name flag" />
+                    </div>
+                }
+            }
+              
+            <div class="countryName">@(Country?.Name ?? Text)</div>
         </div>
     </div>
 }
@@ -16,4 +20,7 @@
 @code {
     [Parameter]
     public Country? Country { get; set; }
+
+    [Parameter]
+    public string? Text { get; set; }
 }

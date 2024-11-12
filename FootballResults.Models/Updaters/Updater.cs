@@ -34,8 +34,6 @@ namespace FootballResults.Models.Updaters
         protected virtual EndpointConfig UpdaterSpecificSettingsForTeam { get; } = null;
         protected virtual EndpointConfig UpdaterSpecificSettingsForLeagueAndSeason { get; } = null;
 
-        protected IEnumerable<DataAccess.Entities.Football.League> LeaguesWithUpdateActive { get; set; }
-
         public IEnumerable<UpdaterMode> SupportedModes
         {
             get
@@ -62,11 +60,6 @@ namespace FootballResults.Models.Updaters
                 _apiConfig = _dbContext.ApiConfig.OrderBy(i => i.ID).FirstOrDefault();
                 _applicationConfig = _dbContext.ApplicationConfig.OrderBy(i => i.ID).FirstOrDefault();
                 _endpointConfigs = _dbContext.EndpointConfig.ToList();
-
-                LeaguesWithUpdateActive = _dbContext.Leagues
-                    .Where(l => l.UpdatesActive)
-                    .OrderBy(l => l.Name)
-                    .ToList();
             }
 
             _webApiClient = new WebApiClient(_apiConfig.BaseAddress, logger);
@@ -105,6 +98,17 @@ namespace FootballResults.Models.Updaters
                         throw new InvalidOperationException("No parameters provided for all leagues specific season mode");
                     await UpdateForAllLeaguesSpecificSeasonAsync((int)modeParameters[0]);
                     break;
+                case UpdaterMode.ActiveLeaguesAllSeasons:
+                    await UpdateForAllLeaguesAllSeasonsAsync(activeLeaguesOnly: true);
+                    break;
+                case UpdaterMode.ActiveLeaguesCurrentSeason:
+                    await UpdateForAllLeaguesCurrentSeasonAsync(activeLeaguesOnly: true);
+                    break;
+                case UpdaterMode.ActiveLeaguesSpecificSeason:
+                    if (modeParameters == null || modeParameters.Length == 0 || modeParameters[0].GetType() != typeof(int))
+                        throw new InvalidOperationException("No parameters provided for active leagues specific season mode");
+                    await UpdateForAllLeaguesSpecificSeasonAsync((int)modeParameters[0], activeLeaguesOnly: true);
+                    break;
                 case UpdaterMode.SpecificLeagueCurrentSeason:
                     if (modeParameters == null || modeParameters.Length == 0 || modeParameters[0].GetType() != typeof(int))
                         throw new InvalidOperationException("No parameters provided for specific league current season mode");
@@ -116,11 +120,13 @@ namespace FootballResults.Models.Updaters
                     await UpdateForSpecificLeagueAllSeasonsAsync((int)modeParameters[0]);
                     break;
                 case UpdaterMode.SpecificDate:
+                case UpdaterMode.SpecificDateActiveLeagues:
                     if (modeParameters == null || modeParameters.Length == 0 || modeParameters[0].GetType() != typeof(DateTime))
                         throw new InvalidOperationException("No parameters provided for specific date mode");
                     await UpdateForSpecificDateAsync((DateTime)modeParameters[0]);
                     break;
                 case UpdaterMode.CurrentDate:
+                case UpdaterMode.CurrentDateActiveLeagues:
                     await UpdateForSpecificDateAsync(DateTime.UtcNow);
                     break;
                 case UpdaterMode.BasedOnLastUpdate:
@@ -189,7 +195,7 @@ namespace FootballResults.Models.Updaters
             _logger.LogInformation($"{GetType().Name} has finished");
         }
 
-        protected virtual async Task UpdateForAllLeaguesAllSeasonsAsync()
+        protected virtual async Task UpdateForAllLeaguesAllSeasonsAsync(bool activeLeaguesOnly = false)
         {
             _logger.LogInformation($"{GetType().Name} starting...");
             
@@ -201,6 +207,7 @@ namespace FootballResults.Models.Updaters
                 _dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
                 List<DataAccess.Entities.Football.League> leagues = _dbContext.Leagues
+                    .Where(league => activeLeaguesOnly ? league.UpdatesActive : true)
                     .Include(league => league.LeagueSeasons)
                     .ToList();
 
@@ -217,7 +224,7 @@ namespace FootballResults.Models.Updaters
             _logger.LogInformation($"{GetType().Name} has finished");
         }
 
-        protected virtual async Task UpdateForAllLeaguesCurrentSeasonAsync()
+        protected virtual async Task UpdateForAllLeaguesCurrentSeasonAsync(bool activeLeaguesOnly = false)
         {
             _logger.LogInformation($"{GetType().Name} starting...");
             
@@ -229,8 +236,9 @@ namespace FootballResults.Models.Updaters
                 _dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
                 List<DataAccess.Entities.Football.League> leagues = _dbContext.Leagues
-                .Include(league => league.LeagueSeasons)
-                .ToList();
+                    .Where(league => activeLeaguesOnly ? league.UpdatesActive : true)
+                    .Include(league => league.LeagueSeasons)
+                    .ToList();
 
                 foreach (var league in leagues)
                 {
@@ -247,7 +255,7 @@ namespace FootballResults.Models.Updaters
             _logger.LogInformation($"{GetType().Name} has finished");
         }
 
-        protected virtual async Task UpdateForAllLeaguesSpecificSeasonAsync(int year)
+        protected virtual async Task UpdateForAllLeaguesSpecificSeasonAsync(int year, bool activeLeaguesOnly = false)
         {
             _logger.LogInformation($"{GetType().Name} starting...");
             
@@ -259,8 +267,9 @@ namespace FootballResults.Models.Updaters
                 _dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
                 List<DataAccess.Entities.Football.League> leagues = _dbContext.Leagues
-                .Include(league => league.LeagueSeasons)
-                .ToList();
+                    .Where(league => activeLeaguesOnly ? league.UpdatesActive : true)
+                    .Include(league => league.LeagueSeasons)
+                    .ToList();
 
                 foreach (var league in leagues)
                 {
@@ -557,28 +566,27 @@ namespace FootballResults.Models.Updaters
             {
                 try
                 {
-                    ProcessData(data);
+                    ProcessData(data, _currentMode);
                     await _dbContext.SaveChangesAsync();
                     await transaction.CommitAsync();
                     _logger.LogInformation("Processing completed, the database has been successfully updated!");
                 }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex.ToString());
-                    _logger.LogError("An error has occured while processing response. Changes will be unmade.");
+                catch (Exception)
+                {   _logger.LogError("An error has occured while processing response. Changes will be unmade.");
                     _dbContext.ChangeTracker.Clear();
                     await transaction.RollbackAsync();
+                    throw;
                 }
             }
         }
 
-        public void ProcessData(AppDbContext context, IEnumerable<TResponseItem> data)
+        public void ProcessData(AppDbContext context, IEnumerable<TResponseItem> data, UpdaterMode? mode = null)
         {
             _dbContext = context;
-            ProcessData(data);
+            ProcessData(data, mode);
         }
 
-        protected abstract void ProcessData(IEnumerable<TResponseItem> data);
+        protected abstract void ProcessData(IEnumerable<TResponseItem> data, UpdaterMode? mode = null);
 
         protected async Task DelayApiCallAsync()
         {

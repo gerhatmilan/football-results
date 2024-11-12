@@ -5,20 +5,42 @@
 
 <h1>Teams</h1>
 
+<div class="mb-3 filterContainer">
+    <InputText id="teamFilter" @bind-Value="Filter" class="input form-control" placeholder="Search..." />
+</div>
+
 @if (CountriesWithTeams != null)
 {
-    <Virtualize TItem="Country" Items="CountriesWithTeams.OrderBy(c => c.Name).ToList()" Context="country">
-        <ItemContent>
-            <CountryCard Country="country" />
+    if (string.IsNullOrWhiteSpace(Filter))
+    {
+        <CountryCard Text="Favorites" />
+        <Virtualize TItem="Team" Items="ViewHelper.GetFavoriteTeamsOnly(CountriesWithTeams.SelectMany(c => c.Teams), User).ToList()" Context="team">
+            <ItemContent>
+                <TeamHeaderCard Team="team" />
+            </ItemContent>
+        </Virtualize>
+    }
 
-            <div class="teamsGroup">
-                <Virtualize TItem="Team" Items="ViewHelper.GetFavoriteTeamsFirst(country.Teams, User).ToList()" Context="team">
-                    <ItemContent>
-                            <TeamHeaderCard Team="team" />
-                    </ItemContent>
-                </Virtualize>
-            </div>
-        </ItemContent>
+    <Virtualize TItem="Country" Items="CountriesWithTeams
+        .Where(
+            c => c.Name.ToLower().Contains(Filter.ToLower())
+            || c.Teams.Any(t => t.Name.ToLower().Contains(Filter.ToLower()))
+        )
+        .OrderBy(c => c.Name).ToList()" Context="country">
+
+        <CountryCard Country="country" />
+
+        <Virtualize TItem="Team" Items="ViewHelper.GetFavoriteTeamsFirst(country.Teams, User)
+            .Where(
+                t => t.Country.Name.ToLower().Contains(Filter.ToLower())
+                || t.Name.ToLower().Contains(Filter.ToLower())
+            )
+            .ToList()" Context="team">
+
+            <ItemContent>
+                <TeamHeaderCard Team="team" />
+            </ItemContent>
+        </Virtualize>
     </Virtualize>
 }
 else

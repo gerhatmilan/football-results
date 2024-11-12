@@ -38,94 +38,88 @@ namespace FootballResults.WebApp.Components.Utilities
 
         protected virtual async Task LoadMatchesAsync()
         {
-            try
+            await UpdateLock.WaitAsync();
+
+            var result = await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: MatchFilterParameters!.MonthFilter, day: MatchFilterParameters!.DayFilter
+                , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter);
+
+            // in case the matches based on client's date extends to the next or previous month or day
+            if (MatchFilterParameters?.MonthFilter != null)
             {
-                await UpdateLock.WaitAsync();
-
-                var result = await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: MatchFilterParameters!.MonthFilter, day: MatchFilterParameters!.DayFilter
-                    , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter);
-
-                // in case the matches based on client's date extends to the next or previous month or day
-                if (MatchFilterParameters?.MonthFilter != null)
+                // client's time is behind of UTC time --> load matches for the next month too
+                if (ClientUtcDiff < TimeSpan.Zero)
                 {
-                    // client's time is behind of UTC time --> load matches for the next month too
-                    if (ClientUtcDiff < TimeSpan.Zero)
-                    {
-                        int? nextMonth = MatchFilterParameters.MonthFilter == 12 ? 1 : MatchFilterParameters.MonthFilter + 1;
+                    int? nextMonth = MatchFilterParameters.MonthFilter == 12 ? 1 : MatchFilterParameters.MonthFilter + 1;
 
-                        result = result.Concat(await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: nextMonth, day: MatchFilterParameters!.DayFilter
-                            , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter));
+                    result = result.Concat(await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: nextMonth, day: MatchFilterParameters!.DayFilter
+                        , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter));
+                }
+                // client's date is ahead UTC time --> load matches for the previous month too
+                else if (ClientUtcDiff > TimeSpan.Zero)
+                {
+                    int? previousMonth = MatchFilterParameters.MonthFilter == 1 ? 12 : MatchFilterParameters.MonthFilter - 1;
+
+                    result = result.Concat(await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: previousMonth, day: MatchFilterParameters!.DayFilter
+                        , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter));
+                }
+            }
+
+            if (MatchFilterParameters?.DayFilter != null)
+            {
+                // client's time is behind of UTC time --> load matches for the next day too
+                if (ClientUtcDiff < TimeSpan.Zero)
+                {
+                    if (MatchFilterParameters.DayFilter == 30)
+                    {
+                        result = result.Concat(await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: MatchFilterParameters!.MonthFilter, day: 31
+                        , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter));
+                        result = result.Concat(await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: MatchFilterParameters!.MonthFilter, day: 1
+                        , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter));
                     }
-                    // client's date is ahead UTC time --> load matches for the previous month too
-                    else if (ClientUtcDiff > TimeSpan.Zero)
+                    else if (MatchFilterParameters.DayFilter == 31)
                     {
-                        int? previousMonth = MatchFilterParameters.MonthFilter == 1 ? 12 : MatchFilterParameters.MonthFilter - 1;
-
-                        result = result.Concat(await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: previousMonth, day: MatchFilterParameters!.DayFilter
-                            , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter));
+                        result = result.Concat(await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: MatchFilterParameters!.MonthFilter, day: 1
+                        , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter));
+                    }
+                    else
+                    {
+                        result = result.Concat(await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: MatchFilterParameters!.MonthFilter, day: MatchFilterParameters!.DayFilter + 1
+                        , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter));
                     }
                 }
-
-                if (MatchFilterParameters?.DayFilter != null)
+                // client's date is ahead of UTC time --> load matches for the previous day too
+                else if (ClientUtcDiff > TimeSpan.Zero)
                 {
-                    // client's time is behind of UTC time --> load matches for the next day too
-                    if (ClientUtcDiff < TimeSpan.Zero)
+                    if (MatchFilterParameters.DayFilter != 1)
                     {
-                        if (MatchFilterParameters.DayFilter == 30)
-                        {
-                            result = result.Concat(await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: MatchFilterParameters!.MonthFilter, day: 31
-                            , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter));
-                            result = result.Concat(await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: MatchFilterParameters!.MonthFilter, day: 1
-                            , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter));
-                        }
-                        else if (MatchFilterParameters.DayFilter == 31)
-                        {
-                            result = result.Concat(await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: MatchFilterParameters!.MonthFilter, day: 1
-                            , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter));
-                        }
-                        else
-                        {
-                            result = result.Concat(await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: MatchFilterParameters!.MonthFilter, day: MatchFilterParameters!.DayFilter + 1
-                            , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter));
-                        }
+                        result = result.Concat(await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: MatchFilterParameters!.MonthFilter, day: MatchFilterParameters!.DayFilter - 1
+                        , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter));
                     }
-                    // client's date is ahead of UTC time --> load matches for the previous day too
-                    else if (ClientUtcDiff > TimeSpan.Zero)
+                    else
                     {
-                        if (MatchFilterParameters.DayFilter != 1)
-                        {
-                            result = result.Concat(await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: MatchFilterParameters!.MonthFilter, day: MatchFilterParameters!.DayFilter - 1
-                           , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter));
-                        }
-                        else
-                        {
-                            result = result.Concat(await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: MatchFilterParameters!.MonthFilter, day: 31
-                           , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter));
+                        result = result.Concat(await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: MatchFilterParameters!.MonthFilter, day: 31
+                        , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter));
 
-                            result = result.Concat(await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: MatchFilterParameters!.MonthFilter, day: 30
-                           , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter));
-                        }
-
+                        result = result.Concat(await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: MatchFilterParameters!.MonthFilter, day: 30
+                        , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter));
                     }
+
                 }
-
-
-                if (!string.IsNullOrEmpty(MatchFilterParameters?.OpponentNameFilter))
-                    result = result.Where(m => m.HomeTeam.Name.ToLower().Equals(MatchFilterParameters.OpponentNameFilter.ToLower()) || m.AwayTeam.Name.ToLower().Equals(MatchFilterParameters.OpponentNameFilter.ToLower()));
-                if (MatchFilterParameters?.HomeAwayFilter == "Home")
-                    result = result.Where(m => m.HomeTeam.Name == MatchFilterParameters.TeamFilter);
-                else if (MatchFilterParameters?.HomeAwayFilter == "Away")
-                    result = result.Where(m => m.AwayTeam.Name == MatchFilterParameters.TeamFilter);
-
-                Matches = result;
-                FilterMatchesBasedOnClientDate();
-
-                UpdateLock.Release();
             }
-            catch (Exception)
-            {
-                NavigationManager!.NavigateTo("/error", true);
-            }
+
+
+            if (!string.IsNullOrEmpty(MatchFilterParameters?.OpponentNameFilter))
+                result = result.Where(m => m.HomeTeam.Name.ToLower().Equals(MatchFilterParameters.OpponentNameFilter.ToLower()) || m.AwayTeam.Name.ToLower().Equals(MatchFilterParameters.OpponentNameFilter.ToLower()));
+            if (MatchFilterParameters?.HomeAwayFilter == "Home")
+                result = result.Where(m => m.HomeTeam.Name == MatchFilterParameters.TeamFilter);
+            else if (MatchFilterParameters?.HomeAwayFilter == "Away")
+                result = result.Where(m => m.AwayTeam.Name == MatchFilterParameters.TeamFilter);
+
+            Matches = result;
+            FilterMatchesBasedOnClientDate();
+
+            UpdateLock.Release();
+            InitialLoadCompletedEvent.Set();
         }
 
         protected void FilterMatchesBasedOnClientDate()
@@ -159,7 +153,14 @@ namespace FootballResults.WebApp.Components.Utilities
         {
             if (notificationType == UpdateMessageType.MatchesUpdated)
             {
+                if (Matches == null)
+                {
+                    // inital match load has not happened yet, wait for that
+                    InitialLoadCompletedEvent.WaitOne();
+                }
+
                 await LoadMatchesAsync();
+                InitialLoadCompletedEvent.Reset();
             }
 
             await InvokeAsync(StateHasChanged);

@@ -4,11 +4,15 @@ using FootballResults.DataAccess.Models;
 using FootballResults.Models.Api.FootballApi.Responses;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace FootballResults.Models.Updaters
 {
     [Updater]
-    [SupportedModes(UpdaterMode.AllLeaguesAllSeasons, UpdaterMode.AllLeaguesCurrentSeason, UpdaterMode.AllLeaguesSpecificSeason, UpdaterMode.SpecificLeagueAllSeasons, UpdaterMode.SpecificLeagueCurrentSeason, UpdaterMode.CurrentDate, UpdaterMode.SpecificDate)]
+    [SupportedModes(UpdaterMode.AllLeaguesAllSeasons, UpdaterMode.AllLeaguesCurrentSeason, UpdaterMode.AllLeaguesSpecificSeason, 
+        UpdaterMode.ActiveLeaguesAllSeasons, UpdaterMode.ActiveLeaguesCurrentSeason, UpdaterMode.ActiveLeaguesSpecificSeason,
+        UpdaterMode.SpecificLeagueAllSeasons, UpdaterMode.SpecificLeagueCurrentSeason, UpdaterMode.CurrentDate, UpdaterMode.CurrentDateActiveLeagues,
+        UpdaterMode.SpecificDate, UpdaterMode.SpecificDateActiveLeagues)]
     public class MatchUpdater : Updater<FixturesResponse, FixturesResponseItem>
     {
         private readonly ILoggerFactory _loggerFactory;
@@ -24,13 +28,15 @@ namespace FootballResults.Models.Updaters
             _venueUpdater = new VenueUpdaterForMatch(serviceScopeFactory, _loggerFactory.CreateLogger<VenueUpdaterForMatch>());
         }
 
-        protected override void ProcessData(IEnumerable<FixturesResponseItem> responseItems)
+        protected override void ProcessData(IEnumerable<FixturesResponseItem> responseItems, UpdaterMode? mode = null)
         {
-            ICollection<int> includedLeagues = LeaguesWithUpdateActive.Select(i => i.ID).ToList();
+            if (mode == UpdaterMode.CurrentDateActiveLeagues || mode == UpdaterMode.SpecificDateActiveLeagues)
+            {
+                IEnumerable<DataAccess.Entities.Football.League> activeLeagues = _dbContext.Leagues.Where(l => l.UpdatesActive);
+                responseItems = responseItems.Where(l => l.League.ID.HasValue && activeLeagues.Any(al => al.ID == l.League.ID));
+            }
 
-            responseItems = responseItems.Where(item => item.League.ID.HasValue && includedLeagues.Contains(item.League.ID.Value)); // only matches for included leagues
-
-            _venueUpdater.ProcessData(_dbContext, responseItems); // save venues first
+            _venueUpdater.ProcessData(_dbContext, responseItems, mode); // save venues first
             var mappedMatches = responseItems.Select(MapMatch);
 
             for (int i = 0; i < responseItems.Count(); i++)
@@ -65,8 +71,16 @@ namespace FootballResults.Models.Updaters
                 }
             }
 
-            if (_currentMode == UpdaterMode.AllLeaguesAllSeasons || _currentMode == UpdaterMode.AllLeaguesCurrentSeason || _currentMode == UpdaterMode.AllLeaguesSpecificSeason
-                || _currentMode == UpdaterMode.SpecificLeagueCurrentSeason)
+            if (_currentMode == UpdaterMode.CurrentDate || _currentMode == UpdaterMode.CurrentDateActiveLeagues)
+            {
+                SystemInformation systemInfo = _dbContext.SystemInformation.Find(1);
+
+                if (systemInfo != null)
+                {
+                    systemInfo.MatchesLastUpdateForCurrentDay = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
+                }
+            }
+            else if (_currentMode != UpdaterMode.SpecificDate && _currentMode != UpdaterMode.SpecificDateActiveLeagues)
             {
                 int leagueID = responseItems.FirstOrDefault()?.League.ID ?? -1;
                 int year = responseItems.FirstOrDefault()?.League.Season ?? -1;
@@ -76,15 +90,6 @@ namespace FootballResults.Models.Updaters
                 if (relatedLeagueSeason != null)
                 {
                     relatedLeagueSeason.MatchesLastUpdate = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
-                }
-            }
-            else if (_currentMode == UpdaterMode.CurrentDate)
-            {
-                SystemInformation systemInfo = _dbContext.SystemInformation.Find(1);
-
-                if (systemInfo != null)
-                {
-                    systemInfo.MatchesLastUpdateForCurrentDay = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
                 }
             }
         }

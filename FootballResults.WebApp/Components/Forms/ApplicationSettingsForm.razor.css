@@ -37,6 +37,19 @@ label, ::deep label {
     margin-bottom: 30px !important;
 }
 
+.updatesActiveDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.updatesActiveDiv label {
+    color: var(--light);
+    width: 100%;
+}
+
 @media (min-width: 750px) {
     .timeSpanContainer {
         flex-direction: row;

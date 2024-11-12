@@ -17,34 +17,35 @@ namespace FootballResults.WebApp.Services.Football.Server
             _countryRepository = countryRepository;
         }
 
-        public async Task<League?> GetLeagueByNameAsync(string leagueName)
+        public async Task<League?> GetLeagueByNameAsync(string leagueName, bool tracking = true)
         {
-            return await _leagueRepository.GetLeagueByName(leagueName);
+            return await _leagueRepository.GetLeagueByName(leagueName, tracking);
         }
 
-        public async Task<IEnumerable<League>> GetLeaguesAsync()
+        public async Task<IEnumerable<League>> GetLeaguesAsync(bool tracking = true)
         {
-            return await _leagueRepository.GetAllAsync(tracking: false);
+            return await _leagueRepository.GetAllAsync(tracking);
         }
 
-        public async Task<IEnumerable<Country>> GetCountriesWithLeaguesAsync()
+        public async Task<IEnumerable<Country>> GetCountriesWithLeaguesAsync(bool tracking = true)
         {
-            return await _countryRepository.GetLeaguesByCountry();
+            return await _countryRepository.GetLeaguesByCountry(tracking);
         }
 
-        public async Task<IEnumerable<LeagueStanding>> GetStandingsForLeagueAndSeasonAsync(string leagueName, int season)
+        public async Task<IEnumerable<LeagueStanding>> GetStandingsForLeagueAndSeasonAsync(string leagueName, int season, bool tracking = true)
         {
-            return await _leagueRepository.GetStandingsForLeagueAndSeason(leagueName, season);
+            return await _leagueRepository.GetStandingsForLeagueAndSeason(leagueName, season, tracking);
         }
 
-        public async Task<IEnumerable<TopScorer>> GetTopScorersForLeagueAndSeasonAsync(string leagueName, int season)
+        public async Task<IEnumerable<TopScorer>> GetTopScorersForLeagueAndSeasonAsync(string leagueName, int season, bool tracking = true)
         {
-           return await _leagueRepository.GetTopScorersForLeagueAndSeason(leagueName, season);
+            return await _leagueRepository.GetTopScorersForLeagueAndSeason(leagueName, season, tracking);
         }
 
-        public async Task<IEnumerable<League>> SearchAsync(string leagueName)
+        public async Task<IEnumerable<League>> SearchAsync(string leagueName, bool tracking = true)
         {
-            return await _leagueRepository.Search(leagueName, null, null, null);
+            return await _leagueRepository.Search(leagueName, null, null, null, tracking);
         }
+
     }
 }

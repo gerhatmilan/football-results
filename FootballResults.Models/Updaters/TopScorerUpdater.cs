@@ -9,7 +9,9 @@ using Microsoft.Extensions.Logging;
 namespace FootballResults.Models.Updaters
 {
     [Updater]
-    [SupportedModes(UpdaterMode.AllLeaguesAllSeasons, UpdaterMode.AllLeaguesCurrentSeason, UpdaterMode.AllLeaguesSpecificSeason, UpdaterMode.SpecificLeagueAllSeasons, UpdaterMode.SpecificLeagueCurrentSeason)]
+    [SupportedModes(UpdaterMode.AllLeaguesAllSeasons, UpdaterMode.AllLeaguesCurrentSeason, UpdaterMode.AllLeaguesSpecificSeason,
+        UpdaterMode.ActiveLeaguesAllSeasons, UpdaterMode.ActiveLeaguesCurrentSeason, UpdaterMode.ActiveLeaguesSpecificSeason,
+        UpdaterMode.SpecificLeagueAllSeasons, UpdaterMode.SpecificLeagueCurrentSeason)]
     public class TopScorerUpdater : Updater<TopscorersResponse, TopscorersResponseItem>
     {
         protected override EndpointConfig UpdaterSpecificSettingsForLeagueAndSeason => _endpointConfigs.FirstOrDefault(i => i.Name == Defaults.TopScorersForLeagueAndSeason);
@@ -17,7 +19,7 @@ namespace FootballResults.Models.Updaters
         public TopScorerUpdater(IServiceScopeFactory serviceScopeFactory, ILogger<TopScorerUpdater> logger)
             : base(serviceScopeFactory, logger) { }
 
-        protected override void ProcessData(IEnumerable<TopscorersResponseItem> responseItems)
+        protected override void ProcessData(IEnumerable<TopscorersResponseItem> responseItems, UpdaterMode? mode = null)
         {
             int? leagueID = responseItems.FirstOrDefault()?.Statistics?.First()?.League?.ID;
             int? season = responseItems.FirstOrDefault()?.Statistics?.First()?.League?.Season;

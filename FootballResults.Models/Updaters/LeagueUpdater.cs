@@ -24,22 +24,17 @@ namespace FootballResults.Models.Updaters
             _seasonUpdater = new SeasonUpdater(serviceScopeFactory, _loggerFactory.CreateLogger<SeasonUpdater>());
         }
 
-        protected override void ProcessData(IEnumerable<LeaguesResponseItem> responseItems)
+        protected override void ProcessData(IEnumerable<LeaguesResponseItem> responseItems, UpdaterMode? mode = null)
         {
             var existingLeagues = _dbContext.Leagues
                 .Include(league => league.Country)
                 .ToList();
 
-            // filter leagues based on configuration file
-            ICollection<int> includedLeagueIDs = LeaguesWithUpdateActive.Select(i => i.ID).ToList();
-            var filteredResponseItems = responseItems.Where(responseItem => responseItem.League.ID != null
-                && includedLeagueIDs.Contains(responseItem.League.ID.Value));
+            var mappedLeagues = responseItems.Select(MapLeague);
 
-            var mappedLeagues = filteredResponseItems.Select(MapLeague);
-
-            for (int i = 0; i < filteredResponseItems.Count(); i++)
+            for (int i = 0; i < responseItems.Count(); i++)
             {
-                var leagueResponseItem = filteredResponseItems.ElementAt(i);
+                var leagueResponseItem = responseItems.ElementAt(i);
                 var responseRecord = mappedLeagues.ElementAt(i);
 
                 Country relatedCountry = _dbContext.Countries.FirstOrDefault(country => country.Name.Equals(leagueResponseItem.Country.Name));
@@ -68,7 +63,7 @@ namespace FootballResults.Models.Updaters
             }
 
             _dbContext.SaveChanges();
-            _seasonUpdater.ProcessData(_dbContext, filteredResponseItems);
+            _seasonUpdater.ProcessData(_dbContext, responseItems, mode);
         }
 
         private void Add(DataAccess.Entities.Football.League league)
@@ -105,7 +100,8 @@ namespace FootballResults.Models.Updaters
                     ID = responseItem.League.ID!.Value,
                     Name = responseItem.League.Name,
                     Type = responseItem.League.Type,
-                    LogoLink = responseItem.League.Logo
+                    LogoLink = responseItem.League.Logo,
+                    UpdatesActive = Defaults.DefaultLeagues.Any(defaultLeague => defaultLeague.ID == responseItem.League.ID!.Value)
                 };
             }
             else

@@ -16,25 +16,24 @@ namespace FootballResults.WebApp.Services.Football.Server
             _countryRepository = countryRepository;
         }
 
-        public async Task<Team?> GetTeamByNameAsync(string teamName)
+        public async Task<Team?> GetTeamByNameAsync(string teamName, bool tracking = true)
         {
-            return await _teamRepository.GetTeamByName(teamName);
+            return await _teamRepository.GetTeamByName(teamName, tracking);
         }
 
-        public async Task<IEnumerable<Country>> GetCountriesWithTeamsAsync()
+        public async Task<IEnumerable<Country>> GetCountriesWithTeamsAsync(bool tracking = true)
         {
-            return await _countryRepository.GetTeamsByCountry();
+            return await _countryRepository.GetTeamsByCountry(tracking);
         }
 
-
-        public async Task<IEnumerable<Player>> GetSquadForTeamAsync(string teamName)
+        public async Task<IEnumerable<Player>> GetSquadForTeamAsync(string teamName, bool tracking = true)
         {
-            return await _teamRepository.GetSquadForTeam(teamName);
+            return await _teamRepository.GetSquadForTeam(teamName, tracking);
         }
 
-        public async Task<IEnumerable<Team>> SearchAsync(string teamName)
+        public async Task<IEnumerable<Team>> SearchAsync(string teamName, bool tracking = true)
         {
-            return await _teamRepository.Search(teamName, null, null);
+            return await _teamRepository.Search(teamName, null, null, tracking);
         }
     }
 }

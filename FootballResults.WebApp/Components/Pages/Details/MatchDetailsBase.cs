@@ -27,18 +27,11 @@ namespace FootballResults.WebApp.Components.Pages.Details
 
         protected async Task LoadMatchAsync()
         {
-            try
-            {
-                Match = await MatchService!.GetMatchByIDAsync(int.Parse(MatchID!));
+            Match = await MatchService!.GetMatchByIDAsync(int.Parse(MatchID!));
                 
-                if (Match == null)
-                {
-                    NavigationManager.NavigateTo("/404", true);
-                }
-            }
-            catch (Exception)
+            if (Match == null)
             {
-                NavigationManager?.NavigateTo("/error", true);
+                NavigationManager.NavigateTo("/404", true);
             }
         }
 

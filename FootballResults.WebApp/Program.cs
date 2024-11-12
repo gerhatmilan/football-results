@@ -4,6 +4,7 @@ using FootballResults.DataAccess;
 using FootballResults.DataAccess.Entities.Users;
 using FootballResults.DataAccess.Models;
 using FootballResults.DataAccess.Repositories.Football;
+using FootballResults.Models.Updaters.Services;
 using FootballResults.WebApp.BackgroundServices;
 using FootballResults.WebApp.Components;
 using FootballResults.WebApp.Hubs;
@@ -18,6 +19,7 @@ using FootballResults.WebApp.Services.Time;
 using FootballResults.WebApp.Services.Users;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System.Text.Json.Serialization;
 
 namespace FootballResults.WebApp
@@ -33,6 +35,7 @@ namespace FootballResults.WebApp
             BuildApplication(args);
             BuildConfiguration();
             CheckConfiguration();
+            ConfigureLogging();
             ConfigureServices();
 
             var app = _builder.Build();
@@ -103,6 +106,19 @@ namespace FootballResults.WebApp
             }
         }
 
+        private static void ConfigureLogging()
+        {
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(_configuration)
+                .CreateLogger();
+
+            _builder.Logging.ClearProviders();
+            _builder.Services.AddLogging(loggingBuilder =>
+            {
+                loggingBuilder.AddSerilog(Log.Logger);
+            });
+        }
+
         private static void ConfigureServices()
         {
             // Add services to the container.
@@ -136,6 +152,7 @@ namespace FootballResults.WebApp
             _builder.Services.AddScoped<ITeamService, TeamServiceServer>();
 
             _builder.Services.AddScoped<IApplicationService, ApplicationService>();
+            _builder.Services.AddTransient<IUpdaterRunnerService, UpdaterRunnerService>();
 
             // Background services
             _builder.Services.AddHostedService<FootballDataUpdater>();

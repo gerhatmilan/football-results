@@ -5,9 +5,9 @@ namespace FootballResults.WebApp.Services.Football
 {
     public interface ITeamService
     {
-        Task<Team?> GetTeamByNameAsync(string teamName);
-        Task<IEnumerable<Country>> GetCountriesWithTeamsAsync();
-        Task<IEnumerable<Player>> GetSquadForTeamAsync(string teamName);
-        Task<IEnumerable<Team>> SearchAsync(string teamName);
+        Task<Team?> GetTeamByNameAsync(string teamName, bool tracking = true);
+        Task<IEnumerable<Country>> GetCountriesWithTeamsAsync(bool tracking = true);
+        Task<IEnumerable<Player>> GetSquadForTeamAsync(string teamName, bool tracking = true);
+        Task<IEnumerable<Team>> SearchAsync(string teamName, bool tracking = true);
     }
 }

@@ -61,25 +61,18 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
         {
             var selectedDateInUtc = SelectedDate.Add(ClientUtcDiff.Negate());
 
-            try
-            {
-                Matches = null;
+            Matches = null;
 
-                await UpdateLock.WaitAsync();
+            await UpdateLock.WaitAsync();
 
-                // in case the matches based on client's date extends to the next or previous day according to UTC time
-                // e.g if the client time is UTC+5, and the match is at 3:00 at client's time, then the match starts at 22:00 UTC, but
-                // if a match starts at 5:00 at client's time, then the match starts at 0:00 UTC, which extends to the next day
-                Matches = await MatchService.GetMatchesForIntervalAsync(selectedDateInUtc.AddDays(-1), selectedDateInUtc.AddDays(1));
-                FilterMatchesBasedOnClientDate();
+            // in case the matches based on client's date extends to the next or previous day according to UTC time
+            // e.g if the client time is UTC+5, and the match is at 3:00 at client's time, then the match starts at 22:00 UTC, but
+            // if a match starts at 5:00 at client's time, then the match starts at 0:00 UTC, which extends to the next day
+            Matches = await MatchService.GetMatchesForIntervalAsync(selectedDateInUtc.AddDays(-1), selectedDateInUtc.AddDays(1));
+            FilterMatchesBasedOnClientDate();
 
-                UpdateLock.Release();
-
-            }
-            catch (Exception)
-            {
-                NavigationManager.NavigateTo("/error", true);
-            }
+            UpdateLock.Release();
+            InitialLoadCompletedEvent.Set();
         }
 
         protected void FilterMatchesBasedOnClientDate()
@@ -93,7 +86,12 @@ namespace FootballResults.WebApp.Components.Pages.MainMenu
         {
             if (notificationType == UpdateMessageType.MatchesUpdated)
             {
+                if (Matches == null)
+                {
+                    InitialLoadCompletedEvent.WaitOne();
+                }
                 await LoadMatchesAsync();
+                InitialLoadCompletedEvent.Reset();
             }
 
             await InvokeAsync(StateHasChanged);

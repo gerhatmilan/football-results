@@ -16,18 +16,15 @@ namespace FootballResults.Models.Updaters
         public SeasonUpdater(IServiceScopeFactory serviceScopeFactory, ILogger<SeasonUpdater> logger)
             : base(serviceScopeFactory, logger) { }
 
-        protected override void ProcessData(IEnumerable<LeaguesResponseItem> responseItems)
+        protected override void ProcessData(IEnumerable<LeaguesResponseItem> responseItems, UpdaterMode? mode = null)
         {
             List<DataAccess.Entities.Football.LeagueSeason> existingLeageSeasons = _dbContext.LeagueSeasons
                .Include(leagueSeason => leagueSeason.League)
                .ToList();
 
             // filter leagues based on configuration file
-            ICollection<int> includedLeagueIDs = LeaguesWithUpdateActive.Select(i => i.ID).ToList();
-            var filteredResponseItems = responseItems.Where(responseItem => responseItem.League.ID != null
-                && includedLeagueIDs.Contains(responseItem.League.ID.Value));
 
-            foreach (var leagueResponseItem in filteredResponseItems)
+            foreach (var leagueResponseItem in responseItems)
             {
                 foreach (var seasonResponseItem in leagueResponseItem.Seasons)
                 {

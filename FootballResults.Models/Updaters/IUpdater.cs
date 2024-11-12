@@ -1,4 +1,6 @@
-﻿namespace FootballResults.Models.Updaters
+﻿using System.Reflection;
+
+namespace FootballResults.Models.Updaters
 {
     public interface IUpdater
     {
@@ -6,5 +8,14 @@
 
         public Task StartAsync();
         public Task StartAsync(UpdaterMode mode, params object[] modeParameters);
+        public static IEnumerable<UpdaterMode> GetSupportedModesForType(Type type)
+        {
+            SupportedModesAttribute attribute = type.GetCustomAttribute<SupportedModesAttribute>();
+
+            if (attribute == null)
+                return new List<UpdaterMode>();
+            else
+                return attribute.SupportedModes;
+        }
     }
 }

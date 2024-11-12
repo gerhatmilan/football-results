@@ -38,18 +38,11 @@ namespace FootballResults.WebApp.Components.Pages.Details
 
         protected async Task LoadLeagueAsync()
         {
-            try
-            {
-                League = await LeagueService!.GetLeagueByNameAsync(LeagueName!);
+            League = await LeagueService!.GetLeagueByNameAsync(LeagueName!);
 
-                if (League == null)
-                {
-                    NavigationManager.NavigateTo("/404", true);
-                }
-            }
-            catch (Exception)
+            if (League == null)
             {
-                NavigationManager.NavigateTo("/error", true);
+                NavigationManager.NavigateTo("/404", true);
             }
         }
 
@@ -66,14 +59,7 @@ namespace FootballResults.WebApp.Components.Pages.Details
         {
             if (MatchFilterParameters?.SeasonFilter != null)
             {
-                try
-                {
-                    Standings = await LeagueService!.GetStandingsForLeagueAndSeasonAsync(LeagueName!, (int)MatchFilterParameters.SeasonFilter);
-                }
-                catch (Exception)
-                {
-                    NavigationManager.NavigateTo("/error", true);
-                }
+                Standings = await LeagueService!.GetStandingsForLeagueAndSeasonAsync(LeagueName!, (int)MatchFilterParameters.SeasonFilter);
             }
         }
 
@@ -81,14 +67,7 @@ namespace FootballResults.WebApp.Components.Pages.Details
         {
             if (MatchFilterParameters?.SeasonFilter != null)
             {
-                try
-                {
-                    TopScorers = await LeagueService!.GetTopScorersForLeagueAndSeasonAsync(LeagueName!, (int)MatchFilterParameters.SeasonFilter);
-                }
-                catch (Exception)
-                {
-                    NavigationManager.NavigateTo("/error", true);
-                }
+                TopScorers = await LeagueService!.GetTopScorersForLeagueAndSeasonAsync(LeagueName!, (int)MatchFilterParameters.SeasonFilter);
             }  
         }
 

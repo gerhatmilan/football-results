@@ -25,30 +25,22 @@
 
     protected async override Task OnInitializedAsync()
     {
-        try
+        // get user from database based on user id claim
+        var authenticationState = await AuthenticationStateProvider!.GetAuthenticationStateAsync();
+        var user = authenticationState.User;
+        if (user.Identity?.IsAuthenticated ?? false)
         {
-            // get user from database based on user id claim
-            var authenticationState = await AuthenticationStateProvider!.GetAuthenticationStateAsync();
-            var user = authenticationState.User;
-            if (user.Identity?.IsAuthenticated ?? false)
-            {
-                var userID = user.FindFirst("UserID")!.Value;
+            var userID = user.FindFirst("UserID")!.Value;
 
-                int userIDConverted;
-                if (int.TryParse(userID, out userIDConverted))
+            int userIDConverted;
+            if (int.TryParse(userID, out userIDConverted))
+            {
+                User = await UserService!.GetUserAsync(userIDConverted);
+                if (User == null)
                 {
-                    User = await UserService!.GetUserAsync(userIDConverted);
-                    if (User == null)
-                    {
-                        NavigationManager.NavigateTo("/logout", true);
-                    }
+                    NavigationManager.NavigateTo("/logout", true);
                 }
             }
         }
-        catch (Exception)
-        {
-            NavigationManager.NavigateTo("/error", true);
-        }
-    
     }
 }

@@ -1,7 +1,6 @@
 ﻿using FootballResults.DataAccess.Entities.Football;
 using FootballResults.DataAccess.Entities.Predictions;
 using FootballResults.DataAccess.Entities.Users;
-using FootballResults.WebApp.Services.Football.Client;
 using FootballResults.WebApp.Services.LiveUpdates;
 using FootballResults.WebApp.Services.Predictions;
 using FootballResults.WebApp.Services.Time;
@@ -85,10 +84,10 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
                     await LoadGameAsync();
                     IsLoading = false;
 
-                    // Game loaded but not found
+                    // Game not found
                     if (Game == null)
                     {
-                        NavigationManager.NavigateTo("/error", true);
+                        NavigationManager.NavigateTo("/404", true);
                     }
                     else if (!AuthorizeUser())
                     {
@@ -100,28 +99,19 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
 
         protected async Task LoadGameAsync()
         {
-            try
-            {
-                await UpdateLock.WaitAsync();
-                Game = await GameService!.GetPredictionGameAsync(int.Parse(GameID!));
-                UpdateLock.Release();
+            await UpdateLock.WaitAsync();
+            Game = await GameService!.GetPredictionGameAsync(int.Parse(GameID!));
 
-                if (Game != null)
-                {
-                    SelectedLeague = SelectedLeague ?? Game.LeagueSeasons
-                        .Select(ls => ls.League)
-                        .OrderBy(l => l.Name)
-                        .First();
-                }
-                else
-                {
-                    NavigationManager!.NavigateTo("/404", true);
-                }
-            }
-            catch (Exception)
+            if (Game != null)
             {
-                NavigationManager!.NavigateTo("/error", true);
+                SelectedLeague = SelectedLeague ?? Game.LeagueSeasons
+                    .Select(ls => ls.League)
+                    .OrderBy(l => l.Name)
+                    .First();
             }
+
+            UpdateLock.Release();
+            InitialLoadCompletedEvent.Set();
         }
 
         protected bool AuthorizeUser()
@@ -139,12 +129,15 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
         {
             if (notificationType == UpdateMessageType.MatchesUpdated)
             {
-                if (Game != null && SelectedLeague != null)
+                if (Game == null || SelectedLeague == null)
                 {
-                    await UpdateLock.WaitAsync();
-                    await GameService!.ReloadMatchesAsync(Game);
-                    UpdateLock.Release();
+                    InitialLoadCompletedEvent.WaitOne();
                 }
+
+                await UpdateLock.WaitAsync();
+                await GameService!.ReloadMatchesAsync(Game!);
+                UpdateLock.Release();
+                InitialLoadCompletedEvent.Reset();
             }
 
             await InvokeAsync(StateHasChanged);

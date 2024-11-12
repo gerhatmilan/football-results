@@ -9,7 +9,9 @@ using Microsoft.Extensions.Logging;
 namespace FootballResults.Models.Updaters
 {
     [Updater]
-    [SupportedModes(UpdaterMode.AllLeaguesAllSeasons, UpdaterMode.AllLeaguesCurrentSeason, UpdaterMode.AllLeaguesSpecificSeason, UpdaterMode.SpecificLeagueAllSeasons, UpdaterMode.SpecificLeagueCurrentSeason)]
+    [SupportedModes(UpdaterMode.AllLeaguesAllSeasons, UpdaterMode.AllLeaguesCurrentSeason, UpdaterMode.AllLeaguesSpecificSeason,
+        UpdaterMode.ActiveLeaguesAllSeasons, UpdaterMode.ActiveLeaguesCurrentSeason, UpdaterMode.ActiveLeaguesSpecificSeason,
+        UpdaterMode.SpecificLeagueAllSeasons, UpdaterMode.SpecificLeagueCurrentSeason)]
     public class TeamUpdater : Updater<TeamsResponse, TeamsResponseItem>
     {
         private readonly ILoggerFactory _loggerFactory;
@@ -24,9 +26,9 @@ namespace FootballResults.Models.Updaters
             _venueUpdater = new VenueUpdaterForTeam(serviceScopeFactory, _loggerFactory.CreateLogger<VenueUpdaterForTeam>());
         }
 
-        protected override void ProcessData(IEnumerable<TeamsResponseItem> responseItems)
+        protected override void ProcessData(IEnumerable<TeamsResponseItem> responseItems, UpdaterMode? mode = null)
         {
-            _venueUpdater.ProcessData(_dbContext, responseItems); // save venues first
+            _venueUpdater.ProcessData(_dbContext, responseItems, mode); // save venues first
 
             var existingTeams = _dbContext.Teams
                 .Include(team => team.Country)
