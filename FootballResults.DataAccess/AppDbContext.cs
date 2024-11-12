@@ -1496,6 +1496,21 @@ namespace FootballResults.DataAccess
                         LoadDataFromBackup = false
                     }
                 );
+
+            modelBuilder.Entity<User>()
+                .HasData
+                (
+                    new User()
+                    {
+                        ID = 1,
+                        Email = "admin@admin.com",
+                        Username = "admin",
+                        Password = "AQAAAAIAAYagAAAAEEheRjhPc/l2VwT949G1nsqUy7Y7cayk7ohq5mxg90HvRB4/hss0fPMzAR9z6jGdSg==",
+                        ProfilePicturePath = null,
+                        RegistrataionDate = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified),
+                        IsAdmin = true
+                    }
+                );
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
