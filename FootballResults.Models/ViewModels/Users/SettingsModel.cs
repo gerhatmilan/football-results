@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace FootballResults.Models.ViewModels.Users
 {
@@ -6,6 +8,11 @@ namespace FootballResults.Models.ViewModels.Users
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "Username is required")]
         public string Username { get; set; }
+
+        [MinLengthIfNotEmpty(5, ErrorMessage = "Password must be at least 5 characters long")]
+        [MaxLength(50, ErrorMessage = "Password must be maximum 50 characters long")]
+        [PasswordPropertyText]
+        public string NewPassword { get; set; }
 
         public string ImagePath { get; set; }
 

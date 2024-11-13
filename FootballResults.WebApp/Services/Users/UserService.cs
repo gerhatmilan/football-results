@@ -3,6 +3,7 @@ using FootballResults.DataAccess.Entities;
 using FootballResults.DataAccess.Entities.Users;
 using FootballResults.Models.Files;
 using FootballResults.Models.ViewModels.Users;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -54,6 +55,11 @@ namespace FootballResults.WebApp.Services.Users
                         }
                     }
 
+                    if (!string.IsNullOrWhiteSpace(settingsModel.NewPassword))
+                    {
+                        user.Password = new PasswordHasher<User>().HashPassword(user, settingsModel.NewPassword);
+                    }    
+
                     if (user.ProfilePicturePath != settingsModel.ImagePath)
                     {
                         string saveFilePath = _applicationConfig.ProfilePicturesDirectory;
@@ -83,37 +89,49 @@ namespace FootballResults.WebApp.Services.Users
             }
         }
 
-        public async Task AddToFavoriteLeaguesAsync(int userID, int leagueID)
+        public async Task AddToFavoriteLeaguesAsync(User user, int leagueID)
         {
-            await _dbContext.FavoriteLeagues.AddAsync(new FavoriteLeague { UserID = userID, LeagueID = leagueID });
+            await _dbContext.FavoriteLeagues.AddAsync(new FavoriteLeague { UserID = user.ID, LeagueID = leagueID });
             await _dbContext.SaveChangesAsync();
+
+            _dbContext.Entry(user).Collection(u => u.FavoriteLeagues).IsLoaded = false;
+            await _dbContext.Entry(user).Collection(u => u.FavoriteLeagues).LoadAsync();
         }
 
-        public async Task AddToFavoriteTeamsAsync(int userID, int teamID)
+        public async Task AddToFavoriteTeamsAsync(User user, int teamID)
         {
-            await _dbContext.FavoriteTeams.AddAsync(new FavoriteTeam {UserID = userID, TeamID = teamID });
+            await _dbContext.FavoriteTeams.AddAsync(new FavoriteTeam {UserID = user.ID, TeamID = teamID });
             await _dbContext.SaveChangesAsync();
+
+            _dbContext.Entry(user).Collection(u => u.FavoriteTeams).IsLoaded = false;
+            await _dbContext.Entry(user).Collection(u => u.FavoriteTeams).LoadAsync();
         }
 
-        public async Task RemoveFromFavoriteLeaguesAsync(int userID, int leagueID)
+        public async Task RemoveFromFavoriteLeaguesAsync(User user, int leagueID)
         {
-            var entity = await _dbContext.FavoriteLeagues.FirstOrDefaultAsync(i => i.UserID == userID && i.LeagueID == leagueID);
+            var entity = await _dbContext.FavoriteLeagues.FirstOrDefaultAsync(i => i.UserID == user.ID && i.LeagueID == leagueID);
 
             if (entity != null)
             {
                 _dbContext.FavoriteLeagues.Remove(entity);
                 await _dbContext.SaveChangesAsync();
+
+                _dbContext.Entry(user).Collection(u => u.FavoriteLeagues).IsLoaded = false;
+                await _dbContext.Entry(user).Collection(u => u.FavoriteLeagues).LoadAsync();
             }
         }
 
-        public async Task RemoveFromFavoriteTeamsAsync(int userID, int teamID)
+        public async Task RemoveFromFavoriteTeamsAsync(User user, int teamID)
         {
-            var entity = await _dbContext.FavoriteTeams.FirstOrDefaultAsync(i => i.UserID == userID && i.TeamID == teamID);
+            var entity = await _dbContext.FavoriteTeams.FirstOrDefaultAsync(i => i.UserID == user.ID && i.TeamID == teamID);
 
             if (entity != null)
             {
                 _dbContext.FavoriteTeams.Remove(entity);
                 await _dbContext.SaveChangesAsync();
+
+                _dbContext.Entry(user).Collection(u => u.FavoriteTeams).IsLoaded = false;
+                await _dbContext.Entry(user).Collection(u => u.FavoriteTeams).LoadAsync();
             }
         }
     }

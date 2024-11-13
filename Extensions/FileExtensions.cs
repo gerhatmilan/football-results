@@ -16,5 +16,33 @@
 
             File.WriteAllText(path, contents);
         }
+
+        public static char? GetPathSeparator(string path)
+        {
+            if (path.Contains('\\'))
+            {
+                return '\\';
+            }
+            else if (path.Contains('/'))
+            {
+                return '/';
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static string GetNormalizedPath(string path)
+        {
+            char? separator = GetPathSeparator(path);
+
+            if (separator == null)
+            {
+                return path;
+            }
+
+            return path.Replace(separator.Value, Path.DirectorySeparatorChar);
+        }
     }
 }

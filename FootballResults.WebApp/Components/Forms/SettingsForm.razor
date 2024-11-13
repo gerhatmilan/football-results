@@ -14,6 +14,11 @@
             }
         </div>
         <div class="mb-3">
+            <label>New password</label>
+            <InputText @bind-Value="@SettingsModel.NewPassword" class="input form-control" type="password" />
+            <ValidationMessage For="@(() => SettingsModel.NewPassword)" class="error" />
+        </div>
+        <div class="mb-3">
             <label for="profilePic">Profile picture</label>
             <img class="profilePicture @(SettingsModel.ImagePath != null ? "show" : "")" src="@SettingsModel.ImagePath" alt="Avatar">
             <InputFile id="profilePic" class="input form-control" OnChange="OnImageSelectedAsync" />

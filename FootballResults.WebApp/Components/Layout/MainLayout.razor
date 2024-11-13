@@ -15,7 +15,7 @@
                     <ErrorContent Context="exception">
                         <h1 class="error">Oops! An error occurred.</h1>
                         <p id="errorMessage" style="text-align: center;">Sorry, an unexpected error has occured.</p>
-                        @if (Environment.IsDevelopment())
+                        @if (Environment != null && Environment.IsDevelopment())
                         {
                             <p id="errorDetails">@exception.ToString()</p>
                         }
@@ -32,14 +32,14 @@
     </div>
 </CascadingValue>
 
-    @code {
+@code {
     public User? User { get; set; }
 
     [Parameter]
     public RenderFragment<Exception>? ErrorContent { get; set; }
 
     [Inject]
-    protected IWebHostEnvironment Environment { get; set; }
+    protected IWebHostEnvironment? Environment { get; set; } = default!;
 
     protected async override Task OnInitializedAsync()
     {

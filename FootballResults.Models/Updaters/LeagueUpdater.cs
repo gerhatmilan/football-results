@@ -101,7 +101,7 @@ namespace FootballResults.Models.Updaters
                     Name = responseItem.League.Name,
                     Type = responseItem.League.Type,
                     LogoLink = responseItem.League.Logo,
-                    UpdatesActive = Defaults.DefaultLeagues.Any(defaultLeague => defaultLeague.ID == responseItem.League.ID!.Value)
+                    UpdatesActive = false
                 };
             }
             else

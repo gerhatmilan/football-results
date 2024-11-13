@@ -31,14 +31,13 @@ namespace FootballResults.WebApp.Components.MiniComponents
         {
             if (User!.FavoriteLeagues.Select(fl => fl.BookmarkID).Contains(Bookmark!.BookmarkID))
             {
-                await UserService!.RemoveFromFavoriteLeaguesAsync(User!.ID, Bookmark.BookmarkID);
+                await UserService!.RemoveFromFavoriteLeaguesAsync(User, Bookmark.BookmarkID);
             }
             else
             {
-                await UserService!.AddToFavoriteLeaguesAsync(User.ID, Bookmark.BookmarkID);
+                await UserService!.AddToFavoriteLeaguesAsync(User, Bookmark.BookmarkID);
             }
 
-            await ReloadUser();
             await ButtonClicked.InvokeAsync();
         }
 
@@ -46,20 +45,14 @@ namespace FootballResults.WebApp.Components.MiniComponents
         {
             if (User!.FavoriteTeams.Select(ft => ft.BookmarkID).Contains(Bookmark!.BookmarkID))
             {
-                await UserService!.RemoveFromFavoriteTeamsAsync(User!.ID, Bookmark.BookmarkID);
+                await UserService!.RemoveFromFavoriteTeamsAsync(User, Bookmark.BookmarkID);
             }
             else
             {
-                await UserService!.AddToFavoriteTeamsAsync(User!.ID, Bookmark.BookmarkID);
+                await UserService!.AddToFavoriteTeamsAsync(User, Bookmark.BookmarkID);
             }
 
-            await ReloadUser();
             await ButtonClicked.InvokeAsync();
-        }
-
-        protected async Task ReloadUser()
-        {
-            User = await UserService!.GetUserAsync(User!.ID);
         }
     }
 }

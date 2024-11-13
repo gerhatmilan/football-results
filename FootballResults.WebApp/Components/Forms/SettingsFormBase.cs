@@ -1,12 +1,11 @@
-﻿using FootballResults.DataAccess.Entities.Users;
-using FootballResults.WebApp.Services.Users;
+﻿using FootballResults.WebApp.Services.Users;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components;
 using FootballResults.WebApp.Services.Files;
 using FootballResults.Models.ViewModels.Users;
-using FootballResults.WebApp.Services.Predictions;
 using FootballResults.DataAccess.Entities;
 using FootballResults.WebApp.Services.Application;
+using FootballResults.DataAccess.Entities.Users;
 
 namespace FootballResults.WebApp.Components.Forms
 {
@@ -48,8 +47,11 @@ namespace FootballResults.WebApp.Components.Forms
 
         protected async Task SubmitAsync()
         {
-            if (SettingsModel.Username == User!.Username && SettingsModel.ImagePath == User.ProfilePicturePath)
+            if (SettingsModel.Username == User!.Username && SettingsModel.ImagePath == User.ProfilePicturePath
+                && string.IsNullOrWhiteSpace(SettingsModel.NewPassword))
+            {
                 return;
+            }
             else if (!SettingsModel.ImageError)
             {
                 ResetErrorMessages();

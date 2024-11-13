@@ -588,7 +588,7 @@ namespace FootballResults.Models.Updaters
 
         protected abstract void ProcessData(IEnumerable<TResponseItem> data, UpdaterMode? mode = null);
 
-        protected async Task DelayApiCallAsync()
+        public async Task DelayApiCallAsync()
         {
             double secondsToWait = _apiConfig.RateLimit.HasValue && _apiConfig.RateLimit.Value > 0 ? (60.0 / _apiConfig.RateLimit.Value) : 0;
             int milliSecondsToWait = (int)Math.Ceiling(secondsToWait * 1000);

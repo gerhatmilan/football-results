@@ -11,12 +11,12 @@
 
 @if (CountriesWithTeams != null)
 {
-    if (string.IsNullOrWhiteSpace(Filter))
+    if (string.IsNullOrWhiteSpace(Filter) && FavoriteTeams.Any())
     {
         <CountryCard Text="Favorites" />
-        <Virtualize TItem="Team" Items="ViewHelper.GetFavoriteTeamsOnly(CountriesWithTeams.SelectMany(c => c.Teams), User).ToList()" Context="team">
+        <Virtualize TItem="Team" Items="FavoriteTeams.ToList()" Context="team">
             <ItemContent>
-                <TeamHeaderCard Team="team" />
+                <TeamHeaderCard Team="team" BookmarkClicked="OnBookmarkClicked" />
             </ItemContent>
         </Virtualize>
     }

@@ -10,12 +10,12 @@
 </div>
 @if (CountriesWithLeagues != null)
 {
-    if (string.IsNullOrWhiteSpace(Filter))
+    if (string.IsNullOrWhiteSpace(Filter) && FavoriteLeagues.Any())
     {
         <CountryCard Text="Favorites" />
-        <Virtualize TItem="League" Items="ViewHelper.GetFavoriteLeaguesOnly(CountriesWithLeagues.SelectMany(c => c.Leagues), User).ToList()" Context="league">
+        <Virtualize TItem="League" Items="FavoriteLeagues.ToList()" Context="league">
             <ItemContent>
-                <LeagueHeaderCard League="league" />
+                <LeagueHeaderCard League="league" BookmarkClicked="OnBookmarkClicked" />
             </ItemContent>
         </Virtualize>
     }

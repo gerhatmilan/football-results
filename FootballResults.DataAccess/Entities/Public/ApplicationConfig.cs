@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Extensions;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FootballResults.DataAccess.Entities
@@ -110,18 +111,54 @@ namespace FootballResults.DataAccess.Entities
             }
         }
 
-        public string PredictionGamePicturesDirectory { get; set; }
+        private string _predictionGamePicturesDirectory;
+        public string PredictionGamePicturesDirectory
+        {
+            get => _predictionGamePicturesDirectory;
+            set => _predictionGamePicturesDirectory = FileExtensions.GetNormalizedPath(value);
+        }
 
-        public string ProfilePicturesDirectory { get; set; }
+        private string _profilePicturesDirectory;
+        public string ProfilePicturesDirectory
+        {
+            get => _profilePicturesDirectory;
+            set => _profilePicturesDirectory = FileExtensions.GetNormalizedPath(value);
+        }
 
-        public string CountriesDirectory { get; set; }
+        private string _countriesDirectory;
+        public string CountriesDirectory
+        {
+            get => _countriesDirectory;
+            set => _countriesDirectory = FileExtensions.GetNormalizedPath(value);
+        }
 
-        public string LeaguesDirectory { get; set; }
+        private string _leaguesDirectory;
+        public string LeaguesDirectory
+        {
+            get => _leaguesDirectory;
+            set => _leaguesDirectory = FileExtensions.GetNormalizedPath(value);
+        }
 
-        public string TeamsDirectory { get; set; }
+        private string _teamsDirectory;
+        public string TeamsDirectory
+        {
+            get => _teamsDirectory;
+            set => _teamsDirectory = FileExtensions.GetNormalizedPath(value);
+        }
 
-        public string PlayersDirectory { get; set; }
+        private string _playersDirectory;
+        public string PlayersDirectory
+        {
+            get => _playersDirectory;
+            set => _playersDirectory = FileExtensions.GetNormalizedPath(value);
+        }
 
-        public string PredictionGameDefaultImage { get; set; }
+        private string _predictionGameDefaultImage;
+        public string PredictionGameDefaultImage
+        {
+            get => _predictionGameDefaultImage;
+            set => _predictionGameDefaultImage = FileExtensions.GetNormalizedPath(value);
+        }
+
     }
 }

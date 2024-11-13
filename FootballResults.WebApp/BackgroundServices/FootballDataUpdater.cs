@@ -129,6 +129,9 @@ namespace FootballResults.WebApp.BackgroundServices
 
                         // notify connected clients about the update
                         await _notificationHubContext.Clients.All.SendAsync("ReceiveMessage", UpdateMessageType.MatchesUpdated);
+
+                        // delay next call
+                        await matchUpdater.DelayApiCallAsync();
                     }
                     catch (Exception ex) when (ex is not ApiException)
                     {
@@ -155,6 +158,9 @@ namespace FootballResults.WebApp.BackgroundServices
                     {
                         StandingUpdater standingUpdater = (StandingUpdater)ActivatorUtilities.CreateInstance(_serviceProvider, typeof(StandingUpdater));
                         await standingUpdater.StartAsync(UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
+
+                        // delay next call
+                        await standingUpdater.DelayApiCallAsync();
                     }
                     catch (Exception ex) when (ex is not ApiException)
                     {
@@ -181,6 +187,9 @@ namespace FootballResults.WebApp.BackgroundServices
                     {
                         TopScorerUpdater topScorerUpdater = (TopScorerUpdater)ActivatorUtilities.CreateInstance(_serviceProvider, typeof(TopScorerUpdater));
                         await topScorerUpdater.StartAsync(UpdaterMode.SpecificLeagueCurrentSeason, leagueSeason.LeagueID);
+
+                        // delay next call
+                        await topScorerUpdater.DelayApiCallAsync();
                     }
                     catch (Exception ex) when (ex is not ApiException)
                     {

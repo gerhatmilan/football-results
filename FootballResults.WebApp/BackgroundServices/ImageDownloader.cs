@@ -78,7 +78,7 @@ namespace FootballResults.WebApp.BackgroundServices
             bool shouldUpdateBasedOnLastDownload = ShouldUpdate(lastUpdate, _applicationConfig.ImageDownloadFrequency);
 
             // if there is no last download date, or the last download date is older than the specified, download (or update) all files
-            if (systemInfo != null && shouldUpdateBasedOnLastDownload)
+            if (countries.Any() && systemInfo != null && shouldUpdateBasedOnLastDownload)
             {
                 List<int> failed = new List<int>();
 
@@ -149,7 +149,7 @@ namespace FootballResults.WebApp.BackgroundServices
 
             bool shouldUpdateBasedOnLastDownload = ShouldUpdate(lastUpdate, _applicationConfig.ImageDownloadFrequency);
 
-            if (systemInfo != null && shouldUpdateBasedOnLastDownload)
+            if (leagues.Any() && systemInfo != null && shouldUpdateBasedOnLastDownload)
             {
                 List<int> failed = new List<int>();
 
@@ -219,7 +219,7 @@ namespace FootballResults.WebApp.BackgroundServices
 
             bool shouldUpdateBasedOnLastDownload = ShouldUpdate(lastUpdate, _applicationConfig.ImageDownloadFrequency);
 
-            if (systemInfo != null && shouldUpdateBasedOnLastDownload)
+            if (teams.Any() && systemInfo != null && shouldUpdateBasedOnLastDownload)
             {
                 List<int> failed = new List<int>();
 
@@ -287,7 +287,7 @@ namespace FootballResults.WebApp.BackgroundServices
 
             bool shouldUpdateBasedOnLastDownload = ShouldUpdate(lastUpdate, _applicationConfig.ImageDownloadFrequency);
 
-            if (systemInfo != null && shouldUpdateBasedOnLastDownload)
+            if (players.Any() && systemInfo != null && shouldUpdateBasedOnLastDownload)
             {
                 List<int> failed = new List<int>();
 
@@ -355,7 +355,7 @@ namespace FootballResults.WebApp.BackgroundServices
 
             bool shouldUpdateBasedOnLastDownload = ShouldUpdate(lastUpdate, _applicationConfig.ImageDownloadFrequency);
 
-            if (systemInfo != null && shouldUpdateBasedOnLastDownload)
+            if (topscorers.Any() && systemInfo != null && shouldUpdateBasedOnLastDownload)
             {
                 List<int> failed = new List<int>();
 
