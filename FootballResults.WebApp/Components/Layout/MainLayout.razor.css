@@ -67,3 +67,7 @@ article {
     height: 20px;
     accent-color: var(--link);
 }
+
+#errorMessage, #errorDetails {
+    text-align: center;
+}

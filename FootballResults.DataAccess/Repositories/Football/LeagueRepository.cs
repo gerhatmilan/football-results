@@ -11,10 +11,10 @@ namespace FootballResults.DataAccess.Repositories.Football
 
         public override async Task<IEnumerable<League>> GetAllAsync(bool tracking = true)
         {
-            return _dbContext.Leagues
-                .Include(l => l.LeagueSeasons);
-                //.AsTracking(tracking ? QueryTrackingBehavior.TrackAll : QueryTrackingBehavior.NoTracking)
-                //.ToListAsync();
+            return await _dbContext.Leagues
+                .Include(l => l.LeagueSeasons)
+                .AsTracking(tracking ? QueryTrackingBehavior.TrackAll : QueryTrackingBehavior.NoTracking)
+                .ToListAsync();
         }
 
         public async Task<League> GetLeagueByName(string leagueName, bool tracking = true)

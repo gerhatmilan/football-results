@@ -22,70 +22,63 @@ My main goal was to get more familiar with building a complete and functional we
 
 ### Prerequisites
 
-#### Docker Desktop
-Required to run Docker containers locally. Docker Desktop includes Docker Engine, Docker CLI, and Docker Compose, providing everything needed to build, run, and manage the application in containers on your own machine. You can download it from [Docker's official site](https://www.docker.com/get-started).
-
 #### Football API key
 The project uses a public API to get the newest football data: https://www.api-football.com/\
 After signing up you will be able to see your own API key at https://dashboard.api-football.com/profile?access. You will need this during configuration.\
 I used the <b>Free Pricing Tier</b> for demonstration purposes, consider that <b>this only lets you make 100 API calls each 24 hours</b>, which makes the application somewhat limited.
 
-### Installation
+### Setting up the development environment 
+
+#### Docker Desktop (optional)
+Required to run Docker containers locally. Docker Desktop includes Docker Engine, Docker CLI, and Docker Compose, providing everything needed to build, run, and manage the application in containers on your own machine. You can download it from [Docker's official site](https://www.docker.com/get-started).\
+If you skip this step you have to set your development area manually, including installing .NET runtime, setting up an PostgreSQL server, etc.
 
 1. Clone the repo
    ```sh
    git clone https://github.com/gerhatmilan/football-results
    ```
-   
-2. Set up <b>Configuration/sharedSettings.json</b> based on your needs. You can set:
-    * The rate limit that the API currently uses for your account (using the free tier it will be 10 api calls/minute). This is important because the application needs to know how frequently it can make the requests.
-    * Whether the application should save the api data and where it should save them
-    * Which football leagues should the application get the data for
-    * How frequently should the application update the data
 
-3. Create a file named <b>.env</b> at the root folder, which will store the required environment variables, and fill it with the following data:
+2. Set the required environment variables
 
-    3.1 An username for setting up the superuser for the PostgreSQL database
+    2.1. An username for setting up the superuser for the PostgreSQL database
     ```sh
     POSTGRES_USER={your choice}
     ```
-    3.2 A password for setting up the superuser for the PostgreSQL database
+
+    2.2. A password for setting up the superuser for the PostgreSQL database
     ```sh
     POSTGRES_PASSWORD={your choice}
     ```
-    3.3 A name for setting up the default database
+
+    2.3. A name for setting up the default database
     ```sh
     POSTGRES_DB={your choice}
     ```
-    3.4 Connection string which the webapp will use to connect to the database
+
+    2.4. Connection string which the webapp will use to connect to the database (if you are using Docker Compose you should skip this step)
+
     ```sh
-    ConnectionStrings__DefaultConnection=Host=database;Port=5432;Database={your choice at 3.3};Username={your choice at 3.1};Password={your choice at 3.2}
+    ConnectionStrings__DefaultConnection=Host=localhost;Port={your PostgreSQL server port};Database={your choice at 3.3};Username={your choice at 3.1};Password={your choice at 3.2}
     ```
-    3.5 The API key that was assigned to you when signing up at https://www.api-football.com/
+
+    2.5. Set an encryption key which will be used to hash your API key before storing it
     ```sh
-    FootballApiConfig__ApiKey={your api key}
+    FootballApiKeyEncryptionKey={encryption key}
     ```
 
     <b>It is important that you can not change the key of the variables and you provide all the required parameters in the connection string!</b>
     
-4. Create the docker containers with Docker Compose (from the root folder)
-    ```sh
-    docker compose -f docker-compose.yml up -d
-    ```
+3. Run the web app
 
-## Usage
+    3.1 From Visual Studio using the FootballResults.WebApp profile
+
+    3.2 Using the Docker Compose profile
+
+## Configuration
 
 If everything was set up correctly, you can access the web applicaton from your browser at http://localhost/
 
-At first, the website will not show any data. This is because you have to fetch the necessary data from the API manually (the reason for this is the rate limit for the free pricing tier). The docker container with the name "football-results-dbupdater" contains a console application where you can fetch the necessary data from the API. For this, you have to:
-1. Enter Docker Desktop
-2. Go to Containers/football-results/dbupdater
-3. Access the file system of the container under <b>Exec</b> menupoint
-4. Check if you are in the correct directory (app) and start the console application:
-
-   ```sh
-   dotnet FootballResults.DatabaseUpdater.dll
-   ```
+At first, the website will not show any data. This is because you have to fetch the initial data from the API manually (the reason for this is the rate limit for the free pricing tier). The web app contains an "Updaters" menupoint where you can do this (if you are logged in with an admin user). You can also set which leagues should get automatic updates in the "App settings" menupoint.
 
 ## License
 

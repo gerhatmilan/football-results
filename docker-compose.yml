@@ -4,21 +4,14 @@ services:
     image: gerhatmilan/football-results-webapp:latest
     environment:
       ASPNETCORE_HTTP_PORTS: 80
-      ConnectionStrings__DefaultConnection: ${ConnectionStrings__DefaultConnection}
+      ConnectionStrings__DefaultConnection: "Host=database;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};"
+      FootballApiKeyEncryptionKey: ${FootballApiKeyEncryptionKey}
     ports:
       - 80:80
     volumes:
         - wwwroot:/app/wwwroot
     depends_on:
       - database
-  dbupdater:
-    image: gerhatmilan/football-results-dbupdater:latest
-    environment:
-        ConnectionStrings__DefaultConnection: ${ConnectionStrings__DefaultConnection}
-    ports:
-        - 5431:5430
-    depends_on:
-        - database
   database:
     image: postgres:latest
     environment:
@@ -27,7 +20,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - 5433:5432
-    volumes: 
+    volumes:
       - database:/var/lib/postgresql/data
 volumes:
   database:
