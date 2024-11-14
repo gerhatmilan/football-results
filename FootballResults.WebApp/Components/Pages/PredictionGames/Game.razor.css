@@ -71,6 +71,9 @@ p.description {
     font-size: 1rem
 }
 
+#dropdownMenuButton {
+    max-width: fit-content;
+}
 
 @media (min-width: 1024px) {
     #gameContent {
