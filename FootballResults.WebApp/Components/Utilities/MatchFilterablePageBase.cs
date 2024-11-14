@@ -13,10 +13,10 @@ namespace FootballResults.WebApp.Components.Utilities
         protected NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
-        protected IMatchService? MatchService { get; set; } = default!;
+        protected IMatchService MatchService { get; set; } = default!;
 
         [Inject]
-        protected IClientTimeService? ClientTimeService { get; set; } = default!;
+        protected IClientTimeService ClientTimeService { get; set; } = default!;
 
         protected IEnumerable<Match>? Matches { get; set; }
 
@@ -38,8 +38,6 @@ namespace FootballResults.WebApp.Components.Utilities
 
         protected virtual async Task LoadMatchesAsync()
         {
-            await UpdateLock.WaitAsync();
-
             var result = await MatchService!.SearchForMatchAsync(year: MatchFilterParameters!.YearFilter, month: MatchFilterParameters!.MonthFilter, day: MatchFilterParameters!.DayFilter
                 , teamName: MatchFilterParameters!.TeamFilter, leagueName: MatchFilterParameters!.LeagueFilter, season: MatchFilterParameters!.SeasonFilter, round: MatchFilterParameters!.RoundFilter);
 
@@ -118,7 +116,6 @@ namespace FootballResults.WebApp.Components.Utilities
             Matches = result;
             FilterMatchesBasedOnClientDate();
 
-            UpdateLock.Release();
             InitialLoadCompletedEvent.Set();
         }
 
@@ -159,7 +156,7 @@ namespace FootballResults.WebApp.Components.Utilities
                     InitialLoadCompletedEvent.WaitOne();
                 }
 
-                await LoadMatchesAsync();
+                await MatchService.ReloadMatchesAsync(Matches!);
                 InitialLoadCompletedEvent.Reset();
             }
 

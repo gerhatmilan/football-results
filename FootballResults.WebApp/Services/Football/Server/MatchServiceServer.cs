@@ -10,10 +10,12 @@ namespace FootballResults.WebApp.Services.Football.Server
     public class MatchServiceServer : IMatchService
     {
         private readonly IMatchRepository _matchRepository;
+        private readonly AppDbContext _dbContext;
 
-        public MatchServiceServer(IMatchRepository matchRepository)
+        public MatchServiceServer(IMatchRepository matchRepository, AppDbContext dbContext)
         {
             _matchRepository = matchRepository;
+            _dbContext = dbContext;
         }
 
         public async Task<Match?> GetMatchByIDAsync(int id, bool tracking = true)
@@ -60,6 +62,14 @@ namespace FootballResults.WebApp.Services.Football.Server
             int? year = null, int? month = null, int? day = null, string? teamName = null, string? leagueName = null, int? season = null, string? round = null, bool tracking = true)
         {
             return await _matchRepository.Search(date, from, to, year, month, day, teamName, leagueName, season, round, tracking);
+        }
+
+        public async Task ReloadMatchesAsync(IEnumerable<Match> matches)
+        {
+            foreach (Match match in matches)
+            {
+                await _dbContext.Entry(match).ReloadAsync();
+            }
         }
     }
 }

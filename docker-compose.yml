@@ -9,7 +9,9 @@ services:
     ports:
       - 80:80
     volumes:
-        - wwwroot:/app/wwwroot
+        - wwwroot-images:/app/wwwroot/images
+        - api-backup:/app/databackup
+        - logs:/app/logs
     depends_on:
       - database
   database:
@@ -24,4 +26,6 @@ services:
       - database:/var/lib/postgresql/data
 volumes:
   database:
-  wwwroot:
+  wwwroot-images:
+  api-backup:
+  logs:  

@@ -23,12 +23,20 @@ namespace FootballResults.WebApp.Components.Pages.Details
         {
             await LoadMatchAsync();
             await base.OnInitializedAsync();
+            Match = Matches!.FirstOrDefault(i => i.ID == int.Parse(MatchID!));
         }
 
         protected async Task LoadMatchAsync()
         {
-            Match = await MatchService!.GetMatchByIDAsync(int.Parse(MatchID!));
-                
+            int matchID;
+            
+            if (!int.TryParse(MatchID, out matchID))
+            {
+                NavigationManager.NavigateTo("/404", true);
+            }
+
+            Match = await MatchService!.GetMatchByIDAsync(matchID);
+
             if (Match == null)
             {
                 NavigationManager.NavigateTo("/404", true);
@@ -43,12 +51,6 @@ namespace FootballResults.WebApp.Components.Pages.Details
                 OpponentNameFilter = Match!.AwayTeam.Name,
                 SeasonFilter = DateTime.Now.ToLocalTime().Month >= 8 ? DateTime.Now.ToLocalTime().Year : DateTime.Now.ToLocalTime().Year - 1
             };
-        }
-
-        protected override async void OnUpdateMessageReceivedAsync(object? sender, UpdateMessageType notificationType)
-        {
-            base.OnUpdateMessageReceivedAsync(sender, notificationType);
-            await LoadMatchAsync();
         }
     }
 }

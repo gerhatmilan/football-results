@@ -99,8 +99,14 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
 
         protected async Task LoadGameAsync()
         {
-            await UpdateLock.WaitAsync();
-            Game = await GameService!.GetPredictionGameAsync(int.Parse(GameID!));
+            int predictionGameID;
+
+            if (!int.TryParse(GameID, out predictionGameID))
+            {
+                NavigationManager.NavigateTo("/404", true);
+            }
+
+            Game = await GameService!.GetPredictionGameAsync(predictionGameID);
 
             if (Game != null)
             {
@@ -108,10 +114,13 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
                     .Select(ls => ls.League)
                     .OrderBy(l => l.Name)
                     .First();
-            }
 
-            UpdateLock.Release();
-            InitialLoadCompletedEvent.Set();
+                InitialLoadCompletedEvent.Set();
+            }
+            else
+            {
+                NavigationManager.NavigateTo("/404", true);
+            }
         }
 
         protected bool AuthorizeUser()
@@ -134,9 +143,7 @@ namespace FootballResults.WebApp.Components.Pages.PredictionGames
                     InitialLoadCompletedEvent.WaitOne();
                 }
 
-                await UpdateLock.WaitAsync();
                 await GameService!.ReloadMatchesAsync(Game!);
-                UpdateLock.Release();
                 InitialLoadCompletedEvent.Reset();
             }
 

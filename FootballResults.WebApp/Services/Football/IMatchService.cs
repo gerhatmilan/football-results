@@ -16,5 +16,6 @@ namespace FootballResults.WebApp.Services.Football
         Task<IEnumerable<Match>> GetMatchesForLeagueAndSeasonAsync(string leagueName, int season, bool tracking = true);
         Task<IEnumerable<Match>> SearchForMatchAsync(DateTime? date = null, DateTime? from = null, DateTime? to = null,
             int? year = null, int? month = null, int? day = null, string? teamName = null, string? leagueName = null, int? season = null, string? round = null, bool tracking = true);
+        Task ReloadMatchesAsync(IEnumerable<Match> matches);
     }
 }

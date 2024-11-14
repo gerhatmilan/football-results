@@ -11,11 +11,6 @@ namespace FootballResults.WebApp.Components.Pages
         protected IMessageService<UpdateMessageType> UpdateNotificationService { get; set; } = default!;
 
         /// <summary>
-        /// Needed to prevent concurrent queries on the same db context at the same time
-        /// </summary>
-        protected SemaphoreSlim UpdateLock { get; } = new SemaphoreSlim(1, 1);
-
-        /// <summary>
         /// Needed to prevent live update messages to be processed before the initial load has completed (for example client time javascript information is needed before loading matches)
         /// </summary>
         public ManualResetEvent InitialLoadCompletedEvent = new ManualResetEvent(false);
