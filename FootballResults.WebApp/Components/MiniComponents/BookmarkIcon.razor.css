@@ -14,11 +14,11 @@ path {
 }
 
 .default {
-    color: black;
+    color: var(--light);
 }
 
 .favorite {
-    color: white;
+    color: #F5DF4D;
 }
 
 .favoriteButton {
