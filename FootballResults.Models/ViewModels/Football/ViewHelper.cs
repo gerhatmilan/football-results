@@ -8,7 +8,7 @@ namespace FootballResults.Models.ViewModels.Football
         public static IEnumerable<League> GetFavoriteLeaguesOnly(IEnumerable<League> leagues, User user = null)
         {
             if (user == null)
-                return leagues.OrderBy(l => l.Name);
+                return Enumerable.Empty<League>();
 
             return leagues.Where(league => user.FavoriteLeagues.Select(fl => fl.ID).Contains(league.ID)).OrderBy(l => l.Name);
         }
@@ -24,7 +24,7 @@ namespace FootballResults.Models.ViewModels.Football
         public static IEnumerable<Team> GetFavoriteTeamsOnly(IEnumerable<Team> teams, User user = null)
         {
             if (user == null)
-                return teams.OrderBy(l => l.Name);
+                return Enumerable.Empty<Team>();
 
             return teams.Where(team => user.FavoriteTeams.Select(ft => ft.ID).Contains(team.ID)).OrderBy(t => t.Name);
         }
