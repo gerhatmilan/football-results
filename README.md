@@ -23,7 +23,7 @@ My main goal was to get more familiar with building a complete and functional we
 ### Prerequisites
 
 #### Football API key
-The project uses a public API to get the newest football data: https://www.api-football.com/\
+The project uses a public API to get the newest football data: https://www.api-football.com/
 After signing up you will be able to see your own API key at https://dashboard.api-football.com/profile?access. You will need this during configuration.\
 I used the <b>Free Pricing Tier</b> for demonstration purposes, consider that <b>this only lets you make 100 API calls each 24 hours</b>, which makes the application somewhat limited.
 
