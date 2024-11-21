@@ -29,6 +29,5 @@
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = default!;
 
-    private IComponentRenderMode? RenderModeForPage => HttpContext.Request.Path.StartsWithSegments("/user")
-        ? null : new InteractiveServerRenderMode(prerender: false);
+    private IComponentRenderMode? RenderModeForPage => new InteractiveServerRenderMode(prerender: false);
 }
