@@ -72,9 +72,8 @@ namespace FootballResults.WebApp.Services.Predictions
                     PredictionGame savedGame = _dbContext.PredictionGames.Add(gameToBeSaved).Entity;
                     await _dbContext.SaveChangesAsync();
 
-                    var defaultPicturePath = _applicationConfig.PredictionGameDefaultImage;
                     // save the picture to the file system based on the generated ID, also update the entity in the database
-                    if (model.PicturePath != defaultPicturePath)
+                    if (model.PicturePath != null)
                     {
                         string saveFilePath = _applicationConfig.PredictionGamePicturesDirectory;
                         string saveFileName = $"{savedGame.ID}{Path.GetExtension(model.PicturePath)}";
