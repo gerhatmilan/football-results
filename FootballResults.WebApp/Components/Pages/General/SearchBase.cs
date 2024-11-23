@@ -17,7 +17,7 @@ namespace FootballResults.WebApp.Components.Pages.General
         protected ITeamService TeamService { get; set; } = default!;
 
         [SupplyParameterFromQuery(Name = "value")]
-        protected string? SearchValue { get; set; }
+        protected string? SearchValue { get; set; } = default!;
 
         [CascadingParameter(Name = "User")]
         protected User User { get; set; } = default!;
@@ -25,12 +25,16 @@ namespace FootballResults.WebApp.Components.Pages.General
         protected IEnumerable<League>? Leagues { get; set; }
         protected IEnumerable<Team>? Teams { get; set; }
 
-        protected override async Task OnInitializedAsync()
+        protected bool IsLoading { get; set; }
+
+        protected override async Task OnParametersSetAsync()
         {
-            if (!String.IsNullOrEmpty(SearchValue))
+            if (!(String.IsNullOrEmpty(SearchValue) || IsLoading))
             {
-                Leagues = await LeagueService.SearchAsync(SearchValue!);
-                Teams = await TeamService.SearchAsync(SearchValue!);
+                IsLoading = true; // needed because onparameterssetasync is called twice causing multiple operations at the same time on the db...
+                Leagues = await LeagueService.SearchAsync(SearchValue);
+                Teams = await TeamService.SearchAsync(SearchValue);
+                IsLoading = false;
             }
         }
     }
