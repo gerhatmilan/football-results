@@ -6,14 +6,13 @@
     <DockerPublishLocally>False</DockerPublishLocally>
     <ProjectGuid>e623e1bd-a4f1-48f2-89d4-0b0bd315a44b</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/{Scheme}://{ServiceHost}:{ServicePort}</DockerServiceUrl>
+    <DockerComposeBaseFilePath>docker-compose.dev</DockerComposeBaseFilePath>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>webapp</DockerServiceName>
-	<DockerComposeProjectName>football-results</DockerComposeProjectName>
+    <DockerComposeProjectName>football-results</DockerComposeProjectName>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="docker-compose.override.yml">
-      <DependentUpon>docker-compose.yml</DependentUpon>
-    </None>
+    <None Include="docker-compose.dev.yml" />
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
   </ItemGroup>
