@@ -16,6 +16,11 @@
             <div class="mb-3 inputContainer">
                 @switch (UpdaterRunnerService.SelectedMode)
                 {
+                    case UpdaterMode.AllLeaguesSpecificSeason:
+                    case UpdaterMode.ActiveLeaguesSpecificSeason:
+                        <label for="modeParameterID">Season:</label>
+                        <InputNumber id="modeParameterSeason" @bind-Value="@UpdaterRunnerFormModel.ModeParameterInteger" class="input form-control" />
+                        break;
                     case UpdaterMode.SpecificLeagueAllSeasons:
                     case UpdaterMode.SpecificLeagueCurrentSeason:
                     case UpdaterMode.SpecificTeam:
@@ -53,7 +58,7 @@
             }
             else if (ButtonDisabled)
             {
-                // loading in progress
+                // update in progress
                 <LoadingSpinner />
             }
         </EditForm>
