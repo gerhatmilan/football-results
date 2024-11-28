@@ -37,42 +37,12 @@ If you skip this step you have to set your development area manually, including 
    ```sh
    git clone https://github.com/gerhatmilan/football-results
    ```
-
-2. Set the required environment variables
-
-    2.1. An username for setting up the superuser for the PostgreSQL database
-    ```sh
-    POSTGRES_USER={your choice}
-    ```
-
-    2.2. A password for setting up the superuser for the PostgreSQL database
-    ```sh
-    POSTGRES_PASSWORD={your choice}
-    ```
-
-    2.3. A name for setting up the default database
-    ```sh
-    POSTGRES_DB={your choice}
-    ```
-
-    2.4. Connection string which the webapp will use to connect to the database (if you are using Docker Compose you should skip this step)
-
-    ```sh
-    ConnectionStrings__DefaultConnection=Host=localhost;Port={your PostgreSQL server port};Database={your choice at 3.3};Username={your choice at 3.1};Password={your choice at 3.2}
-    ```
-
-    2.5. Set an encryption key which will be used to hash your API key before storing it
-    ```sh
-    FootballApiKeyEncryptionKey={encryption key}
-    ```
-
-    <b>It is important that you can not change the key of the variables and you provide all the required parameters in the connection string!</b>
     
-3. Run the web app
+2. Run the web app
 
-    3.1 From Visual Studio using the FootballResults.WebApp profile
+    2.1 From Visual Studio using the FootballResults.WebApp profile. In this case you have to set the connection string in appsettings.Development.json or as environment variables to connect to your database)
 
-    3.2 Using the Docker Compose profile
+    2.2 Using the Docker Compose profile
 
 ## Configuration
 
