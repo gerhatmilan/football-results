@@ -151,7 +151,7 @@ namespace FootballResults.WebApp
             _builder.Services.AddScoped<ILeagueService, LeagueServiceServer>();
             _builder.Services.AddScoped<ITeamService, TeamServiceServer>();
 
-            _builder.Services.AddScoped<IApplicationService, ApplicationService>();
+            _builder.Services.AddTransient<IApplicationService, ApplicationService>();
             _builder.Services.AddTransient<IUpdaterRunnerService, UpdaterRunnerService>();
 
             // Background services
