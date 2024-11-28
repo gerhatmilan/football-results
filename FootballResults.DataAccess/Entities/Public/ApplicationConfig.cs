@@ -114,49 +114,49 @@ namespace FootballResults.DataAccess.Entities
         private string _predictionGamePicturesDirectory;
         public string PredictionGamePicturesDirectory
         {
-            get => _predictionGamePicturesDirectory;
+            get => FileExtensions.GetNormalizedPath(_predictionGamePicturesDirectory);
             set => _predictionGamePicturesDirectory = FileExtensions.GetNormalizedPath(value);
         }
 
         private string _profilePicturesDirectory;
         public string ProfilePicturesDirectory
         {
-            get => _profilePicturesDirectory;
+            get => FileExtensions.GetNormalizedPath(_profilePicturesDirectory);
             set => _profilePicturesDirectory = FileExtensions.GetNormalizedPath(value);
         }
 
         private string _countriesDirectory;
         public string CountriesDirectory
         {
-            get => _countriesDirectory;
+            get => FileExtensions.GetNormalizedPath(_countriesDirectory);
             set => _countriesDirectory = FileExtensions.GetNormalizedPath(value);
         }
 
         private string _leaguesDirectory;
         public string LeaguesDirectory
         {
-            get => _leaguesDirectory;
+            get => FileExtensions.GetNormalizedPath(_leaguesDirectory);
             set => _leaguesDirectory = FileExtensions.GetNormalizedPath(value);
         }
 
         private string _teamsDirectory;
         public string TeamsDirectory
         {
-            get => _teamsDirectory;
+            get => FileExtensions.GetNormalizedPath(_teamsDirectory);
             set => _teamsDirectory = FileExtensions.GetNormalizedPath(value);
         }
 
         private string _playersDirectory;
         public string PlayersDirectory
         {
-            get => _playersDirectory;
+            get => FileExtensions.GetNormalizedPath(_playersDirectory);
             set => _playersDirectory = FileExtensions.GetNormalizedPath(value);
         }
 
         private string _predictionGameDefaultImage;
         public string PredictionGameDefaultImage
         {
-            get => _predictionGameDefaultImage;
+            get => FileExtensions.GetNormalizedPath(_predictionGameDefaultImage);
             set => _predictionGameDefaultImage = FileExtensions.GetNormalizedPath(value);
         }
 

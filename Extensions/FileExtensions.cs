@@ -37,7 +37,7 @@
         {
             char? separator = GetPathSeparator(path);
 
-            if (separator == null)
+            if (separator == null || separator == Path.DirectorySeparatorChar)
             {
                 return path;
             }

@@ -14,9 +14,12 @@
 
         public static async Task DeleteFilesWithNameAsync(string path, string fileName)
         {
-            var files = Directory.GetFiles(path, $"{fileName}.*");
-            foreach (var file in files)
-                await DeleteFileAsync(file);
+            if (Path.Exists(path))
+            {
+                var files = Directory.GetFiles(path, $"{fileName}.*");
+                foreach (var file in files)
+                    await DeleteFileAsync(file);
+            }
         }
 
         public static async Task DownloadFileAsync(string url, string savePath)
