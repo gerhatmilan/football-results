@@ -43,17 +43,16 @@
                 <LoadingSpinner />
             }
         }
-
-        @if (ActiveSubMenu == LeagueDetailsSubMenu.Standings)
+        else if (ActiveSubMenu == LeagueDetailsSubMenu.Standings)
         {
-            @if (Standings != null)
+            @if (MatchFilterParameters?.SeasonFilter != null)
             {
-                @if (MatchFilterParameters?.SeasonFilter != null)
+                @if (Standings != null)
                 {
-                    <h2>Season @String.Concat(MatchFilterParameters.SeasonFilter.ToString()!.Substring(2),
+                    <h2>
+                        Season @String.Concat(MatchFilterParameters.SeasonFilter.ToString()!.Substring(2),
                           "/", (MatchFilterParameters.SeasonFilter + 1).ToString()!.Substring(2))
                     </h2>
-
                     @if (Standings.Count() > 0)
                     {
                         <StandingsCard Standings="Standings" />
@@ -65,24 +64,23 @@
                 }
                 else
                 {
-                    <h2>Season has to be set</h2>
+                    <LoadingSpinner />
                 }
             }
             else
             {
-                <LoadingSpinner />
+                <h2>Season has to be set</h2>
             }
         }
-
-        @if (ActiveSubMenu == LeagueDetailsSubMenu.TopScorers)
+        else if (ActiveSubMenu == LeagueDetailsSubMenu.TopScorers)
         {
-            @if (TopScorers != null)
+            @if (MatchFilterParameters?.SeasonFilter != null)
             {
-                @if (MatchFilterParameters?.SeasonFilter != null)
+                @if (TopScorers != null)
                 {
                     <h2>
                         Season @String.Concat(MatchFilterParameters.SeasonFilter.ToString()!.Substring(2),
-                          "/", (MatchFilterParameters.SeasonFilter + 1).ToString()!.Substring(2))
+                            "/", (MatchFilterParameters.SeasonFilter + 1).ToString()!.Substring(2))
                     </h2>
                     @if (TopScorers.Count() > 0)
                     {
@@ -95,12 +93,12 @@
                 }
                 else
                 {
-                    <h2>Season has to be set</h2>
+                    <LoadingSpinner />
                 }
             }
             else
             {
-                <LoadingSpinner />
+                <h2>Season has to be set</h2>
             }
         }
     </div>
